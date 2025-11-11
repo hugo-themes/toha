@@ -12,16 +12,16 @@
         <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
   {{ end }}
   <div class="container ms-auto text-center">
-    <div class="btn-group flex-wrap" role="group" id="project-filter-buttons">
+    <div class="btn-group flex-wrap" role="group" id="project-filter-buttons-{{ $sectionID }}">
       {{ range .buttons }}
-      <button type="button" class="btn btn-dark project-filtr-control" data-filter="{{ .filter }}">
+      <button type="button" class="btn btn-dark project-filtr-control" data-filter="{{ .filter }}" data-section="{{ $sectionID }}">
         {{ .name }}
       </button>
       {{ end }}
     </div>
   </div>
-  <div class="container filtr-projects">
-    <div class="row" id="project-card-holder">
+  <div class="container filtr-projects" data-section="{{ $sectionID }}">
+    <div class="row" id="project-card-holder-{{ $sectionID }}">
       {{ range .projects }}
         {{ partial "cards/project" . }}
       {{ end }}
