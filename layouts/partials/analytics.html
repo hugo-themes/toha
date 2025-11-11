@@ -26,20 +26,7 @@
 
             <!-- Piwik/Matomo -->
             {{ with .matomo }}
-            <!-- Matomo -->
-                <script>
-                var _paq = window._paq = window._paq || [];
-                /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-                _paq.push(['trackPageView']);
-                _paq.push(['enableLinkTracking']);
-                (function() {
-                    var u="//{{ .instance }}/";
-                    _paq.push(['setTrackerUrl', u+'matomo.php']);
-                    _paq.push(['setSiteId', '{{ .siteId }}']);
-                    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-                })();
-                </script>
+            <!-- Matomo analytics loaded via JavaScript module -->
             {{ end }}
 
             {{ with .cloudflare }}
@@ -57,22 +44,11 @@
             {{end}}
 
             {{ with .statcounter }}
-            <!-- Statcounter analytics -->
-            <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-            <script type="text/javascript">
-              var sc_project = {{ .project }};
-              var sc_invisible = {{ .invisible }};
-              var sc_security = "{{ .security }}";
-              var scJsHost = (("https:" == document.location.protocol) ?
-                "https://www.statcounter.com/js/" : "https://www.statcounter.com/js/");
-            </script>
-            <noscript>
-              <div class="statcounter"><a title="web counter" href="https://statcounter.com/" target="_blank"><img
-                    class="statcounter" src="https://c.statcounter.com/{{ .project }}/0/{{ .security }}/{{ .invisible }}/"
-                    alt="web counter" referrerPolicy="no-referrer-when-downgrade"></a></div>
-                <!-- End of Statcounter Code -->
-            </noscript>
-            <!-- End Statcounter analytics -->
+            <!-- Statcounter analytics loaded via JavaScript module -->
+            {{ end }}
+
+            {{ with .posthog }}
+            <!-- PostHog analytics loaded via JavaScript module -->
             {{ end }}
         {{ end }}
     {{ end }}

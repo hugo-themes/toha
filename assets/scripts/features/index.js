@@ -33,3 +33,7 @@ if (process.env.FEATURE_EMBEDPDF === '1') {
 if (process.env.FEATURE_COPYCODEBUTTON === '1') {
   import('./copyCode')
 }
+
+if (process.env.FEATURE_ANALYTICS === '1') {
+  import('./analytics')
+}
