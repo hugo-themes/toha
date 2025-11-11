@@ -16,7 +16,9 @@
       </ul>
     </li>
   {{ else }}
-    <!-- No sub-tree. So, only add current entry -->
+    <!-- No sub-tree. So, only add current entry if page is not hidden -->
+    {{ if not .Page.Params.hidden }}
     <li><a class="{{$class}} list-link" href="{{ .PageRef | default .URL }}" title="{{ .Name }}">{{.Name}}</a></li>
+    {{ end }}
   {{ end }}
 {{ end }}
