@@ -16,7 +16,7 @@
       </ul>
     </li>
   {{ else }}
-    <!-- No sub-tree. So, only add current entry if page is not hidden -->
+    <!-- Leaf node. Add menu entry only if page is not marked as hidden -->
     {{ if not .Page.Params.hidden }}
     <li><a class="{{$class}} list-link" href="{{ .PageRef | default .URL }}" title="{{ .Name }}">{{.Name}}</a></li>
     {{ end }}
