@@ -3,81 +3,63 @@ name: PR Workflows
 # Run action on pull request event
 on: [pull_request]
 
-
 jobs:
   # Build exampleSite
   build:
     runs-on: ubuntu-latest
     steps:
-    # checkout to the commit that has been pushed
-    - uses: actions/checkout@v5.0.0
+      # checkout to the commit that has been pushed
+      - uses: actions/checkout@v5.0.0
 
-    - name: Setup Node
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20
+      # Setup mise
+      - uses: jdx/mise-action@v3
 
-    - name: Install node modules
-      run: npm install
-
-    - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v3.0.0
-      with:
-        hugo-version: 'latest'
-        extended: true
-
-    - name: Build
-      run: |
-        cd exampleSite
-        hugo --minify
+      - name: Build
+        run: |
+          mise run build
 
   # Run linter
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.0
 
-    - name: Setup Node
-      uses: actions/setup-node@v6
-      with:
-        node-version: 20
+      # Setup mise
+      - uses: jdx/mise-action@v3
 
-    - name: Install node modules
-      run: npm install
-
-    - name: Lint
-      run: |
-        npm run lint
+      - name: Lint
+        run: |
+          mise run lint
 
   lighthouse-check:
     runs-on: ubuntu-latest
     steps:
-    - name: Waiting for Netlify Preview
-      uses: kamranayub/wait-for-netlify-action@v2.1.1
-      id: preview
-      with:
-        site_name: "toha-ci"
-        max_timeout: 300
-      env:
-        NETLIFY_TOKEN: ${{secrets.NETLIFY_TOKEN}}
+      - name: Waiting for Netlify Preview
+        uses: kamranayub/wait-for-netlify-action@v2.1.1
+        id: preview
+        with:
+          site_name: "toha-ci"
+          max_timeout: 300
+        env:
+          NETLIFY_TOKEN: ${{secrets.NETLIFY_TOKEN}}
 
-    - name: Run Lighthouse
-      uses: foo-software/lighthouse-check-action@v12.0.1
-      id: lighthouseCheck
-      with:
-        accessToken: ${{ secrets.LIGHTHOUSE_TOKEN }}
-        gitHubAccessToken: ${{secrets.GITHUB_TOKEN}}
-        emulatedFormFactor: 'all'
-        prCommentEnabled: true
-        prCommentSaveOld: false
-        timeout: 5
-        urls: "${{ steps.preview.outputs.url }},${{ steps.preview.outputs.url }}/posts/,${{ steps.preview.outputs.url }}/posts/markdown-sample/,${{ steps.preview.outputs.url }}/posts/shortcodes/"
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@v12.0.1
+        id: lighthouseCheck
+        with:
+          accessToken: ${{ secrets.LIGHTHOUSE_TOKEN }}
+          gitHubAccessToken: ${{secrets.GITHUB_TOKEN}}
+          emulatedFormFactor: "all"
+          prCommentEnabled: true
+          prCommentSaveOld: false
+          timeout: 5
+          urls: "${{ steps.preview.outputs.url }},${{ steps.preview.outputs.url }}/posts/,${{ steps.preview.outputs.url }}/posts/markdown-sample/,${{ steps.preview.outputs.url }}/posts/shortcodes/"
 
   # Check for any broken links
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
-    # checkout to latest commit
-    - uses: actions/checkout@v5.0.0
-    # run markdown linter
-    - uses: gaurav-nelson/github-action-markdown-link-check@1.0.17
+      # checkout to latest commit
+      - uses: actions/checkout@v5.0.0
+      # run markdown linter
+      - uses: gaurav-nelson/github-action-markdown-link-check@1.0.17

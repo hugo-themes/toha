@@ -1,7 +1,7 @@
 [tools]
-hugo-extended = '0.148.2'
-node = '24.6.0'
-go = '1.25.0'
+hugo-extended = 'latest'
+node = 'latest'
+go = 'latest'
 
 [tasks.install]
 description = "Install project dependencies"
@@ -9,7 +9,7 @@ run = "npm install"
 
 [tasks.update]
 description = "Update node dependencies and prepare package.hugo.json file"
-run = ["npm update", "hugo mod npm pack"]
+run = ["npm update", "rm package.hugo.json", "hugo mod npm pack"]
 
 [tasks.install-example-deps]
 description = "Install example site dependencies"
@@ -17,16 +17,22 @@ depends = ["install"]
 dir = "exampleSite"
 run = ["hugo mod tidy", "hugo mod npm pack", "npm install"]
 
-[tasks.example-site]
-description = "Run the example server"
+[tasks.build]
+description = "Build example site"
 depends = ["install-example-deps"]
 dir = "exampleSite"
-run = "hugo server -w"
+run = ["hugo --gc --minify"]
 
 [tasks.lint]
 description = "Run linters"
 depends = ["install"]
 run = "npm run lint"
+
+[tasks.example-site]
+description = "Run the example server"
+depends = ["install-example-deps"]
+dir = "exampleSite"
+run = "hugo server -w"
 
 [tasks.fix-security]
 description = "Run npm audit fix"
