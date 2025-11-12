@@ -37,7 +37,7 @@ function initializeMermaid() {
     theme
   })
   mermaid.initialize(options)
-  
+
   // Run mermaid on all diagrams
   mermaid.run()
 }
@@ -66,7 +66,7 @@ const observer = new MutationObserver((mutations) => {
           div.removeAttribute('data-processed')
         }
       })
-      
+
       // Reinitialize with new theme
       initializeMermaid()
     }
