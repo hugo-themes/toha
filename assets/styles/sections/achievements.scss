@@ -5,7 +5,7 @@
     padding-top: 0.5rem;
   }
 
-  #gallery {
+  .achievements-gallery {
     .achievement-entry {
       margin-top: 5px;
       margin-bottom: 5px;
@@ -121,7 +121,7 @@
     }
 
     @include media('<=small') {
-      #gallery .achievement-entry:hover {
+      .achievements-gallery .achievement-entry:hover {
         transform: scale(1.05);
       }
     }
@@ -130,7 +130,7 @@
 
 html[data-theme='dark'] {
   .achievements-section {
-    #gallery {
+    .achievements-gallery {
       .achievement-entry {
         background-color: get-dark-color('bg-secondary');
 
