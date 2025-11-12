@@ -135,7 +135,6 @@ html[data-theme='dark'] {
         background-color: get-dark-color('bg-secondary');
 
         .title {
-          color: get-dark-color('inverse-text-color');
           background-color: rgba(get-dark-color('bg-primary-inverse'), 0.7);
         }
       }
