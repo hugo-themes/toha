@@ -19,6 +19,16 @@ function getMermaidTheme() {
   return currentTheme === 'dark' ? darkTheme : lightTheme
 }
 
+// Function to store original content before first render
+function storeOriginalContent() {
+  const mermaidDivs = document.querySelectorAll('.mermaid')
+  mermaidDivs.forEach((div) => {
+    if (!div.hasAttribute('data-original-content')) {
+      div.setAttribute('data-original-content', div.textContent)
+    }
+  })
+}
+
 // Function to initialize mermaid with current theme
 function initializeMermaid() {
   const theme = getMermaidTheme()
@@ -34,8 +44,12 @@ function initializeMermaid() {
 
 // Initialize mermaid when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeMermaid)
+  document.addEventListener('DOMContentLoaded', () => {
+    storeOriginalContent()
+    initializeMermaid()
+  })
 } else {
+  storeOriginalContent()
   initializeMermaid()
 }
 
@@ -43,17 +57,14 @@ if (document.readyState === 'loading') {
 const observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
-      // Clear existing mermaid diagrams
+      // Clear existing mermaid diagrams and restore original content
       const mermaidDivs = document.querySelectorAll('.mermaid')
       mermaidDivs.forEach((div) => {
-        // Store the original content if not already stored
-        if (!div.hasAttribute('data-original-content')) {
-          div.setAttribute('data-original-content', div.textContent)
-        }
-        // Restore original content
         const originalContent = div.getAttribute('data-original-content')
-        div.textContent = originalContent
-        div.removeAttribute('data-processed')
+        if (originalContent) {
+          div.textContent = originalContent
+          div.removeAttribute('data-processed')
+        }
       })
       
       // Reinitialize with new theme
