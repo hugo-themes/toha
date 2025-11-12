@@ -135,7 +135,6 @@ html[data-theme='dark'] {
         background-color: get-dark-color('bg-secondary');
 
         .title {
-          color: get-dark-color('inverse-text-color');
           background-color: rgba(get-dark-color('bg-primary-inverse'), 0.7);
         }
       }
@@ -145,14 +144,6 @@ html[data-theme='dark'] {
       }
       .caption {
         background-color: rgba(get-dark-color('bg-primary-inverse'), 0.7);
-        color: get-dark-color('inverse-text-color');
-
-        h4 {
-          color: get-dark-color('inverse-text-color');
-        }
-        p {
-          color: get-dark-color('inverse-text-color');
-        }
       }
     }
   }
