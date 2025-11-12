@@ -212,6 +212,13 @@ params:
         #   project: 1234567890
         #   invisible: 1
         #   security: deadbeef
+        # # PostHog
+        # posthog:
+        #   apiKey: <your posthog api key>
+        #   host: https://app.posthog.com
+        #   # Optional configuration
+        #   options:
+        #     # Add any PostHog initialization options here
     # Enable Support
     support:
       enable: false
