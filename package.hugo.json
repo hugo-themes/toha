@@ -24,14 +24,14 @@
       "highlight.js": "project",
       "imagesloaded": "project",
       "include-media": "project",
-      "typeit": "project",
       "katex": "project",
       "mark.js": "project",
       "mermaid": "project",
       "plyr": "project",
       "popper.js": "project",
       "postcss": "project",
-      "postcss-cli": "project"
+      "postcss-cli": "project",
+      "typeit": "project"
     }
   },
   "dependencies": {},

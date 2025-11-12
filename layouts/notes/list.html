@@ -31,13 +31,10 @@
 <section class="content-section" id="content-section">
   <div class="content container-fluid" id="content">
     <div class="container-fluid note-card-holder" id="note-card-holder">
-      {{ $paginator := .Paginate .RegularPagesRecursive 10 }}
+      {{ $notes := where .RegularPagesRecursive "Layout" "!=" "search" }}
+      {{ $paginator := .Paginate $notes 10 }}
       {{ range $paginator.Pages }}
-        {{ if .Layout }}
-        {{/* ignore search.md file*/}}
-        {{ else }}
-          {{ .Content }}
-        {{ end }}
+        {{ .Content }}
       {{ end }}
     </div>
     <div class="paginator">
