@@ -23,14 +23,17 @@
 }
 
 .btn-outline-info {
-  color: get-light-color('accent-color') !important;
-  border-color: get-light-color('accent-color') !important;
-
-  &:hover,
-  &:focus {
-    background-color: get-light-color('accent-color') !important;
-    color: get-light-color('text-over-accent-color') !important;
-  }
+  // Override Bootstrap 5 CSS custom properties to use theme accent color
+  --bs-btn-color: #{get-light-color('accent-color')};
+  --bs-btn-border-color: #{get-light-color('accent-color')};
+  --bs-btn-hover-color: #{get-light-color('text-over-accent-color')};
+  --bs-btn-hover-bg: #{get-light-color('accent-color')};
+  --bs-btn-hover-border-color: #{get-light-color('accent-color')};
+  --bs-btn-active-color: #{get-light-color('text-over-accent-color')};
+  --bs-btn-active-bg: #{get-light-color('accent-color')};
+  --bs-btn-active-border-color: #{get-light-color('accent-color')};
+  --bs-btn-disabled-color: #{get-light-color('accent-color')};
+  --bs-btn-disabled-border-color: #{get-light-color('accent-color')};
 }
 
 .btn-link {
@@ -161,14 +164,17 @@ html[data-theme='dark'] {
   }
 
   .btn-outline-info {
-    color: get-dark-color('accent-color') !important;
-    border-color: get-dark-color('accent-color') !important;
-
-    &:hover,
-    &:focus {
-      background-color: get-dark-color('accent-color') !important;
-      color: get-dark-color('text-over-accent-color') !important;
-    }
+    // Override Bootstrap 5 CSS custom properties to use theme accent color
+    --bs-btn-color: #{get-dark-color('accent-color')};
+    --bs-btn-border-color: #{get-dark-color('accent-color')};
+    --bs-btn-hover-color: #{get-dark-color('text-over-accent-color')};
+    --bs-btn-hover-bg: #{get-dark-color('accent-color')};
+    --bs-btn-hover-border-color: #{get-dark-color('accent-color')};
+    --bs-btn-active-color: #{get-dark-color('text-over-accent-color')};
+    --bs-btn-active-bg: #{get-dark-color('accent-color')};
+    --bs-btn-active-border-color: #{get-dark-color('accent-color')};
+    --bs-btn-disabled-color: #{get-dark-color('accent-color')};
+    --bs-btn-disabled-border-color: #{get-dark-color('accent-color')};
   }
 
   .btn-link {
