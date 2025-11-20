@@ -13,13 +13,19 @@
 }
 
 .btn-info {
-  background-color: get-light-color('accent-color') !important;
-  color: get-light-color('text-over-accent-color') !important;
-
-  &:hover,
-  &:focus {
-    background-color: get-light-color('hover-over-accent-color') !important;
-  }
+  // Override Bootstrap 5 CSS custom properties to use theme accent color
+  --bs-btn-color: #{get-light-color('text-over-accent-color')};
+  --bs-btn-bg: #{get-light-color('accent-color')};
+  --bs-btn-border-color: #{get-light-color('accent-color')};
+  --bs-btn-hover-color: #{get-light-color('text-over-accent-color')};
+  --bs-btn-hover-bg: #{get-light-color('hover-over-accent-color')};
+  --bs-btn-hover-border-color: #{get-light-color('hover-over-accent-color')};
+  --bs-btn-active-color: #{get-light-color('text-over-accent-color')};
+  --bs-btn-active-bg: #{get-light-color('hover-over-accent-color')};
+  --bs-btn-active-border-color: #{get-light-color('hover-over-accent-color')};
+  --bs-btn-disabled-bg: #{get-light-color('accent-color')};
+  --bs-btn-disabled-border-color: #{get-light-color('accent-color')};
+  --bs-btn-disabled-color: #{get-light-color('text-over-accent-color')};
 }
 
 .btn-outline-info {
@@ -153,14 +159,20 @@ html[data-theme='dark'] {
   }
 
   .btn-info {
-    background-color: get-dark-color('bg-card') !important;
-    color: get-dark-color('text-color') !important;
-    border: 1px solid get-dark-color('muted-text-color') !important;
-
-    &:hover,
-    &:focus {
-      background-color: get-dark-color('hover-over-accent-color') !important;
-    }
+    // Override Bootstrap 5 CSS custom properties for dark theme
+    // Uses a different color scheme than light theme for better contrast
+    --bs-btn-color: #{get-dark-color('text-color')};
+    --bs-btn-bg: #{get-dark-color('bg-card')};
+    --bs-btn-border-color: #{get-dark-color('muted-text-color')};
+    --bs-btn-hover-color: #{get-dark-color('text-over-accent-color')};
+    --bs-btn-hover-bg: #{get-dark-color('hover-over-accent-color')};
+    --bs-btn-hover-border-color: #{get-dark-color('hover-over-accent-color')};
+    --bs-btn-active-color: #{get-dark-color('text-over-accent-color')};
+    --bs-btn-active-bg: #{get-dark-color('hover-over-accent-color')};
+    --bs-btn-active-border-color: #{get-dark-color('hover-over-accent-color')};
+    --bs-btn-disabled-bg: #{get-dark-color('bg-card')};
+    --bs-btn-disabled-border-color: #{get-dark-color('muted-text-color')};
+    --bs-btn-disabled-color: #{get-dark-color('text-color')};
   }
 
   .btn-outline-info {
