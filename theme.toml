@@ -1,10 +1,10 @@
 name = "Toha"
 license = "MIT"
-licenselink = "https://github.com/hugo-toha/toha/blob/master/LICENSE"
+licenselink = "https://github.com/hugo-themes/toha/blob/main/LICENSE"
 description = "A simple hugo theme for personal portfolio"
 
 # The home page of the theme, where the source can be found.
-homepage = "https://github.com/hugo-toha/toha"
+homepage = "https://github.com/hugo-themes/toha"
 
 # If you have a running demo of the theme.
 demosite = "https://toha-preview.hugo-themes.com/"
