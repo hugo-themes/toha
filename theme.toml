@@ -7,7 +7,7 @@ description = "A simple hugo theme for personal portfolio"
 homepage = "https://github.com/hugo-toha/toha"
 
 # If you have a running demo of the theme.
-demosite = "https://toha-example-site.netlify.app/"
+demosite = "https://toha-preview.hugo-themes.com/"
 
 tags = [
   "Portfolio",
