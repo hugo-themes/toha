@@ -60,6 +60,7 @@
 
 .navbar-toggler {
   border: none;
+
   &:focus {
     border: none;
     outline: none !important;
@@ -70,6 +71,7 @@
 .tags {
   text-align: left;
   padding-top: 0.5em;
+
   li {
     font-size: 0.5em;
     list-style-type: none;
@@ -79,6 +81,7 @@
     margin-top: 0.6em;
     margin-bottom: 0.6em;
   }
+
   a {
     text-decoration: none !important;
   }
@@ -130,6 +133,7 @@
     color: get-light-color('text-over-accent-color') !important;
     @include transition();
   }
+
   &:focus {
     &::before {
       content: 'Copied!';
@@ -194,7 +198,7 @@ html[data-theme='dark'] {
 
     &:hover,
     &:focus {
-      color: get-dark-color('hover-over-accent-color');
+      color: get-dark-color('text-over-accent-color');
     }
   }
 
@@ -221,6 +225,7 @@ html[data-theme='dark'] {
       background-color: get-dark-color('hover-over-accent-color') !important;
     }
   }
+
   .copy-code-button {
     background-color: get-dark-color('bg-primary') !important;
     color: get-dark-color('muted-text-color') !important;

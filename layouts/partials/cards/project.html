@@ -49,14 +49,14 @@
           </div>
         </div>
       </a>
-      <div class="card-body text-justify pt-1 pb-1">
+      <div class="card-body text-justify pt-1 pb-2">
         <p>{{ .summary | markdownify }}</p>
         <!-- Display project card technology tags -->
         <div class="project-card-footer">
           {{ if .tags }}
             <div class="project-tags-holder">
               {{ range $index,$tag:= .tags }}
-                  <span class="badge btn-info">
+                  <span class="btn badge btn-info">
                     {{ $tag }}
                   </span>
               {{ end }}
