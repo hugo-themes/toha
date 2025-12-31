@@ -1,8 +1,5 @@
 {{ define "header" }}
 <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Title }}{{ end }}" />
-{{ with .Params.relcanonical }}
-<link rel="canonical" href="{{ . | relLangURL }}" itemprop="url" />
-{{ end }}
 {{ end }}
 
 {{ define "navbar" }}
