@@ -4,36 +4,45 @@ node = 'latest'
 go = 'latest'
 
 [tasks.install]
-description = "Install project dependencies"
+description = "Install root project dependencies"
 run = "npm install"
 
 [tasks.update]
-description = "Update node dependencies and prepare package.hugo.json file"
+description = "Update node dependencies and regenerate Hugo modules"
+# AI Note: This is a destructive action (rm file). Good to keep, but Agents should rely on 'install' mostly.
 run = ["npm update", "rm package.hugo.json", "hugo mod npm pack"]
 
 [tasks.install-example-deps]
-description = "Install example site dependencies"
+description = "Install example site dependencies (including Hugo modules)"
 depends = ["install"]
 dir = "exampleSite"
 run = ["hugo mod tidy", "hugo mod npm pack", "npm install"]
 
 [tasks.build]
-description = "Build example site"
+description = "Build the example site for production"
 depends = ["install-example-deps"]
 dir = "exampleSite"
-run = ["hugo --gc --minify"]
+# Use --cleanDestinationDir so the agent doesn't get confused by old artifacts
+run = ["hugo --gc --minify --cleanDestinationDir"]
 
 [tasks.lint]
-description = "Run linters"
+description = "Run code linters"
 depends = ["install"]
 run = "npm run lint"
 
 [tasks.example-site]
-description = "Run the example server"
+description = "Start the development server with live reload"
 depends = ["install-example-deps"]
 dir = "exampleSite"
-run = "hugo server -w"
+# Some AI cloud envs (like GitHub Codespaces or IDX) need this to expose the port.
+run = "hugo server -w --bind=0.0.0.0"
 
 [tasks.fix-security]
-description = "Run npm audit fix"
+description = "Auto-fix npm security vulnerabilities"
 run = "npm audit fix --force"
+
+
+[tasks.check]
+description = "Run all verification steps (Build + Lint)"
+# This gives the AI a single 'truth' command to validate its work.
+depends = ["lint", "build"]
