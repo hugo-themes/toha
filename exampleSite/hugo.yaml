@@ -1,23 +1,13 @@
-baseURL: http://example.org/
-languageCode: en-us
-title: Example Site
+# ⚠️ If hosting under a repo path, use full URL (e.g. https://<github_username>.github.io/<repo_name>) or images won’t display correctly
+baseURL: https://toha.hugo-themes.com
 
+languageCode: en-us
+title: "John's Blog"
+
+# Use Hugo modules to add theme
 module:
   imports:
     - path: github.com/hugo-toha/toha/v4
-    - path: github.com/hugo-toha/hugo-toha.github.io
-      disable: false
-      mounts:
-        - source: content
-          target: content
-        - source: layouts
-          target: layouts
-        - source: data
-          target: data
-        - source: assets
-          target: assets
-        - source: static
-          target: static
   mounts:
     - source: static/files
       target: static/files
@@ -39,7 +29,7 @@ languages:
   bn:
     languageCode: bn
     languageName: বাংলা
-    title: "জনের ব্লগ"
+    title: জনের ব্লগ
     weight: 2
 
 # default language for the content
@@ -87,6 +77,8 @@ sitemap:
 params:
   # Background image of the landing page
   background: /images/site/background.jpg
+  # Background image of the landing page for dark theme
+  #darkBackground: /images/site/background.jpg
 
   # Provide logos for your site. The inverted logo will be used in the initial
   # transparent navbar and the main logo will be used in the non-transparent navbar.
@@ -96,7 +88,8 @@ params:
     favicon: /images/site/favicon.png
 
   # GitHub repo of your site
-  gitRepo: https://github.com/hugo-toha/hugo-toha.github.io
+  gitRepo: https://github.com/hugo-themes/toha-example-site
+
   # Default branch of your Git repo
   gitBranch: main
 
@@ -106,15 +99,6 @@ params:
 
   # Configure various features of this theme
   features:
-    # Enable dark theme
-    darkMode:
-
-    # [Deprecated] Enable dark theme
-    # This is a deprecated setting, but has not been removed to maintain backward compatibility
-    # If `theme` is set, the `darkMode` setting will be discarded.
-    # darkMode:
-    #   enable: true
-
     # Configure theme color settings
     theme:
       enable: true
@@ -130,7 +114,7 @@ params:
     # Enable and configure blog posts
     blog:
       enable: true
-      showAuthor: true
+      showAuthor: true # shows the author of post (defaults true)
       # Share post on different social media
       shareButtons:
         facebook: true
@@ -171,20 +155,20 @@ params:
         #   repoID: your-repo-id
         #   category: your-category
         #   categoryID: your-category-id
-        # theme: light
-        # map: url
-        # reaction: 1
-        # metadata: 0
-        # inputPosition: bottom
-        # crossOrigin: anonymous
+        #   theme: light
+        #   map: url
+        #   reaction: 1
+        #   metadata: 0
+        #   inputPosition: bottom
+        #   crossOrigin: anonymous
         # commento:
-        #   serverURL: https://cdn.commento.io
+        #   serverURL: cdn.commento.io
         #   autoInit: true
         #   hideDeleted: false
 
     # Enable Analytics
     analytics:
-      enabled: false
+      enable: false
       services:
         # cloudflare web analytics
         # cloudflare:
@@ -219,7 +203,8 @@ params:
         #   # Optional configuration
         #   options:
         #     # Add any PostHog initialization options here
-    # Enable Support
+
+    # Enable "Support" Link
     support:
       enable: false
       services:
@@ -228,11 +213,11 @@ params:
           text: Tip Me
           textColor: "#f9fafc"
           backgroundColor: "#248aaa"
-        # buymeacoffee:
-        #   user: <your buymeacoffee.com user>
-        #   text: Support me on Buy me a coffee!
-        #   info: Buy me a coffee!
-        #   color: '#FFDD00'
+      # buymeacoffee:
+      #   user: <your buymeacoffee.com user>
+      #   text: Support me on Buy me a coffee!
+      #   info: Buy me a coffee!
+      #   color: '#FFDD00'
 
     # specify whether you want to show Table of Contents in reading page
     toc:
@@ -253,7 +238,7 @@ params:
 
     # Enable this to use `embed-pdf` shortcode.
     embedpdf:
-      enable: false
+      enable: true
 
     # Enable this to create flowcharts using shortcodes.
     flowchart:
@@ -308,7 +293,7 @@ params:
 
     # Enable to use `video-player` shortcode
     videoPlayer:
-      enable: false
+      enable: true
       services:
         # convert .js-player class into video player via https://plyr.io/
         # Can play HTML5 Video, Audio, Youtube, Vimeo.
@@ -323,7 +308,11 @@ params:
 
     # Enable reading time support in post cards and in post pages
     readingTime:
-      enable: true
+      enable: false
+
+    # Number of posts to show to each page. Default is "12"
+    pagination:
+      maxPostsPerPage: 12
 
   # Provide footer configuration.
   footer:
@@ -346,9 +335,9 @@ params:
     # Show/hide newsletter section in the footer. Default is "true".
     # Currently, it supports "mailchimp".
     newsletter:
-      enable: true
-      provider: mailchimp
-      mailchimpURL: https://github.us1.list-manage.com/subscribe/post?u=19de52a4603135aae97163fd8&amp;id=094a24c76e
+      enable: false
+      # provider: mailchimp
+      # mailchimpURL: https://github.us1.list-manage.com/subscribe/post?u=19de52a4603135aae97163fd8&amp;id=094a24c76e
 
     # Show/hide disclaimer notice in the footer. Default is "false".
     disclaimer:
