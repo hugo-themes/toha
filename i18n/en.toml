@@ -128,3 +128,48 @@ other = "Search"
 [minute]
 one = "minute"
 other = "minutes"
+
+[share_facebook]
+other = "Share on Facebook"
+
+[share_twitter]
+other = "Share on Twitter"
+
+[share_reddit]
+other = "Share on Reddit"
+
+[share_tumblr]
+other = "Share on Tumblr"
+
+[share_pocket]
+other = "Save to Pocket"
+
+[share_linkedin]
+other = "Share on LinkedIn"
+
+[share_diaspora]
+other = "Share on Diaspora"
+
+[share_mastodon]
+other = "Share on Mastodon"
+
+[share_whatsapp]
+other = "Share on WhatsApp"
+
+[share_email]
+other = "Share via Email"
+
+[scroll_to_top]
+other = "Scroll to top"
+
+[theme_selector]
+other = "Select theme"
+
+[theme_light]
+other = "Light theme"
+
+[theme_dark]
+other = "Dark theme"
+
+[theme_system]
+other = "System theme"

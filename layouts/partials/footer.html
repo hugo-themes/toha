@@ -157,6 +157,7 @@
                 target="_blank"
                 novalidate >
                 <div class="form-group">
+                  <label for="mce-EMAIL" class="visually-hidden">{{ i18n "newsletter_input_placeholder" }}</label>
                   <input
                     type="email"
                     class="form-control"
@@ -174,7 +175,8 @@
             {{ else }}
               <form method='post' action='https://blogtrottr.com'>
               <div class="form-group">
-              <input type='email' class="form-control" name='btr_email' placeholder="{{ i18n "newsletter_input_placeholder" }}"/><br />
+              <label for="btr-email" class="visually-hidden">{{ i18n "newsletter_input_placeholder" }}</label>
+              <input type='email' class="form-control" name='btr_email' id="btr-email" placeholder="{{ i18n "newsletter_input_placeholder" }}"/><br />
               <input type='hidden' name='btr_url' value='{{ "" | absLangURL }}/index.xml' />
               <input type='hidden' name='schedule_type' value='1' />
               <small id="emailHelp" class="form-text text-muted">{{ i18n "newsletter_warning" }}</small>

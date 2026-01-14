@@ -8,23 +8,23 @@
 
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle"  href="#" id="themeSelector" role="button"
-  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  <img id="navbar-theme-icon-svg" class="theme-icon" src="{{ "icons/moon-svgrepo-com.svg" | relURL }}" width=20 alt="Dark Theme">
+  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{{ i18n "theme_selector" }}">
+  <img id="navbar-theme-icon-svg" class="theme-icon" src="{{ "icons/moon-svgrepo-com.svg" | relURL }}" width=20 alt="{{ i18n "theme_selector" }}">
 </a>
 <div id="themeMenu" class="dropdown-menu dropdown-menu-icons-only" aria-labelledby="themeSelector">
   {{ if $lightEnabled }}
-  <a class="dropdown-item nav-link" href="#" data-scheme="light">
-    <img class="theme-icon" src="{{ "icons/sun-svgrepo-com.svg" | relURL }}" width=20 alt="Light Theme">
+  <a class="dropdown-item nav-link" href="#" data-scheme="light" aria-label="{{ i18n "theme_light" }}">
+    <img class="theme-icon" src="{{ "icons/sun-svgrepo-com.svg" | relURL }}" width=20 alt="{{ i18n "theme_light" }}">
   </a>
   {{ end }}
   {{ if $darkEnabled }}
-  <a class="dropdown-item nav-link" href="#" data-scheme="dark">
-    <img class="theme-icon" src="{{ "icons/moon-svgrepo-com.svg" | relURL }}" width=20 alt="Dark Theme">
+  <a class="dropdown-item nav-link" href="#" data-scheme="dark" aria-label="{{ i18n "theme_dark" }}">
+    <img class="theme-icon" src="{{ "icons/moon-svgrepo-com.svg" | relURL }}" width=20 alt="{{ i18n "theme_dark" }}">
   </a>
   {{ end }}
   {{ if and $lightEnabled $darkEnabled }}
-  <a class="dropdown-item nav-link" href="#" data-scheme="system">
-    <img class="theme-icon" src="{{ "icons/computer-svgrepo-com.svg" | relURL }}" width=20 alt="System Theme">
+  <a class="dropdown-item nav-link" href="#" data-scheme="system" aria-label="{{ i18n "theme_system" }}">
+    <img class="theme-icon" src="{{ "icons/computer-svgrepo-com.svg" | relURL }}" width=20 alt="{{ i18n "theme_system" }}">
   </a>
   {{ end }}
 </div>

@@ -1,3 +1,7 @@
+{{ define "header" }}
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Title }}{{ end }}" />
+{{ end }}
+
 {{ define "navbar" }}
     {{ partial "navigators/navbar.html" . }}
 {{ end }}
@@ -12,6 +16,7 @@
     <div class="sidebar-holder">
       <div class="sidebar" id="sidebar">
         <form class="mx-auto" method="get" action="{{ "search" | relLangURL }}">
+          <label for="search-box" class="visually-hidden">{{ i18n "search" }}</label>
           <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
         </form>
         <div class="sidebar-tree">
