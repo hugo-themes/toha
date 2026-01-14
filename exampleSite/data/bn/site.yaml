@@ -1,0 +1,24 @@
+# Copyright Notice
+copyright: © 2020 Copyright.
+
+# A disclaimer notice for the footer. Make sure you have set "params.footer.disclaimer.enable: true" in your `config.yaml` file.
+disclaimer: "এই থিমটি এমআইটি লাইসেন্সের অধীনে। সুতরাং, আপনি এটি অ-বাণিজ্যিক, বাণিজ্যিক বা ব্যক্তিগত ব্যবহারের জন্য ব্যবহার করতে পারবেন।
+থিম লেখকের কোনও অনুমতি ছাড়াই আপনি থিমটি সংশোধন বা বিতরণ করতে পারবেন।
+তবে থিম লেখক কোনও ওয়্যারেন্টি সরবরাহ করবে না বা থিমের যে কোনও সমস্যার জন্য কোনও দায়বদ্ধতা গ্রহণ করবেন না।"
+
+# Meta description for your site.  This will help the search engines to find your site.
+description: জন ডো এর বাক্তিগত পোর্টফোলিও ও ব্লগ.
+
+# specify the list of custom menus that you want to show in the top navbar.
+# they will be separated by a divider from the main menus.
+customMenus:
+- name: ডকুমেন্টেশন
+  url: https://toha-docs.hugo-themes.com/posts/
+
+# Specify OpenGraph Headers
+openGraph:
+  title: জনের ব্লগ
+  type: website
+  description: জন ডো এর বাক্তিগত পোর্টফোলিও ও ব্লগ.
+  image: images/author/john.png
+  url: https://toha-preview.hugo-themes.com

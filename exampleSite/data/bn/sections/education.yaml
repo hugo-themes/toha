@@ -1,0 +1,93 @@
+# section information
+section:
+  name: শিক্ষা জীবন
+  id: education
+  template: sections/education.html
+  enable: true
+  weight: 4
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+degrees:
+- name: কোয়ান্টাম ক্রিপ্টোগ্রাফিতে পি. এইচ. ডি.
+  icon: fa-microscope
+  timeframe: ২০১৬-২০২০
+  institution:
+    name: এ. বি. সি. প্রযুক্তি বিশ্ববিদ্যালয়
+    url: "#"
+    logo: /images/sections/education/tech_college.png
+  grade:
+    scale: সিজিপিএ
+    achieved: ৪
+    outOf: ৩.৬
+  publications:
+  - title: অর্থহীন লেখা যার মাঝে আছে অনেক কিছু।
+    url: "#"
+  - title: হ্যাঁ, এই লেখার মাঝেই আছে অনেক কিছু।
+    url: "#"
+  - title: যদি তুমি মনে করো, এটা তোমার কাজে লাগবে, তাহলে তা লাগবে কাজে।
+    url: "#"
+- name: কম্পিউটার সায়েন্স এন্ড ইঞ্জিনিয়ারিং এ বি.এসসি
+  icon: fa-graduation-cap
+  timeframe: ২০১২-২০১৬
+  institution:
+    name: এক্স ওয়াই জেড বিশ্ববিদ্যালয়
+    url: "#"
+    logo: /images/sections/education/university.jpg
+  grade:
+    scale: সিজিপিএ
+    achieved: ৪
+    outOf: ৩.৫
+  takenCourses:
+    # if true, the courses will be rendered as a table otherwise it will render as a list and the grades will be hidden.
+    showGrades: true
+    collapseAfter: 3
+    courses:
+    - name: ডেটা স্ট্রাকচারস এবং অ্যালগরিদম
+      achieved: ৩.৭৫
+      outOf: ৪
+    - name: নেটওয়ার্ক সিকিউরিটি
+      achieved: ৩.৮০
+      outOf: ৪
+    - name: অপারেটিং সিস্টেম
+      achieved: ৩.৫
+      outOf: ৪
+    - name: কৃত্রিম বুদ্ধিমত্তা
+      achieved: ৩.৭৫
+      outOf: ৪
+  publications:
+  - title: নিজের ভাষায় লেখা দেখতে অভ্যস্ত হও।
+    url: "#"
+  - title: মনে রাখবে লেখা অর্থহীন হয়, যখন তুমি তাকে অর্থহীন মনে করো; আর লেখা অর্থবোধকতা তৈরি করে, যখন তুমি তাতে অর্থ ঢালো।
+    url: "#"
+  extracurricularActivities:
+  - কোনো লেখাই তোমার কাছে অর্থবোধকতা তৈরি করতে পারে, যদি তুমি সেখানে অর্থদ্যোতনা দেখতে পাও।
+  - যে কথাকে কাজে লাগাতে চাও, তাকে কাজে লাগানোর কথা চিন্তা করার আগে ভাবো, তুমি কি সেই কথার জাদুতে আচ্ছন্ন হয়ে গেছ কিনা।
+  - তুমি যদি নিশ্চিত হও যে, তুমি কোনো মোহাচ্ছাদিত আবহে আবিষ্ট হয়ে অন্যের শেখানো বুলি আত্মস্থ করছো না, তাহলে তুমি নির্ভয়ে, নিশ্চিন্তে অগ্রসর হও।
+  - তুমি সেই কথাকে জানো, বুঝো, আত্মস্থ করো; মনে রাখবে, যা অনুসরণ করতে চলেছো, তা আগে অনুধাবন করা জরুরি; এখানে কিংকর্তব্যবিমূঢ় হবার কোনো সুযোগ নেই।
+- name: উচ্চমাধ্যমিক সার্টিফিকেট
+  icon: fa-university
+  timeframe: ২০১০-২০১২
+  institution:
+    name: এমএসটি বিজ্ঞান কলেজ
+    url: "#"
+    logo: /images/sections/education/science_college.png
+  grade:
+    scale: জিপিএ
+    achieved: ৫
+    outOf: ৫
+  extracurricularActivities:
+  - কোনো কথা শোনামাত্রই কি তুমি তা বিশ্বাস করবে?
+  - হয়তো বলবে, করবে, হয়তো বলবে “আমি করবো না।”
+  - তাই কোন কথাটি কাজে লাগবে, তা নির্ধারণ করবে তুমি— হ্যাঁ, তুমি।
+  - নিজেই ঠিক করো, নিজের ভাষাটা কি অর্থহীন, নাকি কিছু সত্যিই বলছে!
+- name: মাধ্যমিক সার্টিফিকেট
+  icon: fa-school
+  timeframe: ২০০৫-২০১০
+  institution:
+    name: জে কে স্কুল অফ সায়েন্স
+  grade:
+    scale: জিপিএ
+    achieved: ৫
+    outOf: ৪.৫

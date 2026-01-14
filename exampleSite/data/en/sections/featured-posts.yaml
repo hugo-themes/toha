@@ -1,0 +1,12 @@
+section:
+  name: Featured Posts # Title of section (default: "")
+  id: featured-posts # url id/slug of section *Required*
+  enable: true # Boolean to determine if this section is enabled (default: false)
+  weight: 7 # Order to display section in (default: alphabetical followed by weight)
+  showOnNavbar: true # Boolean to determine if a link should be shown for this section on the navbar
+  hideTitle: false # Can optionally hide the title in sections (default: false)
+
+# posts to feature
+posts:
+  - markdown-sample
+  - shortcodes
