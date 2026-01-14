@@ -8,7 +8,6 @@
     "devDependencies": {
       "@fontsource/mulish": "project",
       "@fortawesome/fontawesome-free": "project",
-      "autoprefixer": "project",
       "bootstrap": "project",
       "eslint": "project",
       "eslint-config-prettier": "project",
@@ -29,8 +28,6 @@
       "mermaid": "project",
       "plyr": "project",
       "popper.js": "project",
-      "postcss": "project",
-      "postcss-cli": "project",
       "typeit": "project"
     }
   },
@@ -39,7 +36,6 @@
   "devDependencies": {
     "@fontsource/mulish": "4.5.13",
     "@fortawesome/fontawesome-free": "^6.6.0",
-    "autoprefixer": "^10.4.20",
     "bootstrap": "^5.3.3",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
@@ -60,8 +56,6 @@
     "mermaid": "^11.10.0",
     "plyr": "^3.7.2",
     "popper.js": "^1.16.1",
-    "postcss": "^8.4.41",
-    "postcss-cli": "^11.0.0",
     "typeit": "^8.8.7"
   },
   "homepage": "https://github.com/hugo-toha/toha#readme",
