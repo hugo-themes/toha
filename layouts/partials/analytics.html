@@ -2,6 +2,10 @@
 {{ with site.Params.features.analytics }}
     {{ if or .enable .enabled }}
         {{ with .services }}
+        {{ $url := absURL "" }}
+          {{ $pUrl := urls.Parse $url }}
+          {{ $hName := $pUrl.Host }}
+          {{ if and $hName ( ne $hName "localhost") }}
             <!-- Google Analytics -->
             {{ with .google }}
                 {{ partial "google_analytics.html" . }}
@@ -50,6 +54,7 @@
             {{ with .posthog }}
             <!-- PostHog analytics loaded via JavaScript module -->
             {{ end }}
+          {{ end }}
         {{ end }}
     {{ end }}
 {{ end }}
