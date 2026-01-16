@@ -2,10 +2,7 @@
 {{ with site.Params.features.analytics }}
     {{ if or .enable .enabled }}
         {{ with .services }}
-        {{ $url := absURL "" }}
-          {{ $pUrl := urls.Parse $url }}
-          {{ $hName := $pUrl.Host }}
-          {{ if and $hName ( ne $hName "localhost") }}
+        {{ if and hugo.IsProduction (or .enable .enabled)}}
             <!-- Google Analytics -->
             {{ with .google }}
                 {{ partial "google_analytics.html" . }}
