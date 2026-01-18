@@ -3,27 +3,27 @@
 {{ end }}
 
 {{ define "navbar" }}
-    {{ partial "navigators/navbar.html" . }}
+{{ partial "navigators/navbar.html" . }}
 {{ end }}
 
 {{ define "sidebar" }}
-  <section class="sidebar-section" id="sidebar-section">
-    <div class="sidebar-holder">
-      <div class="sidebar" id="sidebar">
-        <form class="mx-auto" method="get" action="{{ "search" | relLangURL }}">
-          <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
-        </form>
-        <div class="sidebar-tree">
-          <ul class="tree" id="tree">
-            <li id="list-heading"><a href="{{ "/posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
-            <div class="subtree">
-                {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
-            </div>
-          </ul>
-        </div>
+<section class="sidebar-section" id="sidebar-section">
+  <div class="sidebar-holder">
+    <div class="sidebar" id="sidebar">
+      <form class="mx-auto" method="get" action="{{ " search" | relLangURL }}">
+        <input type="text" name="keyword" value="" placeholder="{{ i18n " search" }}" data-search="" id="search-box" />
+      </form>
+      <div class="sidebar-tree">
+        <ul class="tree" id="tree">
+          <li id="list-heading"><a href="{{ " /posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
+          <div class="subtree">
+            {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
+          </div>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 {{ end }}
 
 {{ define "content" }}
@@ -31,7 +31,11 @@
   <div class="content">
     <div class="container p-0 read-area">
       <!--Hero Area-->
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url({{ partial "helpers/get-hero.html" . }});'>
+      {{ $hero := partial "helpers/get-hero-resource.html" . }}
+      {{ if ne $hero.MediaType.SubType "svg" }}
+      {{ $hero = $hero.Resize "1200x" }}
+      {{ end }}
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url({{ $hero.RelPermalink }});'>
       </div>
 
       <!--Content Start-->
@@ -40,7 +44,8 @@
         <div class="author-profile ms-auto align-self-lg-center">
           <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
           <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
-          <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} | {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
+          <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} |
+            {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
         </div>
         {{ else }}
         <div style="margin-bottom: 80px;"></div>
@@ -52,12 +57,13 @@
 
         {{ if not (site.Params.features.blog.showAuthor | default true) }}
         <div class="author-profile ms-auto align-self-lg-center">
-          <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} | {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
+          <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} |
+            {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
         </div>
         {{ end }}
 
         {{ if site.Params.features.tags.enable }}
-          {{partial "misc/tags.html" .Params.tags }}
+        {{partial "misc/tags.html" .Params.tags }}
         {{ end }}
         <div class="post-content" id="post-content">
           {{ .Page.Content }}
@@ -65,122 +71,138 @@
 
         <!-- Share or Contribute -->
         <div class="row ps-3 pe-3">
-        <!--Social Media Share Buttons-->
+          <!--Social Media Share Buttons-->
           <div class="col-md-6 share-buttons">
-          {{ if site.Params.features.blog.shareButtons }}
+            {{ if site.Params.features.blog.shareButtons }}
             <strong>{{ i18n "share_on" }}:</strong>
             {{ if site.Params.features.blog.shareButtons.facebook }}
-            <a class="btn icon-button bg-facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink }}" target="_blank">
+            <a class="btn icon-button bg-facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink }}"
+              target="_blank">
               <i class="fab fa-facebook"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.twitter }}
-                <a class="btn icon-button bg-twitter" href="https://twitter.com/share?url={{ .Permalink }}&text={{ .Title }}&via={{- site.Title -}}" target="_blank">
-                  <i class="fab fa-twitter"></i>
-                </a>
+            <a class="btn icon-button bg-twitter"
+              href="https://twitter.com/share?url={{ .Permalink }}&text={{ .Title }}&via={{- site.Title -}}"
+              target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.reddit }}
-                <a  class="btn icon-button bg-reddit" href="https://reddit.com/submit?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
-                  <i class="fab fa-reddit"></i>
-                </a>
+            <a class="btn icon-button bg-reddit"
+              href="https://reddit.com/submit?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
+              <i class="fab fa-reddit"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.tumblr }}
-                <a class="btn icon-button bg-tumblr" href="https://www.tumblr.com/share/link?url={{ .Permalink }}&name={{ .Title }}{{- with .Params.description -}}&description={{- . -}}{{- end -}}" target="_blank">
-                  <i class="fab fa-tumblr"></i>
-                </a>
+            <a class="btn icon-button bg-tumblr"
+              href="https://www.tumblr.com/share/link?url={{ .Permalink }}&name={{ .Title }}{{- with .Params.description -}}&description={{- . -}}{{- end -}}"
+              target="_blank">
+              <i class="fab fa-tumblr"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.pocket }}
-                <a class="btn icon-button bg-pocket" href="https://getpocket.com/save?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
-                  <i class="fab fa-get-pocket"></i>
-                </a>
+            <a class="btn icon-button bg-pocket"
+              href="https://getpocket.com/save?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
+              <i class="fab fa-get-pocket"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.linkedin }}
-                <a class="btn icon-button bg-linkedin" href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
-                  <i class="fab fa-linkedin"></i>
-                </a>
+            <a class="btn icon-button bg-linkedin"
+              href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
+              <i class="fab fa-linkedin"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.diaspora }}
-                <a class="btn icon-button bg-diaspora" href="https://share.diasporafoundation.org/?title={{ .Title }}&url={{ .Permalink }}" rel="nofollow" target="_blank">
-                  <i class="fab fa-diaspora"></i>
-                </a>
+            <a class="btn icon-button bg-diaspora"
+              href="https://share.diasporafoundation.org/?title={{ .Title }}&url={{ .Permalink }}" rel="nofollow"
+              target="_blank">
+              <i class="fab fa-diaspora"></i>
+            </a>
             {{ end }}
-             {{ if site.Params.features.blog.shareButtons.mastodon }}
-                <a class="btn icon-button bg-mastodon" href="https://mastodon.social/share?text={{ .Title }} - {{ .Permalink }}" target="_blank">
-                  <i class="fab fa-mastodon"></i>
-                </a>
+            {{ if site.Params.features.blog.shareButtons.mastodon }}
+            <a class="btn icon-button bg-mastodon"
+              href="https://mastodon.social/share?text={{ .Title }} - {{ .Permalink }}" target="_blank">
+              <i class="fab fa-mastodon"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.whatsapp }}
-                 <a class="btn icon-button bg-whatsapp" href="https://api.whatsapp.com/send?text={{ .Title }} {{ .Permalink }}" target="_blank">
-                  <i class="fab fa-whatsapp"></i>
-                </a>
+            <a class="btn icon-button bg-whatsapp"
+              href="https://api.whatsapp.com/send?text={{ .Title }} {{ .Permalink }}" target="_blank">
+              <i class="fab fa-whatsapp"></i>
+            </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.email }}
-                <a class="btn icon-button" href="mailto:?subject={{ .Title }}&body={{ .Permalink }}" target="_blank">
-                  <i class="fas fa-envelope-open-text"></i>
-                </a>
+            <a class="btn icon-button" href="mailto:?subject={{ .Title }}&body={{ .Permalink }}" target="_blank">
+              <i class="fas fa-envelope-open-text"></i>
+            </a>
             {{ end }}
-          {{ end }}
+            {{ end }}
           </div>
 
-        <!--- Improve this page button --->
-        {{ if site.Params.GitRepo }}
+          <!--- Improve this page button --->
+          {{ if site.Params.GitRepo }}
           {{ if site.Params.GitBranch }}
-            {{ .Scratch.Set "GitBranch" site.Params.GitBranch }}
+          {{ .Scratch.Set "GitBranch" site.Params.GitBranch }}
           {{ else }}
-            {{ .Scratch.Set "GitBranch" "main" }}
+          {{ .Scratch.Set "GitBranch" "main" }}
           {{ end }}
           <div class="col-md-6 btn-improve-page">
             {{ if ( eq site.Params.GitForge "gitlab" ) }}
-              <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}" title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
-            {{ else if ( eq site.Params.GitForge "gitea" ) }}
-              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}" title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
-            {{ else }} <!--- Make Github-style the default -->
-               <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}" title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
-            {{ end }}
-                <i class="fas fa-code-branch"></i>
-                {{ i18n "improve_this_page" }}
-              </a>
+            <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
+              title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+              {{ else if ( eq site.Params.GitForge "gitea" ) }}
+              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
+                title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+                {{ else }} <!--- Make Github-style the default -->
+                <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
+                  title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+                  {{ end }}
+                  <i class="fas fa-code-branch"></i>
+                  {{ i18n "improve_this_page" }}
+                </a>
           </div>
-        {{ end }}
+          {{ end }}
         </div>
 
 
 
-      <!---Next and Previous Navigator -->
-      <hr />
+        <!---Next and Previous Navigator -->
+        <hr />
         {{ partial "navigators/next-prev-navigator.html" . }}
-      <hr />
+        <hr />
 
-      <!----- Add comment support  ----->
-      {{ if site.Params.features.comment.enable }}
+        <!----- Add comment support  ----->
+        {{ if site.Params.features.comment.enable }}
         {{ partial "comments.html" site.Params.features.comment.services }}
-      {{ end }}
+        {{ end }}
 
-      <!-- Keep backward compatibility with old config.yaml -->
-      {{ if .Site.Config.Services.Disqus.Shortname }}
-        {{ partial "comments/disqus.html" (dict (slice "disqus" "shortName")  .Site.Config.Services.Disqus.Shortname) }}
-      {{ end }}
+        <!-- Keep backward compatibility with old config.yaml -->
+        {{ if .Site.Config.Services.Disqus.Shortname }}
+        {{ partial "comments/disqus.html" (dict (slice "disqus" "shortName") .Site.Config.Services.Disqus.Shortname) }}
+        {{ end }}
 
       </div>
     </div>
   </div>
   <!--scroll back to top-->
-  <a id="scroll-to-top" class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Scroll to top">
+  <a id="scroll-to-top" class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
+    title="Scroll to top">
     <i class="fas fa-chevron-circle-up"></i>
   </a>
 </section>
 {{ end }}
 
 {{ define "toc" }}
-  <section class="toc-section" id="toc-section">
-    {{ if and site.Params.features.toc.enable ( .Params.enableTOC | default true ) }}
-    <div class="toc-holder">
-      <h5 class="text-center ps-3">{{ i18n "toc_heading" }}</h5>
-      <hr>
-      <div class="toc">
-        {{ .TableOfContents }}
-      </div>
+<section class="toc-section" id="toc-section">
+  {{ if and site.Params.features.toc.enable ( .Params.enableTOC | default true ) }}
+  <div class="toc-holder">
+    <h5 class="text-center ps-3">{{ i18n "toc_heading" }}</h5>
+    <hr>
+    <div class="toc">
+      {{ .TableOfContents }}
     </div>
-    {{ end }}
-  </section>
+  </div>
+  {{ end }}
+</section>
 {{ end }}

@@ -2,6 +2,10 @@
 {{- $pages := where .Site.RegularPages "Layout" "!=" "search" -}}
 {{- $pages = where $pages "Params.hidden" "!=" true -}}
 {{- range $pages -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "hero" (partial "helpers/get-hero.html" .) "date" (.Date.Format "January 2, 2006") "summary" .Summary "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .Permalink) -}}
+    {{- $hero := partial "helpers/get-hero-resource.html" . -}}
+    {{- if and $hero (ne $hero.MediaType.SubType "svg") -}}
+      {{- $hero = $hero.Resize "300x" -}}
+    {{- end -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "hero" $hero.RelPermalink "date" (.Date.Format "January 2, 2006") "summary" .Summary "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .Permalink) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}

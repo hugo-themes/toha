@@ -2,7 +2,12 @@
   <div class="card">
     <div class="card-head">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
-        <img class="card-img-top" src='{{ partial "helpers/get-hero.html" . }}' alt="Hero Image">
+        {{ $hero := partial "helpers/get-hero-resource.html" . }}
+        {{ if ne $hero.MediaType.SubType "svg" }}
+        {{ $hero = $hero.Resize "500x" }}
+        {{ end }}
+        <img class="card-img-top" src='{{ $hero.RelPermalink }}' alt="Hero Image" loading="lazy" {{ if ne
+          $hero.MediaType.SubType "svg" }}width="{{ $hero.Width }}" height="{{ $hero.Height }}" {{ end }}>
       </a>
     </div>
     <div class="card-body">
@@ -11,16 +16,14 @@
         <p class="card-text post-summary">{{ .Summary | plainify }}</p>
       </a>
       {{ if and site.Params.features.tags.enable site.Params.features.tags.on_card }}
-        {{ partial "misc/tags.html" .Params.tags }}
+      {{ partial "misc/tags.html" .Params.tags }}
       {{ end }}
     </div>
     <div class="card-footer">
       <span class="float-start">
-          {{ .Date | time.Format ":date_full" }}
-          {{ if site.Params.features.readingTime }} | {{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
-      <a
-      href="{{ .RelPermalink | relLangURL }}"
-      class="float-end btn btn-outline-info btn-sm">{{ i18n "read" }}</a>
+        {{ .Date | time.Format ":date_full" }}
+        {{ if site.Params.features.readingTime }} | {{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
+      <a href="{{ .RelPermalink | relLangURL }}" class="float-end btn btn-outline-info btn-sm">{{ i18n "read" }}</a>
     </div>
   </div>
 </div>

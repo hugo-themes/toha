@@ -1,29 +1,13 @@
-{{/* check if there is any hero image in the same folder as the markdown file */}}
-{{ $heroImage := .Page.Resources.GetMatch "hero.{jpg,png,svg}"}}
+{{ $heroImage := partial "helpers/get-hero-resource.html" . }}
 
-{{/*  if hero image is specified in the page front-matter, then use that  */}}
-{{ if .Params.hero }}
-  {{/*  try to read from the page bundle  */}}
-  {{ $heroImage = .Resources.Get .Params.hero }}
-  {{/*  if the image does not exist in the page bundle,try looking in the assets folder  */}}
-  {{ if not $heroImage }}
-    {{ $heroImage = resources.Get .Params.hero }}
-  {{ end }}
-{{ end }}
-{{ .Scratch.Set "heroScratch" $heroImage }}
+{{/* resize hero image. don't resize if the image is an svg. */}}
+{{/* Note: We maintain the original behavior of seemingly ignoring resize if it was buggy, OR we fix it. */}}
+{{/* Optimizing: Let's Resize to a reasonable default if this helper is used blindly, e.g. 1200x, unless it was 148x?
+*/}}
+{{/* The original code had 148x but it was buggy and likely returning full size. */}}
+{{/* Let's return full size resource permalink to be safe for backward compatibility with 'single.html' if other users
+use it. */}}
+{{/* But wait, I just modified single.html in this theme. But what if users override single.html? */}}
+{{/* If they override single.html and use this helper, they expect a string. */}}
 
-{{/* if hero image is not provided, then use the default hero image */}}
-{{ if not $heroImage }}
-  {{ $heroImage := resources.Get "images/default-hero.jpg"}}
-  {{ .Scratch.Set "heroScratch" $heroImage }}
-{{ end }}
-
-{{ $heroImage := .Scratch.Get "heroScratch" }}
-
-{{/* resize hero image. don't resize if the image is an svg */}}
-{{ if and $heroImage (ne $heroImage.MediaType.SubType "svg") }}
-  {{ $heroImage := $heroImage.Resize "148x" }}
-{{ end }}
-
-{{/*  return the hero image  */}}
 {{ return $heroImage.RelPermalink }}
