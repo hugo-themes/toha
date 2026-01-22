@@ -23,3 +23,8 @@ math:
 embedpdf:
   styles:
   - ./sections/pdf-viewer
+
+codeblockpanel:
+  styles:
+    - ../mods/snackbar/scss/index
+    - ../mods/code-block-panel/scss/index
