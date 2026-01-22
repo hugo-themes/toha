@@ -3,6 +3,9 @@
   "baseUrl": ".",
   "paths": {
    "*": [
+    "../../../pkg/mod/github.com/hugomods/code-block-panel@v0.9.0/assets/*",
+    "../../../pkg/mod/github.com/hugomods/i18n-js@v0.2.1/assets/*",
+    "../../../pkg/mod/github.com/hugomods/snackbar@v0.1.2/assets/*",
     "../../assets/*"
    ]
   }
