@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # checkout to the commit that has been pushed
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
 
       # Setup mise
       - uses: jdx/mise-action@v3
@@ -22,7 +22,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
 
       # Setup mise
       - uses: jdx/mise-action@v3
@@ -60,6 +60,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # checkout to latest commit
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
       # run markdown linter
       - uses: gaurav-nelson/github-action-markdown-link-check@1.0.17
