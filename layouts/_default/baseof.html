@@ -7,7 +7,7 @@
     {{- partial "opengraph.html" . -}}
     {{- partial "twitter_cards.html" . -}}
     <!------ ADD PAGE SPECIFIC HEADERS ------->
-    {{ block "header" . }} {{ end }}
+    {{ block "header" . }}<meta name="description" content="{{ .Description | default .Site.Params.description | default .Site.Title }}" />{{ end }}
 
     <!--================= add analytics if enabled =========================-->
     {{- partial "analytics.html" . -}}
