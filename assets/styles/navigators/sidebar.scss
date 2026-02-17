@@ -71,6 +71,9 @@
 
           .subtree {
             padding-left: 0.7rem;
+            padding-right: 0;
+            line-height: normal;
+            list-style: none;
 
             &:before {
               content: '';
