@@ -3,3 +3,10 @@
 {{- $app := resources.Get "scripts/application.js" -}}
 {{- $bundle := $app | js.Build $options | fingerprint -}}
 <script src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" defer></script>
+
+{{- with site.Params.features.codeblockpanel -}}
+  {{- $enabled := or (not (isset . "enable")) .enable -}}
+  {{- if $enabled -}}
+    {{- partialCached "code-block-panel/assets/js" $ -}}
+  {{- end -}}
+{{- end -}}
