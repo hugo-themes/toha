@@ -3,7 +3,8 @@
     <div class="card-head">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
         <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
-          <img class="card-img-top" src='{{ partial "helpers/get-hero.html" (dict "context" . "width" "500x") }}'
+          {{ $hero:= partial "helpers/get-hero.html" (dict "context" . "width" "500x") }}
+          <img class="card-img-top" src='{{ $hero.RelPermalink }}'
             alt="Hero Image" loading="lazy">
         </a>
     </div>
