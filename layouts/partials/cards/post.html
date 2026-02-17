@@ -2,13 +2,10 @@
   <div class="card">
     <div class="card-head">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
-        {{ $hero := partial "helpers/get-hero-resource.html" . }}
-        {{ if ne $hero.MediaType.SubType "svg" }}
-        {{ $hero = $hero.Resize "500x" }}
-        {{ end }}
-        <img class="card-img-top" src='{{ $hero.RelPermalink }}' alt="Hero Image" loading="lazy" {{ if ne
-          $hero.MediaType.SubType "svg" }}width="{{ $hero.Width }}" height="{{ $hero.Height }}" {{ end }}>
-      </a>
+        <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
+          <img class="card-img-top" src='{{ partial "helpers/get-hero.html" (dict "context" . "width" "500x") }}'
+            alt="Hero Image" loading="lazy">
+        </a>
     </div>
     <div class="card-body">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">

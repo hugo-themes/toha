@@ -31,11 +31,8 @@
   <div class="content">
     <div class="container p-0 read-area">
       <!--Hero Area-->
-      {{ $hero := partial "helpers/get-hero-resource.html" . }}
-      {{ if ne $hero.MediaType.SubType "svg" }}
-      {{ $hero = $hero.Resize "1200x" }}
-      {{ end }}
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url({{ $hero.RelPermalink }});'>
+      <div class="hero-area col-sm-12" id="hero-area"
+        style='background-image: url({{ partial "helpers/get-hero.html" (dict "context" . "width" "1200x") }});'>
       </div>
 
       <!--Content Start-->
