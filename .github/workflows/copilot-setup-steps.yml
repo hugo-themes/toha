@@ -24,7 +24,7 @@ jobs:
 
     steps:
       # checkout to the commit that has been pushed
-      - uses: actions/checkout@v6.0.1
+      - uses: actions/checkout@v6.0.2
 
       # Setup mise
       - uses: jdx/mise-action@v3
