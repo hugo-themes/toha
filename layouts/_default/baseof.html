@@ -2,6 +2,14 @@
 <html lang="{{ .Site.Language.Lang }}">
   <head>
     <title>{{ .Page.Title }}</title>
+    {{- $siteDescription := site.Params.description -}}
+    {{- if (index site.Data site.Language.Lang).site -}}
+      {{- $siteConfig := (index site.Data site.Language.Lang).site -}}
+      {{- if $siteConfig.description -}}
+        {{- $siteDescription = $siteConfig.description -}}
+      {{- end -}}
+    {{- end -}}
+    <meta name="description" content="{{ .Description | default .Summary | default $siteDescription }}" />
     <!------ ADD COMMON HEADERS -------->
     {{- partial "header.html" . -}}
     {{- partial "opengraph.html" . -}}

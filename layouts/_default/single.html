@@ -1,5 +1,4 @@
 {{ define "header" }}
-<meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Title }}{{ end }}" />
 {{ end }}
 
 {{ define "navbar" }}
@@ -11,14 +10,14 @@
   <div class="sidebar-holder">
     <div class="sidebar" id="sidebar">
       <form class="mx-auto" method="get" action="{{ " search" | relLangURL }}">
-        <input type="text" name="keyword" value="" placeholder="{{ i18n " search" }}" data-search="" id="search-box" />
+        <input type="text" name="keyword" value="" placeholder="{{ i18n " search" }}" data-search="" id="search-box" aria-label="{{ i18n " search" }}" />
       </form>
       <div class="sidebar-tree">
         <ul class="tree" id="tree">
           <li id="list-heading"><a href="{{ " /posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
-          <div class="subtree">
+          <li class="subtree">
             {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
-          </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -75,63 +74,63 @@
             <strong>{{ i18n "share_on" }}:</strong>
             {{ if site.Params.features.blog.shareButtons.facebook }}
             <a class="btn icon-button bg-facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink }}"
-              target="_blank">
+              target="_blank" aria-label="Facebook" rel="noopener">
               <i class="fab fa-facebook"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.twitter }}
             <a class="btn icon-button bg-twitter"
               href="https://twitter.com/share?url={{ .Permalink }}&text={{ .Title }}&via={{- site.Title -}}"
-              target="_blank">
+              target="_blank" aria-label="Twitter" rel="noopener">
               <i class="fab fa-twitter"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.reddit }}
             <a class="btn icon-button bg-reddit"
-              href="https://reddit.com/submit?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
+              href="https://reddit.com/submit?url={{ .Permalink }}&title={{ .Title }}" target="_blank" aria-label="Reddit" rel="noopener">
               <i class="fab fa-reddit"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.tumblr }}
             <a class="btn icon-button bg-tumblr"
               href="https://www.tumblr.com/share/link?url={{ .Permalink }}&name={{ .Title }}{{- with .Params.description -}}&description={{- . -}}{{- end -}}"
-              target="_blank">
+              target="_blank" aria-label="Tumblr" rel="noopener">
               <i class="fab fa-tumblr"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.pocket }}
             <a class="btn icon-button bg-pocket"
-              href="https://getpocket.com/save?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
+              href="https://getpocket.com/save?url={{ .Permalink }}&title={{ .Title }}" target="_blank" aria-label="Pocket" rel="noopener">
               <i class="fab fa-get-pocket"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.linkedin }}
             <a class="btn icon-button bg-linkedin"
-              href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
+              href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}&title={{ .Title }}" target="_blank" aria-label="LinkedIn" rel="noopener">
               <i class="fab fa-linkedin"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.diaspora }}
             <a class="btn icon-button bg-diaspora"
-              href="https://share.diasporafoundation.org/?title={{ .Title }}&url={{ .Permalink }}" rel="nofollow"
-              target="_blank">
+              href="https://share.diasporafoundation.org/?title={{ .Title }}&url={{ .Permalink }}" rel="nofollow noopener"
+              target="_blank" aria-label="Diaspora">
               <i class="fab fa-diaspora"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.mastodon }}
             <a class="btn icon-button bg-mastodon"
-              href="https://mastodon.social/share?text={{ .Title }} - {{ .Permalink }}" target="_blank">
+              href="https://mastodon.social/share?text={{ .Title }} - {{ .Permalink }}" target="_blank" aria-label="Mastodon" rel="noopener">
               <i class="fab fa-mastodon"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.whatsapp }}
             <a class="btn icon-button bg-whatsapp"
-              href="https://api.whatsapp.com/send?text={{ .Title }} {{ .Permalink }}" target="_blank">
+              href="https://api.whatsapp.com/send?text={{ .Title }} {{ .Permalink }}" target="_blank" aria-label="WhatsApp" rel="noopener">
               <i class="fab fa-whatsapp"></i>
             </a>
             {{ end }}
             {{ if site.Params.features.blog.shareButtons.email }}
-            <a class="btn icon-button" href="mailto:?subject={{ .Title }}&body={{ .Permalink }}" target="_blank">
+            <a class="btn icon-button" href="mailto:?subject={{ .Title }}&body={{ .Permalink }}" target="_blank" aria-label="Email">
               <i class="fas fa-envelope-open-text"></i>
             </a>
             {{ end }}
@@ -185,7 +184,7 @@
   </div>
   <!--scroll back to top-->
   <a id="scroll-to-top" class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
-    title="Scroll to top">
+    title="Scroll to top" aria-label="Scroll to top">
     <i class="fas fa-chevron-circle-up"></i>
   </a>
 </section>
