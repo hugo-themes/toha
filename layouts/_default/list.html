@@ -16,7 +16,8 @@
         </form>
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
-            <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
+            {{ $sectionTitle := i18n .Type | default (.Type | title) }}
+            <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ $sectionTitle }}</a></li>
             <div class="subtree">
                 {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
             </div>

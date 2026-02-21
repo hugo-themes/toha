@@ -19,7 +19,8 @@
   {{ end }}
   <div class="container">
     <div class="row" id="recent-post-cards">
-      {{ $posts := where (where site.RegularPages.ByDate.Reverse "Type" "posts" ) "Layout" "!=" "search" }}
+      {{ $blogSection := site.Params.features.blog.section | default "posts" }}
+      {{ $posts := where (where site.RegularPages.ByDate.Reverse "Type" $blogSection ) "Layout" "!=" "search" }}
       {{ $posts = where $posts "Params.hidden" "!=" true }}
       {{ range first $numShow $posts }}
         {{ partial "cards/post.html" . }}
@@ -31,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;">
-    <a href="/posts/" title="Show More" class="float-end btn btn-outline-info btn-sm" >
+    <a href="/{{ $blogSection }}/" title="Show More" class="float-end btn btn-outline-info btn-sm" >
     {{ i18n "show_more"}}</a>
   </div>
   {{ end }}
