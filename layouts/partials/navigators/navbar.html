@@ -1,6 +1,7 @@
 {{/*  variables for enabling/disabling various features  */}}
 {{ $blogEnabled   := site.Params.features.blog.enable   | default false }}
-{{ $blogTitle  := site.Params.features.blog.title | default (i18n "posts") }}
+{{ $blogTitle   := site.Params.features.blog.title   | default (i18n "posts") }}
+{{ $blogSection := site.Params.features.blog.section | default "posts" }}
 {{ $notesEnabled  := site.Params.features.notes.enable  | default false }}
 {{ $notesTitle := site.Params.features.notes.title  | default (i18n "notes") }}
 {{ $maxVisibleSections   := site.Params.topNavbar.maxVisibleSections   | default 5 }}
@@ -135,7 +136,7 @@
         {{ end }}
         {{ if $blogEnabled }}
           <li class="nav-item">
-            <a class="nav-link" id="blog-link" href="{{ path.Join (site.BaseURL | relLangURL) "posts" }}">{{ $blogTitle }}</a>
+            <a class="nav-link" id="blog-link" href="{{ path.Join (site.BaseURL | relLangURL) $blogSection }}">{{ $blogTitle }}</a>
           </li>
         {{ end }}
         {{ if $notesEnabled }}
