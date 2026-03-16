@@ -1,29 +1,32 @@
-{{/* check if there is any hero image in the same folder as the markdown file */}}
-{{ $heroImage := .Page.Resources.GetMatch "hero.{jpg,png,svg}"}}
+{{ $context := . }}
+{{ $width := "" }}
 
-{{/*  if hero image is specified in the page front-matter, then use that  */}}
-{{ if .Params.hero }}
-  {{/*  try to read from the page bundle  */}}
-  {{ $heroImage = .Resources.Get .Params.hero }}
-  {{/*  if the image does not exist in the page bundle,try looking in the assets folder  */}}
-  {{ if not $heroImage }}
-    {{ $heroImage = resources.Get .Params.hero }}
-  {{ end }}
+{{ if reflect.IsMap . }}
+{{ $context = .context }}
+{{ $width = .width }}
 {{ end }}
-{{ .Scratch.Set "heroScratch" $heroImage }}
+
+{{/* check if there is any hero image in the same folder as the markdown file */}}
+{{ $heroImage := $context.Page.Resources.GetMatch "hero.{jpg,png,svg}"}}
+
+{{/* if hero image is specified in the page front-matter, then use that */}}
+{{ if $context.Params.hero }}
+{{/* try to read from the page bundle */}}
+{{ $heroImage = $context.Resources.Get $context.Params.hero }}
+{{/* if the image does not exist in the page bundle,try looking in the assets folder */}}
+{{ if not $heroImage }}
+{{ $heroImage = resources.Get $context.Params.hero }}
+{{ end }}
+{{ end }}
 
 {{/* if hero image is not provided, then use the default hero image */}}
 {{ if not $heroImage }}
-  {{ $heroImage := resources.Get "images/default-hero.jpg"}}
-  {{ .Scratch.Set "heroScratch" $heroImage }}
+{{ $heroImage = resources.Get "images/default-hero.jpg"}}
 {{ end }}
 
-{{ $heroImage := .Scratch.Get "heroScratch" }}
-
-{{/* resize hero image. don't resize if the image is an svg */}}
-{{ if and $heroImage (ne $heroImage.MediaType.SubType "svg") }}
-  {{ $heroImage := $heroImage.Resize "148x" }}
+{{/* resize hero image if width is provided */}}
+{{ if and $heroImage $width (ne $heroImage.MediaType.SubType "svg") }}
+{{ $heroImage = $heroImage.Resize $width }}
 {{ end }}
 
-{{/*  return the hero image  */}}
-{{ return $heroImage.RelPermalink }}
+{{ return $heroImage }}
