@@ -48,7 +48,7 @@
     "include-media": "^1.4.10",
     "katex": "^0.16.11",
     "mark.js": "^8.11.1",
-    "mermaid": "^11.10.0",
+    "mermaid": "^11.13.0",
     "plyr": "^3.7.2",
     "popper.js": "^1.16.1",
     "typeit": "^8.8.7"
