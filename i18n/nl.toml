@@ -4,6 +4,9 @@ other = "Hoofdpagina"
 [posts]
 other = "Posts"
 
+[blog]
+other = "Blog"
+
 [toc_heading]
 other = "Inhoudsopgave"
 
