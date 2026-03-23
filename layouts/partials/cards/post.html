@@ -2,11 +2,10 @@
   <div class="card">
     <div class="card-head">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
-        <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
-          {{ $hero:= partial "helpers/get-hero.html" (dict "context" . "width" "500x") }}
-          <img class="card-img-top" src='{{ $hero.RelPermalink }}'
-            alt="Hero Image" loading="lazy">
-        </a>
+        {{ $hero:= partial "helpers/get-hero.html" (dict "context" . "width" "500x") }}
+        <img class="card-img-top" src='{{ $hero.RelPermalink }}'
+          alt="{{ .Title }}" loading="lazy">
+      </a>
     </div>
     <div class="card-body">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">

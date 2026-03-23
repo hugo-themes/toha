@@ -12,15 +12,15 @@
     <div class="sidebar-holder">
       <div class="sidebar" id="sidebar">
         <form class="mx-auto" method="get" action="{{ "search" | relLangURL }}">
-          <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
+          <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" aria-label="{{ i18n "search" }}" />
         </form>
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
             <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
-            <div class="subtree taxonomy-terms">
+            <li class="subtree taxonomy-terms">
               {{ $context := . }}
               {{ partial "navigators/taxonomies.html" (dict "context" $context "taxo" "categories" "title" ( humanize "categories" ) ) }}
-            </div>
+            </li>
           </ul>
         </div>
       </div>
