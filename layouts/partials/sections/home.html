@@ -1,6 +1,6 @@
-{{ $author:= site.Data.author }}
-{{ if (index site.Data site.Language.Lang).author }}
-{{ $author = (index site.Data site.Language.Lang).author }}
+{{ $author:= hugo.Data.author }}
+{{ if (index hugo.Data site.Language.Lang).author }}
+{{ $author = (index hugo.Data site.Language.Lang).author }}
 {{ end }}
 
 {{ $name:="Jane Doe" }}
@@ -10,9 +10,9 @@
 {{ $name = $author.name }}
 {{ end }}
 
-{{ $sections:= site.Data.sections }}
-{{ if (index site.Data site.Language.Lang).sections }}
-{{ $sections = (index site.Data site.Language.Lang).sections }}
+{{ $sections:= hugo.Data.sections }}
+{{ if (index hugo.Data site.Language.Lang).sections }}
+{{ $sections = (index hugo.Data site.Language.Lang).sections }}
 {{ end }}
 
 {{ $backgroundImage:= "/images/default-background.jpg" }}

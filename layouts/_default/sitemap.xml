@@ -1,7 +1,7 @@
-{{- $enabledLanguages := where .Site.Languages "Disabled" false -}}
+{{- $enabledLanguages := where hugo.Sites "Language.Disabled" false -}}
 {{- $enabledLanguageCodes := slice -}}
 {{- range $enabledLanguages }}
-  {{- $enabledLanguageCodes = $enabledLanguageCodes | append .Lang }}
+  {{- $enabledLanguageCodes = $enabledLanguageCodes | append .Language.Lang }}
 {{- end }}
 {{- $pages := .Site.RegularPages -}}
 {{- $searchPages := where $pages "Type" "search" -}}

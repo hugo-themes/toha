@@ -58,14 +58,14 @@
   {{ with $featureDef }}
     {{ $featureEnabled := or (not (isset . "enable")) .enable }}
     {{ if $featureEnabled }}
-      {{ with (index site.Data.toha.styles $feature) }}
+      {{ with (index hugo.Data.toha.styles $feature) }}
         {{ range .styles }}
         @import '{{.}}';
         {{ end }}
       {{ end }}
 
       {{ range $service, $config := .services }}
-        {{ with (index site.Data.toha.styles $feature) }}
+        {{ with (index hugo.Data.toha.styles $feature) }}
           {{ with .services }}
             {{ with (index . $service) }}
               {{ range .styles }}
