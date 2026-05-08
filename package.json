@@ -31,7 +31,9 @@
       "typeit": "project"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "snackbar": "^1.1.0"
+  },
   "description": "A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist design and responsiveness.",
   "devDependencies": {
     "@fontsource/mulish": "4.5.13",

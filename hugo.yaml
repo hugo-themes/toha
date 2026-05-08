@@ -2,6 +2,11 @@ module:
   hugoVersion:
     min: "0.146.0"
     extended: true
+  imports:
+  - path: github.com/hugomods/code-block-panel
+  - path: github.com/hugomods/snackbar
+  - path: github.com/hugomods/icons
+  - path: github.com/hugomods/icons/vendors/bootstrap
   mounts:
   - source: content
     target: content

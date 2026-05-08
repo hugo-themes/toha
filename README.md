@@ -43,6 +43,37 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 
 For more details about the features please visit [here](https://toha-docs.netlify.app/posts/features/).
 
+## Collapsible code blocks (optional)
+
+Toha can integrate with the [Hugo Code Block Panel Module](https://hugomods.com/docs/code-block-panel/) to add expand/collapse, copy, wrap, and line-number toggles to fenced code blocks.
+
+In your site’s `hugo.yaml`:
+
+```yaml
+module:
+  imports:
+    - path: github.com/hugo-toha/toha/v4
+    - path: github.com/hugomods/code-block-panel
+    - path: github.com/hugomods/snackbar
+    - path: github.com/hugomods/icons
+    - path: github.com/hugomods/icons/vendors/bootstrap
+
+params:
+  features:
+    codeBlockPanel:
+      enable: true
+
+  # Optional HugoMods settings
+  # code_block_panel:
+  #   max_lines: 10
+
+# Required by HugoMods module
+markup:
+  highlight:
+    lineNos: true
+    lineNumbersInTable: false
+```
+
 ## Available Translations
 
 - English
