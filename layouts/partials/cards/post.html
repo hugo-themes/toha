@@ -20,7 +20,7 @@
     <div class="card-footer">
       <span class="float-start">
         {{ if site.Params.features.showDate.on_cards | default true }}{{ .Date | time.Format ":date_full" }}{{ end }}
-        {{ if site.Params.features.readingTime }}{{ if site.Params.features.showDate.on_cards | default true }} | {{ end }}{{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
+        {{ if site.Params.features.readingTime.enable | default true }}{{ if site.Params.features.showDate.on_cards | default true }} | {{ end }}{{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
       <a href="{{ .RelPermalink | relLangURL }}" class="float-end btn btn-outline-info btn-sm">{{ i18n "read" }}</a>
     </div>
   </div>

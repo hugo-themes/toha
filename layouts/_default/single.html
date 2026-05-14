@@ -42,7 +42,7 @@
         <div class="author-profile ms-auto align-self-lg-center">
           <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
           <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
-          <p class="text-muted">{{ if site.Params.features.showDate.on_single | default true }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}{{ if site.Params.features.readingTime }}{{ if site.Params.features.showDate.on_single | default true }} |{{ end }}
+          <p class="text-muted">{{ if site.Params.features.showDate.on_single | default true }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}{{ if site.Params.features.readingTime.enable | default true }}{{ if site.Params.features.showDate.on_single | default true }} |{{ end }}
             {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
         </div>
         {{ else }}
@@ -55,7 +55,7 @@
 
         {{ if not (site.Params.features.blog.showAuthor | default true) }}
         <div class="author-profile ms-auto align-self-lg-center">
-          <p class="text-muted">{{ if site.Params.features.showDate.on_single | default true }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}{{ if site.Params.features.readingTime }}{{ if site.Params.features.showDate.on_single | default true }} |{{ end }}
+          <p class="text-muted">{{ if site.Params.features.showDate.on_single | default true }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}{{ if site.Params.features.readingTime.enable | default true }}{{ if site.Params.features.showDate.on_single | default true }} |{{ end }}
             {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
         </div>
         {{ end }}
