@@ -310,6 +310,12 @@ params:
     readingTime:
       enable: false
 
+    # Enable post date/time display on cards and single pages. Default is "true".
+    showDate:
+      # on_single: false
+      # on_cards: false
+
+
     # Number of posts to show to each page. Default is "12"
     pagination:
       maxPostsPerPage: 12
