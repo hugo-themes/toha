@@ -5,3 +5,5 @@ node_modules/
 resources/
 public/
 .hugo_build.lock
+exampleSite/packages
+exampleSite/assets/jsconfig.json
