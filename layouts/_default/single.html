@@ -38,12 +38,16 @@
 
       <!--Content Start-->
       <div class="page-content">
+        {{ $showDate := site.Params.features.showDate.singlePage | default true }}
+        {{ $showReadingTime := site.Params.features.readingTime.enable | default true }}
         {{ if site.Params.features.blog.showAuthor | default true }}
         <div class="author-profile ms-auto align-self-lg-center">
           <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
           <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
-          <p class="text-muted">{{ if site.Params.features.showDate.on_single | default true }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}{{ if site.Params.features.readingTime.enable | default true }}{{ if site.Params.features.showDate.on_single | default true }} |{{ end }}
-            {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
+          <p class="text-muted">
+            {{ if $showDate }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}
+            {{ if and $showDate $showReadingTime }} | {{ end }}
+            {{ if $showReadingTime }}{{ .ReadingTime }}{{i18n "minute" .ReadingTime }}{{ end }}</p>
         </div>
         {{ else }}
         <div style="margin-bottom: 80px;"></div>
@@ -55,8 +59,11 @@
 
         {{ if not (site.Params.features.blog.showAuthor | default true) }}
         <div class="author-profile ms-auto align-self-lg-center">
-          <p class="text-muted">{{ if site.Params.features.showDate.on_single | default true }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}{{ if site.Params.features.readingTime.enable | default true }}{{ if site.Params.features.showDate.on_single | default true }} |{{ end }}
-            {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
+          <p class="text-muted">
+            {{ if $showDate }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}
+            {{ if and $showDate $showReadingTime }} | {{ end }}
+            {{ if $showReadingTime }}{{ .ReadingTime }}{{i18n "minute" .ReadingTime }}{{ end }}
+          </p>
         </div>
         {{ end }}
 

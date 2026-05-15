@@ -18,9 +18,13 @@
       {{ end }}
     </div>
     <div class="card-footer">
+      {{ $showDate := site.Params.features.showDate.postCards | default true }}
+      {{ $showReadingTime := site.Params.features.readingTime.enable | default true }}
       <span class="float-start">
-        {{ if site.Params.features.showDate.on_cards | default true }}{{ .Date | time.Format ":date_full" }}{{ end }}
-        {{ if site.Params.features.readingTime.enable | default true }}{{ if site.Params.features.showDate.on_cards | default true }} | {{ end }}{{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
+        {{ if $showDate }}{{ .Date | time.Format ":date_full" }}{{ end }}
+        {{ if and $showDate $showReadingTime }} | {{ end }}
+        {{ if $showReadingTime }}{{.ReadingTime}} {{ i18n "minute" .ReadingTime }}{{ end }}
+      </span>
       <a href="{{ .RelPermalink | relLangURL }}" class="float-end btn btn-outline-info btn-sm">{{ i18n "read" }}</a>
     </div>
   </div>
