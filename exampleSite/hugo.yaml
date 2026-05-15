@@ -1,7 +1,7 @@
 # ⚠️ If hosting under a repo path, use full URL (e.g. https://<github_username>.github.io/<repo_name>) or images won’t display correctly
 baseURL: https://toha.hugo-themes.com
 
-languageCode: en-us
+locale: en-us
 title: "John's Blog"
 
 # Use Hugo modules to add theme
@@ -22,13 +22,13 @@ module:
 # For any more details, you can check the official documentation: https://gohugo.io/content-management/multilingual/
 languages:
   en:
-    languageCode: en
-    languageName: English
+    locale: en
+    label: English
     title: "John's Blog"
     weight: 1
   bn:
-    languageCode: bn
-    languageName: বাংলা
+    locale: bn
+    label: বাংলা
     title: জনের ব্লগ
     weight: 2
 
@@ -233,7 +233,7 @@ params:
       enable: true
       # # If you want to use different country flag for a language, specify them here.
       # flagOverwrites:
-      #   - languageCode: en
+      #   - locale: en
       #     countryCode: us
 
     # Enable this to use `embed-pdf` shortcode.

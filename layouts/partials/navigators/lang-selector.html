@@ -8,7 +8,7 @@
             {{ $countryCode := partial "helpers/country-code.html" . }}
             <span class="fi fi-{{$countryCode}}"></span>
         {{ end }}
-        {{ site.Language.LanguageName }}
+        {{ site.Language.Label }}
     </a>
     <div class="dropdown-menu" aria-labelledby="languageSelector">
         {{ range site.Home.AllTranslations }}
@@ -17,7 +17,7 @@
                 {{ $countryCode := partial "helpers/country-code.html" . }}
                 <span class="fi fi-{{$countryCode}}"></span>
             {{ end }}
-            {{ .Language.LanguageName }}
+            {{ .Language.Label }}
         </a>
         {{ end }}
     </div>
