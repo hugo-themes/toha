@@ -30,11 +30,11 @@
           {{ range .socialLinks }}
           <li>
             {{ if eq .name "Email" }}
-              <a href="mailto:{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+              <a href="mailto:{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
             {{ else if eq .name (i18n "phone") }}
-              <a href="tel:{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+              <a href="tel:{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
             {{ else }}
-              <a href="{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+              <a href="{{ .url }}" title="{{ .name }}" aria-label="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
             {{ end }}
           </li>
           {{ end }}
