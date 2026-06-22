@@ -10,12 +10,12 @@
 <section class="sidebar-section" id="sidebar-section">
   <div class="sidebar-holder">
     <div class="sidebar" id="sidebar">
-      <form class="mx-auto" method="get" action="{{ " search" | relLangURL }}">
-        <input type="text" name="keyword" value="" placeholder="{{ i18n " search" }}" data-search="" id="search-box" />
+      <form class="mx-auto" method="get" action="{{ "search" | relLangURL }}">
+        <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
       </form>
       <div class="sidebar-tree">
         <ul class="tree" id="tree">
-          <li id="list-heading"><a href="{{ " /posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
+          <li id="list-heading"><a href="{{ "/posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
           <div class="subtree">
             {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
           </div>
@@ -154,14 +154,14 @@
           {{ end }}
           <div class="col-md-6 btn-improve-page">
             {{ if ( eq site.Params.GitForge "gitlab" ) }}
-            <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
-              title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+            <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
+              title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
               {{ else if ( eq site.Params.GitForge "gitea" ) }}
-              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
-                title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
+                title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
                 {{ else }} <!--- Make Github-style the default -->
-                <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
-                  title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+                <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
+                  title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
                   {{ end }}
                   <i class="fas fa-code-branch"></i>
                   {{ i18n "improve_this_page" }}
