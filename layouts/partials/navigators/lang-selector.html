@@ -12,7 +12,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="languageSelector">
         {{ range site.Home.AllTranslations }}
-        <a class="dropdown-item nav-link languages-item" href="{{ path.Join "/" (cond (eq .Language.Lang $.Sites.Default.Language.Lang) "" .Language.Lang) $pageURL }}">
+        <a class="dropdown-item nav-link languages-item" href="{{ path.Join "/" (cond (eq .Language.Lang hugo.Sites.Default.Language.Lang) "" .Language.Lang) $pageURL }}">
             {{ if ne site.Params.features.flags.enable false }}
                 {{ $countryCode := partial "helpers/country-code.html" . }}
                 <span class="fi fi-{{$countryCode}}"></span>
