@@ -70,5 +70,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "allowScripts": {
+    "core-js@3.47.0": true,
+    "typeit@8.8.7": true
+  }
 }

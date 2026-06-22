@@ -25,7 +25,7 @@
     {{- if .IsTranslated }}
       {{- range .Translations }}
         {{- if in $enabledLanguageCodes .Language.Lang }}
-    <xhtml:link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+    <xhtml:link rel="alternate" hreflang="{{ .Language.Locale | default .Language.Lang }}" href="{{ .Permalink }}" />
         {{- end }}
       {{- end }}
     {{- end }}
@@ -45,9 +45,13 @@
     {{- if ge $searchPage.Sitemap.Priority 0.0 }}
     <priority>{{ $searchPage.Sitemap.Priority }}</priority>
     {{- end }}
-    {{- range $searchPages }}
+    {{- $searchTranslations := slice $searchPage -}}
+    {{- if $searchPage.IsTranslated }}
+      {{- $searchTranslations = $searchTranslations | append $searchPage.Translations -}}
+    {{- end }}
+    {{- range $searchTranslations }}
       {{- if in $enabledLanguageCodes .Language.Lang }}
-    <xhtml:link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+    <xhtml:link rel="alternate" hreflang="{{ .Language.Locale | default .Language.Lang }}" href="{{ .Permalink }}" />
       {{- end }}
     {{- end }}
   </url>
