@@ -46,6 +46,17 @@ projects:
   summary: Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eius reprehenderit animi suscipit autem eligendi esse amet aliquid error eum. Accusantium distinctio soluta aliquid quas placeat modi suscipit eligendi nisi.
   tags: ["academic","iot"]
 
+- name: Rich Content
+  url: "/posts/category/sub-category/rich-content/"
+  # Optional: control how project links open. Allowed values: "blank" (default) or "self".
+  # "blank" opens links in a new tab, "self" opens them in the current tab.
+  target: self
+  # Optional: when true, project tags become links to the corresponding /tags/<tag>/ pages.
+  # Defaults to false (tags are rendered as non-clickable badges).
+  linkTags: true
+  summary: Links on this post will open in the current tab. And Tags are clickable links in the post tags.
+  tags: ["Multi-lingual","Content Organization","Markdown"]
+
 - name: Nocode
   logo: /images/sections/projects/no-code.png
   role: Nothing
