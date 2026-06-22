@@ -1,6 +1,9 @@
 {{ $pageURL:= .RelPermalink }}
 {{ if hugo.IsMultilingual }}
-  {{ $pageURL = strings.TrimPrefix (path.Join "/" .Language.Lang) $pageURL }}
+  {{ $languagePrefix := printf "/%s/" .Language.Lang }}
+  {{ if or (eq $pageURL $languagePrefix) (strings.HasPrefix $pageURL $languagePrefix) }}
+    {{ $pageURL = strings.TrimPrefix (printf "/%s" .Language.Lang) $pageURL }}
+  {{ end }}
 {{ end }}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="languageSelector" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

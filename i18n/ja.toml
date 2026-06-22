@@ -1,0 +1,123 @@
+# More documentation here: https://github.com/nicksnyder/go-i18n
+[home]
+other = "ホーム"
+
+[posts]
+other = "記事"
+
+[toc_heading]
+other = "目次"
+
+[tags]
+other = "タグ"
+
+[categories]
+other = "カテゴリ"
+
+[resume]
+other = "職務経歴書"
+
+[navigation]
+other = "メニュー"
+
+[contact_me]
+other = "連絡先"
+
+[email]
+other = "メール"
+
+[phone]
+other = "電話番号"
+
+[newsletter_text]
+other = "メールで最新情報を受け取る"
+
+[newsletter_input_placeholder]
+other = "ここにメールアドレスを入力"
+
+[newsletter_warning]
+other = "メールアドレスを入力すると、このウェブサイトのニュースレターを受け取ることに同意したことになります。"
+
+[submit]
+other = "登録"
+
+[hugoAttributionText]
+other = "搭載"
+
+[prev]
+other = "前"
+
+[next]
+other = "次"
+
+# [share_on]
+# other = "Share on"
+
+[improve_this_page]
+other = "編集リクエストを送る"
+
+[out_of]
+other = "のうち"
+
+[publications]
+other = "出版物"
+
+[taken_courses]
+other = "受講したコース"
+
+[course_name]
+other = "コース名"
+
+[total_credit]
+other = "合計クレジット"
+
+[obtained_credit]
+other = "取得したクレジット"
+
+[extracurricular_activities]
+other = "課外活動"
+
+[show_more]
+other = "続きを見る"
+
+[show_less]
+other = "表示を減らす"
+
+# [responsibilities]
+# other = "Responsibilities:"
+
+# [present]
+# other = "Present"
+
+# [comments_javascript]
+# other = "Please enable JavaScript to view the"
+
+# [comments_by]
+# other = "comments powered by"
+
+# [read]
+# other = "Read"
+
+# [project_star]
+# other = "Star"
+
+# [project_details]
+# other = "Details"
+
+# [err_404]
+# other = "The page you are looking for is not there yet."
+
+[more]
+other = "もっと"
+
+[view_certificate]
+other = "ビューの証明書"
+
+[notes]
+other = "ノート"
+
+[disclaimer_text]
+other = "責任通知"
+
+[search]
+other = "検索"

@@ -14,6 +14,9 @@ other = "ট্যাগ সমুহ"
 [categories]
 other = "বিভাগ সমুহ"
 
+[at]
+other = "এ"
+
 [resume]
 other = "আমার জীবনবৃত্তান্ত"
 
@@ -95,17 +98,17 @@ other = "বর্তমান"
 # [comments_by]
 # other = "comments powered by"
 
-# [read]
-# other = "Read"
+[read]
+other = "পড়ুন"
 
-# [project_star]
-# other = "Star"
+[project_star]
+other = "স্টার"
 
-# [project_details]
-# other = "Details"
+[project_details]
+other = "বিস্তারিত"
 
-# [err_404]
-# other = "The page you are looking for is not there yet."
+[err_404]
+other = "আপনি যে পৃষ্ঠাটি খুঁজছেন তা এখনও নেই।"
 
 [more]
 other = "আরো"

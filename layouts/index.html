@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}">
+<html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
   <head>
     <title>{{- .Site.Title -}}</title>
     {{ $siteDescription := .Site.Params.description }}

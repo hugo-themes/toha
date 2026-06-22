@@ -1,23 +1,64 @@
-{{/*  if there is no custom flag provided, we define the flag with the country code  */}}
-{{ $languageCode:= .Lang }}
-{{/* by default the language code and the country code are same */}}
-{{ $countryCode:= $languageCode }}
-
-{{/* language code and country code are not same for some countries. we need to fix them.  */}}
-{{ if eq $languageCode "en" }}
-   {{ $countryCode = "gb" }}
-{{ else if  eq $languageCode "bn" }}
-    {{ $countryCode = "bd" }}
-{{ else if  eq $languageCode "hi" }}
-    {{ $countryCode = "in" }}
+{{/*  if there is no custom flag provided, derive the flag from the language identifier or locale.  */}}
+{{ $languageCode := replace (lower .Lang) "_" "-" }}
+{{ $locale := $languageCode }}
+{{ with .Language }}
+  {{ with .Locale }}
+    {{ $locale = replace (lower .) "_" "-" }}
+  {{ end }}
 {{ end }}
 
+{{/* Use explicit country subtags from locales such as en-us or pt-br when available. */}}
+{{ $countrySource := cond (in $locale "-") $locale $languageCode }}
+{{ $countryCode := $countrySource }}
+{{ $hasCountrySubtag := in $countrySource "-" }}
+{{ if $hasCountrySubtag }}
+  {{ $parts := split $countrySource "-" }}
+  {{ $countryCode = index $parts (sub (len $parts) 1) }}
+{{ end }}
 
-{{/*  if the user specify a country code for a language via "params.flagOverwrites" field, then use it.  */}}
+{{/* language codes and country codes are not always same. */}}
+{{ $languageToCountry := dict
+  "ad" "ad"
+  "ar" "sa"
+  "bn" "bd"
+  "ca" "ad"
+  "cn" "cn"
+  "en" "gb"
+  "he" "il"
+  "hi" "in"
+  "ja" "jp"
+  "jp" "jp"
+  "ko" "kr"
+  "vi" "vn"
+  "vn" "vn"
+  "zh" "cn"
+  "zh-cn" "cn"
+  "zh-hans" "cn"
+  "zh-hant" "tw"
+  "zh-tw" "tw"
+}}
+
+{{ with index $languageToCountry $countrySource }}
+  {{ $countryCode = . }}
+{{ end }}
+
+{{/*  If the user specifies a country code via "params.features.flags.flagOverwrites", use it.  */}}
 {{ range site.Params.features.flags.flagOverwrites }}
-    {{ if eq $languageCode .languageCode }}
-        {{ $countryCode = .countryCode }}
+  {{ $overrideLanguage := "" }}
+  {{ with .locale }}
+    {{ $overrideLanguage = replace (lower .) "_" "-" }}
+  {{ end }}
+  {{ with .languageCode }}
+    {{ $overrideLanguage = replace (lower .) "_" "-" }}
+  {{ end }}
+  {{ with .lang }}
+    {{ $overrideLanguage = replace (lower .) "_" "-" }}
+  {{ end }}
+  {{ if and $overrideLanguage (or (eq $overrideLanguage $languageCode) (eq $overrideLanguage $locale)) }}
+    {{ with .countryCode }}
+      {{ $countryCode = lower . }}
     {{ end }}
+  {{ end }}
 {{ end }}
 
 {{/*  return the country code  */}}
