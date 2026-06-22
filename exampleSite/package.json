@@ -54,5 +54,8 @@
     "typeit": "^8.8.7"
   },
   "name": "exampleSite",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/hugoautogen"
+  ]
 }

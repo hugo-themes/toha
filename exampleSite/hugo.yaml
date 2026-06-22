@@ -306,9 +306,15 @@ params:
     copyCodeButton:
       enable: true
 
-    # Enable reading time support in post cards and in post pages
+    # Enable reading time support in post cards and in post pages. Default is "true".
     readingTime:
-      enable: false
+      # enable: false
+
+    # Enable post date/time display on cards and single pages. Default is "true".
+    showDate:
+      # singlePage: false
+      # postCards: false
+
 
     # Number of posts to show to each page. Default is "12"
     pagination:

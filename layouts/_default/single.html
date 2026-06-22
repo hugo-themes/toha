@@ -10,12 +10,12 @@
 <section class="sidebar-section" id="sidebar-section">
   <div class="sidebar-holder">
     <div class="sidebar" id="sidebar">
-      <form class="mx-auto" method="get" action="{{ " search" | relLangURL }}">
-        <input type="text" name="keyword" value="" placeholder="{{ i18n " search" }}" data-search="" id="search-box" />
+      <form class="mx-auto" method="get" action="{{ "search" | relLangURL }}">
+        <input type="text" name="keyword" value="" placeholder="{{ i18n "search" }}" data-search="" id="search-box" />
       </form>
       <div class="sidebar-tree">
         <ul class="tree" id="tree">
-          <li id="list-heading"><a href="{{ " /posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
+          <li id="list-heading"><a href="{{ "/posts/" | relLangURL }}" data-filter="all">{{ i18n "posts" }}</a></li>
           <div class="subtree">
             {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
           </div>
@@ -38,12 +38,16 @@
 
       <!--Content Start-->
       <div class="page-content">
+        {{ $showDate := site.Params.features.showDate.singlePage | default true }}
+        {{ $showReadingTime := site.Params.features.readingTime.enable | default true }}
         {{ if site.Params.features.blog.showAuthor | default true }}
         <div class="author-profile ms-auto align-self-lg-center">
           <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
           <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
-          <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} |
-            {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
+          <p class="text-muted">
+            {{ if $showDate }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}
+            {{ if and $showDate $showReadingTime }} | {{ end }}
+            {{ if $showReadingTime }}{{ .ReadingTime }}{{i18n "minute" .ReadingTime }}{{ end }}</p>
         </div>
         {{ else }}
         <div style="margin-bottom: 80px;"></div>
@@ -55,8 +59,11 @@
 
         {{ if not (site.Params.features.blog.showAuthor | default true) }}
         <div class="author-profile ms-auto align-self-lg-center">
-          <p class="text-muted">{{ .Page.Date | time.Format ":date_full" }}{{ if site.Params.features.readingTime }} |
-            {{ .ReadingTime }} {{i18n "minute" .ReadingTime }}{{ end }}</p>
+          <p class="text-muted">
+            {{ if $showDate }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}
+            {{ if and $showDate $showReadingTime }} | {{ end }}
+            {{ if $showReadingTime }}{{ .ReadingTime }}{{i18n "minute" .ReadingTime }}{{ end }}
+          </p>
         </div>
         {{ end }}
 
@@ -147,14 +154,14 @@
           {{ end }}
           <div class="col-md-6 btn-improve-page">
             {{ if ( eq site.Params.GitForge "gitlab" ) }}
-            <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
-              title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+            <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
+              title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
               {{ else if ( eq site.Params.GitForge "gitea" ) }}
-              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
-                title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
+                title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
                 {{ else }} <!--- Make Github-style the default -->
-                <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get " GitBranch" }}/content/{{ .File.Path }}"
-                  title="{{ i18n " improve_this_page" }}" target="_blank" rel="noopener">
+                <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
+                  title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
                   {{ end }}
                   <i class="fas fa-code-branch"></i>
                   {{ i18n "improve_this_page" }}
