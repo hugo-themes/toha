@@ -2,6 +2,9 @@
 node_modules/
 .DS_Store
 .history/
+.opencode/
 resources/
 public/
 .hugo_build.lock
+exampleSite/packages
+exampleSite/assets/jsconfig.json

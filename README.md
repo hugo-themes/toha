@@ -89,7 +89,7 @@ Here are few screenshots from the [example site](https://toha-example-site.netli
 
 ## Requirements
 
-- Hugo Version 0.146.0 (extended) or higher
+- Hugo Version 0.163.0 (extended) or higher
 - Go language 1.19 or higher (require for hugo modules)
 - Node version v18.x or later and npm 8.x or later.
 

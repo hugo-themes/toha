@@ -1,0 +1,126 @@
+# More documentation here: https://github.com/nicksnyder/go-i18n
+[home]
+other = "Trang chủ"
+
+[posts]
+other = "Bài viết"
+
+[toc_heading]
+other = "Mục lục"
+
+[tags]
+other = "Thẻ"
+
+[categories]
+other = "Thể loại"
+
+[at]
+other = "tại"
+
+[resume]
+other = "Sơ yếu lý lịch của tôi"
+
+[navigation]
+other = "Điều hướng"
+
+[contact_me]
+other = "Liên hệ với tôi"
+
+[email]
+other = "Email"
+
+[phone]
+other = "Điện thoại"
+
+[newsletter_text]
+other = "Nhận email cập nhật thông tin"
+
+[newsletter_input_placeholder]
+other = "Nhập email"
+
+[newsletter_warning]
+other = "Bằng cách nhập địa chỉ email của bạn, bạn đồng ý nhận bản tin của trang web này."
+
+[submit]
+other = "Gửi"
+
+[hugoAttributionText]
+other = "Được cung cấp bởi"
+
+[prev]
+other = "Trước"
+
+[next]
+other = "Tiếp theo"
+
+# [share_on]
+# other = "Share on"
+
+[improve_this_page]
+other = "Cải thiện trang này"
+
+[out_of]
+other = "trên"
+
+[publications]
+other = "Ấn phẩm"
+
+[taken_courses]
+other = "Đã thực hiện các khóa học"
+
+[course_name]
+other = "Tên khóa học"
+
+[total_credit]
+other = "Tổng số tín dụng"
+
+[obtained_credit]
+other = "Tín dụng thu được"
+
+[extracurricular_activities]
+other = "Các hoạt động ngoại khóa"
+
+[show_more]
+other = "Xem thêm"
+
+[show_less]
+other = "Hiện ít hơn"
+
+# [responsibilities]
+# other = "Responsibilities:"
+
+# [present]
+# other = "Present"
+
+# [comments_javascript]
+# other = "Please enable JavaScript to view the"
+
+# [comments_by]
+# other = "comments powered by"
+
+# [read]
+# other = "Read"
+
+# [project_star]
+# other = "Star"
+
+# [project_details]
+# other = "Details"
+
+# [err_404]
+# other = "The page you are looking for is not there yet."
+
+[more]
+other = "Hơn"
+
+[view_certificate]
+other = "Xem chứng chỉ"
+
+[notes]
+other = "Ghi chú"
+
+[disclaimer_text]
+other = "Thông báo trách nhiệm"
+
+[search]
+other = "Tìm kiếm"

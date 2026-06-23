@@ -25,6 +25,14 @@
         }
       }
 
+      .authors {
+        color: get-light-color('text-color');
+
+        .author-name {
+          color: get-light-color('text-color');
+        }
+      }
+
       a[href] {
         text-decoration: underline;
       }
@@ -129,6 +137,14 @@ html[data-theme='dark'] {
       .card-header {
         .sub-title {
           color: get-dark-color('muted-text-color');
+        }
+
+        .authors {
+          color: get-dark-color('text-color');
+
+          .author-name {
+            color: get-dark-color('text-color');
+          }
         }
       }
 

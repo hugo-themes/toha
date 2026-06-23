@@ -1,6 +1,9 @@
 {{ $pageURL:= .RelPermalink }}
 {{ if hugo.IsMultilingual }}
-  {{ $pageURL = strings.TrimPrefix (path.Join "/" .Language.Lang) $pageURL }}
+  {{ $languagePrefix := printf "/%s/" .Language.Lang }}
+  {{ if or (eq $pageURL $languagePrefix) (strings.HasPrefix $pageURL $languagePrefix) }}
+    {{ $pageURL = strings.TrimPrefix (printf "/%s" .Language.Lang) $pageURL }}
+  {{ end }}
 {{ end }}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="languageSelector" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -8,16 +11,16 @@
             {{ $countryCode := partial "helpers/country-code.html" . }}
             <span class="fi fi-{{$countryCode}}"></span>
         {{ end }}
-        {{ site.Language.LanguageName }}
+        {{ site.Language.Label }}
     </a>
     <div class="dropdown-menu" aria-labelledby="languageSelector">
         {{ range site.Home.AllTranslations }}
-        <a class="dropdown-item nav-link languages-item" href="{{ path.Join "/" .Language.Lang $pageURL }}">
+        <a class="dropdown-item nav-link languages-item" href="{{ path.Join "/" (cond (eq .Language.Lang hugo.Sites.Default.Language.Lang) "" .Language.Lang) $pageURL }}">
             {{ if ne site.Params.features.flags.enable false }}
                 {{ $countryCode := partial "helpers/country-code.html" . }}
                 <span class="fi fi-{{$countryCode}}"></span>
             {{ end }}
-            {{ .Language.LanguageName }}
+            {{ .Language.Label }}
         </a>
         {{ end }}
     </div>

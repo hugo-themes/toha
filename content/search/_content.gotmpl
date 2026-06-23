@@ -1,0 +1,22 @@
+{{/* Generate one search page for every enabled language. This avoids shipping
+language-suffixed content files that collide when the language is not enabled. */}}
+{{ .EnableAllLanguages }}
+
+{{ $content := dict
+  "mediaType" "text/markdown"
+  "value" "This generated page exists solely to render the search layout."
+}}
+{{ $dates := dict "date" (time.AsTime "2010-06-08T08:06:25+06:00") }}
+{{ $sitemap := dict "priority" 0.1 }}
+{{ $page := dict
+  "content" $content
+  "dates" $dates
+  "kind" "page"
+  "layout" "search"
+  "path" "."
+  "sitemap" $sitemap
+  "title" (i18n "search")
+  "translationKey" "search"
+  "type" "search"
+}}
+{{ .AddPage $page }}

@@ -10,7 +10,8 @@ jobs:
   enforce-label:
     runs-on: ubuntu-latest
     steps:
-    - uses: yogevbd/enforce-label-action@2.2.2
-      with:
-        REQUIRED_LABELS_ANY: "automerge,breaking-change,bug-fix,enhancement,feature,translation"
-        REQUIRED_LABELS_ANY_DESCRIPTION: "The PR must have at least one these labels: ['automerge','breaking-change','bug-fix','enhancement','feature','translation']"
+      - uses: yogevbd/enforce-label-action@2.2.2
+        with:
+          REQUIRED_LABELS_ANY: "feature,fix,maintenance"
+          REQUIRED_LABELS_ANY_DESCRIPTION: "The PR must have at least one these labels:
+            ['feature','fix','maintenance']"

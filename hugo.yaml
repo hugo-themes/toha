@@ -1,6 +1,6 @@
 module:
   hugoVersion:
-    min: "0.146.0"
+    min: "0.163.0"
     extended: true
   mounts:
   - source: content

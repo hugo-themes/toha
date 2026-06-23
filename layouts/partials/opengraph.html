@@ -1,8 +1,8 @@
-{{ $title := .Params.title | default (index site.Data site.Language.Lang).site.openGraph.title | default site.Title }}
-{{ $type := .Params.type | default (index site.Data site.Language.Lang).site.openGraph.type | default "website" }}
-{{ $description := .Params.description | default (index site.Data site.Language.Lang).site.openGraph.description |
-default (index site.Data site.Language.Lang).site.description }}
-{{ $url := .Permalink | default (index site.Data site.Language.Lang).site.openGraph.url | default site.BaseURL }}
+{{ $title := .Params.title | default (index hugo.Data site.Language.Lang).site.openGraph.title | default site.Title }}
+{{ $type := .Params.type | default (index hugo.Data site.Language.Lang).site.openGraph.type | default "website" }}
+{{ $description := .Params.description | default (index hugo.Data site.Language.Lang).site.openGraph.description |
+default (index hugo.Data site.Language.Lang).site.description }}
+{{ $url := .Permalink | default (index hugo.Data site.Language.Lang).site.openGraph.url | default site.BaseURL }}
 
 <!-- ============ open graph tags ========== -->
 <meta property="og:title" content="{{ $title }}" />
@@ -11,7 +11,7 @@ default (index site.Data site.Language.Lang).site.description }}
 {{- with .Params.images -}}
   <meta property="og:image" content="{{ index . 0 | absURL }}">
 {{- else -}}
-  {{- $image := (index site.Data site.Language.Lang).site.openGraph.image | default (index site.Data site.Language.Lang).author.image }}
+  {{- $image := (index hugo.Data site.Language.Lang).site.openGraph.image | default (index hugo.Data site.Language.Lang).author.image }}
   {{- with $image }}
     <meta property="og:image" content="{{ . | absURL }}">
   {{ end -}}

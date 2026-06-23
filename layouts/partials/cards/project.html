@@ -1,8 +1,11 @@
 <div class="col-sm-12 col-md-6 col-lg-4 p-2 filtr-item" data-category='all, {{ delimit  .tags ","}}'>
   <div class="card mt-1">
     <div class="card">
+      {{- $target := .target | default "blank" -}}
+      {{- $targetAttr := "_blank" -}}
+      {{- if eq $target "self" -}}{{- $targetAttr = "_self" -}}{{- end -}}
       <a href="{{ if .repo }}{{ .repo }}{{ else if .url }}{{ .url }}{{ else }}javascript:void(0){{ end }}" {{ if or
-        .repo .url }}target="_blank" rel="noopener" {{ end }}>
+        .repo .url }}target="{{ $targetAttr }}" rel="noopener" {{ end }}>
         {{ if .image }}
         <div class="card-head">
           {{ $imageImage:= resources.Get .image}}
@@ -58,9 +61,17 @@
           {{ if .tags }}
           <div class="project-tags-holder">
             {{ range $index,$tag:= .tags }}
+            {{ if $.linkTags }}
+            <a href="{{ printf "/tags/%s/" (urlize $tag) | relLangURL }}">
+              <span class="btn badge btn-info">
+                {{ $tag }}
+              </span>
+            </a>
+            {{ else }}
             <span class="btn badge btn-info">
               {{ $tag }}
             </span>
+            {{ end }}
             {{ end }}
           </div>
           {{ end }}
@@ -71,7 +82,7 @@
               data-show-count="true" aria-label="Star {{ .name }}">{{ i18n "project_star" }}</a>
             {{ else if .url }}
             <span>
-              <a class="btn btn-outline-info btn-sm" href="{{ .url }}" target="#">{{ i18n "project_details" }}</a>
+              <a class="btn btn-outline-info btn-sm" href="{{ .url }}" target="{{ $targetAttr }}" rel="noopener">{{ i18n "project_details" }}</a>
             </span>
             {{ end }}
           </div>
