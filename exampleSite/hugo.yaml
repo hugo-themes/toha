@@ -114,6 +114,8 @@ params:
     # Enable and configure blog posts
     blog:
       enable: true
+      # Configure the blog section path - defaults to 'posts'
+      # section: blog
       showAuthor: true # shows the author of post (defaults true)
       # Share post on different social media
       shareButtons:
