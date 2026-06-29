@@ -1,20 +1,36 @@
-/* 
+/*
   Removed smooth scrolling implementation in main.js in favor of
   simpler css approach.
-  See: https://css-tricks.com/snippets/jquery/smooth-scrolling/ 
+  See: https://css-tricks.com/snippets/jquery/smooth-scrolling/
 */
 *,
-html {
+html,
+:not(.dropdown) {
   scroll-behavior: smooth !important;
+  overflow-y: hidden;
 }
 
 body {
   position: relative;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+body.scroll-container {
+  scroll-snap-type: y mandatory;
+}
+
+/*
+  Enable scroll snap for home page
+*/
+div#home,
+div.section-holder {
+  scroll-snap-align: start;
 }
 
 /*
   Fixes anchor overlapping with header.
-  See: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors 
+  See: https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors
   */
 :target::before {
   content: '';
