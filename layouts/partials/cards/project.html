@@ -8,6 +8,9 @@
         .repo .url }}target="{{ $targetAttr }}" rel="noopener" {{ end }}>
         {{ if .image }}
         <div class="card-head">
+          {{ if or (hasPrefix .image "http://") (hasPrefix .image "https://") }}
+          <img class="card-img-top" src="{{ .image }}" alt="{{ .name }}" loading="lazy" />
+          {{ else }}
           {{ $imageImage:= resources.Get .image}}
           {{ if $imageImage }}
           {{/* svg don't support "Fit" operation */}}
@@ -17,6 +20,9 @@
           <img class="card-img-top" src="{{ $imageImage.RelPermalink }}" alt="{{ .name }}" loading="lazy" {{ if ne
             $imageImage.MediaType.SubType "svg" }}width="{{ $imageImage.Width }}" height="{{ $imageImage.Height }}" {{
             end }} />
+          {{ else }}
+          <img class="card-img-top" src="{{ .image }}" alt="{{ .name }}" loading="lazy" />
+          {{ end }}
           {{ end }}
         </div>
         {{ end }}
@@ -31,6 +37,9 @@
 
               {{ else }}
 
+              {{ if or (hasPrefix .logo "http://") (hasPrefix .logo "https://") }}
+              <img class="card-img-xs" src="{{ .logo }}" alt="{{ .name }}" />
+              {{ else }}
               {{ $logoImage:= resources.Get .logo}}
               {{ if $logoImage }}
               {{/* svg don't support "Fit" operation */}}
@@ -40,6 +49,9 @@
               <img class="card-img-xs" src="{{ $logoImage.RelPermalink }}" alt="{{ .name }}" {{ if ne
                 $logoImage.MediaType.SubType "svg" }}width="{{ $logoImage.Width }}" height="{{ $logoImage.Height }}" {{
                 end }} />
+              {{ else }}
+              <img class="card-img-xs" src="{{ .logo }}" alt="{{ .name }}" />
+              {{ end }}
               {{ end }}
               {{ end }}
 
