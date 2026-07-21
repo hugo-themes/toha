@@ -48,6 +48,7 @@ projects:
 
 - name: Rich Content
   url: "/posts/category/sub-category/rich-content/"
+  image: "https://toha-preview.hugo-themes.com/posts/category/sub-category/rich-content/images/forest.jpg"
   # Optional: control how project links open. Allowed values: "blank" (default) or "self".
   # "blank" opens links in a new tab, "self" opens them in the current tab.
   target: self
