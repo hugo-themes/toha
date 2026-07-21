@@ -10,11 +10,11 @@
       {{ end }}
     {{ end }}
     <meta name="description" content="{{ $siteDescription }}" />
-    
+
     <!-- import common headers -->
     {{- partial "header.html" . -}}
     {{- partial "opengraph.html" . -}}
-    
+
     <!--================= add analytics if enabled =========================-->
     {{- partial "analytics.html" . -}}
     {{ with resources.Get "scripts/core/theme-scheme.js" | fingerprint }}
@@ -23,7 +23,7 @@
     </script>
     {{ end }}
   </head>
-  <body data-bs-spy="scroll" data-bs-target="#top-navbar" data-bs-offset="100">
+  <body data-bs-spy="scroll" data-bs-target="#top-navbar" data-bs-offset="100" {{ if site.Params.features.scrollSnap.enable | default false }}class="scroll-container"{{end}}>
 
     <!--- NAVBAR ------------------------->
     {{- partial "navigators/navbar.html" . -}}

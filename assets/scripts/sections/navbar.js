@@ -2,8 +2,9 @@ const updateNavBar = () => {
   const topNavbar = document.getElementById('top-navbar')
   const navbarToggler = document.getElementById('navbar-toggler')
   const themeIcon = document.getElementById('navbar-theme-icon-svg')
+  const scrollContainer = document.querySelector('body');
 
-  if (window.scrollY > 40) {
+  if (scrollContainer.scrollTop > 40) {
     topNavbar?.classList.remove('transparent-navbar')
     topNavbar?.classList.add('shadow')
 
@@ -44,8 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // When the user scrolls down 80px from the top of the document,
   // resize the navbar's padding and the logo's font size
   const topNavbar = document.getElementById('top-navbar')
+  const scrollContainer = document.querySelector('body');
   if (topNavbar?.classList.contains('homepage')) {
-    document.addEventListener('scroll', updateNavBar)
+    scrollContainer.addEventListener('scroll', updateNavBar)
     updateNavBar()
   }
 
