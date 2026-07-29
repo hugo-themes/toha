@@ -1,8 +1,7 @@
 <!-- Add Analytics if enabled in configuration -->
 {{ with site.Params.features.analytics }}
-    {{ if or .enable .enabled }}
+    {{ if and hugo.IsProduction (or .enable .enabled) }}
         {{ with .services }}
-        {{ if and hugo.IsProduction (or .enable .enabled)}}
             <!-- Google Analytics -->
             {{ with .google }}
                 {{ partial "google_analytics.html" . }}
@@ -51,7 +50,6 @@
             {{ with .posthog }}
             <!-- PostHog analytics loaded via JavaScript module -->
             {{ end }}
-          {{ end }}
         {{ end }}
     {{ end }}
 {{ end }}
