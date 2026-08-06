@@ -86,8 +86,13 @@
             {{ if $customMenusEnabled }}
               {{ range $customMenus }}
                 {{ if .showOnFooter }}
+                    {{ $menuURL := .url }}
+                    {{/* Process internal links (not http[s]://) */}}
+                    {{ if not (or (hasPrefix $menuURL "http://") (hasPrefix $menuURL "https://")) }}
+                      {{ $menuURL = partial "helpers/get-page-url.html" $menuURL }}
+                    {{ end }}
                     <li class="nav-item">
-                      <a class="smooth-scroll" href="{{ .url }}">{{ .name }}</a>
+                      <a class="smooth-scroll" href="{{ $menuURL }}">{{ .name }}</a>
                     </li>
                 {{ end }}
               {{ end }}

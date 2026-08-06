@@ -79,7 +79,7 @@
       <i data-feather="sidebar"></i>
     </button>
     {{ end }}
-    <a class="navbar-brand" href="{{ site.BaseURL | relLangURL }}">
+    <a class="navbar-brand" href="{{ partial "helpers/get-page-url.html" "" }}">
       {{ if $logo }}
         <img src="{{ $logo }}" id="logo" alt="Logo">
       {{ end }}
@@ -99,7 +99,7 @@
     <div class="collapse navbar-collapse dynamic-navbar" id="top-nav-items">
       <ul class="nav navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ if .IsHome }}#home{{else}}{{ site.BaseURL | relLangURL }}#home{{end}}">{{ i18n "home" }}</a>
+          <a class="nav-link" href="{{ if .IsHome }}#home{{else}}{{ partial "helpers/get-page-url.html" "" }}#home{{end}}">{{ i18n "home" }}</a>
         </li>
         {{ if $sections }}
           {{ $sectionCount := 1 }}
@@ -136,18 +136,23 @@
         {{ end }}
         {{ if $blogEnabled }}
           <li class="nav-item">
-            <a class="nav-link" id="blog-link" href="{{ path.Join (site.BaseURL | relLangURL) $blogSection }}">{{ $blogTitle }}</a>
+            <a class="nav-link" id="blog-link" href="{{ partial "helpers/get-page-url.html" $blogSection }}">{{ $blogTitle }}</a>
           </li>
         {{ end }}
         {{ if $notesEnabled }}
           <li class="nav-item">
-            <a class="nav-link" id="note-link" href="{{ path.Join (site.BaseURL | relLangURL) "notes" }}">{{ $notesTitle }}</a>
+            <a class="nav-link" id="note-link" href="{{ partial "helpers/get-page-url.html" "notes" }}">{{ $notesTitle }}</a>
           </li>
         {{ end }}
         {{ range $customMenus }}
             {{ if (not .hideFromNavbar) }}
+              {{ $menuURL := .url }}
+              {{/* Process internal links (not http[s]://) */}}
+              {{ if not (or (hasPrefix $menuURL "http://") (hasPrefix $menuURL "https://")) }}
+                {{ $menuURL = partial "helpers/get-page-url.html" $menuURL }}
+              {{ end }}
               <li class="nav-item">
-                <a class="nav-link" href="{{ .url }}">{{ .name }}</a>
+                <a class="nav-link" href="{{ $menuURL }}">{{ .name }}</a>
               </li>
             {{ end }}
         {{ end }}
