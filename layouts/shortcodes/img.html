@@ -1,4 +1,8 @@
-<img src="{{ .Get "src"}}"
+{{- $src := .Get "src" -}}
+{{- if not (or (strings.HasPrefix $src "http://") (strings.HasPrefix $src "https://")) -}}
+  {{- $src = partial "helpers/get-page-url.html" $src -}}
+{{- end -}}
+<img src="{{ $src }}"
     {{ if .Get "title"}}
         alt="{{.Get "title"}}"
     {{end}}

@@ -2,7 +2,7 @@
   <ul style="padding-left: 0;">
     {{ range . }}
     {{ $url:= printf "tags/%s/" . }}
-    <li><a href="{{ $url | urlize | relLangURL }}" class="btn btn-sm btn-outline-info rounded">{{ . }}</a></li>
+    <li><a href="{{ partial "helpers/get-page-url.html" ($url | urlize) }}" class="btn btn-sm btn-outline-info rounded">{{ . }}</a></li>
     {{ end }}
   </ul>
 </div>
