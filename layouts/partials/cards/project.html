@@ -67,7 +67,7 @@
           <div class="project-tags-holder">
             {{ range $index,$tag:= .tags }}
             {{ if $.linkTags }}
-            <a href="{{ printf "/tags/%s/" (urlize $tag) | relLangURL }}">
+            <a href="{{ partial "helpers/get-page-url.html" (printf "/tags/%s/" (urlize $tag)) }}">
               <span class="btn badge btn-info">
                 {{ $tag }}
               </span>
