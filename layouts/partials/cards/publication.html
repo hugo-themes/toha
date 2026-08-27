@@ -42,11 +42,7 @@
         {{ end }}
       </div>
       {{ if .paper.url }}
-      {{/* Process internal links (not http[s]://) */}}
-      {{- $paperURL := .paper.url -}}
-      {{- if not (or (hasPrefix $paperURL "http://") (hasPrefix $paperURL "https://")) -}}
-        {{- $paperURL = partial "helpers/get-page-url.html" $paperURL -}}
-      {{- end -}}
+      {{- $paperURL := partial "helpers/get-page-url.html" .paper.url -}}
       <div class="details-btn">
         <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="{{ $paperURL }}" target="_blank" rel="noopener" role="button">{{ i18n "project_details"}}</a>
       </div>

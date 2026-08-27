@@ -4,9 +4,8 @@
       {{- $target := .target | default "blank" -}}
       {{- $targetAttr := "_blank" -}}
       {{- if eq $target "self" -}}{{- $targetAttr = "_self" -}}{{- end -}}
-      {{/* Process internal links (not http[s]://) */}}
       {{- $projectURL := .url -}}
-      {{- if and $projectURL (not (or (hasPrefix $projectURL "http://") (hasPrefix $projectURL "https://"))) -}}
+      {{- if $projectURL -}}
         {{- $projectURL = partial "helpers/get-page-url.html" $projectURL -}}
       {{- end -}}
       <a href="{{ if .repo }}{{ .repo }}{{ else if $projectURL }}{{ $projectURL }}{{ else }}javascript:void(0){{ end }}" {{ if or
