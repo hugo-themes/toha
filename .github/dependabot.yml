@@ -6,7 +6,7 @@ updates:
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
@@ -20,7 +20,7 @@ updates:
 - package-ecosystem: "npm"
   directory: "/"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
@@ -34,7 +34,7 @@ updates:
 - package-ecosystem: "npm"
   directory: "/exampleSite"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
@@ -48,7 +48,7 @@ updates:
 - package-ecosystem: "gomod"
   directory: "/"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
@@ -62,7 +62,7 @@ updates:
 - package-ecosystem: "gomod"
   directory: "/exampleSite"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
