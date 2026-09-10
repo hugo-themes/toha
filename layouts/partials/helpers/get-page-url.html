@@ -1,0 +1,15 @@
+{{- $raw := . -}}
+
+{{/* If this is already a full URL, protocol-relative URL, or a fragment, don't rewrite it. */}}
+{{- if or (hasPrefix $raw "#") (hasPrefix $raw "//") (gt (len (findRE "^[a-zA-Z][a-zA-Z0-9+.-]*:" $raw)) 0) -}}
+  {{- $raw -}}
+{{- else -}}
+  {{/* Capture any trailing slash, dropped by path.Join, so we can add it back if needed. */}}
+  {{- $hadTrailingSlash := strings.HasSuffix $raw "/" -}}
+  {{- $resolved := path.Join (site.BaseURL | relLangURL) (strings.Trim $raw "/") -}}
+  {{/* Add back any trailing slash if the original path had one, unless the resolved path is just "/" */}}
+  {{- if and $hadTrailingSlash (ne $resolved "/") -}}
+    {{- $resolved = printf "%s/" $resolved -}}
+  {{- end -}}
+  {{- $resolved -}}
+{{- end -}}

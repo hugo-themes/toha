@@ -86,8 +86,9 @@
             {{ if $customMenusEnabled }}
               {{ range $customMenus }}
                 {{ if .showOnFooter }}
+                    {{ $menuURL := partial "helpers/get-page-url.html" .url }}
                     <li class="nav-item">
-                      <a class="smooth-scroll" href="{{ .url }}">{{ .name }}</a>
+                      <a class="smooth-scroll" href="{{ $menuURL }}">{{ .name }}</a>
                     </li>
                 {{ end }}
               {{ end }}
