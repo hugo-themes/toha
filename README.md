@@ -29,6 +29,7 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 - Achievement Gallery
 - Sidebar to Categorize the Posts
 - Short Codes
+- Lazy Load Posts
 - Analytics Support
   - GoatCounter
   - counter.dev

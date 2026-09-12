@@ -318,9 +318,11 @@ params:
       # postCards: false
 
 
-    # Number of posts to show to each page. Default is "12"
     pagination:
-      maxPostsPerPage: 12
+      # Number of posts to show to each page. Default is "12"
+      maxPostsPerPage: 2
+      # Enable lazy load (default: false)
+      lazyLoad: true
 
   # Provide footer configuration.
   footer:
