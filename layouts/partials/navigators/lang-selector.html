@@ -1,8 +1,22 @@
-{{ $pageURL:= .RelPermalink }}
+{{ $page := . }}
+{{ $pageURL := .RelPermalink }}
+{{/* Strip the baseURL sub-path (e.g. "/Portfolio") first, so that language prefix handling works both at the domain root and under a subdirectory. */}}
+{{ $basePath := (urls.Parse site.BaseURL).Path }}
+{{ $basePath = strings.TrimSuffix "/" $basePath }}
+{{ if ne $basePath "" }}
+  {{ $pageURL = strings.TrimPrefix $basePath $pageURL }}
+  {{ if eq $pageURL "" }}
+    {{ $pageURL = "/" }}
+  {{ end }}
+{{ end }}
 {{ if hugo.IsMultilingual }}
-  {{ $languagePrefix := printf "/%s/" .Language.Lang }}
-  {{ if or (eq $pageURL $languagePrefix) (strings.HasPrefix $pageURL $languagePrefix) }}
-    {{ $pageURL = strings.TrimPrefix (printf "/%s" .Language.Lang) $pageURL }}
+  {{ $languagePrefix := printf "/%s/" $page.Language.Lang }}
+  {{ $languageBare := printf "/%s" $page.Language.Lang }}
+  {{ if or (eq $pageURL $languagePrefix) (eq $pageURL $languageBare) (strings.HasPrefix $pageURL $languagePrefix) }}
+    {{ $pageURL = strings.TrimPrefix $languageBare $pageURL }}
+    {{ if eq $pageURL "" }}
+      {{ $pageURL = "/" }}
+    {{ end }}
   {{ end }}
 {{ end }}
 <li class="nav-item dropdown">
@@ -15,7 +29,8 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="languageSelector">
         {{ range site.Home.AllTranslations }}
-        <a class="dropdown-item nav-link languages-item" href="{{ path.Join "/" (cond (eq .Language.Lang hugo.Sites.Default.Language.Lang) "" .Language.Lang) $pageURL }}">
+        {{/* .RelPermalink already contains the baseURL sub-path and the correct language prefix (including defaultInSubdir handling), so joining it with the language-agnostic page path yields a correct URL in all setups. */}}
+        <a class="dropdown-item nav-link languages-item" href="{{ path.Join .RelPermalink $pageURL }}">
             {{ if ne site.Params.features.flags.enable false }}
                 {{ $countryCode := partial "helpers/country-code.html" . }}
                 <span class="fi fi-{{$countryCode}}"></span>

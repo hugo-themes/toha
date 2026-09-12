@@ -2,12 +2,72 @@
 
 version: 2
 updates:
-# Update the Github Action  versions
+# Update the Github Action versions (grouped into a single PR)
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
   - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+
+# Update npm dependencies at the repo root (grouped into a single PR)
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+
+# Update npm dependencies in exampleSite (grouped into a single PR)
+- package-ecosystem: "npm"
+  directory: "/exampleSite"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+
+# Update Go module dependencies at the repo root (grouped into a single PR)
+- package-ecosystem: "gomod"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+
+# Update Go module dependencies in exampleSite (grouped into a single PR)
+- package-ecosystem: "gomod"
+  directory: "/exampleSite"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
