@@ -34,19 +34,37 @@
     <div class="container-fluid post-card-holder" id="post-card-holder">
       {{ $posts := where .RegularPagesRecursive "Layout" "!=" "search" }}
       {{ $posts = where $posts "Params.hidden" "!=" true }}
-      {{ $numShow := site.Params.features.pagination.maxPostsPerPage | default 12}}
-      {{ $paginator := .Paginate $posts $numShow }}
-      {{ range $paginator.Pages }}
-        {{ if .Layout }}
-          {{/* ignore the search.md file*/}}
-        {{ else }}
-          {{ partial "cards/post.html" . }}
+      {{ $perPage := site.Params.features.pagination.maxPostsPerPage | default 12 }}
+      {{ $paginator := .Paginate $posts $perPage }}
+      {{ $lazyLoad := site.Params.features.pagination.lazyLoad | default false }}
+      {{ if $lazyLoad }}
+        {{/* LAZY-LOAD MODE: Render only first page, add trigger for IntersectionObserver */}}
+        {{ range first $perPage $paginator.Pages }}
+          {{ if not .Layout }}
+            {{ partial "cards/post.html" . }}
+          {{ end }}
+        {{ end }}
+        {{/* Lazy-load trigger element */}}
+        <div id="lazy-load-trigger"
+             data-json-url="{{ .Permalink }}index.json"
+             data-per-page="{{ $perPage }}"
+             data-total-pages="{{ $paginator.TotalPages }}"
+             data-current-page="1"
+             style="height: 1px;"></div>
+      {{ else }}
+        {{/* STANDARD MODE: Original behavior with pagination */}}
+        {{ range $paginator.Pages }}
+          {{ if not .Layout }}
+            {{ partial "cards/post.html" . }}
+          {{ end }}
         {{ end }}
       {{ end }}
     </div>
+    {{ if not $lazyLoad }}
     <div class="paginator">
       {{ partial "pagination.html" . }}
     </div>
+    {{ end }}
   </div>
 </section>
 {{ end }}
