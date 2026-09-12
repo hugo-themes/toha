@@ -1,0 +1,19 @@
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
+{{- $pages = where $pages "Layout" "!=" "search" -}}
+{{- $pages = where $pages "Params.hidden" "!=" true -}}
+[
+  {{- range $index, $page := $pages -}}
+    {{- $hero := partial "helpers/get-hero.html" (dict "context" $page "width" "500x") -}}
+    {{- $tags := $page.Params.tags | default slice -}}
+    {
+      "title":   {{ $page.Title | jsonify }},
+      "url":     {{ $page.Permalink | jsonify }},
+      "date":    {{ $page.Date.Format "2006-01-02" | jsonify }},
+      "summary": {{ $page.Summary | plainify | jsonify }},
+      "image":   {{ with $hero }}{{ .RelPermalink | jsonify }}{{ else }}{{ "" | jsonify }}{{ end }},
+      "tags":    {{ $tags | jsonify }},
+      "readingTime": {{ $page.ReadingTime }},
+      "formattedDate": {{ $page.Date.Format "January 2, 2006" | jsonify }}
+    }{{- if not (eq $index (sub (len $pages) 1)) }},{{ end }}
+  {{- end -}}
+]

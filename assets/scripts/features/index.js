@@ -37,3 +37,6 @@ if (process.env.FEATURE_COPYCODEBUTTON === '1') {
 if (process.env.FEATURE_ANALYTICS === '1') {
   import('./analytics')
 }
+
+// Lazy-load posts - always included, initializes on DOMContentLoaded
+import('./lazyLoadPosts')
