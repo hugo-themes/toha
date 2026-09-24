@@ -52,6 +52,12 @@ outputs:
     - HTML
     - RSS
     - JSON
+  # Enable JSON output on taxonomy term pages (e.g. /tags/<tag>/, /categories/<cat>/)
+  # so the Lazy Load Posts feature works on those pages.
+  term:
+    - HTML
+    - RSS
+    - JSON
 
 # Configure custom path for RSS feed. Default is "index.xml"
 # Ref: https://gohugo.io/templates/output-formats/

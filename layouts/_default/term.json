@@ -1,0 +1,12 @@
+{{- $posts := slice -}}
+{{- range (where .RegularPagesRecursive "Layout" "!=" "search") -}}
+  {{- if and (not .Params.hidden) (not .Layout) -}}
+    {{- $posts = $posts | append . -}}
+  {{- end -}}
+{{- end -}}
+[
+  {{- range $index, $page := $posts -}}
+    {{- $html := partial "cards/post.html" $page -}}
+    {{- (dict "html" $html) | jsonify }}{{ if lt $index (sub (len $posts) 1) }},{{ end -}}
+  {{- end -}}
+]
