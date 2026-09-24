@@ -52,6 +52,12 @@ outputs:
     - HTML
     - RSS
     - JSON
+  # Enable JSON output on taxonomy term pages (e.g. /tags/<tag>/, /categories/<cat>/)
+  # so the Lazy Load Posts feature works on those pages.
+  term:
+    - HTML
+    - RSS
+    - JSON
 
 # Configure custom path for RSS feed. Default is "index.xml"
 # Ref: https://gohugo.io/templates/output-formats/
@@ -318,9 +324,11 @@ params:
       # postCards: false
 
 
-    # Number of posts to show to each page. Default is "12"
     pagination:
-      maxPostsPerPage: 12
+      # Number of posts to show to each page. Default is "12"
+      maxPostsPerPage: 2
+      # Enable lazy load (default: false)
+      lazyLoad: true
 
   # Provide footer configuration.
   footer:

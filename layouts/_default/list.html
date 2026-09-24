@@ -34,18 +34,42 @@
     <div class="container-fluid post-card-holder" id="post-card-holder">
       {{ $posts := where .RegularPagesRecursive "Layout" "!=" "search" }}
       {{ $posts = where $posts "Params.hidden" "!=" true }}
-      {{ $numShow := site.Params.features.pagination.maxPostsPerPage | default 12}}
-      {{ $paginator := .Paginate $posts $numShow }}
-      {{ range $paginator.Pages }}
-        {{ if .Layout }}
-          {{/* ignore the search.md file*/}}
-        {{ else }}
-          {{ partial "cards/post.html" . }}
+      {{ $perPage := site.Params.features.pagination.maxPostsPerPage | default 12 }}
+      {{ $jsonFormat := .OutputFormats.Get "json" }}
+      {{ $lazyLoad := and site.Params.features.pagination.lazyLoad $jsonFormat }}
+      {{ if $lazyLoad }}
+        {{/* LAZY-LOAD MODE: Render only the first page, no paginator. */}}
+        {{/* Remaining posts are loaded from the JSON output and appended client-side. */}}
+        {{ $totalPages := 1 }}
+        {{ if gt (len $posts) $perPage }}
+          {{ $totalPages = add 1 (div (sub (len $posts) 1) $perPage) }}
         {{ end }}
+        {{ range first $perPage $posts }}
+          {{ if not .Layout }}
+            {{ partial "cards/post.html" . }}
+          {{ end }}
+        {{ end }}
+        {{ if gt $totalPages 1 }}
+          {{/* Lazy-load trigger element */}}
+          <div id="lazy-load-trigger"
+               class="lazy-load-trigger"
+               data-json-url="{{ .Permalink }}index.json"
+               data-per-page="{{ $perPage }}"
+               data-total-pages="{{ $totalPages }}"
+               data-current-page="1"></div>
+        {{ end }}
+      {{ else }}
+        {{/* STANDARD MODE: Original behavior with pagination */}}
+        {{ $paginator := .Paginate $posts $perPage }}
+        {{ range $paginator.Pages }}
+          {{ if not .Layout }}
+            {{ partial "cards/post.html" . }}
+          {{ end }}
+        {{ end }}
+        <div class="paginator">
+          {{ partial "pagination.html" . }}
+        </div>
       {{ end }}
-    </div>
-    <div class="paginator">
-      {{ partial "pagination.html" . }}
     </div>
   </div>
 </section>
