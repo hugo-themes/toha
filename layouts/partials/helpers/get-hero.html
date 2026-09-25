@@ -7,7 +7,7 @@
 {{ end }}
 
 {{/* check if there is any hero image in the same folder as the markdown file */}}
-{{ $heroImage := $context.Page.Resources.GetMatch "hero.{jpg,png,svg}"}}
+{{ $heroImage := $context.Page.Resources.GetMatch "hero.{jpg,png,svg,webp}"}}
 
 {{/* if hero image is specified in the page front-matter, then use that */}}
 {{ if $context.Params.hero }}
