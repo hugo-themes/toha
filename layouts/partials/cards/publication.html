@@ -30,9 +30,11 @@
         {{ end }}
       </div>
     </div>
+    {{ with .paper.summary }}
     <div class="card-body">
-      <p>{{ .paper.summary | markdownify }}</p>
+      <p>{{ . | markdownify }}</p>
     </div>
+    {{ end }}
     <div class="card-footer">
       <div class="tags">
         {{ range $index,$tag:= .tags }}

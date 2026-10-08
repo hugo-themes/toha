@@ -65,12 +65,21 @@
               margin-right: 5px;
             }
           }
+          // Holds the .subtree list, so that lists only have <li> children.
+          // Neutral, so the tree (and the .subtree guide line) looks as before.
+          > li.subtree-holder {
+            padding: 0;
+            position: static;
+            line-height: inherit;
+          }
           .shift-right {
             margin-left: 5px;
           }
 
           .subtree {
+            margin: 0;
             padding-left: 0.7rem;
+            list-style: none;
 
             &:before {
               content: '';

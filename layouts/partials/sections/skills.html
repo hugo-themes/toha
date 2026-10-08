@@ -6,10 +6,10 @@
 <div class="container-fluid anchor pb-5 skills-section" id="{{ $sectionID }}">
   {{ if not (.section.hideTitle) }}
     <h1 class="text-center">
-        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+        {{ .section.name }}</h1>
   {{ else }}
     <h1 class="text-center" style="display: none">
-        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+        {{ .section.name }}</h1>
   {{ end }}
   {{ if .section.filter }}
   <div class="container ms-auto text-center">

@@ -4,9 +4,9 @@
         {{ $darkLogoImage:= resources.Get .company.darkLogo}}
         {{ if $logoImage }}
         <div class="logo-holder"> 
-            <img class="company-logo light-logo" src="{{ $logoImage.RelPermalink }}" alt="{{ .name }}" />
+            <img class="company-logo light-logo" src="{{ $logoImage.RelPermalink }}" alt="{{ .company.name }}" />
             {{ if $darkLogoImage }}
-            <img class="company-logo dark-logo" src="{{ $darkLogoImage.RelPermalink }}" alt="{{ .name }}" />
+            <img class="company-logo dark-logo" src="{{ $darkLogoImage.RelPermalink }}" alt="{{ .company.name }}" />
             {{ end }}
         </div>
         {{ end }}
@@ -19,11 +19,15 @@
                 {{ $oldestPosition.start }} - {{ if $mostRecentPosition.end }}{{ $mostRecentPosition.end }}{{ else }}{{ i18n "present" }}{{ end }}
             </p>
         </div>
+        {{ with .company.location }}
         <p class="text-muted">
-            <i class="fa-solid fa-location-dot"></i> {{ .company.location }}
+            <i class="fa-solid fa-location-dot"></i> {{ . }}
         </p>
+        {{ end }}
         <!-- Add company overview -->
-        <p>{{ .company.overview | markdownify }}</p>
+        {{ with .company.overview }}
+        <p>{{ . | markdownify }}</p>
+        {{ end }}
     </div>
     <!-- Add the positions information -->
     <div class="positions">

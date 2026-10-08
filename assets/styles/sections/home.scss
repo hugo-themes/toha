@@ -129,3 +129,36 @@ html[data-theme='dark'] {
     }
   }
 }
+
+// Responsive background image: the URLs come in as custom properties set on the element
+// by sections/home.html; same breakpoints as before, light and dark.
+#homePageBackgroundImageDivStyled {
+  background-image: var(--home-bg-tiny);
+}
+@media (min-width: 500px) and (max-width: 800px) {
+  #homePageBackgroundImageDivStyled { background-image: var(--home-bg-small); }
+}
+@media (min-width: 801px) and (max-width: 1200px) {
+  #homePageBackgroundImageDivStyled { background-image: var(--home-bg-medium); }
+}
+@media (min-width: 1201px) and (max-width: 1500px) {
+  #homePageBackgroundImageDivStyled { background-image: var(--home-bg-large); }
+}
+@media (min-width: 1501px) {
+  #homePageBackgroundImageDivStyled { background-image: var(--home-bg-full); }
+}
+html[data-theme='dark'] #homePageBackgroundImageDivStyled {
+  background-image: var(--home-bg-dark-tiny);
+}
+@media (min-width: 500px) and (max-width: 800px) {
+  html[data-theme='dark'] #homePageBackgroundImageDivStyled { background-image: var(--home-bg-dark-small); }
+}
+@media (min-width: 801px) and (max-width: 1200px) {
+  html[data-theme='dark'] #homePageBackgroundImageDivStyled { background-image: var(--home-bg-dark-medium); }
+}
+@media (min-width: 1201px) and (max-width: 1500px) {
+  html[data-theme='dark'] #homePageBackgroundImageDivStyled { background-image: var(--home-bg-dark-large); }
+}
+@media (min-width: 1501px) {
+  html[data-theme='dark'] #homePageBackgroundImageDivStyled { background-image: var(--home-bg-dark-full); }
+}

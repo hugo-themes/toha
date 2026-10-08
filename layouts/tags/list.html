@@ -17,10 +17,10 @@
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
             <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
-            <div class="subtree taxonomy-terms">
+            <li class="subtree-holder"><ul class="subtree taxonomy-terms">
               {{ $context := . }}
               {{ partial "navigators/taxonomies.html" (dict "context" $context "taxo" "tags" "title" ( humanize "tags" ) ) }}
-            </div>
+            </ul></li>
           </ul>
         </div>
       </div>
