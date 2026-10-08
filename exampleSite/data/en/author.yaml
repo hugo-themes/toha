@@ -6,6 +6,10 @@ greeting: "Hi, I am"
 image: "images/author/john.png"
 # give your some contact information. they will be used in the footer
 contactInfo:
+  # `email` can also be a list of addresses, each shown as its own link:
+  # email:
+  # - "johndoe@example.com"
+  # - "john@work.example.com"
   email: "johndoe@example.com"
   phone: "+0123456789"
   github: johndoe

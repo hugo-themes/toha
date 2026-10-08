@@ -12,13 +12,19 @@
       <h5 class="card-title mb-0">{{ .title }}</h5>
       <div class="sub-title">
         <span>
+          {{/* Compose the venue label from the journal name plus optional
+               first-class volume and article-number fields, so authors no
+               longer have to hand-concatenate them into `name`. */}}
+          {{- $venue := .publishedIn.name -}}
+          {{- with .publishedIn.volume }}{{ $venue = printf "%s %v" $venue . }}{{ end -}}
+          {{- with .publishedIn.articleNumber }}{{ $venue = printf "%s, %v" $venue . }}{{ end -}}
           {{ if .publishedIn.url }}
-          <a class="" href="{{.publishedIn.url}}">{{ .publishedIn.name }}</a>
+          <a class="" href="{{ .publishedIn.url }}">{{ $venue }}</a>
           {{ else }}
-          <a class="">{{ .publishedIn.name }}</a>
+          <a class="">{{ $venue }}</a>
           {{ end }}
         </span>
-        <span class="ms-2">{{ .publishedIn.date }}</span>
+        {{ with .publishedIn.date }}<span class="ms-2">{{ . }}</span>{{ end }}
       </div>
       <div class="authors">
         {{ range $index,$author:= .authors }}
@@ -41,9 +47,24 @@
             </span>
         {{ end }}
       </div>
-      {{ if .paper.url }}
+      {{/* Link buttons. DOI and arXiv are first-class identifiers; `paper.url`
+           remains supported for a preprint/PDF or any other generic link so
+           existing publication data keeps working unchanged. */}}
+      {{- $doi := .paper.doi -}}
+      {{- $arxiv := .paper.arxiv -}}
+      {{- $paperURL := .paper.url -}}
+      {{- $urlText := .paper.urlText | default (i18n "project_details") -}}
+      {{ if or $doi $arxiv $paperURL }}
       <div class="details-btn">
-        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="{{ .paper.url }}" target="_blank" rel="noopener" role="button">{{ i18n "project_details"}}</a>
+        {{ with $doi }}
+        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="https://doi.org/{{ . }}" target="_blank" rel="noopener" role="button">DOI</a>
+        {{ end }}
+        {{ with $arxiv }}
+        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="https://arxiv.org/abs/{{ . }}" target="_blank" rel="noopener" role="button">arXiv</a>
+        {{ end }}
+        {{ with $paperURL }}
+        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="{{ . }}" target="_blank" rel="noopener" role="button">{{ $urlText }}</a>
+        {{ end }}
       </div>
       {{ end }}
     </div>

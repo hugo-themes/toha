@@ -102,9 +102,12 @@
           <ul>
             {{ range $key,$value:= $author.contactInfo }}
               {{ if (eq $key "email") }}
-                <li><a href={{ printf "mailto:%s" $value }} target="_blank" rel="noopener">
-                  <span><i class="fas fa-envelope"></i></span> <span>{{ $value }}</span>
+                {{/* `email` may be a single address or a list of addresses. */}}
+                {{ range (cond (reflect.IsSlice $value) $value (slice $value)) }}
+                <li><a href={{ printf "mailto:%s" . }} target="_blank" rel="noopener">
+                  <span><i class="fas fa-envelope"></i></span> <span>{{ . }}</span>
                 </a></li>
+                {{ end }}
               {{ else if (eq $key "phone") }}
                 <li><a href={{ printf "tel:%s" $value | safeURL }} target="_blank" rel="noopener">
                   <span><i class="fas fa-phone-alt"></i></span> <span>{{ $value }}</span>
