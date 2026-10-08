@@ -3,55 +3,66 @@
 {{- range $enabledLanguages }}
   {{- $enabledLanguageCodes = $enabledLanguageCodes | append .Language.Lang }}
 {{- end }}
-{{- $pages := .Site.RegularPages -}}
-{{- $searchPages := where $pages "Type" "search" -}}
-{{- $otherPages := where $pages "Type" "!=" "search" -}}
-{{- $otherPages = where $otherPages "Params.hidden" "!=" true -}}
+{{- /*
+  Regular pages are listed unless they are hidden (`hidden: true`), opted out
+  through Hugo's `sitemap.disable` front matter, or are the generated search
+  page, which only renders the search layout.
+*/ -}}
+{{- $regularPages := slice -}}
+{{- range .Site.RegularPages }}
+  {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (ne .Type "search") (not .Sitemap.Disable) }}
+    {{- $regularPages = $regularPages | append . }}
+  {{- end }}
+{{- end }}
+{{- /*
+  List pages (home, sections, taxonomies, terms) are listed when they contain
+  at least one listed regular page. Their lastmod is the newest lastmod among
+  those pages, so empty sections are skipped and generated utility pages cannot
+  give them a stale date.
+*/ -}}
+{{- $entries := slice -}}
+{{- range where .Site.Pages "IsNode" true }}
+  {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (not .Sitemap.Disable) }}
+    {{- $members := slice -}}
+    {{- if eq .Kind "taxonomy" }}
+      {{- range .Pages }}
+        {{- $members = $members | append .Pages }}
+      {{- end }}
+    {{- else if eq .Kind "term" }}
+      {{- $members = .Pages }}
+    {{- else }}
+      {{- $members = .RegularPagesRecursive }}
+    {{- end }}
+    {{- $members = $members | intersect $regularPages }}
+    {{- if $members }}
+      {{- $lastmod := (index (sort $members "Lastmod" "desc") 0).Lastmod }}
+      {{- $entries = $entries | append (dict "page" . "lastmod" $lastmod) }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- range $regularPages }}
+  {{- $entries = $entries | append (dict "page" . "lastmod" .Lastmod) }}
+{{- end }}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-{{- range $otherPages }}
-  {{- if in $enabledLanguageCodes .Language.Lang }}
+{{- range $entries }}
+  {{- $page := .page }}
   <url>
-    <loc>{{ .Permalink }}</loc>
-    {{- if not .Lastmod.IsZero }}
-    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+    <loc>{{ $page.Permalink }}</loc>
+    {{- if not .lastmod.IsZero }}
+    <lastmod>{{ .lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
     {{- end }}
-    {{- with .Sitemap.ChangeFreq }}
+    {{- with $page.Sitemap.ChangeFreq }}
     <changefreq>{{ . }}</changefreq>
     {{- end }}
-    {{- if ge .Sitemap.Priority 0.0 }}
-    <priority>{{ .Sitemap.Priority }}</priority>
+    {{- if ge $page.Sitemap.Priority 0.0 }}
+    <priority>{{ $page.Sitemap.Priority }}</priority>
     {{- end }}
-    {{- if .IsTranslated }}
-      {{- range .Translations }}
+    {{- if $page.IsTranslated }}
+      {{- range $page.Translations }}
         {{- if in $enabledLanguageCodes .Language.Lang }}
     <xhtml:link rel="alternate" hreflang="{{ .Language.Locale | default .Language.Lang }}" href="{{ .Permalink }}" />
         {{- end }}
-      {{- end }}
-    {{- end }}
-  </url>
-  {{- end }}
-{{- end }}
-{{- if $searchPages }}
-  {{- $searchPage := index $searchPages 0 -}}
-  <url>
-    <loc>{{ $searchPage.Permalink }}</loc>
-    {{- if not $searchPage.Lastmod.IsZero }}
-    <lastmod>{{ $searchPage.Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
-    {{- end }}
-    {{- with $searchPage.Sitemap.ChangeFreq }}
-    <changefreq>{{ . }}</changefreq>
-    {{- end }}
-    {{- if ge $searchPage.Sitemap.Priority 0.0 }}
-    <priority>{{ $searchPage.Sitemap.Priority }}</priority>
-    {{- end }}
-    {{- $searchTranslations := slice $searchPage -}}
-    {{- if $searchPage.IsTranslated }}
-      {{- $searchTranslations = $searchTranslations | append $searchPage.Translations -}}
-    {{- end }}
-    {{- range $searchTranslations }}
-      {{- if in $enabledLanguageCodes .Language.Lang }}
-    <xhtml:link rel="alternate" hreflang="{{ .Language.Locale | default .Language.Lang }}" href="{{ .Permalink }}" />
       {{- end }}
     {{- end }}
   </url>

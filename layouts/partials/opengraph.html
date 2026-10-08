@@ -8,12 +8,13 @@ default (index hugo.Data site.Language.Lang).site.description }}
 <meta property="og:title" content="{{ $title }}" />
 <meta property="og:type" content="{{ $type }}" />
 <meta property="og:description" content="{{ $description }}" />
+{{- $image := "" -}}
 {{- with .Params.images -}}
-  <meta property="og:image" content="{{ index . 0 | absURL }}">
+  {{- $image = index . 0 -}}
 {{- else -}}
-  {{- $image := (index hugo.Data site.Language.Lang).site.openGraph.image | default (index hugo.Data site.Language.Lang).author.image }}
-  {{- with $image }}
-    <meta property="og:image" content="{{ . | absURL }}">
-  {{ end -}}
+  {{- $image = (index hugo.Data site.Language.Lang).site.openGraph.image | default (index hugo.Data site.Language.Lang).author.image -}}
 {{- end -}}
+{{- with $image }}
+  <meta property="og:image" content="{{ partial "helpers/get-image-url.html" (dict "context" $ "path" .) }}">
+{{- end }}
 <meta property="og:url" content="{{ $url }}">

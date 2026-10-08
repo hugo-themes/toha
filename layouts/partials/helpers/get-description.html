@@ -1,0 +1,13 @@
+{{/*  Meta description for a page: its `description` front matter, then the
+      summary for regular pages, then the site description.  */}}
+{{ $description := .Description }}
+{{ if and (not $description) .IsPage }}
+  {{ $description = .Summary | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace | truncate 160 }}
+{{ end }}
+{{ if not $description }}
+  {{ $description = site.Params.description }}
+  {{ with (index hugo.Data site.Language.Lang).site }}
+    {{ with .description }}{{ $description = . }}{{ end }}
+  {{ end }}
+{{ end }}
+{{ return $description }}

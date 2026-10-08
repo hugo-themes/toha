@@ -1,0 +1,24 @@
+{{/*  ISO 8601 form of a free-text date such as "7 June 2020", "June 7, 2020",
+      "June 2020" or "2020-06-07": YYYY-MM-DD, YYYY-MM or YYYY, depending on
+      what the text contains. Month names are matched in English. Returns ""
+      when no year is found.  */}}
+{{ $raw := printf "%v" . }}
+{{ $iso := "" }}
+{{ with try (time.AsTime .) }}
+  {{ if not .Err }}{{ $iso = .Value.Format "2006-01-02" }}{{ end }}
+{{ end }}
+{{ if not $iso }}
+  {{ with findRE `\b\d{4}\b` $raw 1 }}
+    {{ $iso = index . 0 }}
+    {{ $months := dict "jan" "01" "feb" "02" "mar" "03" "apr" "04" "may" "05" "jun" "06" "jul" "07" "aug" "08" "sep" "09" "oct" "10" "nov" "11" "dec" "12" }}
+    {{ with findRESubmatch `(?i)\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\b` $raw 1 }}
+      {{ $iso = printf "%s-%s" $iso (index $months (lower (index (index . 0) 1))) }}
+      {{ with findRESubmatch `(?:^|\s)(\d{1,2})(?:st|nd|rd|th)?[\s,]` (printf "%s " $raw) 1 }}
+        {{ $day := index (index . 0) 1 }}
+        {{ if eq (len $day) 1 }}{{ $day = printf "0%s" $day }}{{ end }}
+        {{ $iso = printf "%s-%s" $iso $day }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $iso }}

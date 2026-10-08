@@ -318,6 +318,18 @@ params:
       # postCards: false
 
 
+    # Keep pages out of search results with a `noindex` robots meta tag. The
+    # search page is marked `noindex` by default; any page can set
+    # `noindex: true` (or `false`) in its front matter.
+    noindex:
+      # search: false
+
+    # Emit schema.org JSON-LD structured data: WebSite and Person on the home
+    # page, one ScholarlyArticle per publication, and BlogPosting on blog
+    # posts. Default is "true".
+    structuredData:
+      # enable: false
+
     # Number of posts to show to each page. Default is "12"
     pagination:
       maxPostsPerPage: 12

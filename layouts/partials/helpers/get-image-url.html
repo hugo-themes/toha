@@ -1,0 +1,21 @@
+{{/*  Absolute URL for an image path given in front matter or data files.
+      Tries, in order: an absolute URL as is, a page resource, a global
+      resource under `assets/` (published by calling .Permalink), and finally
+      a file under `static/`.
+      Usage: partial "helpers/get-image-url.html" (dict "context" . "path" $path)  */}}
+{{ $path := .path }}
+{{ $url := "" }}
+{{ if findRE `^(https?:)?//` $path }}
+  {{ $url = $path }}
+{{ else }}
+  {{ with .context.Resources.Get $path }}
+    {{ $url = .Permalink }}
+  {{ else }}
+    {{ with resources.Get $path }}
+      {{ $url = .Permalink }}
+    {{ else }}
+      {{ $url = $path | absURL }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $url }}

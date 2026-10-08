@@ -1,0 +1,104 @@
+{{- /*
+  Emit schema.org JSON-LD structured data.
+
+    * Home page  -> WebSite + Person (+ ScholarlyArticle for each publication)
+    * Blog post  -> BlogPosting
+
+  Disable with `params.features.structuredData.enable: false`.
+
+  The Person is built from the author data (name, image, contactInfo
+  profiles) and the about section (designation, company).
+*/ -}}
+{{- if site.Params.features.structuredData.enable | default true -}}
+
+{{- $data := index hugo.Data site.Language.Lang -}}
+{{- $author := hugo.Data.author -}}
+{{- with $data.author }}{{ $author = . }}{{ end -}}
+
+{{- $siteDesc := site.Params.description -}}
+{{- with $data.site }}{{ with .description }}{{ $siteDesc = . }}{{ end }}{{ end -}}
+
+{{- /* Build the Person once and reuse it as site author and post author. */ -}}
+{{- $person := dict "@type" "Person" "name" $author.name "url" site.BaseURL -}}
+{{- with $author.image -}}
+  {{- $image := . | absURL -}}
+  {{- with resources.Get . }}{{ $image = .Permalink }}{{ end -}}
+  {{- $person = merge $person (dict "image" $image) -}}
+{{- end -}}
+{{- with $data.sections }}{{ with .about -}}
+  {{- with .designation }}{{ $person = merge $person (dict "jobTitle" .) }}{{ end -}}
+  {{- with .company }}{{ with .name -}}
+    {{- $org := dict "@type" "Organization" "name" . -}}
+    {{- $person = merge $person (dict "worksFor" $org) -}}
+  {{- end }}{{ end -}}
+{{- end }}{{ end -}}
+{{- $sameAs := slice -}}
+{{- with $author.contactInfo -}}
+  {{- with .github }}{{ $sameAs = $sameAs | append (printf "https://github.com/%s" .) }}{{ end -}}
+  {{- with .linkedin }}{{ $sameAs = $sameAs | append (printf "https://www.linkedin.com/in/%s" .) }}{{ end -}}
+  {{- with .researchgate }}{{ $sameAs = $sameAs | append (printf "https://www.researchgate.net/profile/%s" .) }}{{ end -}}
+  {{- with .orcid }}{{ $sameAs = $sameAs | append (printf "https://orcid.org/%s" .) }}{{ end -}}
+  {{- with .mastodon }}{{ if reflect.IsMap . }}{{ with .url }}{{ $sameAs = $sameAs | append . }}{{ end }}{{ end }}{{ end -}}
+{{- end -}}
+{{- if $sameAs }}{{ $person = merge $person (dict "sameAs" $sameAs) }}{{ end -}}
+
+{{- $blogSection := site.Params.features.blog.section | default "posts" -}}
+
+{{- if .IsHome -}}
+  {{- $website := dict
+        "@type" "WebSite"
+        "name" site.Title
+        "url" site.BaseURL
+        "inLanguage" (site.Language.Locale | default site.Language.Lang)
+  -}}
+  {{- with $siteDesc }}{{ $website = merge $website (dict "description" .) }}{{ end -}}
+  {{- $graph := slice $website $person -}}
+
+  {{- /* One ScholarlyArticle per publication, if the section exists. */ -}}
+  {{- with $data.sections -}}
+    {{- with .publications -}}
+      {{- range .publications -}}
+        {{- $article := dict "@type" "ScholarlyArticle" "headline" .title "name" .title -}}
+        {{- $authors := slice -}}
+        {{- range .authors -}}
+          {{- $a := dict "@type" "Person" "name" .name -}}
+          {{- with .url }}{{ $a = merge $a (dict "url" .) }}{{ end -}}
+          {{- $authors = $authors | append $a -}}
+        {{- end -}}
+        {{- if $authors }}{{ $article = merge $article (dict "author" $authors) }}{{ end -}}
+        {{- with .publishedIn -}}
+          {{- with .date }}{{ with partial "helpers/get-iso-date.html" . }}{{ $article = merge $article (dict "datePublished" .) }}{{ end }}{{ end -}}
+          {{- with .name }}{{ $article = merge $article (dict "isPartOf" (dict "@type" "CreativeWork" "name" .)) }}{{ end -}}
+        {{- end -}}
+        {{- /* `paper.doi` and `paper.arxiv` are used when present. */ -}}
+        {{- $ids := slice -}}
+        {{- with .paper.doi }}{{ $ids = $ids | append (printf "https://doi.org/%s" .) }}{{ end -}}
+        {{- with .paper.arxiv }}{{ $ids = $ids | append (printf "https://arxiv.org/abs/%s" .) }}{{ end -}}
+        {{- with .publishedIn.url }}{{ $ids = $ids | append . }}{{ end -}}
+        {{- with .paper.url }}{{ $ids = $ids | append (. | absURL) }}{{ end -}}
+        {{- if $ids }}{{ $article = merge $article (dict "url" (index $ids 0) "sameAs" $ids) }}{{ end -}}
+        {{- with .paper.doi }}{{ $article = merge $article (dict "identifier" (dict "@type" "PropertyValue" "propertyID" "doi" "value" .)) }}{{ end -}}
+        {{- $graph = $graph | append $article -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  <script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@graph" $graph) | jsonify | safeJS }}</script>
+
+{{- else if and .IsPage (eq .Type $blogSection) -}}
+  {{- $post := dict
+        "@context" "https://schema.org"
+        "@type" "BlogPosting"
+        "headline" .Title
+        "author" $person
+        "mainEntityOfPage" .Permalink
+        "url" .Permalink
+  -}}
+  {{- if not .Date.IsZero }}{{ $post = merge $post (dict "datePublished" (.Date.Format "2006-01-02")) }}{{ end -}}
+  {{- if not .Lastmod.IsZero }}{{ $post = merge $post (dict "dateModified" (.Lastmod.Format "2006-01-02")) }}{{ end -}}
+  {{- with .Description | default .Summary }}{{ $post = merge $post (dict "description" (. | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace)) }}{{ end -}}
+  {{- with .Params.images }}{{ $post = merge $post (dict "image" (index . 0 | absURL)) }}{{ end -}}
+  <script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- end -}}
