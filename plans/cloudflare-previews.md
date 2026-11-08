@@ -67,9 +67,12 @@ uses root-relative URLs for the four Lighthouse paths, Bengali homepage and
 custom 404; Pages retains its supplied preview hostname. Wrangler 4.158.0's
 deploy dry-run accepted 1,099 generated static assets. ESLint,
 actionlint/ShellCheck and `git diff --check` passed. Independent review found no
-blockers: [review record](devcroft:artifact/art-v69htsyn). Live Cloudflare
-verification confirmed Hugo Extended builds the site; deployment verification
-with the native Previews opt-in is pending.
+blockers: [review record](devcroft:artifact/art-v69htsyn). Live Cloudflare build
+and native Preview deployment passed for commit `7760121`. Preview URLs are
+enabled and the Previews Base command and six build variables were saved and
+verified. The [deployed preview](https://ci-cloudflare-previews-toha.hossainemruz.workers.dev/)
+visibly renders the Toha homepage. GitHub build, lint, link and CodeQL checks
+passed; Lighthouse is skipped because this is a Worker, not a Pages project.
 
 ## Risks / open questions
 
