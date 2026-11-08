@@ -10,8 +10,12 @@ jobs:
   enforce-label:
     runs-on: ubuntu-latest
     steps:
-      - uses: yogevbd/enforce-label-action@2.2.2
+      - uses: mheap/github-action-required-labels@v5.6.0
         with:
-          REQUIRED_LABELS_ANY: "feature,fix,maintenance"
-          REQUIRED_LABELS_ANY_DESCRIPTION: "The PR must have at least one these labels:
-            ['feature','fix','maintenance']"
+          mode: minimum
+          count: 1
+          labels: |
+            feature
+            fix
+            maintenance
+          message: "The PR must have at least one of these labels: ['feature','fix','maintenance']"
