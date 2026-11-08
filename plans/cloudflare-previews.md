@@ -17,7 +17,8 @@ the connected `toha` Worker and retain optional Pages/Lighthouse integration.
 - `.github/workflows/pull-request.yml`: wait for Cloudflare and audit its URL.
 - `package.json`: Cloudflare-native build command using `CF_PAGES_URL` when
   supplied by Pages, otherwise root-relative URLs for Workers.
-- `wrangler.jsonc`: static asset directory and custom 404 routing for `toha`.
+- `wrangler.jsonc`: native Previews opt-in, preview URLs, static asset directory
+  and custom 404 routing for `toha`.
 - `.gitignore`: local Wrangler output.
 - `netlify.toml`: obsolete hosting configuration to remove.
 - `docs/cloudflare-previews.md` and `README.md`: setup and migration instructions.
@@ -66,8 +67,9 @@ uses root-relative URLs for the four Lighthouse paths, Bengali homepage and
 custom 404; Pages retains its supplied preview hostname. Wrangler 4.158.0's
 deploy dry-run accepted 1,099 generated static assets. ESLint,
 actionlint/ShellCheck and `git diff --check` passed. Independent review found no
-blockers: [review record](devcroft:artifact/art-v69htsyn). Live Cloudflare build
-verification remains dependent on the dashboard settings.
+blockers: [review record](devcroft:artifact/art-v69htsyn). Live Cloudflare
+verification confirmed Hugo Extended builds the site; deployment verification
+with the native Previews opt-in is pending.
 
 ## Risks / open questions
 
@@ -75,6 +77,11 @@ verification remains dependent on the dashboard settings.
   supply `CF_PAGES_URL`. Root-relative URLs work across preview hosts, but do not
   provide absolute canonical/Open Graph/feed URLs. Public-site migration is
   outside this preview-only change.
+- Workers needs build variable `HUGO_VERSION=extended_0.169.0`; the plain version
+  selects the standard edition and fails SCSS compilation. Configure Previews
+  Base as well as existing previews, and enable Preview URLs.
+- `npx wrangler preview` requires `"previews": {}` even for an assets-only
+  Worker. A production deploy dry-run does not exercise this preview path.
 - No Pages project name has been provided. The optional Pages audit remains
   skipped until its repository variables are configured; it cannot audit Workers.
 - Configure the read token as both an Actions secret and a Dependabot secret

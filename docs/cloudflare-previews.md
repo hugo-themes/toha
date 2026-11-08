@@ -21,7 +21,7 @@ Set these **build variables** for production and previews:
 
 | Variable | Value |
 | --- | --- |
-| `HUGO_VERSION` | `0.169.0` |
+| `HUGO_VERSION` | `extended_0.169.0` |
 | `NODE_VERSION` | `26.13.0` |
 | `GO_VERSION` | `1.27.3` |
 | `HUGO_ENABLEGITINFO` | `true` |
@@ -29,10 +29,18 @@ Set these **build variables** for production and previews:
 
 Set `HUGO_BUILDFUTURE=true` for previews to include future-dated sample posts.
 The default Hugo version, `0.147.7`, is too old: Toha requires **Hugo Extended
-0.163.0 or newer**.
+0.163.0 or newer**. On Workers, keep the `extended_` prefix; a plain version
+selects the standard edition, which cannot compile the theme's SCSS. These
+are build variables, not runtime variables in `wrangler.jsonc`.
 
-`wrangler.jsonc` serves the built `exampleSite/public` directory and its custom
-404 pages. Workers does not supply `CF_PAGES_URL`, so the build uses `/` as Hugo's
+Apply the preview build command and variables under **Previews Base** so new
+branch previews inherit them. Existing previews have their own settings and may
+need the same update separately. Enable Preview URLs if the dashboard reports
+that they are disabled; `wrangler.jsonc` also enables them on deployment.
+
+`wrangler.jsonc` enables preview URLs, opts into native Previews with
+`"previews": {}`, and serves `exampleSite/public` and its custom 404 pages.
+Workers does not supply `CF_PAGES_URL`, so the build uses `/` as Hugo's
 base URL: links and assets stay on whichever preview host serves the site.
 Canonical, Open Graph, and feed URLs are also root-relative in Worker builds.
 Do not invent a `CF_PAGES_URL` value for a Worker.
