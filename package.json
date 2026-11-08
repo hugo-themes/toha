@@ -67,6 +67,7 @@
     "url": "git+https://github.com/hugo-toha/toha.git"
   },
   "scripts": {
+    "build:cloudflare": "npm install && cd exampleSite && hugo mod tidy && hugo mod npm pack && npm install && hugo --gc --minify --cleanDestinationDir --baseURL \"${CF_PAGES_URL:?CF_PAGES_URL must be set}\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },

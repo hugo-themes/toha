@@ -3,6 +3,9 @@ name: PR Workflows
 # Run action on pull request event
 on: [pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   # Build exampleSite
   build:
@@ -10,6 +13,8 @@ jobs:
     steps:
       # checkout to the commit that has been pushed
       - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
 
       # Setup mise
       - uses: jdx/mise-action@v4.3.0
@@ -32,28 +37,50 @@ jobs:
           mise run lint
 
   lighthouse-check:
+    # Native Pages previews are available for branches in this repository only.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      vars.CLOUDFLARE_PAGES_PROJECT_NAME != '' &&
+      vars.CLOUDFLARE_ACCOUNT_ID != ''
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - name: Waiting for Netlify Preview
-        uses: kamranayub/wait-for-netlify-action@v2.1.1
+      - name: Wait for Cloudflare Pages preview
+        uses: WalshyDev/cf-pages-await@79be30bf0110110b5b8d42129b279328096b5391 # v1.4.0
         id: preview
+        timeout-minutes: 10
         with:
-          site_name: "toha-ci"
-          max_timeout: 300
-        env:
-          NETLIFY_TOKEN: ${{secrets.NETLIFY_TOKEN}}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          project: ${{ vars.CLOUDFLARE_PAGES_PROJECT_NAME }}
+          commitHash: ${{ github.event.pull_request.head.sha }}
+
+      - name: Prepare Lighthouse report directory
+        run: mkdir -p "$RUNNER_TEMP/lighthouse"
 
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@v12.0.1
         id: lighthouseCheck
         with:
-          accessToken: ${{ secrets.LIGHTHOUSE_TOKEN }}
-          gitHubAccessToken: ${{secrets.GITHUB_TOKEN}}
+          gitHubAccessToken: ${{ github.token }}
           emulatedFormFactor: "all"
-          prCommentEnabled: true
+          prCommentEnabled: ${{ github.actor != 'dependabot[bot]' }}
           prCommentSaveOld: false
+          outputDirectory: ${{ runner.temp }}/lighthouse
           timeout: 5
           urls: "${{ steps.preview.outputs.url }},${{ steps.preview.outputs.url }}/posts/,${{ steps.preview.outputs.url }}/posts/markdown-sample/,${{ steps.preview.outputs.url }}/posts/shortcodes/"
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-${{ github.event.number }}
+          path: ${{ runner.temp }}/lighthouse
+          if-no-files-found: ignore
+          retention-days: 7
 
   # Check for any broken links
   markdown-link-check:
