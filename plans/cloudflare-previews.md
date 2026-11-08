@@ -2,8 +2,8 @@
 
 ## Goal
 
-Replace Netlify previews with Cloudflare Pages' native GitHub integration and
-retain Lighthouse auditing of the resulting deployment.
+Replace Netlify previews with Cloudflare's native GitHub integration. Support
+the connected `toha` Worker and retain optional Pages/Lighthouse integration.
 
 ## Non-goals
 
@@ -15,7 +15,10 @@ retain Lighthouse auditing of the resulting deployment.
 ## Files that own this behavior
 
 - `.github/workflows/pull-request.yml`: wait for Cloudflare and audit its URL.
-- `package.json`: Cloudflare-native build command using `CF_PAGES_URL`.
+- `package.json`: Cloudflare-native build command using `CF_PAGES_URL` when
+  supplied by Pages, otherwise root-relative URLs for Workers.
+- `wrangler.jsonc`: static asset directory and custom 404 routing for `toha`.
+- `.gitignore`: local Wrangler output.
 - `netlify.toml`: obsolete hosting configuration to remove.
 - `docs/cloudflare-previews.md` and `README.md`: setup and migration instructions.
 
@@ -23,7 +26,9 @@ retain Lighthouse auditing of the resulting deployment.
 
 - [x] Use Cloudflare's native GitHub integration to build and publish previews.
 - [x] Provide one npm build command that installs the same dependencies/modules
-  as the existing build, then passes `CF_PAGES_URL` to Hugo.
+  as the existing build, then passes `CF_PAGES_URL` or `/` to Hugo.
+- [x] Serve the generated site through the existing Worker without requiring
+  Pages-specific environment variables.
 - [x] Replace the Netlify wait action with a pinned Cloudflare wait action that
   matches the exact PR head commit. A read-only API token is sufficient.
 - [x] Skip Lighthouse for forks and unconfigured projects; retain reports for
@@ -37,7 +42,10 @@ retain Lighthouse auditing of the resulting deployment.
 - No custom deployment scripts or upload workflow are added.
 - Build/lint checks continue for all PRs without Cloudflare credentials.
 - Native Pages previews work for repository branches after account setup.
-- Lighthouse waits for the PR's exact commit and audits its deployment URL.
+- Native Worker builds succeed without `CF_PAGES_URL`; assets use the preview
+  host and Wrangler points to `exampleSite/public`.
+- When Pages is configured, Lighthouse waits for the PR's exact commit and
+  audits its deployment URL. Worker previews do not run the Pages audit.
 - Preview failures/timeouts fail the Lighthouse job rather than auditing an old
   deployment. No deployment is initiated by GitHub Actions.
 - The Netlify integration cutover and unsupported fork previews are documented.
@@ -45,20 +53,30 @@ retain Lighthouse auditing of the resulting deployment.
 ## Verification commands
 
 - `mise run check`
+- `env -u CF_PAGES_URL HUGO_BUILDFUTURE=true npm run build:cloudflare`
+- `npx wrangler deploy --dry-run`
 - `CF_PAGES_URL=https://preview.example.pages.dev HUGO_BUILDFUTURE=true npm run build:cloudflare`
 - `actionlint .github/workflows/pull-request.yml`
 - Inspect the generated canonical/Open Graph URLs and all four Lighthouse paths.
 - Review GitHub PR checks after pushing. An actual native preview requires the
-  existing Pages project to be connected and configured.
+  connected service's build settings to match the documented configuration.
 
-Local production and Cloudflare builds, ESLint, actionlint/ShellCheck, and all
-four Lighthouse path/base-URL checks passed. The independent review found no
-outstanding issues: [review record](devcroft:artifact/art-v69htsyn).
+Production, Worker (no `CF_PAGES_URL`) and Pages builds passed. Worker output
+uses root-relative URLs for the four Lighthouse paths, Bengali homepage and
+custom 404; Pages retains its supplied preview hostname. Wrangler 4.158.0's
+deploy dry-run accepted 1,099 generated static assets. ESLint,
+actionlint/ShellCheck and `git diff --check` passed. Independent review found no
+blockers: [review record](devcroft:artifact/art-v69htsyn). Live Cloudflare build
+verification remains dependent on the dashboard settings.
 
 ## Risks / open questions
 
-- The existing Pages project name has not yet been provided; GitHub repository
-  variables supply the account and project name without hardcoding them.
+- The connected Cloudflare service is a Worker named `toha`. Workers does not
+  supply `CF_PAGES_URL`. Root-relative URLs work across preview hosts, but do not
+  provide absolute canonical/Open Graph/feed URLs. Public-site migration is
+  outside this preview-only change.
+- No Pages project name has been provided. The optional Pages audit remains
+  skipped until its repository variables are configured; it cannot audit Workers.
 - Configure the read token as both an Actions secret and a Dependabot secret
   when auditing dependency PRs.
 - Native Pages GitHub integration does not preview fork PRs; this is an accepted

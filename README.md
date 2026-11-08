@@ -17,7 +17,7 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 
 - **Example Site:** [toha-example-site](https://toha-example-site.netlify.app)
 - **Documentation:** [toha-docs.netlify.app](https://toha-docs.netlify.app/posts)
-- **Pull-request previews:** [Cloudflare Pages setup](docs/cloudflare-previews.md)
+- **Pull-request previews:** [Cloudflare setup](docs/cloudflare-previews.md)
 
 ## Features
 
