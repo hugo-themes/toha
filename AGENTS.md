@@ -75,6 +75,12 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 3. **Defaults:** New features must be **disabled by default**.
 4. **Localization:** Do not hardcode English strings. Use `{{ i18n "string_id" }}`.
 
+## Planning Records
+
+- Store plans and implementation handoffs as Devcroft artifacts using `devcroft artifact`.
+- Do not write planning Markdown in `plan/`, `plans/`, or other repository directories.
+- Read and update the relevant Devcroft artifact when continuing implementation.
+
 ## Common Workflows
 
 ### How to add a new Section
