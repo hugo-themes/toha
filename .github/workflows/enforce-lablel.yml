@@ -1,17 +1,32 @@
 name: Label Enforcer
 
-# Run action on pull request creation, reopening, or label changes
+# Read PR metadata from the trusted base-branch workflow, including fork PRs.
 on:
-  pull_request:
-    types: [opened, reopened, labeled, unlabeled]
+  pull_request_target:
+    types: [opened, reopened, synchronize, labeled, unlabeled, ready_for_review]
+
+permissions:
+  pull-requests: read
 
 jobs:
   # Ensure that PR has desired labels
   enforce-label:
     runs-on: ubuntu-latest
     steps:
-      - uses: yogevbd/enforce-label-action@2.2.2
-        with:
-          REQUIRED_LABELS_ANY: "feature,fix,maintenance"
-          REQUIRED_LABELS_ANY_DESCRIPTION: "The PR must have at least one these labels:
-            ['feature','fix','maintenance']"
+      # Do not check out or execute PR code in this pull_request_target job.
+      - name: Check required labels
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          labels=$(gh api --paginate --slurp \
+            "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/labels?per_page=100")
+
+          if ! jq -e 'any(.[][]; .name == "feature" or .name == "fix" or .name == "maintenance")' \
+            <<< "$labels" > /dev/null; then
+            echo "::error::The PR must have at least one of these labels: feature, fix, maintenance"
+            exit 1
+          fi
