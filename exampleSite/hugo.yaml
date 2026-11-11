@@ -326,9 +326,9 @@ params:
 
     # Emit schema.org JSON-LD structured data: WebSite and Person on the home
     # page, one ScholarlyArticle per publication, and BlogPosting on blog
-    # posts. Default is "true".
+    # posts. Disabled by default; enable after reviewing your site's metadata.
     structuredData:
-      # enable: false
+      enable: false
 
     # Number of posts to show to each page. Default is "12"
     pagination:

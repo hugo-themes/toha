@@ -6,23 +6,24 @@
 {{- /*
   Regular pages are listed unless they are hidden (`hidden: true`), opted out
   through Hugo's `sitemap.disable` front matter, or are the generated search
-  page, which only renders the search layout.
+  page, which only renders the search layout. Explicitly noindexed pages are
+  excluded as well.
 */ -}}
 {{- $regularPages := slice -}}
 {{- range .Site.RegularPages }}
-  {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (ne .Type "search") (not .Sitemap.Disable) }}
+  {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (ne .Params.noindex true) (ne .Type "search") (not .Sitemap.Disable) }}
     {{- $regularPages = $regularPages | append . }}
   {{- end }}
 {{- end }}
 {{- /*
-  List pages (home, sections, taxonomies, terms) are listed when they contain
-  at least one listed regular page. Their lastmod is the newest lastmod among
-  those pages, so empty sections are skipped and generated utility pages cannot
-  give them a stale date.
+  The home page is listed even on a portfolio without posts. Other list pages
+  (sections, taxonomies, terms) need at least one listed regular page. Their
+  lastmod is the newest lastmod among those pages, so generated utility pages
+  cannot give them a stale date.
 */ -}}
 {{- $entries := slice -}}
-{{- range where .Site.Pages "IsNode" true }}
-  {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (not .Sitemap.Disable) }}
+{{- range where .Site.Pages "IsPage" false }}
+  {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (ne .Params.noindex true) (not .Sitemap.Disable) }}
     {{- $members := slice -}}
     {{- if eq .Kind "taxonomy" }}
       {{- range .Pages }}
@@ -34,8 +35,17 @@
       {{- $members = .RegularPagesRecursive }}
     {{- end }}
     {{- $members = $members | intersect $regularPages }}
-    {{- if $members }}
-      {{- $lastmod := (index (sort $members "Lastmod" "desc") 0).Lastmod }}
+    {{- if or .IsHome $members }}
+      {{- $lastmod := .Lastmod }}
+      {{- if $members }}
+        {{- $lastmod = (index (sort $members "Lastmod" "desc") 0).Lastmod }}
+      {{- else if .IsHome }}
+        {{- /* A generated search page's fixed date is not a portfolio update. */ -}}
+        {{- $lastmod = time.AsTime "0001-01-01T00:00:00Z" }}
+        {{- with .Params.lastmod | default .Params.date }}
+          {{- $lastmod = time.AsTime . }}
+        {{- end }}
+      {{- end }}
       {{- $entries = $entries | append (dict "page" . "lastmod" $lastmod) }}
     {{- end }}
   {{- end }}
@@ -60,7 +70,7 @@
     {{- end }}
     {{- if $page.IsTranslated }}
       {{- range $page.Translations }}
-        {{- if in $enabledLanguageCodes .Language.Lang }}
+        {{- if and (in $enabledLanguageCodes .Language.Lang) (ne .Params.hidden true) (ne .Params.noindex true) (not .Sitemap.Disable) }}
     <xhtml:link rel="alternate" hreflang="{{ .Language.Locale | default .Language.Lang }}" href="{{ .Permalink }}" />
         {{- end }}
       {{- end }}

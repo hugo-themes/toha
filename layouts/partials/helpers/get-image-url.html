@@ -5,7 +5,7 @@
       Usage: partial "helpers/get-image-url.html" (dict "context" . "path" $path)  */}}
 {{ $path := .path }}
 {{ $url := "" }}
-{{ if findRE `^(https?:)?//` $path }}
+{{ if findRE `(?i)^(https?:)?//` $path }}
   {{ $url = $path }}
 {{ else }}
   {{ with .context.Resources.Get $path }}
@@ -14,7 +14,7 @@
     {{ with resources.Get $path }}
       {{ $url = .Permalink }}
     {{ else }}
-      {{ $url = $path | absURL }}
+      {{ $url = partial "helpers/get-resource-url.html" $path | absURL }}
     {{ end }}
   {{ end }}
 {{ end }}
