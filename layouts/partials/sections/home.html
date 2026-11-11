@@ -113,105 +113,28 @@
 {{ end }}
 
 <div class="container-fluid home" id="home">
-  <style>
-    /* 0 to 299 */
-    #homePageBackgroundImageDivStyled {
-      background-image: url('{{ $tiny.RelPermalink }}');
-    }
-
-    /* 300 to X */
-    @media (min-width: 500px) and (max-width: 800px) {
-
-      /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {
-        background-image: url('{{ $small.RelPermalink }}');
-      }
-    }
-
-    @media (min-width: 801px) and (max-width: 1200px) {
-
-      /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {
-        background-image: url('{{ $medium.RelPermalink }}');
-      }
-    }
-
-    @media (min-width: 1201px) and (max-width: 1500px) {
-
-      /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {
-        background-image: url('{{ $large.RelPermalink }}');
-      }
-    }
-
-    @media (min-width: 1501px) {
-
-      /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {
-        background-image: url('{{ $src.RelPermalink }}');
-      }
-    }
-
-    html[data-theme='dark'] {
-
-      /* 0 to 299 */
-      #homePageBackgroundImageDivStyled {
-        background-image: url('{{ $darkTiny.RelPermalink }}');
-      }
-
-      /* 300 to X */
-      @media (min-width: 500px) and (max-width: 800px) {
-
-        /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {
-          background-image: url('{{ $darkSmall.RelPermalink }}');
-        }
-      }
-
-      @media (min-width: 801px) and (max-width: 1200px) {
-
-        /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {
-          background-image: url('{{ $darkMedium.RelPermalink }}');
-        }
-      }
-
-      @media (min-width: 1201px) and (max-width: 1500px) {
-
-        /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {
-          background-image: url('{{ $darkLarge.RelPermalink }}');
-        }
-      }
-
-      @media (min-width: 1501px) {
-
-        /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {
-          background-image: url('{{ $darkSrc.RelPermalink }}');
-        }
-      }
-    }
-  </style>
+  {{- /* The responsive (and dark) background images are passed as CSS custom properties,
+         which the media queries in sections/home.scss pick from: a <style> element is not
+         allowed inside <body>. */}}
   <span class="on-the-fly-behavior"></span>
-  <div id="homePageBackgroundImageDivStyled" class="background container-fluid"></div>
+  <div id="homePageBackgroundImageDivStyled" class="background container-fluid"
+    style="--home-bg-tiny: url('{{ $tiny.RelPermalink }}'); --home-bg-small: url('{{ $small.RelPermalink }}'); --home-bg-medium: url('{{ $medium.RelPermalink }}'); --home-bg-large: url('{{ $large.RelPermalink }}'); --home-bg-full: url('{{ $src.RelPermalink }}'); --home-bg-dark-tiny: url('{{ $darkTiny.RelPermalink }}'); --home-bg-dark-small: url('{{ $darkSmall.RelPermalink }}'); --home-bg-dark-medium: url('{{ $darkMedium.RelPermalink }}'); --home-bg-dark-large: url('{{ $darkLarge.RelPermalink }}'); --home-bg-dark-full: url('{{ $darkSrc.RelPermalink }}');"></div>
   <div class="container content text-center">
-    <img src="{{ $authorImage.RelPermalink }}" class="rounded-circle mx-auto d-block img-fluid" alt="Author Image" />
+    <img src="{{ $authorImage.RelPermalink }}" class="rounded-circle mx-auto d-block img-fluid" alt="{{ $name }}" />
     <h1 class="greeting"> {{ $author.greeting }} {{ $name }}</h1>
     {{ if $author.subtitle }}
     <h2 class="greeting-subtitle">{{ $author.subtitle }}</h2>
     {{ end }}
+    {{ with $author.summary }}
     <div class="typing-carousel">
       <span id="typed" class="typed"></span>
-      <span class="ityped-cursor"></span>
     </div>
     <ul id="typing-carousel-data">
-      {{ if $author.summary }}
-      {{ range $author.summary }}
+      {{ range . }}
       <li>{{ . }}</li>
-      {{ end}}
       {{ end }}
     </ul>
+    {{ end }}
     {{ if $sections }}
     {{ range first 1 (where (sort $sections "section.weight") ".section.enable" true) }}
     {{ $sectionID := replace (lower .section.name) " " "-" }}

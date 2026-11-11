@@ -18,9 +18,9 @@
           {{ $blogSection := site.Params.features.blog.section | default "posts" }}
           {{ $sectionTitle := i18n $blogSection | default ($blogSection | title) }}
           <li id="list-heading"><a href="{{ print "/" $blogSection "/" | relLangURL }}" data-filter="all">{{ $sectionTitle }}</a></li>
-          <div class="subtree">
+          <li class="subtree-holder"><ul class="subtree">
             {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
-          </div>
+          </ul></li>
         </ul>
       </div>
     </div>
@@ -44,7 +44,7 @@
         {{ $showReadingTime := site.Params.features.readingTime.enable | default true }}
         {{ if site.Params.features.blog.showAuthor | default true }}
         <div class="author-profile ms-auto align-self-lg-center">
-          <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="Author Image">
+          <img class="rounded-circle" src='{{ partial "helpers/get-author-image.html" . }}' alt="{{ partial "helpers/get-author-name.html" . }}">
           <h5 class="author-name">{{ partial "helpers/get-author-name.html" . }}</h5>
           <p class="text-muted">
             {{ if $showDate }}{{ .Page.Date | time.Format ":date_full" }}{{ end }}
@@ -80,7 +80,15 @@
         <div class="row ps-3 pe-3">
           <!--Social Media Share Buttons-->
           <div class="col-md-6 share-buttons">
-            {{ if site.Params.features.blog.shareButtons }}
+            {{- /* Show the row only if at least one supported button is enabled. */}}
+            {{- $shareButtons := site.Params.features.blog.shareButtons }}
+            {{- $anyShareButton := false }}
+            {{- if reflect.IsMap $shareButtons }}
+            {{- range slice "facebook" "twitter" "reddit" "tumblr" "pocket" "linkedin" "diaspora" "mastodon" "whatsapp" "email" }}
+            {{- if index $shareButtons . }}{{ $anyShareButton = true }}{{ end }}
+            {{- end }}
+            {{- end }}
+            {{ if $anyShareButton }}
             <strong>{{ i18n "share_on" }}:</strong>
             {{ if site.Params.features.blog.shareButtons.facebook }}
             <a class="btn icon-button bg-facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink }}"
@@ -193,10 +201,10 @@
     </div>
   </div>
   <!--scroll back to top-->
-  <a id="scroll-to-top" class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
-    title="Scroll to top">
+  <button id="scroll-to-top" class="btn" type="button" data-bs-toggle="tooltip" data-bs-placement="left"
+    title="Scroll to top" aria-label="Scroll to top">
     <i class="fas fa-chevron-circle-up"></i>
-  </a>
+  </button>
 </section>
 {{ end }}
 
