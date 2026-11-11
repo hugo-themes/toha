@@ -107,6 +107,12 @@ other = "স্টার"
 [project_details]
 other = "বিস্তারিত"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "আপনি যে পৃষ্ঠাটি খুঁজছেন তা এখনও নেই।"
 

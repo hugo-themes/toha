@@ -107,6 +107,12 @@ other = "Star"
 [project_details]
 other = "Detalhes"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "A página que procura ainda não está aqui."
 

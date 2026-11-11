@@ -59,10 +59,10 @@
       {{ if or $doi $arxiv $paperURL }}
       <div class="details-btn">
         {{ with $doi }}
-        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="https://doi.org/{{ . }}" target="_blank" rel="noopener" role="button">DOI</a>
+        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="https://doi.org/{{ . }}" target="_blank" rel="noopener" role="button">{{ i18n "publication_doi" }}</a>
         {{ end }}
         {{ with $arxiv }}
-        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="https://arxiv.org/abs/{{ . }}" target="_blank" rel="noopener" role="button">arXiv</a>
+        <a class="btn btn-outline-info ms-1 ps-2 mb-2" href="https://arxiv.org/abs/{{ . }}" target="_blank" rel="noopener" role="button">{{ i18n "publication_arxiv" }}</a>
         {{ end }}
         {{ with $paperURL }}
         {{- $resourceURL := partial "helpers/get-resource-url.html" . -}}

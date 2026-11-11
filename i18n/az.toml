@@ -107,6 +107,12 @@ other = "Ulduz"
 [project_details]
 other = "Təfərrüatlar"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "Axtardığınız səhifə tapılmadı."
 
