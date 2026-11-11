@@ -2,10 +2,13 @@
 <html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
   <head>
     <title>{{ .Page.Title }}</title>
+    <meta name="description" content="{{ partial "helpers/get-description.html" . }}" />
     <!------ ADD COMMON HEADERS -------->
     {{- partial "header.html" . -}}
     {{- partial "opengraph.html" . -}}
     {{- partial "twitter_cards.html" . -}}
+    {{- partial "robots.html" . -}}
+    {{- partial "structured-data.html" . -}}
     <!------ ADD PAGE SPECIFIC HEADERS ------->
     {{ block "header" . }} {{ end }}
 

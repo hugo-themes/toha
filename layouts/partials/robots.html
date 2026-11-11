@@ -1,0 +1,20 @@
+{{- /*
+  Emit a `noindex, follow` robots meta tag for pages that should stay out of
+  search results.
+
+    1. A page's `noindex` front matter (true or false) always wins.
+    2. Otherwise the generated search page is marked `noindex`, unless
+       `params.features.noindex.search` is set to false.
+*/ -}}
+{{- $noindex := false -}}
+{{- if isset .Params "noindex" -}}
+  {{- $noindex = .Params.noindex -}}
+{{- else if eq .Type "search" -}}
+  {{- $noindex = true -}}
+  {{- with site.Params.features.noindex -}}
+    {{- if isset . "search" }}{{ $noindex = .search }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $noindex }}
+<meta name="robots" content="noindex, follow" />
+{{- end -}}

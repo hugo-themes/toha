@@ -34,6 +34,10 @@ run = "npm run lint"
 description = "Verify page and resource URLs in multilingual Hugo builds"
 run = "node --test tests/url-resolution.test.mjs"
 
+[tasks.test-seo]
+description = "Verify SEO metadata, structured data, and sitemap output"
+run = "node --test tests/seo-metadata.test.mjs"
+
 [tasks.example-site]
 description = "Start the development server with live reload"
 depends = ["install-example-deps"]
@@ -47,6 +51,6 @@ run = "npm audit fix --force"
 
 
 [tasks.check]
-description = "Run build, lint, and URL regression tests"
+description = "Run build, lint, URL, and SEO regression tests"
 # This gives the AI a single 'truth' command to validate its work.
-depends = ["lint", "build", "test-urls"]
+depends = ["lint", "build", "test-urls", "test-seo"]

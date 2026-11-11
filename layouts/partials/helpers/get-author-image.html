@@ -10,7 +10,7 @@
 {{ end }}
 
 {{/* if author image is provided in author's data, then use that */}}
-{{ if eq (printf "%T" .Params.author ) "maps.Params" }}
+{{ if reflect.IsMap .Params.author }}
     {{ with .Params.author }}
         {{ if .image }}
             {{ $authorImage = .image }}

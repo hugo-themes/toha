@@ -7,7 +7,7 @@
 {{ end }}
 
 {{/*  Lastly, overrides with the post specific author if provided  */}}
-{{ if eq (printf "%T" .Params.author ) "maps.Params" }}
+{{ if reflect.IsMap .Params.author }}
     {{ with .Params.author }}
         {{ if .name }}
         {{ $authorName = .name }}

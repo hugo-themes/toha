@@ -22,6 +22,7 @@ jobs:
       - name: Build
         run: |
           mise run test-urls
+          mise run test-seo
           mise run build
 
   # Run linter
