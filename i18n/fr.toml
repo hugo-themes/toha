@@ -107,6 +107,12 @@ other = "Lire"
 [project_details]
 other = "Détails"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "La page que vous recherchez n'est pas disponible."
 

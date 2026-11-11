@@ -18,8 +18,8 @@
     
     <!--================= add analytics if enabled =========================-->
     {{- partial "analytics.html" . -}}
-    {{ with resources.Get "scripts/core/theme-scheme.js" | fingerprint }}
-    <script integrity="{{.Data.Integrity}}">
+    {{ with resources.Get "scripts/core/theme-scheme.js" }}
+    <script>
      {{ .Content | safeJS }}
     </script>
     {{ end }}

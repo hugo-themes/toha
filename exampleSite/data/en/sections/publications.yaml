@@ -25,6 +25,9 @@ publications:
   publishedIn:
     name: 2020 IEEE Region Symposium (TENSYMP)
     date: 7 June 2020
+    # Optional first-class fields; rendered as "<name> <volume>, <articleNumber>".
+    volume: "42"
+    articleNumber: "1234"
     url: https://example.com
   authors:
   - name: Dr. Madman
@@ -37,7 +40,13 @@ publications:
     url: https://example.com
   paper:
     summary: Voluptate in id id voluptate laboris. Minim mollit aliquip sit aliqua ut exercitation voluptate eiusmod consequat pariatur sunt enim veniam. Velit esse tempor laboris anim tempor officia. Magna non labore duis do esse sit do ipsum culpa. Officia consequat id non duis culpa dolor. Excepteur magna non nostrud cupidatat aute aliqua aliquip.
+    # First-class identifiers. `doi` -> https://doi.org/..., `arxiv` ->
+    # https://arxiv.org/abs/...; `url` remains for a preprint/PDF or any link.
+    doi: "10.1109/TENSYMP50017.2020.9230646"
+    arxiv: "2006.12345"
     url: https://example.com
+    # Optional label for the `url` button (default "Details"), e.g. "PDF".
+    # urlText: PDF
   categories: ["machinelearning","image-processing"]
   tags: ["Machine Learning", "Autonomous Driving", "Computer Vision"]
 

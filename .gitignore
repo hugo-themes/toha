@@ -1,5 +1,6 @@
 .vscode/
 node_modules/
+.wrangler/
 .DS_Store
 .history/
 .opencode/

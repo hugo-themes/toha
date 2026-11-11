@@ -4,8 +4,12 @@
       {{- $target := .target | default "blank" -}}
       {{- $targetAttr := "_blank" -}}
       {{- if eq $target "self" -}}{{- $targetAttr = "_self" -}}{{- end -}}
-      <a href="{{ if .repo }}{{ .repo }}{{ else if .url }}{{ .url }}{{ else }}javascript:void(0){{ end }}" {{ if or
-        .repo .url }}target="{{ $targetAttr }}" rel="noopener" {{ end }}>
+      {{- $projectURL := .url -}}
+      {{- if $projectURL -}}
+        {{- $projectURL = partial "helpers/get-page-url.html" $projectURL -}}
+      {{- end -}}
+      <a href="{{ if .repo }}{{ .repo }}{{ else if $projectURL }}{{ $projectURL }}{{ else }}javascript:void(0){{ end }}" {{ if or
+        .repo $projectURL }}target="{{ $targetAttr }}" rel="noopener" {{ end }}>
         {{ if .image }}
         <div class="card-head">
           {{ $imageImage:= resources.Get .image}}
@@ -62,7 +66,7 @@
           <div class="project-tags-holder">
             {{ range $index,$tag:= .tags }}
             {{ if $.linkTags }}
-            <a href="{{ printf "/tags/%s/" (urlize $tag) | relLangURL }}">
+            <a href="{{ partial "helpers/get-page-url.html" (printf "/tags/%s/" (urlize $tag)) }}">
               <span class="btn badge btn-info">
                 {{ $tag }}
               </span>
@@ -80,9 +84,9 @@
             <!-- Place this tag where you want the button to render. -->
             <a class="github-button project-btn d-none" href="{{ .repo }}" data-icon="octicon-standard"
               data-show-count="true" aria-label="Star {{ .name }}">{{ i18n "project_star" }}</a>
-            {{ else if .url }}
+            {{ else if $projectURL }}
             <span>
-              <a class="btn btn-outline-info btn-sm" href="{{ .url }}" target="{{ $targetAttr }}" rel="noopener">{{ i18n "project_details" }}</a>
+              <a class="btn btn-outline-info btn-sm" href="{{ $projectURL }}" target="{{ $targetAttr }}" rel="noopener">{{ i18n "project_details" }}</a>
             </span>
             {{ end }}
           </div>

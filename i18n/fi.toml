@@ -107,6 +107,12 @@ other = "Tähti"
 [project_details]
 other = "Yksityiskohdat"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "Sivua jota etsit ei löydy."
 

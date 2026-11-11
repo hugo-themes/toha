@@ -18,9 +18,9 @@
           <ul class="tree" id="tree">
             {{ $sectionTitle := i18n .Type | default (.Type | title) }}
             <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ $sectionTitle }}</a></li>
-            <div class="subtree">
+            <li class="subtree-holder"><ul class="subtree">
                 {{ partial "navigators/sidebar.html" (dict "menuName" "sidebar" "menuItems" site.Menus.sidebar "ctx" .) }}
-            </div>
+            </ul></li>
           </ul>
         </div>
       </div>

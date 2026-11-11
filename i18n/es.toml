@@ -107,6 +107,12 @@ other = "Favorito"
 [project_details]
 other = "Detalles"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "La página que estás buscando no está aquí (todavía)"
 
