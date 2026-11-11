@@ -1,0 +1,33 @@
+{{- $raw := .url | default "" -}}
+{{- $resolved := $raw -}}
+{{- $external := or (hasPrefix $raw "//") (gt (len (findRE "^[a-zA-Z][a-zA-Z0-9+.-]*:" $raw)) 0) -}}
+{{- $samePage := or (hasPrefix $raw "#") (hasPrefix $raw "?") -}}
+{{- $relativeResource := and .resource (not (hasPrefix $raw "/")) -}}
+{{- if not (or $external $samePage $relativeResource) -}}
+  {{/* Only resolve the pathname: query strings and fragments are opaque URL data. */}}
+  {{- $path := replaceRE "[?#].*$" "" $raw -}}
+  {{- $suffix := strings.TrimPrefix $path $raw -}}
+  {{- $basePath := strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path -}}
+  {{- $alreadyBased := and (ne $basePath "") (or (eq $path $basePath) (hasPrefix $path (printf "%s/" $basePath))) -}}
+  {{- if $alreadyBased -}}
+    {{- $resolved = $path -}}
+  {{- else -}}
+    {{- $path = strings.TrimPrefix "/" $path -}}
+    {{/* An explicit language path can point to another translation. */}}
+    {{- $hasLanguage := false -}}
+    {{- if not .resource -}}
+      {{- range hugo.Sites -}}
+        {{- if or (eq $path .Language.Lang) (hasPrefix $path (printf "%s/" .Language.Lang)) -}}
+          {{- $hasLanguage = true -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if or .resource $hasLanguage -}}
+      {{- $resolved = relURL $path -}}
+    {{- else -}}
+      {{- $resolved = relLangURL $path -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $resolved = printf "%s%s" $resolved $suffix -}}
+{{- end -}}
+{{- return $resolved -}}
