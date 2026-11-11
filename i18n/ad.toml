@@ -107,6 +107,12 @@ other = "Preferit"
 [project_details]
 other = "Detalls"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "La pàgina que està cercant encara no existeix."
 

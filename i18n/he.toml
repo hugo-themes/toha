@@ -107,6 +107,12 @@ other = "כוכב"
 [project_details]
 other = "פרטים"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "הדף שאתה מחפש אינו קיים עדיין."
 

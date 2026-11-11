@@ -107,6 +107,12 @@ other = "Star"
 [project_details]
 other = "詳情"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "您訪問的頁面不存在"
 

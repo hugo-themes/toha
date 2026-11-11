@@ -107,6 +107,12 @@ other = "Leggi"
 [project_details]
 other = "Dettagli"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 # [err_404]
 # other = "The page you are looking for is not there yet."
 

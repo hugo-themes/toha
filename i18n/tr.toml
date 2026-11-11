@@ -107,6 +107,12 @@ other = "Yıldız"
 [project_details]
 other = "Detaylar"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "Aradığınız sayfa bulunamadı."
 

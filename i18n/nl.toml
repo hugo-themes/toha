@@ -109,6 +109,12 @@ other = "Heden"
 [project_details]
 other = "Details"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "De pagina waar je voor zoekt bestaat nog niet."
 

@@ -107,6 +107,12 @@ other = "نجمة"
 [project_details]
 other = "التفاصيل"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "الصفحة التي تبحث عنها ليست بعد هناك."
 
