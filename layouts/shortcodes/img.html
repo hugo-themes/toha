@@ -1,4 +1,4 @@
-{{- $src := partial "helpers/get-page-url.html" (.Get "src") -}}
+{{- $src := partial "helpers/get-resource-url.html" (.Get "src") -}}
 <img src="{{ $src }}"
     {{ if .Get "title"}}
         alt="{{.Get "title"}}"
