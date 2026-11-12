@@ -72,6 +72,22 @@
 
 html[data-theme='dark'] .code-block {
   border-color: get-dark-color('bg-secondary');
+  .code-block-full,
+  .code-block-preview {
+    background-color: get-dark-color('bg-code');
+
+    // Override highlighter backgrounds, including Chroma's inline table wrappers.
+    // Keep token colors and highlighted-line backgrounds intact.
+    .highlight,
+    .highlight > div,
+    .chroma,
+    pre,
+    code,
+    table,
+    td {
+      background-color: get-dark-color('bg-code') !important;
+    }
+  }
   .code-block-header,
   .code-block-copy,
   .code-block-toggle {

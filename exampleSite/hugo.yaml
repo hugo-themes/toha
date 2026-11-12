@@ -309,7 +309,8 @@ params:
       copyButton:
         enable: true
       folding:
-        enable: false
+        # Enabled here to demonstrate previews; the theme default is false.
+        enable: true
         previewLines: 8
     # Legacy copyCodeButton.enable remains supported if codeBlock.copyButton is absent.
 

@@ -9,10 +9,10 @@ menu:
     weight: 40
 ---
 
-Code blocks have a compact header automatically. Enable
-`params.features.codeBlock.folding.enable` to try the previews below, and set
-`folding.previewLines` to control how many lines remain visible. Use
-`codeBlock.copyButton.enable` to enable copying. Folding is disabled by default.
+Code blocks have a compact header automatically. This example site enables
+`params.features.codeBlock.folding.enable` with an eight-line preview. Set
+`folding.previewLines` to change the preview length or `folding.enable: false`
+to show all code. Use `codeBlock.copyButton.enable` to control copying.
 
 ## A long example
 
