@@ -9,10 +9,10 @@ menu:
     weight: 40
 ---
 
-The optional code panel adds a compact header and Copy button. Enable
-`params.features.codeBlockPanel.enable` and `folding.enable` in your site
-configuration to try the previews below. Set `folding.previewLines` to control
-how many lines remain visible. Both features are disabled by default.
+Code blocks have a compact header automatically. Enable
+`params.features.codeBlock.folding.enable` to try the previews below, and set
+`folding.previewLines` to control how many lines remain visible. Use
+`codeBlock.copyButton.enable` to enable copying. Folding is disabled by default.
 
 ## A long example
 
@@ -25,8 +25,9 @@ title: "My portfolio"
 
 params:
   features:
-    codeBlockPanel:
-      enable: true
+    codeBlock:
+      copyButton:
+        enable: true
       folding:
         enable: true
         previewLines: 8

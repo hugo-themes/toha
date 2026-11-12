@@ -13,7 +13,7 @@ const { initializeCodeBlocks } = await import(`data:text/javascript;base64,${Buf
 const normalize = (html) => html.replace(/<[^>]+>/g, (tag) => tag.replace(/(\s[\w-]+)=([^\s"'<>`=]+)/g, '$1="$2"'))
 const dataBlocks = (html) => [...html.matchAll(/<script type="application\/json" class="code-block-data">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]))
 const prose = (html) => JSON.parse(html.match(/<script id="prose" type="application\/json">([\s\S]*?)<\/script>/)[1])
-const enabled = (folding) => ({ params: { features: { codeBlockPanel: { enable: true, folding } } } })
+const configured = (folding) => ({ params: { features: { codeBlock: { folding } } } })
 const snippet = 'package main\n\nfunc main() {\n\tprintln("</script><script>& Toha!")\n}\n'
 const markdown = `---\ntitle: Code samples\n---\n
 \`\`\`go {title="main.go" id="example" linenos=false data-expand=true}
@@ -72,17 +72,36 @@ function baseline(directory, build) {
   return build('baseline')
 }
 
-test('disabled panel preserves Hugo output, including attributes and empty fences', () => {
-  for (const params of [{}, { features: { codeBlockPanel: { enable: false, folding: { enable: true } } } }]) {
-    fixture({ params }, (html, bn, directory, build) => {
-      assert.equal(dataBlocks(html).length, 0)
-      assert.equal(html, baseline(directory, build))
+test('code block headers are automatic and have no global enable switch', () => {
+  for (const params of [{}, { features: { codeBlock: { enable: false } } }]) {
+    fixture({ params }, (html) => {
+      const data = dataBlocks(html)
+      assert.equal(data.length, 5)
+      assert(data.every((block) => block.copyButton === false && !block.preview))
+      assert.equal(data[4].source, '')
+    })
+  }
+})
+
+test('new copyButton wins over the backward-compatible copyCodeButton fallback', () => {
+  const cases = [
+    [{ copyCodeButton: { enable: true } }, true],
+    [{ copyCodeButton: { enable: false } }, false],
+    [{ copyCodeButton: { services: {} } }, true],
+    [{ codeBlock: { copyButton: { enable: true } } }, true],
+    [{ codeBlock: { copyButton: { enable: false } } }, false],
+    [{ copyCodeButton: { enable: true }, codeBlock: { copyButton: { enable: false } } }, false],
+    [{ copyCodeButton: { enable: false }, codeBlock: { copyButton: { enable: true } } }, true]
+  ]
+  for (const [features, expected] of cases) {
+    fixture({ params: { features } }, (html) => {
+      assert(dataBlocks(html).every((block) => block.copyButton === expected))
     })
   }
 })
 
 test('preview size, short blocks, original source, and localized labels survive minification', () => {
-  fixture(enabled({ enable: true, previewLines: 3 }), (html, bn) => {
+  fixture(configured({ enable: true, previewLines: 3 }), (html, bn) => {
     const data = dataBlocks(html)
     assert.equal(data.length, 5)
     assert.equal(data.filter((b) => b.preview).length, 3)
@@ -105,20 +124,20 @@ test('preview size, short blocks, original source, and localized labels survive 
 
 test('folding is opt-in and invalid preview sizes fall back to eight', () => {
   for (const folding of [undefined, { enable: false, previewLines: 1 }, { enable: true, previewLines: -1 }, { enable: true, previewLines: 'invalid' }]) {
-    fixture(enabled(folding), (html) => {
+    fixture(configured(folding), (html) => {
       assert.equal(dataBlocks(html).filter((b) => b.preview).length, folding?.enable ? 1 : 0)
     })
   }
 })
 
 test('panel data does not add control labels or duplicate code to Plain, Summary, or word count', () => {
-  fixture(enabled({ enable: true, previewLines: 2 }), (html, bn, directory, build) => {
+  fixture(configured({ enable: true, previewLines: 2 }), (html, bn, directory, build) => {
     assert.deepEqual(prose(html), prose(baseline(directory, build)))
   })
 })
 
 test('table line numbers preserve source and previews never duplicate explicit line anchors', () => {
-  fixture({ ...enabled({ enable: true, previewLines: 2 }), markup: { highlight: { lineNos: true, lineNumbersInTable: true, anchorLineNos: true, lineAnchors: 'line' } } }, (html) => {
+  fixture({ ...configured({ enable: true, previewLines: 2 }), markup: { highlight: { lineNos: true, lineNumbersInTable: true, anchorLineNos: true, lineAnchors: 'line' } } }, (html) => {
     assert.match(html, /<table/)
     assert.match(html, /id="probe-1"/)
     const data = dataBlocks(html)
@@ -128,7 +147,7 @@ test('table line numbers preserve source and previews never duplicate explicit l
 })
 
 test('untranslated bundled default locales retain named English controls', () => {
-  fixture({ ...enabled({ enable: true, previewLines: 2 }), defaultContentLanguage: 'fr' }, (html) => {
+  fixture({ ...configured({ enable: true, previewLines: 2 }), defaultContentLanguage: 'fr' }, (html) => {
     const { labels } = dataBlocks(html)[0]
     assert.equal(labels.copy, 'Copy')
     assert.equal(labels.showAll, 'Show all {count} lines')
@@ -137,7 +156,7 @@ test('untranslated bundled default locales retain named English controls', () =>
 })
 
 test('codeFences false uses unchanged plain markup for subsequent progressive enhancement', () => {
-  fixture({ ...enabled({ enable: true, previewLines: 2 }), markup: { highlight: { codeFences: false } } }, (html, bn, directory, build) => {
+  fixture({ ...configured({ enable: true, previewLines: 2 }), markup: { highlight: { codeFences: false } } }, (html, bn, directory, build) => {
     assert.equal(dataBlocks(html).length, 0)
     assert.equal(html, baseline(directory, build))
   })
@@ -190,7 +209,7 @@ function addBlock(document, { expanded = false, foldable = true, source = snippe
   block.appendChild(full)
   const script = document.createElement('script')
   script.className = 'code-block-data'
-  script.textContent = JSON.stringify({ source, title: 'sample.go', labels, expanded, preview: foldable ? '<pre>preview</pre>' : '' })
+  script.textContent = JSON.stringify({ source, copyButton: true, title: 'sample.go', labels, expanded, preview: foldable ? '<pre>preview</pre>' : '' })
   block.appendChild(script)
   document.appendChild(block)
   return block
@@ -246,7 +265,7 @@ test('plain fences get a single panel and full-source copy before highlighter mu
   pre.appendChild(code)
   document.appendChild(pre)
   let copied
-  initializeCodeBlocks(document, { writeText: async (value) => { copied = value } }, { labels, folding: true, previewLines: 2 })
+  initializeCodeBlocks(document, { writeText: async (value) => { copied = value } }, { labels, copyButton: true, folding: true, previewLines: 2 })
   assert.equal(document.querySelectorAll('.code-block-copy').length, 1)
   assert.equal(document.querySelector('.code-block-toggle').textContent, 'Show all 5 lines')
   assert.equal(document.querySelector('.code-block-title').textContent, 'go')
@@ -263,7 +282,21 @@ test('plain fences with an attribute token in place of a language use the generi
   code.textContent = 'plain text\n'
   pre.appendChild(code)
   document.appendChild(pre)
-  initializeCodeBlocks(document, {}, { labels, folding: true, previewLines: 2 })
+  initializeCodeBlocks(document, {}, { labels, copyButton: true, folding: true, previewLines: 2 })
   assert.equal(document.querySelector('.code-block-title').textContent, 'Code')
   assert.equal(document.querySelector('.code-block-toggle'), undefined)
+})
+
+
+test('disabling copying keeps the header and folding control', () => {
+  const document = dom()
+  const sample = addBlock(document)
+  const dataElement = sample.querySelector('.code-block-data')
+  const data = JSON.parse(dataElement.textContent)
+  data.copyButton = false
+  dataElement.textContent = JSON.stringify(data)
+  initializeCodeBlocks(document, {})
+  assert(sample.querySelector('.code-block-header'))
+  assert(sample.querySelector('.code-block-toggle'))
+  assert.equal(sample.querySelector('.code-block-copy'), undefined)
 })

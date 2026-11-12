@@ -198,15 +198,15 @@ namespaced by their corresponding feature.
   "process.env.FEATURE_LAZYLOADPOSTS" (cond (eq site.Params.features.pagination.lazyLoad true) `'1'` `'0'`)
 ) }}
 
-{{/* The native panel also enhances plain fences when Hugo codeFences is false. */}}
+{{/* Code blocks always have a header; only copying and folding are configurable. */}}
 {{ $codeBlocks := partial "helpers/code-block-options.html" . }}
-{{ if $codeBlocks.enabled }}
-  {{ $params = merge (dict "codeblockpanel" (dict
-    "folding" $codeBlocks.folding
-    "previewLines" $codeBlocks.previewLines
-    "labels" (partial "helpers/code-block-labels.html" .)
-  )) $params }}
-{{ end }}
+{{ $defines = merge (dict "process.env.FEATURE_CODEBLOCK_COPYBUTTON" (cond $codeBlocks.copyButton `'1'` `'0'`)) $defines }}
+{{ $params = merge (dict "codeblock" (dict
+  "copyButton" $codeBlocks.copyButton
+  "folding" $codeBlocks.folding
+  "previewLines" $codeBlocks.previewLines
+  "labels" (partial "helpers/code-block-labels.html" .)
+)) $params }}
 
 {{
   return dict 

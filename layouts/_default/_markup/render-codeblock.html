@@ -3,9 +3,6 @@
 {{- $source := .Inner -}}
 {{- if $source }}{{ $source = printf "%s\n" $source }}{{ end -}}
 {{- $highlight := transform.HighlightCodeBlock . (merge (dict "code" $source) .Options) -}}
-{{- if not $options.enabled -}}
-  {{- $highlight.Wrapped -}}
-{{- else -}}
   {{- $labels := partial "helpers/code-block-labels.html" . -}}
   {{- $lines := split (strings.TrimSuffix "\n" $source) "\n" -}}
   {{- $previewLines := $options.previewLines -}}
@@ -26,8 +23,7 @@
   {{- $title := .Type | default $labels.code -}}
   {{- $language := "" -}}
   {{- with index .Attributes "title" }}{{ $title = . }}{{ $language = $.Type }}{{ end -}}
-  {{- $data := dict "source" $source "preview" $preview "title" $title "language" $language "labels" $labels "expanded" (eq (printf "%v" (index .Attributes "data-expand")) "true") -}}
+  {{- $data := dict "copyButton" $options.copyButton "source" $source "preview" $preview "title" $title "language" $language "labels" $labels "expanded" (eq (printf "%v" (index .Attributes "data-expand")) "true") -}}
   <div class="code-block" data-code-block><div class="code-block-full" id="{{ $id }}">{{ $highlight.Wrapped }}</div>
   {{/* Inert JSON keeps labels/previews out of Plain/Summary and preserves whitespace when minified. jsonify escapes HTML. */}}
   <script type="application/json" class="code-block-data">{{ $data | jsonify | safeJS }}</script></div>
-{{- end -}}

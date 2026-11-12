@@ -24,11 +24,13 @@ export function initializeCodeBlocks(root, clipboard = globalThis.navigator?.cli
       language.textContent = data.language
       header.appendChild(language)
     }
-    const copy = document.createElement('button')
-    copy.className = 'code-block-copy'
-    copy.type = 'button'
-    copy.textContent = labels.copy
-    header.appendChild(copy)
+    const copy = data.copyButton ? document.createElement('button') : null
+    if (copy) {
+      copy.className = 'code-block-copy'
+      copy.type = 'button'
+      copy.textContent = labels.copy
+      header.appendChild(copy)
+    }
     const status = document.createElement('span')
     status.className = 'code-block-status visually-hidden'
     status.setAttribute('role', 'status')
@@ -80,22 +82,24 @@ export function initializeCodeBlocks(root, clipboard = globalThis.navigator?.cli
       toggle.textContent = expanded ? labels.showLess : labels.showAll.replace('{count}', String(count))
     }
 
-    let feedbackTimer
-    copy.addEventListener('click', async () => {
-      copy.disabled = true
-      clearTimeout(feedbackTimer)
-      status.textContent = ''
-      try {
-        if (!clipboard?.writeText) throw new Error('Clipboard unavailable')
-        await clipboard.writeText(data.source)
-        copy.textContent = status.textContent = labels.copied
-      } catch {
-        copy.textContent = status.textContent = labels.copyError
-      } finally {
-        copy.disabled = false
-        feedbackTimer = setTimeout(() => { copy.textContent = labels.copy }, 2000)
-      }
-    })
+    if (copy) {
+      let feedbackTimer
+      copy.addEventListener('click', async () => {
+        copy.disabled = true
+        clearTimeout(feedbackTimer)
+        status.textContent = ''
+        try {
+          if (!clipboard?.writeText) throw new Error('Clipboard unavailable')
+          await clipboard.writeText(data.source)
+          copy.textContent = status.textContent = labels.copied
+        } catch {
+          copy.textContent = status.textContent = labels.copyError
+        } finally {
+          copy.disabled = false
+          feedbackTimer = setTimeout(() => { copy.textContent = labels.copy }, 2000)
+        }
+      })
+    }
     block.dataset.initialized = 'true'
     controllers.push({ full, expand })
   })
@@ -125,7 +129,7 @@ function preparePlainBlocks(root, settings) {
     const lines = source.replace(/\n$/, '').split('\n')
     const language = code.getAttribute('data-lang') || code.className.match(/(?:^|\s)language-([^\s]+)/)?.[1] || ''
     const data = {
-      source, labels: settings.labels, codeClass: code.className,
+      source, copyButton: settings.copyButton, labels: settings.labels, codeClass: code.className,
       // With codeFences:false, Hugo can treat a language-less attribute as a type.
       title: /^[\w.+#-]+$/.test(language) ? language : settings.labels.code
     }

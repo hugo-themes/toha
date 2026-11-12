@@ -3,7 +3,7 @@ import { initializeCodeBlocks } from './panel'
 
 export const ready = new Promise((resolve) => {
   function initialize() {
-    const revealFragment = initializeCodeBlocks(document, navigator.clipboard, params.codeblockpanel)
+    const revealFragment = initializeCodeBlocks(document, navigator.clipboard, params.codeblock)
     revealFragment(window.location.hash)
     window.addEventListener('hashchange', () => revealFragment(window.location.hash))
     resolve()

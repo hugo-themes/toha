@@ -44,25 +44,32 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 
 For more details about the features please visit [here](https://toha-docs.netlify.app/posts/features/).
 
-## Collapsible code blocks (optional)
+## Code blocks
 
-Enable a compact header with a language (or fence `title`) and a Copy button for
-fenced code blocks. Folding is a separate opt-in setting. Long blocks show a short
+Code blocks have a compact language (or fence `title`) header automatically.
+Copying and folding are configured under `params.features.codeBlock`.
+Folding is an opt-in setting. Long blocks show a short
 preview followed by a “Show all” button; short blocks remain fully visible.
 
 ```yaml
 params:
   features:
-    codeBlockPanel:
-      enable: true
+    codeBlock:
+      copyButton:
+        enable: true
       folding:
         enable: true
         previewLines: 8
 ```
 
-Both `enable` settings default to `false`. `previewLines` must be a positive integer;
-missing or invalid values use 8. Set `folding.enable: false` to keep the compact
-header and Copy button while showing all code. No extra Hugo or npm modules and no
+There is no enable/disable setting for the code block header. Folding defaults to
+`false`; `previewLines` must be a positive integer, with missing or invalid values
+using 8. Set `folding.enable: false` to show all code.
+
+`codeBlock.copyButton.enable` controls copying for both the panel and code outside
+it. An explicit new `copyButton` setting takes precedence, including `enable: false`.
+If `copyButton` is absent, the legacy `params.features.copyCodeButton` configuration
+is used unchanged. If neither setting is present, copying defaults to disabled. No extra Hugo or npm modules and no
 changes to your syntax-highlighting or line-number configuration are required.
 
 Copy always includes the complete original snippet, including lines outside the
@@ -87,8 +94,8 @@ func main() {
 changes its initial state; readers can still fold long blocks. Folding must be
 enabled in the site configuration. With `markup.highlight.codeFences: false`,
 global folding and copying still work, but Hugo discards custom fence attributes.
-Existing `copyCodeButton` behavior is retained
-for code outside the panel, such as the Hugo `highlight` shortcode. Sites with a
+The effective copy setting also controls code outside the panel, such as the Hugo
+`highlight` shortcode. Sites with a
 custom code-block render hook must adopt the panel markup in that hook to use it.
 
 ## Available Translations

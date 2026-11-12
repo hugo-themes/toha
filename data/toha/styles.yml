@@ -23,7 +23,3 @@ math:
 embedpdf:
   styles:
   - ./sections/pdf-viewer
-
-codeblockpanel:
-  styles:
-    - ./components/code-block-panel
