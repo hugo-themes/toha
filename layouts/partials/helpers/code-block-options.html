@@ -1,0 +1,9 @@
+{{- $feature := site.Params.features.codeBlockPanel | default dict -}}
+{{- $folding := $feature.folding | default dict -}}
+{{- $previewLines := 8 -}}
+{{- with $folding.previewLines -}}
+  {{- if findRE `^[1-9][0-9]*$` (printf "%v" .) -}}
+    {{- $previewLines = int . -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "enabled" (eq $feature.enable true) "folding" (eq $folding.enable true) "previewLines" $previewLines) -}}

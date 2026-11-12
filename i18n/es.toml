@@ -149,3 +149,23 @@ other = "Se han cargado todas las publicaciones."
 
 [posts_load_error]
 other = "No se pudieron cargar más publicaciones. Inténtalo de nuevo o usa los enlaces de página de abajo."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"

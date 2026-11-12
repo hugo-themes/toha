@@ -46,34 +46,50 @@ For more details about the features please visit [here](https://toha-docs.netlif
 
 ## Collapsible code blocks (optional)
 
-Toha can integrate with the [Hugo Code Block Panel Module](https://hugomods.com/docs/code-block-panel/) to add expand/collapse, copy, wrap, and line-number toggles to fenced code blocks.
-
-In your site’s `hugo.yaml`:
+Enable a compact header with a language (or fence `title`) and a Copy button for
+fenced code blocks. Folding is a separate opt-in setting. Long blocks show a short
+preview followed by a “Show all” button; short blocks remain fully visible.
 
 ```yaml
-module:
-  imports:
-    - path: github.com/hugo-toha/toha/v4
-    - path: github.com/hugomods/code-block-panel
-    - path: github.com/hugomods/snackbar
-    - path: github.com/hugomods/icons
-    - path: github.com/hugomods/icons/vendors/bootstrap
-
 params:
   features:
     codeBlockPanel:
       enable: true
-
-  # Optional HugoMods settings
-  # code_block_panel:
-  #   max_lines: 10
-
-# Required by HugoMods module
-markup:
-  highlight:
-    lineNos: true
-    lineNumbersInTable: false
+      folding:
+        enable: true
+        previewLines: 8
 ```
+
+Both `enable` settings default to `false`. `previewLines` must be a positive integer;
+missing or invalid values use 8. Set `folding.enable: false` to keep the compact
+header and Copy button while showing all code. No extra Hugo or npm modules and no
+changes to your syntax-highlighting or line-number configuration are required.
+
+Copy always includes the complete original snippet, including lines outside the
+preview, without line numbers. The controls work with keyboard navigation and
+screen readers. Without JavaScript, and when printing, the complete code is shown.
+Other languages fall back to the English action labels until translated.
+
+When Hugo highlighting is enabled (the default), use fence attributes to title a
+block, change its preview size, or start it expanded:
+
+````markdown
+```go {title="main.go" data-max-lines=4 data-expand=true linenos=false}
+package main
+
+func main() {
+    println("Hello, Toha!")
+}
+```
+````
+
+`data-max-lines` overrides the preview size for that block. `data-expand=true` only
+changes its initial state; readers can still fold long blocks. Folding must be
+enabled in the site configuration. With `markup.highlight.codeFences: false`,
+global folding and copying still work, but Hugo discards custom fence attributes.
+Existing `copyCodeButton` behavior is retained
+for code outside the panel, such as the Hugo `highlight` shortcode. Sites with a
+custom code-block render hook must adopt the panel markup in that hook to use it.
 
 ## Available Translations
 

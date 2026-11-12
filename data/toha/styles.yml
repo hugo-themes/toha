@@ -26,5 +26,4 @@ embedpdf:
 
 codeblockpanel:
   styles:
-    - ../mods/snackbar/scss/index
-    - ../mods/code-block-panel/scss/index
+    - ./components/code-block-panel

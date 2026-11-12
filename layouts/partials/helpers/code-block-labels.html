@@ -1,0 +1,9 @@
+{{/* A folded block always has at least two lines, so use the plural translation. */}}
+{{- return (dict
+  "code" (i18n "code_block_code")
+  "copy" (i18n "code_block_copy")
+  "copied" (i18n "code_block_copied")
+  "copyError" (i18n "code_block_copy_error")
+  "showAll" (replace (i18n "code_block_show_all" (dict "Count" 2)) "2" "{count}")
+  "showLess" (i18n "code_block_show_less")
+) -}}

@@ -8,10 +8,6 @@ title: "John's Blog"
 module:
   imports:
     - path: github.com/hugo-toha/toha/v4
-    - path: github.com/hugomods/code-block-panel
-    - path: github.com/hugomods/snackbar
-    - path: github.com/hugomods/icons
-    - path: github.com/hugomods/icons/vendors/bootstrap
   mounts:
     - source: static/files
       target: static/files
@@ -48,11 +44,6 @@ markup:
     startLevel: 2
     endLevel: 6
     ordered: false
-  # Required for HugoMods code-block-panel module (only if you enable it)
-  # https://hugomods.com/docs/code-block-panel/
-  highlight:
-    lineNos: true
-    lineNumbersInTable: false
 
 # At least HTML and JSON are required for the main HTML content and
 # client-side JavaScript search
@@ -317,10 +308,13 @@ params:
     copyCodeButton:
       enable: true
 
-    # Enables collapsible code block panel (expand/collapse, copy, wrap, line numbers)
-    # https://hugomods.com/docs/code-block-panel/
+    # Add a compact language/title header and full-source Copy button to fenced code.
+    # Both the panel and folding are opt-in.
     codeBlockPanel:
-      enable: true
+      enable: false
+      folding:
+        enable: false
+        previewLines: 8
 
     # Enable reading time support in post cards and in post pages. Default is "true".
     readingTime:
@@ -349,10 +343,6 @@ params:
       maxPostsPerPage: 12
       # Append the next page as readers scroll. Pagination remains available.
       lazyLoad: false
-
-  # HugoMods code-block-panel settings (applies when enabled)
-  # code_block_panel:
-  #   max_lines: 10
 
   # Provide footer configuration.
   footer:

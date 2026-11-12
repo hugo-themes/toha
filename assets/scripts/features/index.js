@@ -18,8 +18,16 @@ if (process.env.FEATURE_FLOWCHART === '1') {
   import('./flowchart')
 }
 
-if (process.env.FEATURE_SYNTAXHIGHLIGHT === '1') {
-  import('./syntaxhighlight')
+// Capture plain source and wrap its code before either highlighter or legacy Copy scans.
+function initializeCodeFeatures() {
+  if (process.env.FEATURE_SYNTAXHIGHLIGHT === '1') import('./syntaxhighlight')
+  if (process.env.FEATURE_COPYCODEBUTTON === '1') import('./copyCode')
+}
+
+if (process.env.FEATURE_CODEBLOCKPANEL === '1') {
+  import('./codeBlockPanel').then(({ ready }) => ready).then(initializeCodeFeatures)
+} else {
+  initializeCodeFeatures()
 }
 
 if (process.env.FEATURE_MATH === '1') {
@@ -28,13 +36,6 @@ if (process.env.FEATURE_MATH === '1') {
 
 if (process.env.FEATURE_EMBEDPDF === '1') {
   import('./embedpdf')
-}
-
-if (
-  process.env.FEATURE_COPYCODEBUTTON === '1' &&
-  process.env.FEATURE_CODEBLOCKPANEL !== '1'
-) {
-  import('./copyCode')
 }
 
 if (process.env.FEATURE_ANALYTICS === '1') {
