@@ -130,3 +130,18 @@ other = "दायित्व सूचना"
 
 [search]
 other = "खोज"
+
+[load_more_posts]
+other = "और पोस्ट लोड करें"
+
+[loading_posts]
+other = "पोस्ट लोड हो रही हैं…"
+
+[posts_loaded]
+other = "और पोस्ट लोड हो गई हैं।"
+
+[all_posts_loaded]
+other = "सभी पोस्ट लोड हो गई हैं।"
+
+[posts_load_error]
+other = "और पोस्ट लोड नहीं हो सकीं। फिर से प्रयास करें या नीचे दिए गए पृष्ठ लिंक का उपयोग करें।"

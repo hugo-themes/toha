@@ -134,3 +134,18 @@ other = "Cerca"
 [minute]
 one = "minut"
 other = "minuts"
+
+[load_more_posts]
+other = "Carrega més publicacions"
+
+[loading_posts]
+other = "S’estan carregant les publicacions…"
+
+[posts_loaded]
+other = "S’han carregat més publicacions."
+
+[all_posts_loaded]
+other = "S’han carregat totes les publicacions."
+
+[posts_load_error]
+other = "No s’han pogut carregar més publicacions. Torna-ho a provar o utilitza els enllaços de pàgina de sota."

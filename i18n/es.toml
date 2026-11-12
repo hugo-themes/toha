@@ -134,3 +134,18 @@ other = "Búsqueda"
 [minute]
 one = "minuto"
 other = "minutos"
+
+[load_more_posts]
+other = "Cargar más publicaciones"
+
+[loading_posts]
+other = "Cargando publicaciones…"
+
+[posts_loaded]
+other = "Se han cargado más publicaciones."
+
+[all_posts_loaded]
+other = "Se han cargado todas las publicaciones."
+
+[posts_load_error]
+other = "No se pudieron cargar más publicaciones. Inténtalo de nuevo o usa los enlaces de página de abajo."

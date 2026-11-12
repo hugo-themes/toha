@@ -130,3 +130,18 @@ other = "הבהרת אחריות"
 
 [search]
 other = "חיפוש"
+
+[load_more_posts]
+other = "טעינת פוסטים נוספים"
+
+[loading_posts]
+other = "הפוסטים נטענים…"
+
+[posts_loaded]
+other = "נטענו פוסטים נוספים."
+
+[all_posts_loaded]
+other = "כל הפוסטים נטענו."
+
+[posts_load_error]
+other = "לא ניתן לטעון פוסטים נוספים. נסו שוב או השתמשו בקישורי העמודים למטה."

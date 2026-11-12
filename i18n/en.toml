@@ -137,3 +137,18 @@ other = "Search"
 [minute]
 one = "minute"
 other = "minutes"
+
+[load_more_posts]
+other = "Load more posts"
+
+[loading_posts]
+other = "Loading posts…"
+
+[posts_loaded]
+other = "More posts loaded."
+
+[all_posts_loaded]
+other = "All posts loaded."
+
+[posts_load_error]
+other = "Unable to load more posts. Try again or use the page links below."

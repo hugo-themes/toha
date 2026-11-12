@@ -134,3 +134,18 @@ other = "搜尋"
 [minute]
 one = "分鐘"
 other = "分鐘"
+
+[load_more_posts]
+other = "載入更多文章"
+
+[loading_posts]
+other = "正在載入文章…"
+
+[posts_loaded]
+other = "已載入更多文章。"
+
+[all_posts_loaded]
+other = "已載入所有文章。"
+
+[posts_load_error]
+other = "無法載入更多文章。請重試或使用下方的分頁連結。"

@@ -130,3 +130,18 @@ other = "Thông báo trách nhiệm"
 
 [search]
 other = "Tìm kiếm"
+
+[load_more_posts]
+other = "Tải thêm bài viết"
+
+[loading_posts]
+other = "Đang tải bài viết…"
+
+[posts_loaded]
+other = "Đã tải thêm bài viết."
+
+[all_posts_loaded]
+other = "Đã tải tất cả bài viết."
+
+[posts_load_error]
+other = "Không thể tải thêm bài viết. Hãy thử lại hoặc sử dụng các liên kết trang bên dưới."

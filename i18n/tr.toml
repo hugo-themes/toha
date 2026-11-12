@@ -134,3 +134,18 @@ other = "Ara"
 [minute]
 one = "dakika"
 other = "dakika"
+
+[load_more_posts]
+other = "Daha fazla yazı yükle"
+
+[loading_posts]
+other = "Yazılar yükleniyor…"
+
+[posts_loaded]
+other = "Daha fazla yazı yüklendi."
+
+[all_posts_loaded]
+other = "Tüm yazılar yüklendi."
+
+[posts_load_error]
+other = "Daha fazla yazı yüklenemedi. Tekrar deneyin veya aşağıdaki sayfa bağlantılarını kullanın."

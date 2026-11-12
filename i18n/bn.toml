@@ -133,3 +133,18 @@ other = "অনুসন্ধান করুন"
 
 [minute]
 other = "মিনিট"
+
+[load_more_posts]
+other = "আরো পোস্ট দেখান"
+
+[loading_posts]
+other = "পোস্ট লোড হচ্ছে…"
+
+[posts_loaded]
+other = "আরো পোস্ট লোড হয়েছে।"
+
+[all_posts_loaded]
+other = "সব পোস্ট লোড হয়েছে।"
+
+[posts_load_error]
+other = "আরো পোস্ট লোড করা যায়নি। আবার চেষ্টা করুন অথবা নিচের পৃষ্ঠার লিংক ব্যবহার করুন।"

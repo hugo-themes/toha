@@ -134,3 +134,18 @@ other = "Chercher"
 [minute]
 one = "minute"
 other = "minutes"
+
+[load_more_posts]
+other = "Charger plus d’articles"
+
+[loading_posts]
+other = "Chargement des articles…"
+
+[posts_loaded]
+other = "Des articles supplémentaires ont été chargés."
+
+[all_posts_loaded]
+other = "Tous les articles ont été chargés."
+
+[posts_load_error]
+other = "Impossible de charger plus d’articles. Réessayez ou utilisez les liens de pagination ci-dessous."

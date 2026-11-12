@@ -37,3 +37,7 @@ if (process.env.FEATURE_COPYCODEBUTTON === '1') {
 if (process.env.FEATURE_ANALYTICS === '1') {
   import('./analytics')
 }
+
+if (process.env.FEATURE_LAZYLOADPOSTS === '1') {
+  import('./lazyLoadPosts')
+}

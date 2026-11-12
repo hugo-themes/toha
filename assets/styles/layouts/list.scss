@@ -33,11 +33,9 @@ body.kind-page {
           flex-flow: wrap;
         }
 
-        .lazy-load-trigger {
-          width: 100%;
-          height: 1px;
-          margin: 0;
-          padding: 0;
+        .lazy-load-controls {
+          margin: 1rem auto;
+          text-align: center;
         }
 
         .paginator {

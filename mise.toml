@@ -38,6 +38,10 @@ run = "node --test tests/url-resolution.test.mjs"
 description = "Verify SEO metadata, structured data, and sitemap output"
 run = "node --test tests/seo-metadata.test.mjs"
 
+[tasks.test-pagination]
+description = "Verify paginated archives and progressive post loading"
+run = "node --test tests/pagination.test.mjs tests/lazy-load-posts.test.mjs"
+
 [tasks.example-site]
 description = "Start the development server with live reload"
 depends = ["install-example-deps"]
@@ -53,4 +57,4 @@ run = "npm audit fix --force"
 [tasks.check]
 description = "Run build, lint, URL, and SEO regression tests"
 # This gives the AI a single 'truth' command to validate its work.
-depends = ["lint", "build", "test-urls", "test-seo"]
+depends = ["lint", "build", "test-urls", "test-seo", "test-pagination"]

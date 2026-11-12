@@ -1,88 +1,73 @@
-/**
- * Lazy-load posts via JSON API using IntersectionObserver.
- * Only activates when the lazy-load trigger element is present.
- *
- * The JSON endpoint returns an array of `{ html }` objects. The card markup is
- * pre-rendered server-side (layouts/partials/cards/post.html) so that locale,
- * date formats and feature toggles stay consistent with the initial render.
- */
+/** Progressively enhance Hugo's existing pagination, one HTML page at a time. */
 class LazyLoadPosts {
-  constructor(trigger) {
-    this.trigger = trigger
-    this.jsonUrl = trigger.dataset.jsonUrl
-    this.perPage = parseInt(trigger.dataset.perPage, 10)
-    this.totalPages = parseInt(trigger.dataset.totalPages, 10)
-    this.currentPage = parseInt(trigger.dataset.currentPage, 10)
-    this.container = trigger.parentElement
+  constructor (controls) {
+    this.controls = controls
+    this.container = document.getElementById('post-card-holder')
+    this.pagination = document.getElementById('post-pagination')
+    this.button = controls.querySelector('button')
+    this.status = controls.querySelector('[role="status"]')
+    this.nextUrl = controls.dataset.nextUrl
     this.isLoading = false
-    this.allPosts = []
+    this.observer = null
 
-    this.init()
-  }
-
-  async init() {
-    try {
-      const response = await fetch(this.jsonUrl)
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      this.allPosts = await response.json()
-      this.observe()
-    } catch (err) {
-      console.error('[Toha lazy-load] Failed to fetch posts:', err)
-      this.trigger.remove()
+    this.button.addEventListener('click', () => this.loadNextPage(true))
+    controls.hidden = false
+    if ('IntersectionObserver' in window) {
+      this.observer = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) this.loadNextPage()
+      }, { rootMargin: '200px' })
+      this.observer.observe(controls)
     }
   }
 
-  observe() {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !this.isLoading && this.currentPage < this.totalPages) {
-        observer.unobserve(this.trigger)
-        this.loadNextPage()
-      }
-    }, { rootMargin: '200px' })
-
-    observer.observe(this.trigger)
-  }
-
-  async loadNextPage() {
+  async loadNextPage (focusNewPosts = false) {
+    if (this.isLoading || !this.nextUrl) return
     this.isLoading = true
-    this.currentPage++
-    this.trigger.dataset.currentPage = this.currentPage
+    this.button.disabled = true
+    this.container.setAttribute('aria-busy', 'true')
+    this.status.textContent = this.controls.dataset.loading
+    if (this.observer) this.observer.unobserve(this.controls)
 
-    const start = (this.currentPage - 1) * this.perPage
-    const end = start + this.perPage
-    const posts = this.allPosts.slice(start, end)
+    try {
+      const response = await fetch(this.nextUrl)
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const page = new DOMParser().parseFromString(await response.text(), 'text/html')
+      const cards = page.querySelectorAll('#post-card-holder > .post-card')
+      const pagination = page.getElementById('post-pagination')
+      const nextControls = page.getElementById('lazy-load-controls')
+      const nextUrl = nextControls?.dataset.nextUrl || ''
+      if (!cards.length || !pagination || nextUrl === this.nextUrl) throw new Error('Invalid post list response')
 
-    if (posts.length === 0) {
-      this.trigger.remove()
-      return
-    }
-
-    const fragment = document.createDocumentFragment()
-
-    posts.forEach((post) => {
-      const wrapper = document.createElement('div')
-      wrapper.insertAdjacentHTML('afterbegin', post.html)
-      fragment.appendChild(wrapper.firstChild)
-    })
-
-    this.container.insertBefore(fragment, this.trigger)
-    this.isLoading = false
-
-    if (this.currentPage < this.totalPages) {
-      this.observe()
-    } else {
-      this.trigger.remove()
+      this.container.append(...cards)
+      this.pagination.replaceChildren(...pagination.childNodes)
+      this.nextUrl = nextUrl
+      this.controls.dataset.nextUrl = this.nextUrl
+      this.status.textContent = this.nextUrl ? this.controls.dataset.loaded : this.controls.dataset.complete
+      if (focusNewPosts) cards[0].querySelector('a')?.focus()
+      if (this.observer && this.nextUrl) this.observer.observe(this.controls)
+    } catch (err) {
+      // Stop automatic retries; the button retries the same page and links still work.
+      this.status.textContent = this.controls.dataset.error
+      this.status.classList.remove('visually-hidden')
+    } finally {
+      this.isLoading = false
+      this.button.disabled = !this.nextUrl
+      this.container.setAttribute('aria-busy', 'false')
     }
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const trigger = document.getElementById('lazy-load-trigger')
-  if (trigger) {
-    // Keep a reference so the observer and fetched data are not garbage collected.
-    trigger.lazyLoadPosts = new LazyLoadPosts(trigger)
+function initLazyLoadPosts () {
+  const controls = document.getElementById('lazy-load-controls')
+  if (controls && 'fetch' in window && 'DOMParser' in window) {
+    controls.lazyLoadPosts = new LazyLoadPosts(controls)
   }
-})
+}
 
-// Export for potential testing or external use
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLazyLoadPosts)
+} else {
+  initLazyLoadPosts()
+}
+
 export { LazyLoadPosts }

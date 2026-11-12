@@ -1,7 +1,7 @@
 ---
 title: "Lazy Load Posts"
 date: 2026-09-12T00:00:00+00:00
-description: Enable infinite scroll for blog posts using IntersectionObserver
+description: Enable optional infinite scrolling while retaining ordinary pagination
 menu:
   sidebar:
     name: Lazy Load Posts
@@ -9,134 +9,43 @@ menu:
     weight: 50
 ---
 
-## Overview
-
-The **Lazy Load Posts** feature replaces traditional pagination with infinite scrolling on list pages (posts, tags, categories). When enabled, only the first batch of posts is rendered server-side. The remaining posts are loaded dynamically from a JSON endpoint as the user scrolls near the bottom of the page (200px threshold).
+Toha can append the next page of post cards as readers scroll near the bottom of a list. It works on blog sections, nested sections, and individual tag and category pages.
 
 ## Configuration
 
-### 1. Enable Lazy Load in `hugo.yaml`
+Enable the feature in `hugo.yaml`:
 
 ```yaml
 params:
   features:
     pagination:
-      maxPostsPerPage: 12  # Posts per batch
-      lazyLoad: true       # Enable lazy load (default: false)
+      maxPostsPerPage: 12
+      lazyLoad: true
 ```
 
-### 2. Enable JSON Output for the Posts Section
+`lazyLoad` defaults to `false`. `maxPostsPerPage` controls the number of cards in both normal pagination and each additional batch. No JSON output configuration or additional library is required. Existing RSS feeds and output formats remain unchanged.
 
-For the posts section, add JSON output in the section front matter. **Note:** Hugo does not accept a `posts` key under the top-level `outputs` configuration; use the section's `_index` front matter instead.
+## How it works
 
-In `content/posts/_index.md`:
+1. Hugo generates normal paginated HTML pages, such as `/posts/page/2/`, using the existing post-card template.
+2. The first batch is rendered in the initial HTML. No archive data is fetched when the loader initializes.
+3. When the load control comes within 200 pixels of the viewport, the browser requests the next HTML page and appends only its cards.
+4. Each successful request advances to the following page. The full archive is never downloaded in one response.
 
-```yaml
----
-title: Posts
-outputs:
-  - HTML
-  - JSON
----
-```
+All pages use the same filtering and ordering before pagination. Hidden posts and pages with a custom `layout` are excluded from the card list. Card template overrides, translations, tags, date formats, and display settings apply to every batch.
 
-In multilingual sites, repeat this per language, e.g. `content/posts/_index.bn.md`.
+Hugo supplies the next page's URL, so language prefixes, deployment subpaths, custom blog section names, and pagination paths are respected. A direct visit to a numbered page starts from that page and loads its successor.
 
-### 3. Enable JSON Output for Taxonomy Terms (tags / categories)
+## Navigation and accessibility
 
-To use lazy load on tag and category term pages, enable JSON output for the `term` kind:
+The numbered pagination links remain visible and crawlable. Readers can use them to navigate directly or bookmark an archive page. They also work without JavaScript, when the loader is unsupported, and after a network failure.
 
-```yaml
-outputs:
-  term:
-    - HTML
-    - RSS
-    - JSON
-```
+With JavaScript enabled, a **Load more posts** button provides an explicit keyboard-accessible control. A polite status message announces loading, completion, or failure. Activating the button moves focus to the first newly loaded post; automatic loading does not move focus. Browsers without `IntersectionObserver` can still use the button.
 
-## How It Works
+If a request fails, automatic loading pauses and a visible message explains how to retry. The button retries the same page without advancing or duplicating cards. Pagination links remain available throughout.
 
-### When `lazyLoad: true` and JSON is enabled
+## Tradeoffs
 
-1. **Server-side**: only the first `maxPostsPerPage` posts are rendered.
-2. **Trigger element**: a hidden `#lazy-load-trigger` div is placed after the posts.
-3. **Client-side**: `IntersectionObserver` watches the trigger (200px root margin).
-4. **On intersect**: fetches the JSON endpoint and appends the next batch of post cards.
-5. **Repeats**: until all posts are loaded, then removes the trigger.
+Requests include the next page's HTML shell as well as its cards, but are bounded to one page and reuse existing static output. Cards accumulate in the document during a long scrolling session. The browser's normal history and scroll restoration apply; the loader does not change the current URL. Use the numbered links when a specific archive page needs to be shared or bookmarked.
 
-### Fallback: `lazyLoad: false`, or JSON output not enabled
-
-- Traditional pagination with page links at the bottom.
-- All paginator pages (`/posts/page/2/`, etc.) are generated.
-- No additional JavaScript for lazy loading.
-
-When lazy load is enabled but JSON output is **not** configured for a page or language, the page silently falls back to standard pagination. This guarantees older posts always stay reachable.
-
-### Pagination in lazy mode
-
-In lazy mode the paginator is **not** rendered and paginator sub-pages (`/posts/page/2/`) are **not** generated. All posts beyond the first page are loaded client-side from JSON.
-
-## JSON API Endpoint
-
-The lazy load uses a JSON endpoint at:
-
-- Posts: `/posts/index.json`
-- Tags: `/tags/<tagname>/index.json`
-- Categories: `/categories/<catname>/index.json`
-
-Each returns an array of objects containing pre-rendered card HTML:
-
-```json
-[
-  {
-    "html": "<div class=\"post-card\">...</div>"
-  }
-]
-```
-
-The HTML is generated by the same `cards/post.html` partial used for the initial render, so locales, date formats, tags, and feature toggles always stay consistent.
-
-## Behavior Details
-
-| Aspect           | `lazyLoad: true`      | `lazyLoad: false` |
-| ---------------- | --------------------- | ----------------- |
-| Initial render   | First page only       | Current page      |
-| Pagination links | Not rendered          | Visible           |
-| Paginator pages  | Not generated         | Generated         |
-| JavaScript       | Included (always)     | Included (always) |
-| JSON endpoint    | Required              | Optional          |
-
-## Multilingual Support
-
-Works automatically with Hugo's multilingual setup. JSON URLs include the language prefix, and JSON must be enabled on each language variant (`_index.<lang>.md`):
-
-- `/en/posts/index.json`
-- `/ru/posts/index.json`
-
-## Customization
-
-### Adjust Load Threshold
-
-Modify `rootMargin` in `assets/scripts/features/lazyLoadPosts/lazyLoadPosts.js`:
-
-```javascript
-}, { rootMargin: '200px' }); // Default: 200px before viewport
-```
-
-### Change Batch Size
-
-Controlled by `maxPostsPerPage` in config. The same value is used for:
-- Initial server-side render
-- Each lazy-load batch
-
-## Compatibility
-
-- **Backward compatible**: default is `false`; existing sites work unchanged.
-- **Works on**: posts list, tags list, categories list pages.
-- **No dependencies**: uses vanilla `IntersectionObserver` and `fetch`.
-- **SEO friendly**: the first page is fully server-rendered.
-- **No duplicated content**: paginator sub-pages are not generated in lazy mode, so no page can render the same posts twice.
-
-## Example
-
-See this feature in action on the [example site](https://toha-example-site.netlify.app/posts) with `lazyLoad: true` configured.
+Set `lazyLoad: false` to retain ordinary pagination alone. The feature's JavaScript is excluded from the bundle when disabled.

@@ -134,3 +134,18 @@ other = "Suche"
 [minute]
 one = "Minute"
 other = "Minuten"
+
+[load_more_posts]
+other = "Weitere Beiträge laden"
+
+[loading_posts]
+other = "Beiträge werden geladen…"
+
+[posts_loaded]
+other = "Weitere Beiträge wurden geladen."
+
+[all_posts_loaded]
+other = "Alle Beiträge wurden geladen."
+
+[posts_load_error]
+other = "Weitere Beiträge konnten nicht geladen werden. Versuche es erneut oder nutze die Seitenlinks unten."

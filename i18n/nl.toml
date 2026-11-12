@@ -132,3 +132,18 @@ other = "Aansprakelijkheidsverklaring"
 
 [search]
 other = "Zoek"
+
+[load_more_posts]
+other = "Meer berichten laden"
+
+[loading_posts]
+other = "Berichten worden geladen…"
+
+[posts_loaded]
+other = "Meer berichten zijn geladen."
+
+[all_posts_loaded]
+other = "Alle berichten zijn geladen."
+
+[posts_load_error]
+other = "Meer berichten konden niet worden geladen. Probeer het opnieuw of gebruik de paginalinks hieronder."

@@ -193,6 +193,11 @@ namespaced by their corresponding feature.
   {{ end }}
 {{ end }}
 
+{{/* Pagination predates the enable/services feature schema. */}}
+{{ $defines = $defines | merge (dict
+  "process.env.FEATURE_LAZYLOADPOSTS" (cond (eq site.Params.features.pagination.lazyLoad true) `'1'` `'0'`)
+) }}
+
 {{
   return dict 
     "defines" $defines 
