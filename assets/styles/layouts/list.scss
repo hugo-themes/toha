@@ -33,6 +33,11 @@ body.kind-page {
           flex-flow: wrap;
         }
 
+        .lazy-load-controls {
+          margin: 1rem auto;
+          text-align: center;
+        }
+
         .paginator {
           width: -moz-fit-content;
           width: fit-content;

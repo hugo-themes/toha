@@ -130,3 +130,18 @@ other = "책임 고지"
 
 [search]
 other = "찾다"
+
+[load_more_posts]
+other = "게시물 더 불러오기"
+
+[loading_posts]
+other = "게시물을 불러오는 중…"
+
+[posts_loaded]
+other = "게시물을 더 불러왔습니다."
+
+[all_posts_loaded]
+other = "모든 게시물을 불러왔습니다."
+
+[posts_load_error]
+other = "게시물을 더 불러올 수 없습니다. 다시 시도하거나 아래 페이지 링크를 이용하세요."

@@ -130,3 +130,18 @@ other = "إشعار بالمسؤولية"
 
 [search]
 other = "بحث"
+
+[load_more_posts]
+other = "تحميل المزيد من المقالات"
+
+[loading_posts]
+other = "جارٍ تحميل المقالات…"
+
+[posts_loaded]
+other = "تم تحميل المزيد من المقالات."
+
+[all_posts_loaded]
+other = "تم تحميل جميع المقالات."
+
+[posts_load_error]
+other = "تعذر تحميل المزيد من المقالات. حاول مرة أخرى أو استخدم روابط الصفحات أدناه."

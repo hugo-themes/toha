@@ -330,9 +330,11 @@ params:
     structuredData:
       enable: false
 
-    # Number of posts to show to each page. Default is "12"
     pagination:
+      # Number of posts to show to each page. Default is "12"
       maxPostsPerPage: 12
+      # Append the next page as readers scroll. Pagination remains available.
+      lazyLoad: false
 
   # Provide footer configuration.
   footer:

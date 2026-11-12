@@ -130,3 +130,18 @@ other = "Pemberitahuan Kewajiban"
 
 [search]
 other = "Mencari"
+
+[load_more_posts]
+other = "Muat lebih banyak tulisan"
+
+[loading_posts]
+other = "Memuat tulisan…"
+
+[posts_loaded]
+other = "Tulisan tambahan telah dimuat."
+
+[all_posts_loaded]
+other = "Semua tulisan telah dimuat."
+
+[posts_load_error]
+other = "Tidak dapat memuat tulisan tambahan. Coba lagi atau gunakan tautan halaman di bawah."

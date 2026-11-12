@@ -31,21 +31,7 @@
 {{ define "content" }}
 <section class="content-section" id="content-section">
   <div class="content container-fluid" id="content">
-    <div class="container-fluid post-card-holder" id="post-card-holder">
-      {{ $posts := where .RegularPagesRecursive "Layout" "!=" "search" }}
-      {{ $numShow := site.Params.features.pagination.maxPostsPerPage | default 12}}
-      {{ $paginator := .Paginate $posts $numShow }}
-      {{ range $paginator.Pages }}
-        {{ if .Layout }}
-          {{/* ignore the search.md file*/}}
-        {{ else }}
-          {{ partial "cards/post.html" . }}
-        {{ end }}
-      {{ end }}
-    </div>
-    <div class="paginator">
-      {{ partial "pagination.html" . }}
-    </div>
+    {{ partial "post-list.html" . }}
   </div>
 </section>
 {{ end }}

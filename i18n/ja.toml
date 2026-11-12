@@ -127,3 +127,18 @@ other = "責任通知"
 
 [search]
 other = "検索"
+
+[load_more_posts]
+other = "さらに記事を読み込む"
+
+[loading_posts]
+other = "記事を読み込んでいます…"
+
+[posts_loaded]
+other = "追加の記事を読み込みました。"
+
+[all_posts_loaded]
+other = "すべての記事を読み込みました。"
+
+[posts_load_error]
+other = "記事を読み込めませんでした。もう一度試すか、下のページリンクをご利用ください。"

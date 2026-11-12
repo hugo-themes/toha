@@ -134,3 +134,18 @@ other = "Haku"
 [minute]
 one = "minuutti"
 other = "minuuttia"
+
+[load_more_posts]
+other = "Lataa lisää kirjoituksia"
+
+[loading_posts]
+other = "Ladataan kirjoituksia…"
+
+[posts_loaded]
+other = "Lisää kirjoituksia ladattu."
+
+[all_posts_loaded]
+other = "Kaikki kirjoitukset ladattu."
+
+[posts_load_error]
+other = "Kirjoituksia ei voitu ladata. Yritä uudelleen tai käytä alla olevia sivulinkkejä."
