@@ -2,6 +2,8 @@ addCopyButtons(navigator.clipboard)
 
 function addCopyButtons(clipboard) {
   document.querySelectorAll('pre > code').forEach(function (codeBlock) {
+    // The panel owns its Copy action and preserves the original fenced source.
+    if (codeBlock.closest('[data-code-block]')) return
     const button = document.createElement('button')
     button.title = "Copy"
     button.className = 'copy-code-button btn btn-sm'

@@ -148,3 +148,21 @@ other = "সব পোস্ট লোড হয়েছে।"
 
 [posts_load_error]
 other = "আরো পোস্ট লোড করা যায়নি। আবার চেষ্টা করুন অথবা নিচের পৃষ্ঠার লিংক ব্যবহার করুন।"
+
+[code_block_code]
+other = "কোড"
+
+[code_block_copy]
+other = "কপি করুন"
+
+[code_block_copied]
+other = "কপি হয়েছে!"
+
+[code_block_copy_error]
+other = "কপি হয়নি। আবার চেষ্টা করুন।"
+
+[code_block_show_all]
+other = "সব {{ .Count }} লাইন দেখুন"
+
+[code_block_show_less]
+other = "কম লাইন দেখুন"

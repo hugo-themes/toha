@@ -1,0 +1,16 @@
+{{- $config := site.Params.features.codeBlock | default dict -}}
+{{- $folding := $config.folding | default dict -}}
+{{- $previewLines := 8 -}}
+{{- with $folding.previewLines -}}
+  {{- if findRE `^[1-9][0-9]*$` (printf "%v" .) }}{{ $previewLines = int . }}{{ end -}}
+{{- end -}}
+{{/* Explicit new settings win, including false. Otherwise retain legacy behavior. */}}
+{{- $copyButton := false -}}
+{{- with site.Params.features.copyCodeButton -}}
+  {{- $copyButton = or (not (isset . "enable")) .enable -}}
+{{- end -}}
+{{- if isset $config "copybutton" -}}
+  {{- $copy := $config.copyButton | default dict -}}
+  {{- $copyButton = or (not (isset $copy "enable")) $copy.enable -}}
+{{- end -}}
+{{- return (dict "copyButton" $copyButton "folding" (eq $folding.enable true) "previewLines" $previewLines) -}}

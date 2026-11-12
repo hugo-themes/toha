@@ -1,0 +1,29 @@
+{{- $options := partial "helpers/code-block-options.html" . -}}
+{{/* Hugo's render-hook Inner omits a nonempty fence's final newline. */}}
+{{- $source := .Inner -}}
+{{- if $source }}{{ $source = printf "%s\n" $source }}{{ end -}}
+{{- $highlight := transform.HighlightCodeBlock . (merge (dict "code" $source) .Options) -}}
+  {{- $labels := partial "helpers/code-block-labels.html" . -}}
+  {{- $lines := split (strings.TrimSuffix "\n" $source) "\n" -}}
+  {{- $previewLines := $options.previewLines -}}
+  {{- with index .Attributes "data-max-lines" -}}
+    {{- if findRE `^[1-9][0-9]*$` (printf "%v" .) }}{{ $previewLines = int . }}{{ end -}}
+  {{- end -}}
+  {{- $preview := "" -}}
+  {{- if and $options.folding (gt (len $lines) $previewLines) -}}
+    {{- $previewSource := printf "%s\n" (delimit (first $previewLines $lines) "\n") -}}
+    {{/* Remove explicit anchor options before setting false; merge treats false as empty. */}}
+    {{- $previewOptions := dict "anchorlinenos" false -}}
+    {{- range $key, $value := .Options -}}
+      {{- if ne (lower $key) "anchorlinenos" }}{{ $previewOptions = merge (dict $key $value) $previewOptions }}{{ end -}}
+    {{- end -}}
+    {{- $preview = string (transform.Highlight $previewSource .Type $previewOptions) -}}
+  {{- end -}}
+  {{- $id := printf "code-block-%s-%d" (md5 .PageInner.RelPermalink) .Ordinal -}}
+  {{- $title := .Type | default $labels.code -}}
+  {{- $language := "" -}}
+  {{- with index .Attributes "title" }}{{ $title = . }}{{ $language = $.Type }}{{ end -}}
+  {{- $data := dict "copyButton" $options.copyButton "source" $source "preview" $preview "title" $title "language" $language "labels" $labels "expanded" (eq (printf "%v" (index .Attributes "data-expand")) "true") -}}
+  <div class="code-block" data-code-block><div class="code-block-full" id="{{ $id }}">{{ $highlight.Wrapped }}</div>
+  {{/* Inert JSON keeps labels/previews out of Plain/Summary and preserves whitespace when minified. jsonify escapes HTML. */}}
+  <script type="application/json" class="code-block-data">{{ $data | jsonify | safeJS }}</script></div>

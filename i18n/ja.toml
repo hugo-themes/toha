@@ -142,3 +142,23 @@ other = "すべての記事を読み込みました。"
 
 [posts_load_error]
 other = "記事を読み込めませんでした。もう一度試すか、下のページリンクをご利用ください。"
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"

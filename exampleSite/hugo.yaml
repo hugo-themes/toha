@@ -304,9 +304,15 @@ params:
           # options doc: https://github.com/sampotts/plyr#options
           # fullscreen: true
 
-    # Enables copy code button
-    copyCodeButton:
-      enable: true
+    # Code blocks always have a compact language/title header.
+    codeBlock:
+      copyButton:
+        enable: true
+      folding:
+        # Enabled here to demonstrate previews; the theme default is false.
+        enable: true
+        previewLines: 8
+    # Legacy copyCodeButton.enable remains supported if codeBlock.copyButton is absent.
 
     # Enable reading time support in post cards and in post pages. Default is "true".
     readingTime:
