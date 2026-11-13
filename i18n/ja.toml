@@ -1,0 +1,173 @@
+# More documentation here: https://github.com/nicksnyder/go-i18n
+[home]
+other = "ホーム"
+
+[posts]
+other = "記事"
+
+[toc_heading]
+other = "目次"
+
+[tags]
+other = "タグ"
+
+[categories]
+other = "カテゴリ"
+
+[resume]
+other = "職務経歴書"
+
+[navigation]
+other = "メニュー"
+
+[contact_me]
+other = "連絡先"
+
+[email]
+other = "メール"
+
+[phone]
+other = "電話番号"
+
+[newsletter_text]
+other = "メールで最新情報を受け取る"
+
+[newsletter_input_placeholder]
+other = "ここにメールアドレスを入力"
+
+[newsletter_warning]
+other = "メールアドレスを入力すると、このウェブサイトのニュースレターを受け取ることに同意したことになります。"
+
+[submit]
+other = "登録"
+
+[hugoAttributionText]
+other = "搭載"
+
+[prev]
+other = "前"
+
+[next]
+other = "次"
+
+# [share_on]
+# other = "Share on"
+
+[improve_this_page]
+other = "編集リクエストを送る"
+
+[out_of]
+other = "のうち"
+
+[publications]
+other = "出版物"
+
+[taken_courses]
+other = "受講したコース"
+
+[course_name]
+other = "コース名"
+
+[total_credit]
+other = "合計クレジット"
+
+[obtained_credit]
+other = "取得したクレジット"
+
+[extracurricular_activities]
+other = "課外活動"
+
+[show_more]
+other = "続きを見る"
+
+[show_less]
+other = "表示を減らす"
+
+# [responsibilities]
+# other = "Responsibilities:"
+
+# [present]
+# other = "Present"
+
+# [comments_javascript]
+# other = "Please enable JavaScript to view the"
+
+# [comments_by]
+# other = "comments powered by"
+
+# [read]
+# other = "Read"
+
+# [project_star]
+# other = "Star"
+
+# [project_details]
+# other = "Details"
+
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
+# [err_404]
+# other = "The page you are looking for is not there yet."
+
+[more]
+other = "もっと"
+
+[view_certificate]
+other = "ビューの証明書"
+
+[notes]
+other = "ノート"
+
+[disclaimer_text]
+other = "責任通知"
+
+[search]
+other = "検索"
+
+[load_more_posts]
+other = "さらに記事を読み込む"
+
+[loading_posts]
+other = "記事を読み込んでいます…"
+
+[posts_loaded]
+other = "追加の記事を読み込みました。"
+
+[all_posts_loaded]
+other = "すべての記事を読み込みました。"
+
+[posts_load_error]
+other = "記事を読み込めませんでした。もう一度試すか、下のページリンクをご利用ください。"
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

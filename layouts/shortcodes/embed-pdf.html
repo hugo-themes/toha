@@ -3,13 +3,8 @@
 {{ $hideLoader := .Get "hidePaginator" | default "false" }}
 {{ $pageNum := .Get "renderPageNum" | default "1"}}
 
-<div 
-  class="pdf-viewer" 
-  data-url="{{ $url }}" 
-  data-hide-paginator="{{ $hidePaginator }}" 
-  data-hide-loader="{{ $hideLoader }}"
-  data-page-num="{{ $pageNum }}"
->
+<div class="pdf-viewer" data-url="{{ $url }}" data-hide-paginator="{{ $hidePaginator }}"
+  data-hide-loader="{{ $hideLoader }}" data-page-num="{{ $pageNum }}">
   <div class="paginator">
     <div class="page-number-indicator">
       <span>Page: <span class="page-num"></span> / <span class="page-count"></span></span>
@@ -18,12 +13,18 @@
       <button class="prev btn btn-sm btn-info">Previous</button>
       <button class="next btn btn-sm btn-info">Next</button>
     </div>
+
+    <div class="download-btn">
+      <a href="{{ $url }}" download class="btn btn-sm btn-info download-pdf-btn">
+        <i class="fas fa-download"></i> Download PDF
+      </a>
+    </div>
   </div>
 
   <div class="embed-pdf-container">
-      <div class="loading-wrapper">
-        <div class="loading"></div>
-      </div>
-      <canvas class="pdf-canvas"></canvas>
+    <div class="loading-wrapper">
+      <div class="loading"></div>
+    </div>
+    <canvas class="pdf-canvas"></canvas>
   </div>
 </div>

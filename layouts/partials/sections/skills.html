@@ -6,10 +6,10 @@
 <div class="container-fluid anchor pb-5 skills-section" id="{{ $sectionID }}">
   {{ if not (.section.hideTitle) }}
     <h1 class="text-center">
-        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+        {{ .section.name }}</h1>
   {{ else }}
     <h1 class="text-center" style="display: none">
-        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+        {{ .section.name }}</h1>
   {{ end }}
   {{ if .section.filter }}
   <div class="container ms-auto text-center">
@@ -27,9 +27,18 @@
   <div class="container d-flex-block">
     <div class="row" id="primary-skills">
   {{ end }}
-      {{ range .skills }}
-      {{ partial "cards/skill.html" . }}
+      {{ range $index, $skill := .skills }}
+        {{ $details := partial "helpers/skill-details.html" $skill.details }}
+        {{ $detailsID := "" }}
+        {{ if $details }}{{ $detailsID = printf "%s-skill-%d" $sectionID $index }}{{ end }}
+        {{ partial "cards/skill.html" (merge (dict "_detailsID" $detailsID "_details" $details) $skill) }}
     {{ end }}
     </div>
   </div>
+  {{/* Keep details outside Filterizr's positioned card grid. Without JS they remain readable here. */}}
+  {{ range $index, $skill := .skills }}
+    {{ with partial "helpers/skill-details.html" $skill.details }}
+      {{ partial "cards/skill-details.html" (dict "skill" $skill "details" . "id" (printf "%s-skill-%d" $sectionID $index)) }}
+    {{ end }}
+  {{ end }}
 </div>

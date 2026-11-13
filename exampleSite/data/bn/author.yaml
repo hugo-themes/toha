@@ -1,0 +1,16 @@
+# some information about you
+name: "জন ডো"
+nickname: "জন"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "হ্যালো, আমি হলাম"
+image: "images/author/john.png"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  ইমেইল: "johndoe@example.com"
+  ফোন: "+0123456789"
+
+# some summary about what you do
+summary:
+  - আমি একজন ডেভেলপার
+  - আমি ওপেন সোর্স প্রোজেক্ট এ কাজ করতে পছন্দ করি
+  - আমি মজার কিছু প্রোজেক্ট এ কাজ করতে ভালবাসি

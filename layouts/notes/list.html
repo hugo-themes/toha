@@ -17,9 +17,9 @@
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
             <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
-            <div class="subtree">
+            <li class="subtree-holder"><ul class="subtree">
                 {{ partial "navigators/sidebar.html" (dict "menuName" "notes" "menuItems" site.Menus.notes  "ctx" . ) }}
-            </div>
+            </ul></li>
           </ul>
         </div>
       </div>
@@ -31,17 +31,14 @@
 <section class="content-section" id="content-section">
   <div class="content container-fluid" id="content">
     <div class="container-fluid note-card-holder" id="note-card-holder">
-      {{ $paginator := .Paginate .RegularPagesRecursive 10 }}
+      {{ $notes := where .RegularPagesRecursive "Layout" "!=" "search" }}
+      {{ $paginator := .Paginate $notes 10 }}
       {{ range $paginator.Pages }}
-        {{ if .Layout }}
-        {{/* ignore search.md file*/}}
-        {{ else }}
-          {{ .Content }}
-        {{ end }}
+        {{ .Content }}
       {{ end }}
     </div>
     <div class="paginator">
-      {{ template "_internal/pagination.html" . }}
+      {{ partial "pagination.html" . }}
     </div>
   </div>
 </section>

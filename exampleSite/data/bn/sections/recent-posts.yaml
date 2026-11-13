@@ -1,0 +1,12 @@
+# section information
+section:
+  name: সাম্প্রতিক-পোস্ট
+  id: recent-posts
+  enable: true
+  weight: 5
+  showOnNavbar: true
+  template: sections/recent-posts.html
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# no additional configuration is required

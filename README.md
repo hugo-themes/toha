@@ -1,27 +1,23 @@
-> [!IMPORTANT]
-> If you are migrating from v3 (`git submodule` based) theme to v4 (`hugo modules` based) theme, please read this [migration guide](https://toha-guides.netlify.app/posts/update-v3-to-v4/).
-
 # Toha
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b1b93b02-f278-440b-ae1b-304e9f4c4ab5/deploy-status)](https://app.netlify.com/sites/toha/deploys)
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhugo-toha%2Ftoha%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/hugo-toha/toha/goto?ref=main)
-![Repository Size](https://img.shields.io/github/repo-size/hugo-toha/toha)
-![Lines of Codes](https://img.shields.io/tokei/lines/github.com/hugo-toha/toha)
-![Contributor](https://img.shields.io/github/contributors/hugo-toha/toha)
-![Latest Release](https://img.shields.io/github/v/release/hugo-toha/toha?include_prereleases)
-![Last Commit](https://img.shields.io/github/last-commit/hugo-toha/toha)
-![Open Issues](https://img.shields.io/github/issues/hugo-toha/toha?color=important)
-![Open Pull Requests](https://img.shields.io/github/issues-pr/hugo-toha/toha?color=yellowgreen)
-![License](https://img.shields.io/github/license/hugo-toha/toha)
-![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fhugo-toha.github.io%2F)
-[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/b7cb60ab/hugo-toha.github.io)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fhugo-themes%2Ftoha%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/hugo-themes/toha/goto?ref=main)
+![Repository Size](https://img.shields.io/github/repo-size/hugo-themes/toha)
+![Lines of Codes](https://img.shields.io/tokei/lines/github.com/hugo-themes/toha)
+![Contributor](https://img.shields.io/github/contributors/hugo-themes/toha)
+![Latest Release](https://img.shields.io/github/v/release/hugo-themes/toha?include_prereleases)
+![Last Commit](https://img.shields.io/github/last-commit/hugo-themes/toha)
+![Open Issues](https://img.shields.io/github/issues/hugo-themes/toha?color=important)
+![Open Pull Requests](https://img.shields.io/github/issues-pr/hugo-themes/toha?color=yellowgreen)
+![License](https://img.shields.io/github/license/hugo-themes/toha)
+![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fhugo-themes.github.io%2F)
 
 A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist design and responsiveness.
 
-![Thumbnail](https://raw.githubusercontent.com/hugo-toha/toha/main/images/screenshot.png)
+![Thumbnail](https://raw.githubusercontent.com/hugo-themes/toha/main/images/screenshot.png)
 
-- **Example Site:** [hugo-toha.github.io](https://hugo-toha.github.io)
-- **Documentation:** [toha-guides.netlify.app](https://toha-guides.netlify.app/posts)
+- **Example Site:** [toha-example-site](https://toha-example-site.netlify.app)
+- **Documentation:** [toha-docs.netlify.app](https://toha-docs.netlify.app/posts)
+- **Pull-request previews:** [Cloudflare setup](docs/cloudflare-previews.md)
 
 ## Features
 
@@ -33,6 +29,7 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 - Achievement Gallery
 - Sidebar to Categorize the Posts
 - Short Codes
+- Lazy Load Posts
 - Analytics Support
   - GoatCounter
   - counter.dev
@@ -42,10 +39,105 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 - Comment Support
   - [Disqus](https://disqus.com/)
   - [Valine](https://valine.js.org/)
-  - [Uttarances](https://utteranc.es/)
+  - [Utterances](https://utteranc.es/)
   - [Giscus](https://giscus.app/)
 
-For more details about the features please visit [here](https://toha-guides.netlify.app/posts/features/).
+For more details about the features please visit [here](https://toha-docs.netlify.app/posts/features/).
+
+## Skill details
+
+Add a nonempty `details` block to a skill in `data/<language>/sections/skills.yaml`
+to show a “View details” button. Existing skills remain unchanged when `details`
+is absent or empty. No additional enable flag is needed.
+
+```yaml
+skills:
+  - name: Cloud Computing
+    logo: /images/sections/skills/cloud.png
+    summary: Building and operating cloud services.
+    details:
+      summary: I design reliable services and automate infrastructure.
+      items:
+        - name: AWS
+          summary: Production infrastructure and application delivery.
+          items:
+            - name: Compute and scaling
+              summary: Operating EC2 fleets and planning capacity.
+              items:
+                - name: Auto Scaling
+                  summary: Scaling capacity with demand.
+            - name: Serverless
+              summary: Building services with Lambda and API Gateway.
+        - name: Microsoft Azure
+          summary: Deploying applications and managed databases.
+```
+
+The existing skill `summary` stays on the card. `details.summary` is an optional
+introduction in the details view. Each item needs a `name`; its Markdown `summary`
+and child `items` are optional. Name-only items and summary-only details are valid.
+Empty or nameless items are ignored. Details reuse the skill's existing name and
+logo. Existing `url` links remain available independently from the details button.
+
+Details open in a centered dialog on desktop and a full-height view on small
+screens. Readers can expand groups independently and close the dialog with its
+close button, Escape, or the backdrop. Without JavaScript or native dialog support,
+the same content remains readable below the skill cards, linked from each card.
+New action labels use English in bundled locales until translated. The feature
+supports text and nested items; it has no charts, ratings, or styling fields.
+
+## Code blocks
+
+Code blocks have a compact language (or fence `title`) header automatically.
+Copying and folding are configured under `params.features.codeBlock`.
+Folding is an opt-in setting. Long blocks show a short
+preview followed by a “Show all” button; short blocks remain fully visible.
+
+```yaml
+params:
+  features:
+    codeBlock:
+      copyButton:
+        enable: true
+      folding:
+        enable: true
+        previewLines: 8
+```
+
+There is no enable/disable setting for the code block header. Folding defaults to
+`false`; `previewLines` must be a positive integer, with missing or invalid values
+using 8. Set `folding.enable: false` to show all code.
+
+`codeBlock.copyButton.enable` controls copying for both the panel and code outside
+it. An explicit new `copyButton` setting takes precedence, including `enable: false`.
+If `copyButton` is absent, the legacy `params.features.copyCodeButton` configuration
+is used unchanged. If neither setting is present, copying defaults to disabled. No extra Hugo or npm modules and no
+changes to your syntax-highlighting or line-number configuration are required.
+
+Copy always includes the complete original snippet, including lines outside the
+preview, without line numbers. The controls work with keyboard navigation and
+screen readers. Without JavaScript, and when printing, the complete code is shown.
+Other languages fall back to the English action labels until translated.
+
+When Hugo highlighting is enabled (the default), use fence attributes to title a
+block, change its preview size, or start it expanded:
+
+````markdown
+```go {title="main.go" data-max-lines=4 data-expand=true linenos=false}
+package main
+
+func main() {
+    println("Hello, Toha!")
+}
+```
+````
+
+`data-max-lines` overrides the preview size for that block. `data-expand=true` only
+changes its initial state; readers can still fold long blocks. Folding must be
+enabled in the site configuration. With `markup.highlight.codeFences: false`,
+global folding and copying still work, but Hugo discards custom fence attributes.
+The effective copy setting also controls code outside the panel, such as the Hugo
+`highlight` shortcode. Sites with a
+custom code-block render hook must adopt the panel markup in that hook to use it.
 
 ## Available Translations
 
@@ -73,33 +165,33 @@ For more details about the features please visit [here](https://toha-guides.netl
 - Nederlands
 - Hebrew
 
-To know more about how to translate your site, please visit [here](https://toha-guides.netlify.app/posts/translation/). Follow, the data and post format from this [example site](https://hugo-toha.github.io).
+To know more about how to translate your site, please visit [here](https://toha-docs.netlify.app/posts/translation/). Follow, the data and post format from this [example site](https://github.com/hugo-themes/toha-example-site).
 
 ## Screenshots
 
-Here are few screenshots from the [example site](https://hugo-toha.github.io).
+Here are few screenshots from the [example site](https://toha-example-site.netlify.app).
 
 ##### Home Page Sections
 
-![Home Page Sections](https://raw.githubusercontent.com/hugo-toha/toha/main/images/about.png)
+![Home Page Sections](https://raw.githubusercontent.com/hugo-themes/toha/main/images/about.png)
 
 ##### List Page
 
-![List Page](https://raw.githubusercontent.com/hugo-toha/toha/main/images/list.png)
+![List Page](https://raw.githubusercontent.com/hugo-themes/toha/main/images/list.png)
 
 ##### Reading Page
 
-![Reading Page](https://raw.githubusercontent.com/hugo-toha/toha/main/images/single.png)
+![Reading Page](https://raw.githubusercontent.com/hugo-themes/toha/main/images/single.png)
 
 ## Requirements
 
-- Hugo Version 0.128.0 (extended) or higher
-- Go language 1.18 or higher (require for hugo modules)
+- Hugo Version 0.163.0 (extended) or higher
+- Go language 1.19 or higher (require for hugo modules)
 - Node version v18.x or later and npm 8.x or later.
 
 ## Usage
 
-The easiest way to use this theme is to fork [hugo-toha.github.io](https://github.com/hugo-toha/hugo-toha.github.io) sample repo.Then change the configurations according to your need.
+The easiest way to use this theme is to fork [toha-example-site](https://github.com/hugo-themes/toha-example-site) sample repo.Then change the configurations according to your need.
 
 If you want to start from scratch, then follow these steps:
 
@@ -119,7 +211,7 @@ Now, in your `hugo.yaml` file, add a `module` section.
 # Use Hugo modules to add theme
 module:
   imports:
-  - path: github.com/hugo-toha/toha/v4
+    - path: github.com/hugo-toha/toha/v4
 ```
 
 Check this sample [hugo.yaml](https://github.com/hugo-toha/hugo-toha.github.io/blob/main/hugo.yaml) for further reference.
@@ -147,6 +239,7 @@ hugo mod npm pack
 ##### 2. Install dependencies
 
 Install the node dependencies using following command:
+
 ```bash
 npm install
 ```
@@ -159,22 +252,22 @@ Now, run you site locally using following command.
 hugo server -w
 ```
 
-When you run your site for first time, it will start with the default parameters. It should look similar to the [example site](https://hugo-toha.github.io). However, it will not have any sections in the homepage as we haven't configured them yet. You can configure your site by following the guides from [here](https://toha-guides.netlify.app/posts/configuration/).
+When you run your site for first time, it will start with the default parameters. It should look similar to the [example site](https://toha-example-site.netlify.app). However, it will not have any sections in the homepage as we haven't configured them yet. You can configure your site by following the guides from [here](https://toha-docs.netlify.app/posts/configuration/).
 
 ## Shortcodes
 
 Here, are some handy shortcodes you can use with this theme.
 
-- [Alert](https://toha-guides.netlify.app/posts/shortcodes/#alert)
-- [Image](https://toha-guides.netlify.app/posts/shortcodes/#image)
-- [Split](https://toha-guides.netlify.app/posts/shortcodes/#split)
-- [Vertical Space](https://toha-guides.netlify.app/posts/shortcodes/#vertical-space)
-- [Video](https://toha-guides.netlify.app/posts/shortcodes/#video)
-- [Mermaid](https://hugo-toha.github.io/posts/shortcodes/#mermaid)
+- [Alert](https://toha-docs.netlify.app/posts/shortcodes/#alert)
+- [Image](https://toha-docs.netlify.app/posts/shortcodes/#image)
+- [Split](https://toha-docs.netlify.app/posts/shortcodes/#split)
+- [Vertical Space](https://toha-docs.netlify.app/posts/shortcodes/#vertical-space)
+- [Video](https://toha-docs.netlify.app/posts/shortcodes/#video)
+- [Mermaid](https://toha-example-site.netlify.app/posts/shortcodes/#mermaid)
 
 ## Contributing
 
-You can contribute to this theme in various ways. You can report a [bug](https://github.com/hugo-toha/toha/issues/new?template=bug.md), file an [feature request](https://github.com/hugo-toha/toha/issues/new?template=feature_request.md), send a PR, [share your thoughts](https://github.com/hugo-toha/toha/issues/new?template=question.md) etc.
+You can contribute to this theme in various ways. You can report a [bug](https://github.com/hugo-themes/toha/issues/new?template=bug.md), file an [feature request](https://github.com/hugo-themes/toha/issues/new?template=feature_request.md), send a PR, [share your thoughts](https://github.com/hugo-themes/toha/issues/new?template=question.md) etc.
 
 Pull requests are most welcome and I will be happy to review. Just follow the following principles:
 
@@ -187,31 +280,39 @@ Pull requests are most welcome and I will be happy to review. Just follow the fo
 
 ## Local Development
 
-For local development, you can make changes in the theme submodule and test the changes against your own site or this [example site](https://github.com/hugo-toha/hugo-toha.github.io) locally.
+For local development, you can make changes in the theme submodule and test the changes against your own site or this [example site](https://github.com/hugo-toha/toha-example-site) locally.
 
-### Fork
+### 1. Fork
 
-At first, fork [this repo](https://github.com/hugo-toha/toha). Then, follow the following steps to use the forked theme for local developments,
+At first, fork [this repo](https://github.com/hugo-themes/toha). Then, follow the following steps to use the forked theme for local developments,
 
-#### Running the forked theme against the example site
+We have an example configuration under `exampleSite` folder that will let you run the theme locally. Follow below steps to run the example site.
 
-If your want to run your local development against this [example site](https://github.com/hugo-toha/hugo-toha.github.io), follow the following steps:
+### 2. Install Mise
+
+We use [jdx/mise](https://github.com/jdx/mise) to simplify managing dependencies and running locally. Please, install it following the instruction from [here](https://mise.jdx.dev/getting-started.html).
+
+### 3. Install dependencies
+
+Install the all the necessary tools by running:
 
 ```bash
-# go to exampleSite directory
-$ cd exampleSite
-# install hugo modules
-$ hugo mod tidy
-# install dependencies
-$ hugo mod npm pack
-$ npm install
-# run the example site locally
-$ hugo server -w
+mise install
+```
+
+This will install `hugo`, `go`, `node` and other tools that are necessary to run this project to appropriate versions.
+
+### 4. Run example site
+
+Now, run the site locally using following command.
+
+```bash
+mise run example-site
 ```
 
 Now, you can make change in the theme and they will be reflected immediately on the running site. If you need to change any configuration, you can do that in the `hugo.yaml` file inside `exampleSite` folder. If you need to add any content or data, you can create the respective folder inside `exampleSite` directory and add your desired content or data there.
 
-#### Running the forked theme against your own site
+### Running the forked theme against your own site
 
 If you want to run your local development against your own site, follow the following steps:
 
@@ -258,7 +359,7 @@ $ npm install
 **Run your site locally:**
 
 ```bash
-$ hugo server -w
+hugo server -w
 ```
 
 From there you can make changes to the source code of the theme while testing with your running Hugo site or the example site.
@@ -276,7 +377,7 @@ $ git commit -m "A meaningful commit message"
 $ git push my-fork my-feature-branch
 ```
 
-Then, open a PR against `main` branch of [hugo-toha/toha](https://github.com/hugo-toha/toha) from the `my-feature-branch` branch of your own fork.
+Then, open a PR against `main` branch of [hugo-themes/toha](https://github.com/hugo-themes/toha) from the `my-feature-branch` branch of your own fork.
 
 ## Attribution
 

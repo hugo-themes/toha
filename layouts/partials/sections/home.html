@@ -1,39 +1,39 @@
-{{ $author:= site.Data.author }}
-{{ if (index site.Data site.Language.Lang).author }}
-  {{ $author = (index site.Data site.Language.Lang).author }}
+{{ $author:= hugo.Data.author }}
+{{ if (index hugo.Data site.Language.Lang).author }}
+{{ $author = (index hugo.Data site.Language.Lang).author }}
 {{ end }}
 
 {{ $name:="Jane Doe" }}
 {{ if $author.nickname }}
-  {{ $name = $author.nickname }}
+{{ $name = $author.nickname }}
 {{ else if $author.name }}
-  {{ $name = $author.name }}
+{{ $name = $author.name }}
 {{ end }}
 
-{{ $sections:= site.Data.sections }}
-{{ if (index site.Data site.Language.Lang).sections }}
-  {{ $sections = (index site.Data site.Language.Lang).sections }}
+{{ $sections:= hugo.Data.sections }}
+{{ if (index hugo.Data site.Language.Lang).sections }}
+{{ $sections = (index hugo.Data site.Language.Lang).sections }}
 {{ end }}
 
 {{ $backgroundImage:= "/images/default-background.jpg" }}
 {{ if site.Params.background }}
-  {{ $backgroundImage = site.Params.background }}
+{{ $backgroundImage = site.Params.background }}
 {{ end }}
 
 {{ $darkBackgroundImage:= $backgroundImage }}
 {{ if site.Params.darkBackground }}
-  {{ $darkBackgroundImage = site.Params.darkBackground }}
+{{ $darkBackgroundImage = site.Params.darkBackground }}
 {{ end }}
 
 {{ $authorImage:= "/images/default-avatar.png" }}
 {{ if $author.image }}
-  {{ $authorImage = $author.image }}
+{{ $authorImage = $author.image }}
 {{ end }}
 {{ $authorImage := resources.Get $authorImage }}
 
 {{/* apply image processing. don't use "Fit" in svg or gif because its not supported */}}
 {{ if and $authorImage (and (ne $authorImage.MediaType.SubType "svg") ( ne $authorImage.MediaType.SubType "gif")) }}
-  {{ $authorImage = $authorImage.Fit "148x148" }}
+{{ $authorImage = $authorImage.Fit "148x148" }}
 {{ end }}
 {{/* get file that matches the filename as specified as src="" in shortcode */}}
 {{ $src := resources.Get $backgroundImage }}
@@ -56,25 +56,25 @@
 {{/* set the sizes attribute to (min-width: 35em) 1200px, 100vw unless overridden in shortcode */}}
 
 {{ if lt $src.Width "500" }}
-  {{ $tiny := $src}}
-  {{ $small := $src}}
-  {{ $medium := $src}}
-  {{ $large := $src}}
+{{ $tiny := $src}}
+{{ $small := $src}}
+{{ $medium := $src}}
+{{ $large := $src}}
 {{ end }}
 
 {{ if lt $src.Width "800" }}
-  {{ $small := $src}}
-  {{ $medium := $src}}
-  {{ $large := $src}}
+{{ $small := $src}}
+{{ $medium := $src}}
+{{ $large := $src}}
 {{ end }}
 
 {{ if lt $src.Width "1200" }}
-  {{ $medium := $src}}
-  {{ $large := $src}}
+{{ $medium := $src}}
+{{ $large := $src}}
 {{ end }}
 
 {{ if lt $src.Width "1500" }}
-  {{ $large := $src}}
+{{ $large := $src}}
 {{ end }}
 
 {{/* get file that matches the filename as specified as src="" in shortcode */}}
@@ -91,116 +91,59 @@
 {{/* set the sizes attribute to (min-width: 35em) 1200px, 100vw unless overridden in shortcode */}}
 
 {{ if lt $darkSrc.Width "500" }}
-  {{ $darkTiny := $src}}
-  {{ $darkSmall := $src}}
-  {{ $darkMedium := $src}}
-  {{ $darkLarge := $src}}
+{{ $darkTiny := $src}}
+{{ $darkSmall := $src}}
+{{ $darkMedium := $src}}
+{{ $darkLarge := $src}}
 {{ end }}
 
 {{ if lt $src.Width "800" }}
-  {{ $darkSmall := $src}}
-  {{ $darkMedium := $src}}
-  {{ $darkLarge := $src}}
+{{ $darkSmall := $src}}
+{{ $darkMedium := $src}}
+{{ $darkLarge := $src}}
 {{ end }}
 
 {{ if lt $src.Width "1200" }}
-  {{ $darkMedium := $src}}
-  {{ $darkLarge := $src}}
+{{ $darkMedium := $src}}
+{{ $darkLarge := $src}}
 {{ end }}
 
 {{ if lt $src.Width "1500" }}
-  {{ $darkLarge := $src}}
+{{ $darkLarge := $src}}
 {{ end }}
 
 <div class="container-fluid home" id="home">
-  <style>
-    /* 0 to 299 */
-    #homePageBackgroundImageDivStyled {
-      background-image: url('{{ $tiny.RelPermalink }}');
-    }
-    /* 300 to X */
-    @media (min-width: 500px) and (max-width: 800px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $small.RelPermalink }}');
-        }
-    }
-    @media (min-width: 801px) and (max-width: 1200px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $medium.RelPermalink }}');
-        }
-    }
-    @media (min-width: 1201px) and (max-width: 1500px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $large.RelPermalink }}');
-        }
-    }
-    @media (min-width: 1501px) { /* or 301 if you want really the same as previously.  */
-      #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $src.RelPermalink }}');
-        }
-    }
-
-    html[data-theme='dark'] {
-      /* 0 to 299 */
-      #homePageBackgroundImageDivStyled {
-        background-image: url('{{ $darkTiny.RelPermalink }}');
-      }
-      /* 300 to X */
-      @media (min-width: 500px) and (max-width: 800px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $darkSmall.RelPermalink }}');
-        }
-      }
-      @media (min-width: 801px) and (max-width: 1200px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $darkMedium.RelPermalink }}');
-        }
-      }
-      @media (min-width: 1201px) and (max-width: 1500px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $darkLarge.RelPermalink }}');
-        }
-      }
-      @media (min-width: 1501px) { /* or 301 if you want really the same as previously.  */
-        #homePageBackgroundImageDivStyled {   
-          background-image: url('{{ $darkSrc.RelPermalink }}');
-        }
-      }
-    }
-    </style>
-    <span class="on-the-fly-behavior"></span>
-  <div
-    id="homePageBackgroundImageDivStyled"
-    class="background container-fluid"
-  ></div>
+  {{- /* The responsive (and dark) background images are passed as CSS custom properties,
+         which the media queries in sections/home.scss pick from: a <style> element is not
+         allowed inside <body>. */}}
+  <span class="on-the-fly-behavior"></span>
+  <div id="homePageBackgroundImageDivStyled" class="background container-fluid"
+    style="--home-bg-tiny: url('{{ $tiny.RelPermalink }}'); --home-bg-small: url('{{ $small.RelPermalink }}'); --home-bg-medium: url('{{ $medium.RelPermalink }}'); --home-bg-large: url('{{ $large.RelPermalink }}'); --home-bg-full: url('{{ $src.RelPermalink }}'); --home-bg-dark-tiny: url('{{ $darkTiny.RelPermalink }}'); --home-bg-dark-small: url('{{ $darkSmall.RelPermalink }}'); --home-bg-dark-medium: url('{{ $darkMedium.RelPermalink }}'); --home-bg-dark-large: url('{{ $darkLarge.RelPermalink }}'); --home-bg-dark-full: url('{{ $darkSrc.RelPermalink }}');"></div>
   <div class="container content text-center">
-    <img src="{{ $authorImage.RelPermalink }}"
-      class="rounded-circle mx-auto d-block img-fluid"
-      alt="Author Image"
-    />
+    <img src="{{ $authorImage.RelPermalink }}" class="rounded-circle mx-auto d-block img-fluid" alt="{{ $name }}" />
     <h1 class="greeting"> {{ $author.greeting }} {{ $name }}</h1>
     {{ if $author.subtitle }}
-      <h2 class="greeting-subtitle">{{ $author.subtitle }}</h2>
+    <h2 class="greeting-subtitle">{{ $author.subtitle }}</h2>
     {{ end }}
+    {{ with $author.summary }}
     <div class="typing-carousel">
-      <span id="ityped" class="ityped"></span>
-      <span class="ityped-cursor"></span>
+      <span id="typed" class="typed"></span>
     </div>
     <ul id="typing-carousel-data">
-      {{ if $author.summary }}
-        {{ range $author.summary }}
-          <li>{{ . }}</li>
-        {{ end}}
+      {{ range . }}
+      <li>{{ . }}</li>
       {{ end }}
     </ul>
+    {{ end }}
     {{ if $sections }}
-      {{ range first 1 (where (sort $sections "section.weight") ".section.enable" true) }}
-        {{ $sectionID := replace (lower .section.name) " " "-"  }}
-        {{ if .section.id }}
-          {{ $sectionID = .section.id }}
-        {{ end }}
-        <a href="#{{ $sectionID }}" class="arrow-center" aria-label="{{ i18n "read" }} {{ i18n "more" }} - {{ $name }}"><i class="arrow bounce fa fa-chevron-down"></i></a>
-      {{ end }}
+    {{ range first 1 (where (sort $sections "section.weight") ".section.enable" true) }}
+    {{ $sectionID := replace (lower .section.name) " " "-" }}
+    {{ if .section.id }}
+    {{ $sectionID = .section.id }}
+    {{ end }}
+    <a href="#{{ $sectionID }}" class="arrow-center" aria-label="{{ i18n "read" }} {{ i18n "more" }} - {{ $name }}"> <i
+        class="arrow bounce fa fa-chevron-down"></i></a>
+    {{ end }}
     {{ end }}
   </div>
 </div>

@@ -4,28 +4,33 @@
   See: https://css-tricks.com/snippets/jquery/smooth-scrolling/
 */
 *,
-html,
-:not(.dropdown) {
+html {
   scroll-behavior: smooth !important;
-  overflow-y: hidden;
 }
 
 body {
   position: relative;
-  overflow-y: scroll;
-  height: 100vh;
 }
 
-body.scroll-container {
-  scroll-snap-type: y mandatory;
-}
+// Keep the document as the scrolling element so existing navigation and
+// scroll listeners continue to work. Only opted-in homepages receive this class.
+html.scroll-snap {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 50px; // Leave room for the fixed navbar.
 
-/*
-  Enable scroll snap for home page
-*/
-div#home,
-div.section-holder {
-  scroll-snap-align: start;
+  > body > #home,
+  > body > .section-holder {
+    scroll-snap-align: start;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-snap-type: none;
+
+    &,
+    * {
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 /*

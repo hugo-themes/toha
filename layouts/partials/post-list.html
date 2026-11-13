@@ -1,0 +1,25 @@
+{{/* Filter before pagination so every batch has the same scope and ordering. */}}
+{{ $posts := where .RegularPagesRecursive "Params.hidden" "!=" true }}
+{{ $posts = where $posts "Layout" "" }}
+{{ $perPage := site.Params.features.pagination.maxPostsPerPage | default 12 }}
+{{ $paginator := .Paginate $posts $perPage }}
+<div class="container-fluid post-card-holder" id="post-card-holder">
+  {{ range $paginator.Pages }}
+    {{ partial "cards/post.html" . }}
+  {{ end }}
+</div>
+{{ if and site.Params.features.pagination.lazyLoad $paginator.HasNext }}
+  <div id="lazy-load-controls" class="lazy-load-controls" hidden
+       data-next-url="{{ $paginator.Next.URL }}"
+       data-loading="{{ i18n "loading_posts" }}"
+       data-loaded="{{ i18n "posts_loaded" }}"
+       data-complete="{{ i18n "all_posts_loaded" }}"
+       data-error="{{ i18n "posts_load_error" }}">
+    <button type="button" class="btn btn-outline-info" aria-controls="post-card-holder">{{ i18n "load_more_posts" }}</button>
+    <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+{{ end }}
+{{/* Always retain crawlable navigation, including when JavaScript fails. */}}
+<div class="paginator" id="post-pagination">
+  {{ partial "pagination.html" . }}
+</div>

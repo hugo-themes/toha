@@ -99,6 +99,8 @@ window.addEventListener('DOMContentLoaded', () => {
       })
 
       const dom = new DOMParser().parseFromString(output, 'text/html')
+      const image = dom.querySelector('.card-img-top')
+      if (image) image.alt = value.item.title
       document.getElementById('search-results').append(dom.getElementsByClassName('post-card')[0])
 
       snippetHighlights.forEach(function (snipvalue) {

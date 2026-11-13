@@ -2,7 +2,9 @@
   <div class="card">
     <div class="card-head">
       <a href="{{ .RelPermalink | relLangURL }}" class="post-card-link">
-        <img class="card-img-top" src='{{ partial "helpers/get-hero.html" . }}' alt="Hero Image">
+        {{ $hero:= partial "helpers/get-hero.html" (dict "context" . "width" "500x") }}
+        <img class="card-img-top" src='{{ $hero.RelPermalink }}'
+          alt="{{ .Title }}" loading="lazy">
       </a>
     </div>
     <div class="card-body">
@@ -11,16 +13,18 @@
         <p class="card-text post-summary">{{ .Summary | plainify }}</p>
       </a>
       {{ if and site.Params.features.tags.enable site.Params.features.tags.on_card }}
-        {{ partial "misc/tags.html" .Params.tags }}
+      {{ partial "misc/tags.html" .Params.tags }}
       {{ end }}
     </div>
     <div class="card-footer">
+      {{ $showDate := site.Params.features.showDate.postCards | default true }}
+      {{ $showReadingTime := site.Params.features.readingTime.enable | default true }}
       <span class="float-start">
-          {{ .Date | time.Format ":date_full" }}
-          {{ if site.Params.features.readingTime }} | {{.ReadingTime}} {{ i18n "minute" .ReadingTime }} {{ end }}</span>
-      <a
-      href="{{ .RelPermalink | relLangURL }}"
-      class="float-end btn btn-outline-info btn-sm">{{ i18n "read" }}</a>
+        {{ if $showDate }}{{ .Date | time.Format ":date_full" }}{{ end }}
+        {{ if and $showDate $showReadingTime }} | {{ end }}
+        {{ if $showReadingTime }}{{.ReadingTime}} {{ i18n "minute" .ReadingTime }}{{ end }}
+      </span>
+      <a href="{{ .RelPermalink | relLangURL }}" class="float-end btn btn-outline-info btn-sm">{{ i18n "read" }}</a>
     </div>
   </div>
 </div>

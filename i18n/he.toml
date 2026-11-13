@@ -107,6 +107,12 @@ other = "כוכב"
 [project_details]
 other = "פרטים"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "הדף שאתה מחפש אינו קיים עדיין."
 
@@ -124,3 +130,47 @@ other = "הבהרת אחריות"
 
 [search]
 other = "חיפוש"
+
+[load_more_posts]
+other = "טעינת פוסטים נוספים"
+
+[loading_posts]
+other = "הפוסטים נטענים…"
+
+[posts_loaded]
+other = "נטענו פוסטים נוספים."
+
+[all_posts_loaded]
+other = "כל הפוסטים נטענו."
+
+[posts_load_error]
+other = "לא ניתן לטעון פוסטים נוספים. נסו שוב או השתמשו בקישורי העמודים למטה."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

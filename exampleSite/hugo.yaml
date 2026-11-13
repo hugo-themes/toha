@@ -1,45 +1,35 @@
-baseURL: http://example.org/
-languageCode: en-us
-title: Example Site
+# ⚠️ If hosting under a repo path, use full URL (e.g. https://<github_username>.github.io/<repo_name>) or images won’t display correctly
+baseURL: https://toha.hugo-themes.com
 
+locale: en-us
+title: "John's Blog"
+
+# Use Hugo modules to add theme
 module:
   imports:
-  - path: github.com/hugo-toha/toha/v4
-  - path: github.com/hugo-toha/hugo-toha.github.io
-    disable: false
-    mounts:
-    - source: content
-      target: content
-    - source: layouts
-      target: layouts
-    - source: data
-      target: data
-    - source: assets
-      target: assets
-    - source: static
-      target: static
+    - path: github.com/hugo-toha/toha/v4
   mounts:
-  - source: static/files
-    target: static/files
-  - source: ./node_modules/flag-icons/flags
-    target: static/flags
-  - source: ./node_modules/@fontsource/mulish/files
-    target: static/files
-  - source: ./node_modules/katex/dist/fonts
-    target: static/fonts
+    - source: static/files
+      target: static/files
+    - source: ./node_modules/flag-icons/flags
+      target: static/flags
+    - source: ./node_modules/@fontsource/mulish/files
+      target: static/files
+    - source: ./node_modules/katex/dist/fonts
+      target: static/fonts
 
 # Manage languages
 # For any more details, you can check the official documentation: https://gohugo.io/content-management/multilingual/
 languages:
   en:
-    languageCode: en
-    languageName: English
+    locale: en
+    label: English
     title: "John's Blog"
     weight: 1
   bn:
-    languageCode: bn
-    languageName: বাংলা
-    title: "জনের ব্লগ"
+    locale: bn
+    label: বাংলা
+    title: জনের ব্লগ
     weight: 2
 
 # default language for the content
@@ -72,10 +62,23 @@ outputFormats:
 # Enable global emoji support
 enableEmoji: true
 
+# Configure sitemap
+sitemap:
+  changefreq: monthly
+  priority: 0.5
+  filename: sitemap.xml
+  disable: false
+
+# Disable Hugo's sitemap generation completely
+# disableKinds:
+#   - sitemap
+
 # Site parameters
 params:
   # Background image of the landing page
   background: /images/site/background.jpg
+  # Background image of the landing page for dark theme
+  #darkBackground: /images/site/background.jpg
 
   # Provide logos for your site. The inverted logo will be used in the initial
   # transparent navbar and the main logo will be used in the non-transparent navbar.
@@ -85,7 +88,8 @@ params:
     favicon: /images/site/favicon.png
 
   # GitHub repo of your site
-  gitRepo: https://github.com/hugo-toha/hugo-toha.github.io
+  gitRepo: https://github.com/hugo-themes/toha-example-site
+
   # Default branch of your Git repo
   gitBranch: main
 
@@ -95,15 +99,9 @@ params:
 
   # Configure various features of this theme
   features:
-
-    # Enable dark theme
-    darkMode:
-
-    # [Deprecated] Enable dark theme
-    # This is a deprecated setting, but has not been removed to maintain backward compatibility
-    # If `theme` is set, the `darkMode` setting will be discarded.
-    # darkMode:
-    #   enable: true
+    # Gently align homepage sections after scrolling. Disabled by default.
+    scrollSnap:
+      enable: false
 
     # Configure theme color settings
     theme:
@@ -120,7 +118,9 @@ params:
     # Enable and configure blog posts
     blog:
       enable: true
-      showAuthor: true
+      # Configure the blog section path - defaults to 'posts'
+      # section: blog
+      showAuthor: true # shows the author of post (defaults true)
       # Share post on different social media
       shareButtons:
         facebook: true
@@ -161,12 +161,12 @@ params:
         #   repoID: your-repo-id
         #   category: your-category
         #   categoryID: your-category-id
-          # theme: light
-          # map: url
-          # reaction: 1
-          # metadata: 0
-          # inputPosition: bottom
-          # crossOrigin: anonymous
+        #   theme: light
+        #   map: url
+        #   reaction: 1
+        #   metadata: 0
+        #   inputPosition: bottom
+        #   crossOrigin: anonymous
         # commento:
         #   serverURL: cdn.commento.io
         #   autoInit: true
@@ -174,7 +174,7 @@ params:
 
     # Enable Analytics
     analytics:
-      enabled: false
+      enable: false
       services:
         # cloudflare web analytics
         # cloudflare:
@@ -202,20 +202,28 @@ params:
         #   project: 1234567890
         #   invisible: 1
         #   security: deadbeef
-    # Enable Support
+        # # PostHog
+        # posthog:
+        #   apiKey: <your posthog api key>
+        #   host: https://app.posthog.com
+        #   # Optional configuration
+        #   options:
+        #     # Add any PostHog initialization options here
+
+    # Enable "Support" Link
     support:
       enable: false
       services:
         kofi:
           user: hossainemruz
           text: Tip Me
-          textColor: '#f9fafc'
-          backgroundColor: '#248aaa'
-        # buymeacoffee:
-        #   user: <your buymeacoffee.com user>
-        #   text: Support me on Buy me a coffee!
-        #   info: Buy me a coffee!
-        #   color: '#FFDD00'
+          textColor: "#f9fafc"
+          backgroundColor: "#248aaa"
+      # buymeacoffee:
+      #   user: <your buymeacoffee.com user>
+      #   text: Support me on Buy me a coffee!
+      #   info: Buy me a coffee!
+      #   color: '#FFDD00'
 
     # specify whether you want to show Table of Contents in reading page
     toc:
@@ -231,21 +239,24 @@ params:
       enable: true
       # # If you want to use different country flag for a language, specify them here.
       # flagOverwrites:
-      #   - languageCode: en
+      #   - locale: en
       #     countryCode: us
 
     # Enable this to use `embed-pdf` shortcode.
     embedpdf:
-      enable: false
+      enable: true
 
     # Enable this to create flowcharts using shortcodes.
     flowchart:
-      enable: false
+      enable: true
       services:
         # Uncomment for `mermaid` shortcode.
         mermaid:
           # For config options, see: https://mermaid-js.github.io/mermaid/#/Setup?id=configuration
-          # theme: dark
+          # Theme for light mode (default: 'default')
+          theme: default
+          # Theme for dark mode (default: 'dark')
+          darkTheme: dark
 
     # Enable this to create mathematic expressions using `$$` blocks
     math:
@@ -288,7 +299,7 @@ params:
 
     # Enable to use `video-player` shortcode
     videoPlayer:
-      enable: false
+      enable: true
       services:
         # convert .js-player class into video player via https://plyr.io/
         # Can play HTML5 Video, Audio, Youtube, Vimeo.
@@ -297,13 +308,43 @@ params:
           # options doc: https://github.com/sampotts/plyr#options
           # fullscreen: true
 
-    # Enables copy code button
-    copyCodeButton:
-      enable: true
+    # Code blocks always have a compact language/title header.
+    codeBlock:
+      copyButton:
+        enable: true
+      folding:
+        # Enabled here to demonstrate previews; the theme default is false.
+        enable: true
+        previewLines: 8
+    # Legacy copyCodeButton.enable remains supported if codeBlock.copyButton is absent.
 
-    # Enable reading time support in post cards and in post pages
+    # Enable reading time support in post cards and in post pages. Default is "true".
     readingTime:
-      enable: true
+      # enable: false
+
+    # Enable post date/time display on cards and single pages. Default is "true".
+    showDate:
+      # singlePage: false
+      # postCards: false
+
+
+    # Keep pages out of search results with a `noindex` robots meta tag. The
+    # search page is marked `noindex` by default; any page can set
+    # `noindex: true` (or `false`) in its front matter.
+    noindex:
+      # search: false
+
+    # Emit schema.org JSON-LD structured data: WebSite and Person on the home
+    # page, one ScholarlyArticle per publication, and BlogPosting on blog
+    # posts. Disabled by default; enable after reviewing your site's metadata.
+    structuredData:
+      enable: false
+
+    pagination:
+      # Number of posts to show to each page. Default is "12"
+      maxPostsPerPage: 12
+      # Append the next page as readers scroll. Pagination remains available.
+      lazyLoad: false
 
   # Provide footer configuration.
   footer:
@@ -326,9 +367,9 @@ params:
     # Show/hide newsletter section in the footer. Default is "true".
     # Currently, it supports "mailchimp".
     newsletter:
-      enable: true
-      provider: mailchimp
-      mailchimpURL: https://github.us1.list-manage.com/subscribe/post?u=19de52a4603135aae97163fd8&amp;id=094a24c76e
+      enable: false
+      # provider: mailchimp
+      # mailchimpURL: https://github.us1.list-manage.com/subscribe/post?u=19de52a4603135aae97163fd8&amp;id=094a24c76e
 
     # Show/hide disclaimer notice in the footer. Default is "false".
     disclaimer:

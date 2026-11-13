@@ -107,6 +107,12 @@ other = "Hiện ít hơn"
 # [project_details]
 # other = "Details"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 # [err_404]
 # other = "The page you are looking for is not there yet."
 
@@ -124,3 +130,47 @@ other = "Thông báo trách nhiệm"
 
 [search]
 other = "Tìm kiếm"
+
+[load_more_posts]
+other = "Tải thêm bài viết"
+
+[loading_posts]
+other = "Đang tải bài viết…"
+
+[posts_loaded]
+other = "Đã tải thêm bài viết."
+
+[all_posts_loaded]
+other = "Đã tải tất cả bài viết."
+
+[posts_load_error]
+other = "Không thể tải thêm bài viết. Hãy thử lại hoặc sử dụng các liên kết trang bên dưới."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

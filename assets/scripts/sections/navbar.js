@@ -2,9 +2,8 @@ const updateNavBar = () => {
   const topNavbar = document.getElementById('top-navbar')
   const navbarToggler = document.getElementById('navbar-toggler')
   const themeIcon = document.getElementById('navbar-theme-icon-svg')
-  const scrollContainer = document.querySelector('body');
 
-  if (scrollContainer.scrollTop > 40) {
+  if (window.scrollY > 40) {
     topNavbar?.classList.remove('transparent-navbar')
     topNavbar?.classList.add('shadow')
 
@@ -45,9 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // When the user scrolls down 80px from the top of the document,
   // resize the navbar's padding and the logo's font size
   const topNavbar = document.getElementById('top-navbar')
-  const scrollContainer = document.querySelector('body');
   if (topNavbar?.classList.contains('homepage')) {
-    scrollContainer.addEventListener('scroll', updateNavBar)
+    document.addEventListener('scroll', updateNavBar)
     updateNavBar()
   }
 
@@ -56,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const navMain = document.getElementsByClassName('navbar-collapse')
   Array.from(navMain).forEach(function (el) {
     el.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') {
+      if (e.target.tagName === 'A' && !e.target.classList.contains("dropdown-toggle")) {
         el.classList.add('collapse')
+        el.classList.remove('show')
       }
     })
   })

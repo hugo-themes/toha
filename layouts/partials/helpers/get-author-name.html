@@ -2,12 +2,12 @@
 {{ $authorName:= site.Params.author.name }}
 
 {{/*  Overrides with the locale specific author if provided  */}}
-{{ if (index site.Data site.Language.Lang).author }}
-  {{ $authorName = (index site.Data site.Language.Lang).author.name }}
+{{ if (index hugo.Data site.Language.Lang).author }}
+  {{ $authorName = (index hugo.Data site.Language.Lang).author.name }}
 {{ end }}
 
 {{/*  Lastly, overrides with the post specific author if provided  */}}
-{{ if eq (printf "%T" .Params.author ) "maps.Params" }}
+{{ if reflect.IsMap .Params.author }}
     {{ with .Params.author }}
         {{ if .name }}
         {{ $authorName = .name }}

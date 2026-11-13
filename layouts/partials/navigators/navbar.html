@@ -1,6 +1,7 @@
 {{/*  variables for enabling/disabling various features  */}}
 {{ $blogEnabled   := site.Params.features.blog.enable   | default false }}
-{{ $blogTitle  := site.Params.features.blog.title | default (i18n "posts") }}
+{{ $blogTitle   := site.Params.features.blog.title   | default (i18n "posts") }}
+{{ $blogSection := site.Params.features.blog.section | default "posts" }}
 {{ $notesEnabled  := site.Params.features.notes.enable  | default false }}
 {{ $notesTitle := site.Params.features.notes.title  | default (i18n "notes") }}
 {{ $maxVisibleSections   := site.Params.topNavbar.maxVisibleSections   | default 5 }}
@@ -29,7 +30,7 @@
 {{/* resize the logos. don't resize svg because it is not supported */}}
 {{ if $mainLogo }}
   {{ $mainLogo = resources.Get $mainLogo}}
-  {{ if and $mainLogo (ne $mainLogo.MediaType.SubType "svg") }}
+  {{ if and $mainLogo (not (or (eq $mainLogo.MediaType.SubType "svg") (eq $mainLogo.MediaType.SubType "gif"))) }}
     {{ $mainLogo = $mainLogo.Resize "42x" }}
   {{ end }}
   {{ $mainLogo = $mainLogo.RelPermalink}}
@@ -37,7 +38,7 @@
 
 {{ if $invertedLogo }}
   {{ $invertedLogo = resources.Get $invertedLogo}}
-  {{ if and $invertedLogo (ne $invertedLogo.MediaType.SubType "svg")}}
+  {{ if and $invertedLogo (not (or (eq $invertedLogo.MediaType.SubType "svg") (eq $invertedLogo.MediaType.SubType "gif"))) }}
     {{ $invertedLogo = $invertedLogo.Resize "42x" }}
   {{ end }}
   {{ $invertedLogo = $invertedLogo.RelPermalink}}
@@ -45,7 +46,7 @@
 
 {{ if $darkLogo }}
   {{ $darkLogo = resources.Get $darkLogo}}
-  {{ if and $darkLogo (ne $darkLogo.MediaType.SubType "svg")}}
+  {{ if and $darkLogo (not (or (eq $darkLogo.MediaType.SubType "svg") (eq $darkLogo.MediaType.SubType "gif"))) }}
     {{ $darkLogo = $darkLogo.Resize "42x" }}
   {{ end }}
   {{ $darkLogo = $darkLogo.RelPermalink}}
@@ -57,16 +58,16 @@
 {{ end }}
 
 {{ $customMenus := site.Params.customMenus }}
-{{ if (index site.Data site.Language.Lang).site.customMenus }}
-  {{ $customMenus = (index site.Data site.Language.Lang).site.customMenus }}
+{{ if (index hugo.Data site.Language.Lang).site.customMenus }}
+  {{ $customMenus = (index hugo.Data site.Language.Lang).site.customMenus }}
 {{ end }}
 
-{{ $sections := site.Data.sections }}
-{{ if (index site.Data site.Language.Lang).sections }}
-  {{ $sections = (index site.Data site.Language.Lang).sections }}
+{{ $sections := hugo.Data.sections }}
+{{ if (index hugo.Data site.Language.Lang).sections }}
+  {{ $sections = (index hugo.Data site.Language.Lang).sections }}
 {{ end }}
 
-{{ $navBarTitle := (index site.Data site.Language.Lang).site.navBarTitle }}
+{{ $navBarTitle := (index hugo.Data site.Language.Lang).site.navBarTitle }}
 {{ if not $navBarTitle }}
   {{ $navBarTitle = site.Title }}
 {{ end }}
@@ -78,9 +79,9 @@
       <i data-feather="sidebar"></i>
     </button>
     {{ end }}
-    <a class="navbar-brand" href="{{ site.BaseURL | relLangURL }}">
+    <a class="navbar-brand" href="{{ partial "helpers/get-page-url.html" "" }}">
       {{ if $logo }}
-        <img src="{{ $logo }}" id="logo" alt="Logo">
+        <img src="{{ $logo }}" id="logo" alt="{{ site.Title }}">
       {{ end }}
       {{- $navBarTitle -}}
     </a>
@@ -98,7 +99,7 @@
     <div class="collapse navbar-collapse dynamic-navbar" id="top-nav-items">
       <ul class="nav navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ if .IsHome }}#home{{else}}{{ site.BaseURL | relLangURL }}#home{{end}}">{{ i18n "home" }}</a>
+          <a class="nav-link" href="{{ if .IsHome }}#home{{else}}{{ partial "helpers/get-page-url.html" "" }}#home{{end}}">{{ i18n "home" }}</a>
         </li>
         {{ if $sections }}
           {{ $sectionCount := 1 }}
@@ -131,22 +132,23 @@
         {{- end }}
         {{ $shouldAddSeparator:= partial "helpers/add-navbar-separator.html" . }}
         {{ if $shouldAddSeparator }}
-          <div id="top-navbar-divider"></div>
+          <li id="top-navbar-divider" role="separator"></li>
         {{ end }}
         {{ if $blogEnabled }}
           <li class="nav-item">
-            <a class="nav-link" id="blog-link" href="{{ path.Join (site.BaseURL | relLangURL) "posts" }}">{{ $blogTitle }}</a>
+            <a class="nav-link" id="blog-link" href="{{ partial "helpers/get-page-url.html" $blogSection }}">{{ $blogTitle }}</a>
           </li>
         {{ end }}
         {{ if $notesEnabled }}
           <li class="nav-item">
-            <a class="nav-link" id="note-link" href="{{ path.Join (site.BaseURL | relLangURL) "notes" }}">{{ $notesTitle }}</a>
+            <a class="nav-link" id="note-link" href="{{ partial "helpers/get-page-url.html" "notes" }}">{{ $notesTitle }}</a>
           </li>
         {{ end }}
         {{ range $customMenus }}
             {{ if (not .hideFromNavbar) }}
+              {{ $menuURL := partial "helpers/get-page-url.html" .url }}
               <li class="nav-item">
-                <a class="nav-link" href="{{ .url }}">{{ .name }}</a>
+                <a class="nav-link" href="{{ $menuURL }}">{{ .name }}</a>
               </li>
             {{ end }}
         {{ end }}

@@ -9,13 +9,14 @@ a {
   &:hover,
   &:focus {
     -webkit-text-decoration: get-light-color('hover-over-accent-color') underline;
-            text-decoration: get-light-color('hover-over-accent-color') underline;
+    text-decoration: get-light-color('hover-over-accent-color') underline;
     color: get-light-color('hover-over-accent-color');
     @include transition();
   }
 }
 
-.list-link, .taxonomy-term {
+.list-link,
+.taxonomy-term {
   text-decoration: none !important;
   color: get-light-color('text-color');
   @include transition();
@@ -68,12 +69,22 @@ html[data-theme='dark'] {
     &:hover,
     &:focus {
       -webkit-text-decoration: get-dark-color('hover-over-accent-color') underline;
-              text-decoration: get-dark-color('hover-over-accent-color') underline;
+      text-decoration: get-dark-color('hover-over-accent-color') underline;
       color: get-dark-color('hover-over-accent-color');
     }
   }
 
-  .list-link, .taxonomy-term {
+  a.btn-outline-info {
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: get-dark-color('text-over-accent-color');
+    }
+  }
+
+  .list-link,
+  .taxonomy-term {
     color: get-dark-color('text-color');
 
     &:hover,

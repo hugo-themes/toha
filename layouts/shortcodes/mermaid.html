@@ -9,5 +9,5 @@
 {{ end }}
 
 <div class="mermaid" align="{{ $alignment }}" style="background-color: {{ $background }}; border-radius: 5px;">
-    {{ safeHTML .Inner }}
+    {{- safeHTML .Inner -}}
 </div>

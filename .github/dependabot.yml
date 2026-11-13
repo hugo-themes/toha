@@ -2,12 +2,92 @@
 
 version: 2
 updates:
-# Update the Github Action  versions
+# Update the Github Action versions (grouped into a single PR)
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
-    interval: "daily"
+    interval: "weekly"
   labels:
   - "dependencies"
   - "automerge"
-  - "enhancement"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+
+# Update npm dependencies at the repo root (grouped into a single PR)
+- package-ecosystem: "npm"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+  # Standard 17 requires this ESLint toolchain; LibSass cannot compile include-media 2.
+  ignore:
+  - dependency-name: "eslint"
+    versions: [">=9.0.0"]
+  - dependency-name: "eslint-plugin-n"
+    versions: [">=17.0.0"]
+  - dependency-name: "eslint-plugin-promise"
+    versions: [">=7.0.0"]
+  - dependency-name: "include-media"
+    versions: [">=2.0.0"]
+
+# Update npm dependencies in exampleSite (grouped into a single PR)
+- package-ecosystem: "npm"
+  directory: "/exampleSite"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+  # Keep the example site within the same toolchain limits as the theme.
+  ignore:
+  - dependency-name: "eslint"
+    versions: [">=9.0.0"]
+  - dependency-name: "eslint-plugin-n"
+    versions: [">=17.0.0"]
+  - dependency-name: "eslint-plugin-promise"
+    versions: [">=7.0.0"]
+  - dependency-name: "include-media"
+    versions: [">=2.0.0"]
+
+# Update Go module dependencies at the repo root (grouped into a single PR)
+- package-ecosystem: "gomod"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"
+
+# Update Go module dependencies in exampleSite (grouped into a single PR)
+- package-ecosystem: "gomod"
+  directory: "/exampleSite"
+  schedule:
+    interval: "weekly"
+  labels:
+  - "dependencies"
+  - "automerge"
+  - "maintenance"
+  groups:
+    all-dependencies:
+      patterns:
+      - "*"

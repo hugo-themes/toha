@@ -6,9 +6,9 @@
     height: auto;
     display: none;
   }
-  
+
   .paginator {
-    display: flex!important;
+    display: flex !important;
     width: 100% !important;
     text-align: center;
     margin-bottom: 0.2rem !important;
@@ -18,8 +18,20 @@
       margin-left: auto;
       margin-right: auto;
     }
+
+    .download-btn {
+      margin-left: auto;
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        text-decoration: none;
+        color: white;
+      }
+    }
   }
-  
+
   .loading-wrapper {
     display: none;
     justify-content: center;
@@ -27,19 +39,21 @@
     width: 100%;
     height: 350px;
   }
-  
+
   .loading {
     display: inline-block;
     width: 50px;
     height: 50px;
-    border: 3px solid #d2d0d0;;
+    border: 3px solid #d2d0d0;
     border-radius: 50%;
     border-top-color: #383838;
     animation: spin 1s ease-in-out infinite;
     -webkit-animation: spin 1s ease-in-out infinite;
   }
-  
+
   @keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
   }
 }

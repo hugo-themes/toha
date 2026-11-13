@@ -1,0 +1,119 @@
+.code-block {
+  margin: 1rem 0;
+  border: 1px solid get-light-color('bg-secondary');
+  border-radius: 0.25rem;
+  overflow: hidden;
+  min-width: 0;
+  scroll-margin-top: 5rem;
+
+  // Preserve the progressive-enhancement state against other component styles.
+  [hidden] { display: none !important; }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.125rem 0.75rem;
+    background: get-light-color('bg-secondary');
+    color: get-light-color('heading-color');
+    font-size: 0.8125rem;
+  }
+
+  .code-block-title {
+    font-family: monospace;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  .code-block-language {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .code-block-copy,
+  .code-block-toggle {
+    appearance: none;
+    border: 0;
+    border-radius: 0;
+    color: get-light-color('heading-color');
+    background: get-light-color('bg-secondary');
+    font: inherit;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    cursor: pointer;
+
+    &:hover { text-decoration: underline; }
+    &:focus-visible {
+      outline: 2px solid get-light-color('accent-color');
+      outline-offset: -3px;
+    }
+  }
+
+  .code-block-copy {
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 0.25rem 0.5rem;
+    min-height: 1.75rem;
+  }
+
+  .code-block-toggle {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    border-top: 1px solid get-light-color('bg-secondary');
+  }
+
+  // Contain wide lines and table-based line numbers inside the panel.
+  .code-block-full,
+  .code-block-preview { overflow-x: auto; }
+  .highlight, pre, table { margin: 0 !important; }
+  pre { border-radius: 0; }
+}
+
+html[data-theme='dark'] .code-block {
+  border-color: get-dark-color('bg-secondary');
+  .code-block-full,
+  .code-block-preview {
+    background-color: get-dark-color('bg-code');
+
+    // Override highlighter backgrounds, including Chroma's inline table wrappers.
+    // Keep token colors and highlighted-line backgrounds intact.
+    .highlight,
+    .highlight > div,
+    .chroma,
+    pre,
+    code,
+    table,
+    td {
+      background-color: get-dark-color('bg-code') !important;
+    }
+  }
+  .code-block-header,
+  .code-block-copy,
+  .code-block-toggle {
+    background: get-dark-color('bg-secondary');
+    color: get-dark-color('heading-color');
+  }
+  .code-block-toggle { border-color: get-dark-color('bg-secondary'); }
+  .code-block-copy:focus-visible,
+  .code-block-toggle:focus-visible {
+    outline-color: get-dark-color('hover-over-accent-color');
+  }
+}
+
+@media (pointer: coarse) {
+  .code-block .code-block-copy,
+  .code-block .code-block-toggle { min-height: 2.75rem; }
+}
+
+@media print {
+  .code-block {
+    overflow: visible;
+    .code-block-full[hidden] { display: block !important; }
+    .code-block-header,
+    .code-block-preview,
+    .code-block-toggle { display: none !important; }
+    .code-block-full, pre { overflow: visible; }
+    pre code { white-space: pre-wrap; }
+  }
+}

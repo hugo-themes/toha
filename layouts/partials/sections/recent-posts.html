@@ -9,17 +9,20 @@
 {{ end }}
 
 
-<div class="container-fluid anchor pb-5 recent-posts-section">
+<div class="container-fluid anchor pb-5 recent-posts-section" id="{{ $sectionID }}">
   {{ if not (.section.hideTitle) }}
     <h1 class="text-center">
-        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+        {{ .section.name }}</h1>
   {{ else }}
     <h1 class="text-center" style="display: none">
-        <span id="{{ $sectionID }}"></span>{{ .section.name }}</h1>
+        {{ .section.name }}</h1>
   {{ end }}
   <div class="container">
     <div class="row" id="recent-post-cards">
-      {{ range first $numShow (where (where site.RegularPages.ByDate.Reverse "Type" "posts" ) "Layout" "!=" "search") }}
+      {{ $blogSection := site.Params.features.blog.section | default "posts" }}
+      {{ $posts := where (where site.RegularPages.ByDate.Reverse "Type" $blogSection ) "Layout" "!=" "search" }}
+      {{ $posts = where $posts "Params.hidden" "!=" true }}
+      {{ range first $numShow $posts }}
         {{ partial "cards/post.html" . }}
       {{ end }}
     </div>
@@ -29,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;">
-    <a href="/posts/" title="Show More" class="float-end btn btn-outline-info btn-sm" >
+    <a href="/{{ $blogSection }}/" title="Show More" class="float-end btn btn-outline-info btn-sm" >
     {{ i18n "show_more"}}</a>
   </div>
   {{ end }}

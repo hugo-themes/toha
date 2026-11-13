@@ -126,57 +126,69 @@ function singleColumnRow (gallery, entries, i) {
 
 function showAchievements () {
   const { isLaptop, isTablet } = getDeviceState()
-  // show achievements from achievements-holder div
-  const gallery = document.getElementById('gallery')
-  if (gallery == null) {
-    return
-  }
-  gallery.innerHTML = ''
-  const entries = document.getElementById('achievements-holder').children
-  let len = entries.length
-  let i = 0
-  let rowNumber = 1
-  while (i < len) {
-    if (isLaptop) {
-      if (i + 4 <= len) {
-        if (rowNumber % 2) {
-          fourColumnRow(gallery, entries, i)
-        } else {
-          fourColumnReversedRow(gallery, entries, i)
-        }
-        i += 4
-      } else if (i + 3 <= len) {
-        if (rowNumber % 2) {
-          threeColumnRow(gallery, entries, i)
-        } else {
-          threeColumnReversedRow(gallery, entries, i)
-        }
-        i += 3
-      } else if (i + 2 <= len) {
-        twoColumnRow(gallery, entries, i)
-        i += 2
-      } else {
-        singleColumnRow(gallery, entries, i)
-        i++
-      }
-    } else if (isTablet) {
-      if (i + 2 <= len) {
-        twoColumnRow(gallery, entries, i)
-        i += 2
-      } else {
-        singleColumnRow(gallery, entries, i)
-        i++
-      }
-    } else {
-      singleColumnRow(gallery, entries, i)
-      i++
+  
+  // Process all achievements sections
+  const galleries = document.querySelectorAll('.achievements-gallery')
+  galleries.forEach((gallery) => {
+    if (gallery == null) {
+      return
     }
-    rowNumber++
-  }
+    gallery.innerHTML = ''
+    
+    // Find the corresponding achievements-holder for this gallery
+    const galleryId = gallery.id
+    const holderId = galleryId.replace('gallery-', 'achievements-holder-')
+    const holder = document.getElementById(holderId)
+    if (!holder) {
+      return
+    }
+    
+    const entries = holder.children
+    const len = entries.length
+    let i = 0
+    let rowNumber = 1
+    while (i < len) {
+      if (isLaptop) {
+        if (i + 4 <= len) {
+          if (rowNumber % 2) {
+            fourColumnRow(gallery, entries, i)
+          } else {
+            fourColumnReversedRow(gallery, entries, i)
+          }
+          i += 4
+        } else if (i + 3 <= len) {
+          if (rowNumber % 2) {
+            threeColumnRow(gallery, entries, i)
+          } else {
+            threeColumnReversedRow(gallery, entries, i)
+          }
+          i += 3
+        } else if (i + 2 <= len) {
+          twoColumnRow(gallery, entries, i)
+          i += 2
+        } else {
+          singleColumnRow(gallery, entries, i)
+          i++
+        }
+      } else if (isTablet) {
+        if (i + 2 <= len) {
+          twoColumnRow(gallery, entries, i)
+          i += 2
+        } else {
+          singleColumnRow(gallery, entries, i)
+          i++
+        }
+      } else {
+        singleColumnRow(gallery, entries, i)
+        i++
+      }
+      rowNumber++
+    }
+  })
 
   // show full image on click
   const elements = document.getElementsByClassName('achievement-entry')
-  len = elements.length
+  const len = elements.length
   for (let i = 0; i < len; i++) {
     elements[i].onclick = function () {
       const achievements = document.getElementsByClassName('achievement-entry')

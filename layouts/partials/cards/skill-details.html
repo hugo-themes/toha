@@ -1,0 +1,19 @@
+<section class="skill-details" id="{{ .id }}" aria-labelledby="{{ .id }}-title" data-skill-details>
+  <header class="skill-details-header">
+    <div class="skill-details-heading">
+      {{ with .skill.logo }}
+        {{ $image := resources.Get . }}
+        {{ if ne $image.MediaType.SubType "svg" }}{{ $image = $image.Fit "48x48" }}{{ end }}
+        <img class="skill-details-logo" src="{{ $image.RelPermalink }}" alt="" width="40" height="40" />
+      {{ end }}
+      <h2 id="{{ .id }}-title">{{ .skill.name }}</h2>
+    </div>
+    <button class="skill-details-close" type="button" aria-label="{{ i18n "skill_details_close" }}" hidden><span aria-hidden="true">×</span></button>
+  </header>
+  <div class="skill-details-body">
+    {{ with .details.summary }}<div class="skill-details-intro">{{ . | markdownify }}</div>{{ end }}
+    {{ with .details.items }}
+      {{ partial "misc/skill-details-tree.html" (dict "items" . "depth" 0 "parent" "") }}
+    {{ end }}
+  </div>
+</section>

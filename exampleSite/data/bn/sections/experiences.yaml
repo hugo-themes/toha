@@ -1,0 +1,68 @@
+# section information
+section:
+  name: অভিজ্ঞতা
+  id: experiences
+  enable: true
+  weight: 3
+  showOnNavbar: true
+  template: sections/experiences.html
+  # Can optionally hide the title in sections
+  # hideTitle: true 
+
+# Your experiences
+experiences:
+- company:
+    name: Example Co.
+    url: "https://www.example.com"
+    location: ঢাকা ব্রাঞ্চ
+    logo: /images/sections/experiences/company1.jpg
+    # company overview
+    overview: Example Co. হচ্ছে ক্লাউড নেটিভ ডেভেলপমেন্টের জন্যে একটি স্বীকৃত প্রতিষ্ঠান । এটি Kubernetes এর জন্যে বিভিন্ন সফটওয়্যার বানায়।
+  positions:
+  - designation: সিনিয়র সফটওয়্যার ইঞ্জিনিয়ার
+    start: Nov 2019
+    # don't provide end date if you are currently working there. It will be replaced by "Present"
+    # end: Dec 2020
+    # give some points about what was your responsibilities at the company.
+    responsibilities:
+    - ABC কাজের জন্য XYZ টুল ডিজাইন ও ডেভেলপ করা ।
+    - Kubernetes এর ভলিউম, ডাটাবেজ ইত্যাদি ব্যাকআপ নেওয়ার জন্যে বিপর্যয় পুনরুদ্ধার টুল ডিজাইন, ডেভেলপ এবং পরিচালনা করা। 
+    - বাকেন্ড টিমের নেতৃত্ব দেওয়া।
+
+  - designation: জুনিয়র সফটওয়্যার ইঞ্জিনিয়ার
+    start: Nov 2017
+    end: Oct 2019
+    responsibilities:
+    - ABC টুল এর জন্য XYZ ফিচার বাস্তবায়ন করা এবং টেস্ট করা।
+    - ABC টুলের ক্লায়েন্ট সাপোর্ট দেওয়া।
+    - XYZ এর জন্য K, D, W টেকনোলজি শিখা।
+
+- company:
+    name: PreExample Co.
+    url: "https://www.example.com"
+    location: Nowhere
+    logo: /images/sections/experiences/company2.jpg
+    overview: PreExample Co. হচ্ছে Example co.  তে যাওয়ার মাধ্যম। সুতারাং, এখানে বিশেষ কিছু নেই।
+  positions:
+  - designation: সফটওয়্যার ইঞ্জিনিয়ার
+    start: March 2016
+    end: May 2017
+    responsibilities:
+    - প্রচুর পরিমাণে উদাহারন কোড লিখা ।
+    - প্রচুর পরিমাণে উদাহারন পড়া।
+    - প্রচুর পরিমাণে উদাহারন ভিডিও দেখা ।
+
+- company:
+    name: Intern Counting Company (ICC).
+    url: "https://www.example.com"
+    location: Intern Land
+    logo: /images/sections/experiences/company3.jpg
+    overview: Intern counting Company (ICC) বিশ্বব্যাপী ইন্টার্ন ইঞ্জিনিয়ারদের গণনার জন্য দায়ী ।
+  positions:
+  - designation: ইন্টার্ন
+    start: Jun 2015
+    end: Jan 2016
+    responsibilities:
+    - প্রচুর ইন্টার্ন গণনা করা।
+    - আরও ইন্টার্ন গণনা করা।
+    - নিজেকে  ইন্টার্ন হিসেবে গণনা করা ।

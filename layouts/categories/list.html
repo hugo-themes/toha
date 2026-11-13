@@ -17,10 +17,10 @@
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
             <li id="list-heading"><a href="{{ .Type | relLangURL }}" data-filter="all">{{ i18n .Type }}</a></li>
-            <div class="subtree taxonomy-terms">
+            <li class="subtree-holder"><ul class="subtree taxonomy-terms">
               {{ $context := . }}
               {{ partial "navigators/taxonomies.html" (dict "context" $context "taxo" "categories" "title" ( humanize "categories" ) ) }}
-            </div>
+            </ul></li>
           </ul>
         </div>
       </div>
@@ -31,21 +31,7 @@
 {{ define "content" }}
 <section class="content-section" id="content-section">
   <div class="content container-fluid" id="content">
-    <div class="container-fluid post-card-holder" id="post-card-holder">
-      {{ $posts := where .RegularPagesRecursive "Layout" "!=" "search" }}
-      {{ $numShow := site.Params.features.pagination.maxPostsPerPage | default 12}}
-      {{ $paginator := .Paginate $posts $numShow }}
-      {{ range $paginator.Pages }}
-        {{ if .Layout }}
-          {{/* ignore the search.md file*/}}
-        {{ else }}
-          {{ partial "cards/post.html" . }}
-        {{ end }}
-      {{ end }}
-    </div>
-    <div class="paginator">
-      {{ template "_internal/pagination.html" . }}
-    </div>
+    {{ partial "post-list.html" . }}
   </div>
 </section>
 {{ end }}

@@ -1,22 +1,33 @@
-{{ if site.Params.features.analytics.enabled }}
-  {{- with site.Params.features.analytics.services.google.id }}
-    {{- if strings.HasPrefix (lower .) "ua-" }}
-      {{- warnf "Google Analytics 4 (GA4) replaced Google Universal Analytics (UA) effective 1 July 2023. See https://support.google.com/analytics/answer/11583528. Create a GA4 property and data stream, then replace the Google Analytics ID in your site configuration with the new value." }}
-    {{- else }}
-      <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
-      <script>
-        var doNotTrack = false;
-        if ({{ site.Params.features.analytics.services.google.respectDoNotTrack }}) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '{{ . }}');
-        }
-      </script>
-    {{- end }}
-  {{- end }}
-{{- end -}}
+{{ with site.Params.features.analytics }}
+  {{ if or .enable .enabled }}
+    {{ with .services.google }}
+      {{ if .id }}
+        {{ $id := .id }}
+        
+        {{- if strings.HasPrefix (lower $id) "ua-" }}
+          {{- warnf "Google Universal Analytics (UA) ID '%s' is deprecated. Use a GA4 Measurement ID (e.g., G-XXXXXX). See https://support.google.com/analytics/answer/11583528. Create a GA4 property and data stream, then replace the Google Analytics ID in your site configuration with the new value." $id }}
+        {{- else }}
+          <script async src="https://www.googletagmanager.com/gtag/js?id={{ $id }}"></script>
+          <script>
+            // Initialize doNotTrack variable to false
+            var doNotTrack = false;
+
+            // Check for respectDoNotTrack setting and browser DNT header
+            {{ if .respectDoNotTrack }}
+              var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+              // Set doNotTrack if DNT header is '1' or 'yes' (using '==' as per original logic)
+              doNotTrack = (dnt == "1" || dnt == "yes");
+            {{ end }}
+            
+            if (!doNotTrack) {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '{{ $id }}');
+            }
+          </script>
+        {{- end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}

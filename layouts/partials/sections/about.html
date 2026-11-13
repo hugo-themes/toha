@@ -3,9 +3,9 @@
   {{ $sectionID = .section.id }}
 {{ end }}
 
-{{ $author:= site.Data.author }}
-{{ if (index site.Data site.Language.Lang).author }}
-  {{ $author = (index site.Data site.Language.Lang).author }}
+{{ $author:= hugo.Data.author }}
+{{ if (index hugo.Data site.Language.Lang).author }}
+  {{ $author = (index hugo.Data site.Language.Lang).author }}
 {{ end }}
 
 <div class="container anchor p-lg-5 about-section" id="{{ $sectionID }}">
@@ -41,13 +41,13 @@
         </ul>
       </div>
       {{ if .resume }}
-      <a href="{{ .resume | relURL }}" title="{{ i18n "resume"}}" target="#"
-        ><button class="btn btn-dark">{{ i18n "resume"}}</button></a
+      <a class="btn btn-dark" href="{{ .resume | relURL }}" title="{{ i18n "resume"}}" target="#"
+        >{{ i18n "resume"}}</a
       >
       {{ end }}
       {{ range .resourceLinks }}
-      <a href="{{ .url | relURL }}" title="{{ .title }}" target="#"
-        ><button class="btn btn-dark">{{ .title }}</button></a
+      <a class="btn btn-dark" href="{{ .url | relURL }}" title="{{ .title }}" target="#"
+        >{{ .title }}</a
       >
       {{ end }}
     </div>

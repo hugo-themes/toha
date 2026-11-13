@@ -107,6 +107,12 @@ other = "Tampilkan Lebih Sedikit"
 # [project_details]
 # other = "Details"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 # [err_404]
 # other = "The page you are looking for is not there yet."
 
@@ -124,3 +130,47 @@ other = "Pemberitahuan Kewajiban"
 
 [search]
 other = "Mencari"
+
+[load_more_posts]
+other = "Muat lebih banyak tulisan"
+
+[loading_posts]
+other = "Memuat tulisan…"
+
+[posts_loaded]
+other = "Tulisan tambahan telah dimuat."
+
+[all_posts_loaded]
+other = "Semua tulisan telah dimuat."
+
+[posts_load_error]
+other = "Tidak dapat memuat tulisan tambahan. Coba lagi atau gunakan tautan halaman di bawah."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

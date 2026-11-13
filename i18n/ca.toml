@@ -1,0 +1,180 @@
+# More documentation here: https://github.com/nicksnyder/go-i18n
+[home]
+other = "Inici"
+
+[posts]
+other = "Publicacions"
+
+[toc_heading]
+other = "Taula de Continguts"
+
+[tags]
+other = "Etiquetes"
+
+[categories]
+other = "Categories"
+
+[at]
+other = "a"
+
+[resume]
+other = "El meu currículum"
+
+[navigation]
+other = "Navegació"
+
+[contact_me]
+other = "Contacta'm:"
+
+[email]
+other = "Correu electrònic"
+
+[phone]
+other = "Telèfon"
+
+[newsletter_text]
+other = "Subscriure's"
+
+[newsletter_input_placeholder]
+other = "Entra l'email"
+
+[newsletter_warning]
+other = "Al entrar la vostra direcció de correu electrònic, esteu acceptant rebre el butlletí d'aquest lloc web."
+
+[submit]
+other = "Enviar"
+
+[hugoAttributionText]
+other = "Impulsat per"
+
+[prev]
+other = "Anterior"
+
+[next]
+other = "Següent"
+
+[share_on]
+other = "Compartir a"
+
+[improve_this_page]
+other = "Millorar aquesta pàgina"
+
+[out_of]
+other = "de"
+
+[publications]
+other = "Publicacions"
+
+[taken_courses]
+other = "Cursos realitzats"
+
+[course_name]
+other = "Nom del curs"
+
+[total_credit]
+other = "Crèdits Totals"
+
+[obtained_credit]
+other = "Crèdits Obtinguts"
+
+[extracurricular_activities]
+other = "Activitats Extracurriculars"
+
+[show_more]
+other = "Mostra'n més"
+
+[show_less]
+other = "Mostra'n menys"
+
+[responsibilities]
+other = "Responsabilitats:"
+
+[present]
+other = "Actualitat"
+
+[comments_javascript]
+other = "Si us plau, activa Javascript per mostrar"
+
+[comments_by]
+other = "Comentaris per"
+
+[read]
+other = "Llegir"
+
+[project_star]
+other = "Preferit"
+
+[project_details]
+other = "Detalls"
+
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
+[err_404]
+other = "La pàgina que està cercant encara no existeix."
+
+[more]
+other = "Més"
+
+[view_certificate]
+other = "Mostrar Certificat"
+
+[notes]
+other = "Notes"
+
+[disclaimer_text]
+other = "Avís de Responsabilitat"
+
+[search]
+other = "Cerca"
+
+[minute]
+one = "minut"
+other = "minuts"
+
+[load_more_posts]
+other = "Carrega més publicacions"
+
+[loading_posts]
+other = "S’estan carregant les publicacions…"
+
+[posts_loaded]
+other = "S’han carregat més publicacions."
+
+[all_posts_loaded]
+other = "S’han carregat totes les publicacions."
+
+[posts_load_error]
+other = "No s’han pogut carregar més publicacions. Torna-ho a provar o utilitza els enllaços de pàgina de sota."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

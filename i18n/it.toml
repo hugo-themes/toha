@@ -107,6 +107,12 @@ other = "Leggi"
 [project_details]
 other = "Dettagli"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 # [err_404]
 # other = "The page you are looking for is not there yet."
 
@@ -128,3 +134,47 @@ other = "Ricerca"
 [minute]
 one = "minuto"
 other = "minuti"
+
+[load_more_posts]
+other = "Carica altri articoli"
+
+[loading_posts]
+other = "Caricamento degli articoli…"
+
+[posts_loaded]
+other = "Sono stati caricati altri articoli."
+
+[all_posts_loaded]
+other = "Tutti gli articoli sono stati caricati."
+
+[posts_load_error]
+other = "Impossibile caricare altri articoli. Riprova o usa i collegamenti alle pagine qui sotto."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

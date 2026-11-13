@@ -14,6 +14,9 @@ other = "ট্যাগ সমুহ"
 [categories]
 other = "বিভাগ সমুহ"
 
+[at]
+other = "এ"
+
 [resume]
 other = "আমার জীবনবৃত্তান্ত"
 
@@ -95,17 +98,23 @@ other = "বর্তমান"
 # [comments_by]
 # other = "comments powered by"
 
-# [read]
-# other = "Read"
+[read]
+other = "পড়ুন"
 
-# [project_star]
-# other = "Star"
+[project_star]
+other = "স্টার"
 
-# [project_details]
-# other = "Details"
+[project_details]
+other = "বিস্তারিত"
 
-# [err_404]
-# other = "The page you are looking for is not there yet."
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
+[err_404]
+other = "আপনি যে পৃষ্ঠাটি খুঁজছেন তা এখনও নেই।"
 
 [more]
 other = "আরো"
@@ -124,3 +133,45 @@ other = "অনুসন্ধান করুন"
 
 [minute]
 other = "মিনিট"
+
+[load_more_posts]
+other = "আরো পোস্ট দেখান"
+
+[loading_posts]
+other = "পোস্ট লোড হচ্ছে…"
+
+[posts_loaded]
+other = "আরো পোস্ট লোড হয়েছে।"
+
+[all_posts_loaded]
+other = "সব পোস্ট লোড হয়েছে।"
+
+[posts_load_error]
+other = "আরো পোস্ট লোড করা যায়নি। আবার চেষ্টা করুন অথবা নিচের পৃষ্ঠার লিংক ব্যবহার করুন।"
+
+[code_block_code]
+other = "কোড"
+
+[code_block_copy]
+other = "কপি করুন"
+
+[code_block_copied]
+other = "কপি হয়েছে!"
+
+[code_block_copy_error]
+other = "কপি হয়নি। আবার চেষ্টা করুন।"
+
+[code_block_show_all]
+other = "সব {{ .Count }} লাইন দেখুন"
+
+[code_block_show_less]
+other = "কম লাইন দেখুন"
+
+[skill_details_view]
+other = "বিস্তারিত দেখুন"
+
+[skill_details_close]
+other = "দক্ষতার বিস্তারিত বন্ধ করুন"
+
+[skill_details_within]
+other = "{{ .Name }} এর অন্তর্ভুক্ত"

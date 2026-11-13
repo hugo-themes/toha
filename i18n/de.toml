@@ -107,6 +107,12 @@ other = "Star"
 [project_details]
 other = "Details"
 
+[publication_doi]
+other = "DOI"
+
+[publication_arxiv]
+other = "arXiv"
+
 [err_404]
 other = "Die von Ihnen gesuchte Seite ist noch nicht vorhanden."
 
@@ -128,3 +134,47 @@ other = "Suche"
 [minute]
 one = "Minute"
 other = "Minuten"
+
+[load_more_posts]
+other = "Weitere Beiträge laden"
+
+[loading_posts]
+other = "Beiträge werden geladen…"
+
+[posts_loaded]
+other = "Weitere Beiträge wurden geladen."
+
+[all_posts_loaded]
+other = "Alle Beiträge wurden geladen."
+
+[posts_load_error]
+other = "Weitere Beiträge konnten nicht geladen werden. Versuche es erneut oder nutze die Seitenlinks unten."
+
+# Code panel labels fall back to English until translated.
+[code_block_code]
+other = "Code"
+
+[code_block_copy]
+other = "Copy"
+
+[code_block_copied]
+other = "Copied!"
+
+[code_block_copy_error]
+other = "Copy failed. Try again."
+
+[code_block_show_all]
+one = "Show all {{ .Count }} line"
+other = "Show all {{ .Count }} lines"
+
+[code_block_show_less]
+other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

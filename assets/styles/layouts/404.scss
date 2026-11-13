@@ -3,7 +3,13 @@ body.kind-404 {
     display: none;
   }
 
+  .container {
+    text-align: center;
+  }
+
   .notFound {
+    position: relative;
+    display: inline-block;
     padding-top: 5rem;
     text-align: center;
     padding-bottom: 8rem;
@@ -16,48 +22,33 @@ body.kind-404 {
       font-style: italic;
     }
 
+    // The message is painted on the wall in the illustration, so it has to be
+    // positioned against the illustration rather than against the page.
     .message {
       position: absolute;
-      max-width: 20rem;
-      top: 40%;
-      left: 30%;
-    }
-  }
-
-  @include media('<=very-large') {
-    .notFound .message {
-      top: 50%;
+      top: 26%;
       left: 25%;
+      width: 40%;
     }
   }
 
-  @include media('<=large') {
-    .notFound .message {
-      top: 46%;
-      left: 25%;
-    }
-  }
-
+  // No room to fit the message on the wall, so put it below the illustration.
   @include media('<=medium') {
     .notFound {
-      img {
-        height: 400px;
-      }
-      .message {
-        top: 20rem;
-        left: 4rem;
-      }
-    }
-  }
+      display: block;
 
-  @include media('<=small') {
-    .notFound {
       img {
-        height: 250px;
+        height: auto;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
       }
+
       .message {
-        top: 20rem;
-        left: 2rem;
+        position: static;
+        width: auto;
+        max-width: 20rem;
+        margin: 2rem auto 0;
       }
     }
   }

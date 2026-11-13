@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang }}">
+<html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}"{{ if .Site.Params.features.scrollSnap.enable | default false }} class="scroll-snap"{{ end }}>
   <head>
     <title>{{- .Site.Title -}}</title>
     {{ $siteDescription := .Site.Params.description }}
-    {{ if (index .Site.Data .Site.Language.Lang).site }}
-      {{ $siteConfig := (index .Site.Data .Site.Language.Lang).site }}
+    {{ if (index hugo.Data .Site.Language.Lang).site }}
+      {{ $siteConfig := (index hugo.Data .Site.Language.Lang).site }}
       {{ if $siteConfig.description }}
         {{ $siteDescription = $siteConfig.description }}
       {{ end }}
@@ -14,16 +14,18 @@
     <!-- import common headers -->
     {{- partial "header.html" . -}}
     {{- partial "opengraph.html" . -}}
+    {{- partial "robots.html" . -}}
+    {{- partial "structured-data.html" . -}}
 
     <!--================= add analytics if enabled =========================-->
     {{- partial "analytics.html" . -}}
-    {{ with resources.Get "scripts/core/theme-scheme.js" | fingerprint }}
-    <script integrity="{{.Data.Integrity}}">
+    {{ with resources.Get "scripts/core/theme-scheme.js" }}
+    <script>
      {{ .Content | safeJS }}
     </script>
     {{ end }}
   </head>
-  <body data-bs-spy="scroll" data-bs-target="#top-navbar" data-bs-offset="100" {{ if site.Params.features.scrollSnap.enable | default false }}class="scroll-container"{{end}}>
+  <body data-bs-spy="scroll" data-bs-target="#top-navbar" data-bs-offset="100">
 
     <!--- NAVBAR ------------------------->
     {{- partial "navigators/navbar.html" . -}}
@@ -32,9 +34,9 @@
     {{- partial "sections/home.html" . -}}
 
     <!--- ADD OPTIONAL SECTIONS ----------->
-    {{ $sections:= site.Data.sections }}
-    {{ if (index site.Data site.Language.Lang).sections }}
-      {{ $sections = (index site.Data site.Language.Lang).sections }}
+    {{ $sections:= hugo.Data.sections }}
+    {{ if (index hugo.Data site.Language.Lang).sections }}
+      {{ $sections = (index hugo.Data site.Language.Lang).sections }}
     {{ end }}
 
     {{ if $sections }}

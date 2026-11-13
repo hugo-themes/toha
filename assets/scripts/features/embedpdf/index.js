@@ -4,7 +4,7 @@ const PDFJS_BUNDLE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.
 const WORKER_BUNDLE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.0.279/build/pdf.worker.min.js'
 
 class PDFViewer {
-  constructor (el) {
+  constructor(el) {
     const {
       url,
       hidePaginator,
@@ -47,6 +47,10 @@ class PDFViewer {
     // events
     this.next.addEventListener('click', this.handleNextPage.bind(this))
     this.prev.addEventListener('click', this.handlePrevPage.bind(this))
+    this.downloadBtn = el.getElementsByClassName('download-pdf-btn')[0]
+    if (this.downloadBtn) {
+      this.downloadBtn.addEventListener('click', this.handleDownload.bind(this))
+    }
 
     this.showPaginator()
     this.showLoader()
@@ -56,7 +60,7 @@ class PDFViewer {
   /**
    * If we haven't disabled the loader, show loader and hide canvas
    */
-  showLoader () {
+  showLoader() {
     if (this.hideLoader) return
     this.loadingWrapper.style.display = 'flex'
     this.canvas.style.display = 'none'
@@ -65,7 +69,7 @@ class PDFViewer {
   /**
    * If we haven't disabled the paginator, show paginator
    */
-  showPaginator () {
+  showPaginator() {
     if (this.hidePaginator) return
     this.paginator.style.display = 'block'
   }
@@ -73,7 +77,7 @@ class PDFViewer {
   /**
    * Hides loader and shows canvas
    */
-  showContent () {
+  showContent() {
     this.loadingWrapper.style.display = 'none'
     this.canvas.style.display = 'block'
   }
@@ -81,7 +85,7 @@ class PDFViewer {
   /**
    * Asynchronously downloads PDF.
    */
-  async loadPDF () {
+  async loadPDF() {
     this.pdfDoc = await window.pdfjsLib.getDocument(this.url).promise
 
     this.pageCount.textContent = this.pdfDoc.numPages
@@ -98,7 +102,7 @@ class PDFViewer {
    * Get page info from document, resize canvas accordingly, and render page.
    * @param num Page number.
    */
-  async renderPage (num) {
+  async renderPage(num) {
     this.pageRendering = true
 
     const page = await this.pdfDoc.getPage(num)
@@ -128,7 +132,7 @@ class PDFViewer {
    * If another page rendering in progress, waits until the rendering is
    * finished. Otherwise, executes rendering immediately.
    */
-  queueRenderPage (num) {
+  queueRenderPage(num) {
     if (this.pageRendering) {
       this.pageNumPending = num
     } else {
@@ -139,7 +143,7 @@ class PDFViewer {
   /**
    * Displays previous page.
    */
-  handlePrevPage () {
+  handlePrevPage() {
     if (this.pageNum <= 1) {
       return
     }
@@ -150,12 +154,16 @@ class PDFViewer {
   /**
    * Displays next page.
    */
-  handleNextPage () {
+  handleNextPage() {
     if (this.pageNum >= this.pdfDoc.numPages) {
       return
     }
     this.pageNum++
     this.queueRenderPage(this.pageNum)
+  }
+
+  handleDownload(e) {
+    console.log('Downloading PDF:', this.url)
   }
 }
 
