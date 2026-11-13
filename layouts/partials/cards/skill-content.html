@@ -1,0 +1,18 @@
+<div class="card-head d-flex">
+  {{ if .logo }}
+    {{ $logoImage := resources.Get .logo }}
+    {{/* SVG resources do not support Fit. */}}
+    {{ if ne $logoImage.MediaType.SubType "svg" }}
+      {{ $logoImage = $logoImage.Fit "24x24" }}
+    {{ end }}
+    <img class="card-img-xs" src="{{ $logoImage.RelPermalink }}" alt="{{ .name }}" />
+  {{ end }}
+  <h5 class="card-title">
+    {{ if and ._detailsID .url }}<a href="{{ .url }}" title="{{ .name }}" target="_blank" rel="noopener">{{ end }}
+    {{ if and (not .logo) .icon }}<span class="{{ .icon }}"> {{ .name }}</span>{{ else }}{{ .name }}{{ end }}
+    {{ if and ._detailsID .url }}</a>{{ end }}
+  </h5>
+</div>
+<div class="card-body text-justify pt-1 pb-1">
+  <p class="card-text">{{ .summary | markdownify }}</p>
+</div>

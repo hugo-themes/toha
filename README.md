@@ -44,6 +44,47 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 
 For more details about the features please visit [here](https://toha-docs.netlify.app/posts/features/).
 
+## Skill details
+
+Add a nonempty `details` block to a skill in `data/<language>/sections/skills.yaml`
+to show a “View details” button. Existing skills remain unchanged when `details`
+is absent or empty. No additional enable flag is needed.
+
+```yaml
+skills:
+  - name: Cloud Computing
+    logo: /images/sections/skills/cloud.png
+    summary: Building and operating cloud services.
+    details:
+      summary: I design reliable services and automate infrastructure.
+      items:
+        - name: AWS
+          summary: Production infrastructure and application delivery.
+          items:
+            - name: Compute and scaling
+              summary: Operating EC2 fleets and planning capacity.
+              items:
+                - name: Auto Scaling
+                  summary: Scaling capacity with demand.
+            - name: Serverless
+              summary: Building services with Lambda and API Gateway.
+        - name: Microsoft Azure
+          summary: Deploying applications and managed databases.
+```
+
+The existing skill `summary` stays on the card. `details.summary` is an optional
+introduction in the details view. Each item needs a `name`; its Markdown `summary`
+and child `items` are optional. Name-only items and summary-only details are valid.
+Empty or nameless items are ignored. Details reuse the skill's existing name and
+logo. Existing `url` links remain available independently from the details button.
+
+Details open in a centered dialog on desktop and a full-height view on small
+screens. Readers can expand groups independently and close the dialog with its
+close button, Escape, or the backdrop. Without JavaScript or native dialog support,
+the same content remains readable below the skill cards, linked from each card.
+New action labels use English in bundled locales until translated. The feature
+supports text and nested items; it has no charts, ratings, or styling fields.
+
 ## Code blocks
 
 Code blocks have a compact language (or fence `title`) header automatically.

@@ -26,6 +26,22 @@ skills:
   logo: "/images/sections/skills/cloud.png"
   summary: "GCP, AWS, Azure গুলোর মত বেশিরভাগ বড় বড় ক্লাউড নিয়ে কাজর অভিজ্ঞতা আছে।"
 
+  details:
+    summary: "নির্ভরযোগ্য ক্লাউড সেবা তৈরি ও অবকাঠামো স্বয়ংক্রিয় করার অভিজ্ঞতা আছে।"
+    items:
+    - name: AWS
+      summary: "প্রোডাকশন অবকাঠামো ও অ্যাপ্লিকেশন পরিচালনা।"
+      items:
+      - name: কম্পিউট ও স্কেলিং
+        summary: "EC2 ইনস্ট্যান্স পরিচালনা ও প্রয়োজন অনুযায়ী সক্ষমতা বাড়ানো।"
+        items:
+        - name: Auto Scaling
+          summary: "চাহিদা অনুযায়ী সক্ষমতা বাড়ানো এবং অকার্যকর ইনস্ট্যান্স প্রতিস্থাপন।"
+      - name: Serverless
+        summary: "Lambda ও API Gateway দিয়ে সেবা তৈরি।"
+    - name: Microsoft Azure
+      summary: "অ্যাপ্লিকেশন ও ডেটাবেস পরিচালনা।"
+
 - name: Docker
   logo: "/images/sections/skills/docker.svg"
   summary: "বেশির ভাগ প্রোগ্রামেরই  Docker কন্টেইনার তৈরি করি। মাল্টি স্টেজ এবং মাল্টি আর্কিটেকচার কন্টেইনার নিয়ে অভিজ্ঞতা আছে।"

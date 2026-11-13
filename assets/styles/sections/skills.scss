@@ -44,3 +44,303 @@ html[data-theme='dark'] {
     }
   }
 }
+
+// Details are opt-in. Their fallback sections sit outside the filtered card grid.
+.skills-section .skill-card-with-details {
+  display: flex;
+  flex-direction: column;
+
+  .card-title a {
+    color: inherit;
+  }
+}
+
+.skill-card-details-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: auto;
+  padding: 0.5rem 0.7rem;
+  border-top: 1px solid get-light-color('bg-secondary');
+}
+
+.skill-card-details-preview {
+  min-width: 0;
+  font-size: 0.8rem;
+  color: get-light-color('muted-text-color');
+  overflow-wrap: anywhere;
+}
+
+.skill-details-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: darken(get-light-color('accent-color'), 8%);
+  font: inherit;
+  font-weight: 600;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.skill-details-trigger,
+.skill-details-close,
+.skill-details-branch > summary {
+  &:focus-visible {
+    outline: 2px solid get-light-color('accent-color');
+    outline-offset: 3px;
+  }
+}
+
+.skill-details {
+  max-width: 40rem;
+  margin: 1.5rem auto;
+  border: 1px solid get-light-color('bg-secondary');
+  border-radius: 0.5rem;
+  background: get-light-color('bg-card');
+  color: get-light-color('text-color');
+  text-align: start;
+  overflow-wrap: anywhere;
+  scroll-margin-top: 5rem;
+}
+
+.skill-details-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid get-light-color('bg-secondary');
+  border-radius: inherit;
+  background: get-light-color('bg-card');
+}
+
+.skill-details-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+}
+
+.skill-details-logo {
+  flex: 0 0 auto;
+  object-fit: contain;
+  padding: 0.25rem;
+  // A light backing preserves monochrome logos in both color schemes.
+  background: get-light-color('bg-primary');
+  border-radius: 0.25rem;
+}
+
+.skill-details-close {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.skill-details-body {
+  padding: 1.5rem;
+}
+
+.skill-details-intro {
+  margin-bottom: 1.5rem;
+}
+
+.skill-details-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skill-details-item {
+  border-top: 1px solid get-light-color('bg-secondary');
+}
+
+.skill-details-branch > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 0;
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-inline-start: 0.2rem;
+    border-inline-end: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+  }
+}
+
+.skill-details-branch[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+.skill-details-name {
+  margin: 0;
+  font-weight: 600;
+  color: get-light-color('heading-color');
+}
+
+.skill-details-children {
+  margin-inline-start: 0.5rem;
+  padding-inline-start: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-inline-start: 1px solid get-light-color('bg-secondary');
+}
+
+// Cap indentation after two levels; deeper groups retain explicit parent context.
+.skill-details-children .skill-details-children .skill-details-children {
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.skill-details-leaf {
+  padding: 0.75rem 0;
+}
+
+.skill-details-summary {
+  margin-top: 0.25rem;
+}
+
+.skill-details-summary,
+.skill-details-parent {
+  font-size: 0.9375rem;
+  color: get-light-color('muted-text-color');
+
+  p {
+    margin-bottom: 0.5rem;
+    color: inherit;
+  }
+}
+
+.skill-details-parent {
+  margin-bottom: 0.5rem;
+}
+
+.skill-details-dialog {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  max-height: calc(100% - 3rem);
+  max-height: calc(100dvh - 3rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid get-light-color('bg-secondary');
+  border-radius: 0.5rem;
+  background: get-light-color('bg-card');
+  color: get-light-color('text-color');
+  box-shadow: $box-shadow;
+  overscroll-behavior: contain;
+
+  &::backdrop {
+    background: rgba(get-light-color('bg-primary-inverse'), 0.6);
+  }
+
+  .skill-details {
+    max-width: none;
+    margin: 0;
+    border: 0;
+  }
+}
+
+html.skill-details-open {
+  overflow: hidden;
+}
+
+@include media('<=small') {
+  .skill-details-dialog {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .skill-details-header {
+    padding: 1rem;
+    padding-top: unquote("max(1rem, env(safe-area-inset-top))");
+    padding-inline-start: unquote("max(1rem, env(safe-area-inset-left))");
+    padding-inline-end: unquote("max(1rem, env(safe-area-inset-right))");
+  }
+
+  .skill-details-body {
+    padding: 1rem;
+    padding-bottom: unquote("max(1rem, env(safe-area-inset-bottom))");
+    padding-inline-start: unquote("max(1rem, env(safe-area-inset-left))");
+    padding-inline-end: unquote("max(1rem, env(safe-area-inset-right))");
+  }
+}
+
+html[data-theme='dark'] {
+  .skill-details,
+  .skill-details-dialog,
+  .skill-details-header {
+    background: get-dark-color('bg-card');
+    color: get-dark-color('text-color');
+  }
+
+  .skill-card-details-footer,
+  .skill-details,
+  .skill-details-dialog,
+  .skill-details-header,
+  .skill-details-item,
+  .skill-details-children {
+    border-color: rgba(get-dark-color('muted-text-color'), 0.3);
+  }
+
+  .skill-details-name {
+    color: get-dark-color('heading-color');
+  }
+
+  .skill-card-details-preview,
+  .skill-details-summary,
+  .skill-details-parent {
+    color: get-dark-color('muted-text-color');
+  }
+
+  .skill-details-trigger {
+    color: get-dark-color('hover-over-accent-color');
+  }
+}

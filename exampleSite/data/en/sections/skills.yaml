@@ -41,6 +41,38 @@ skills:
   logo: /images/sections/skills/cloud.png
   summary: "Worked with most of the major clouds such as GCP, AWS, Azure etc."
   categories: ["others"]
+  # Optional text-only details. Omit this block to keep the existing card.
+  details:
+    summary: "I design reliable cloud services, automate infrastructure, and help teams operate what they build."
+    items:
+    - name: AWS
+      summary: "Production infrastructure and application delivery."
+      items:
+      - name: Compute and scaling
+        summary: "Operating EC2 fleets and planning capacity."
+        items:
+        - name: Auto Scaling
+          summary: "Scaling capacity with demand and replacing unhealthy instances."
+          items:
+          - name: Launch templates and instance refresh
+            summary: "Rolling out configuration changes across application fleets."
+        - name: Spot instances
+          summary: "Using interruptible capacity for fault-tolerant jobs."
+      - name: Serverless
+        summary: "Building event-driven services with Lambda and API Gateway."
+      - name: Infrastructure as code
+        summary: "Creating reviewable, repeatable environments with [Terraform](https://www.terraform.io/)."
+    - name: Microsoft Azure
+      summary: "Deploying applications and managed databases."
+      items:
+      - name: App Service
+        summary: "Deploying Go and Python services as managed applications."
+      - name: Managed databases
+        items:
+        - name: PostgreSQL
+        - name: MySQL
+    - name: Google Cloud
+      summary: "Integrating cloud APIs into applications."
 
 - name: Docker
   logo: /images/sections/skills/docker.svg

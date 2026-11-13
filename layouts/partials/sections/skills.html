@@ -27,9 +27,18 @@
   <div class="container d-flex-block">
     <div class="row" id="primary-skills">
   {{ end }}
-      {{ range .skills }}
-      {{ partial "cards/skill.html" . }}
+      {{ range $index, $skill := .skills }}
+        {{ $details := partial "helpers/skill-details.html" $skill.details }}
+        {{ $detailsID := "" }}
+        {{ if $details }}{{ $detailsID = printf "%s-skill-%d" $sectionID $index }}{{ end }}
+        {{ partial "cards/skill.html" (merge (dict "_detailsID" $detailsID "_details" $details) $skill) }}
     {{ end }}
     </div>
   </div>
+  {{/* Keep details outside Filterizr's positioned card grid. Without JS they remain readable here. */}}
+  {{ range $index, $skill := .skills }}
+    {{ with partial "helpers/skill-details.html" $skill.details }}
+      {{ partial "cards/skill-details.html" (dict "skill" $skill "details" . "id" (printf "%s-skill-%d" $sectionID $index)) }}
+    {{ end }}
+  {{ end }}
 </div>
