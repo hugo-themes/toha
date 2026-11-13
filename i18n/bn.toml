@@ -166,3 +166,12 @@ other = "সব {{ .Count }} লাইন দেখুন"
 
 [code_block_show_less]
 other = "কম লাইন দেখুন"
+
+[skill_details_view]
+other = "বিস্তারিত দেখুন"
+
+[skill_details_close]
+other = "দক্ষতার বিস্তারিত বন্ধ করুন"
+
+[skill_details_within]
+other = "{{ .Name }} এর অন্তর্ভুক্ত"

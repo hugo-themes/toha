@@ -169,3 +169,12 @@ other = "Show all {{ .Count }} lines"
 
 [code_block_show_less]
 other = "Show fewer lines"
+
+[skill_details_view]
+other = "View details"
+
+[skill_details_close]
+other = "Close skill details"
+
+[skill_details_within]
+other = "Within {{ .Name }}"

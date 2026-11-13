@@ -1,28 +1,23 @@
 <div class="col-xs-12 col-sm-6 col-lg-4 pt-2 filtr-item"
   data-category='all, {{ with .categories }}{{ delimit . ","}}{{ end }}'
 >
-  <a class="text-decoration-none" {{ if .url }}href="{{ .url }}" title="{{ .name }}" target="_blank" rel="noopener"{{ end }}>
-    <div class="card">
-      <div class="card-head d-flex">
-        {{ if .logo }}
-          {{ $logoImage := resources.Get .logo }}
-          {{/*  svg don't support "Fit" operation   */}}
-          {{ if ne $logoImage.MediaType.SubType "svg" }}
-            {{ $logoImage = $logoImage.Fit "24x24" }}
-          {{ end }}
-        
-          <img class="card-img-xs" src="{{ $logoImage.RelPermalink }}" alt="{{ .name }}" />
-          <h5 class="card-title">{{ .name }}</h5>
-        {{ else if .icon }}
-          {{ $iconName := .icon }}
-          <h5 class="card-title"><span class="{{ $iconName }}"> {{ .name }}</span></h5>
-        {{ else }}
-          <h5 class="card-title">{{ .name }}</h5>
+  {{ if ._detailsID }}
+    <div class="card skill-card-with-details">
+      {{ partial "cards/skill-content.html" . }}
+      <div class="skill-card-details-footer">
+        {{ with ._details.items }}
+          {{ $names := slice }}
+          {{ range first 3 . }}{{ $names = $names | append .name }}{{ end }}
+          <span class="skill-card-details-preview" aria-hidden="true">{{ delimit $names " · " }}</span>
         {{ end }}
-      </div>
-      <div class="card-body text-justify pt-1 pb-1">
-        <p class="card-text">{{ .summary | markdownify }}</p>
+        <a class="skill-details-trigger" href="#{{ ._detailsID }}" data-skill-details-target="{{ ._detailsID }}">{{ i18n "skill_details_view" }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
-  </a>
+  {{ else }}
+    <a class="text-decoration-none" {{ if .url }}href="{{ .url }}" title="{{ .name }}" target="_blank" rel="noopener"{{ end }}>
+      <div class="card">
+        {{ partial "cards/skill-content.html" . }}
+      </div>
+    </a>
+  {{ end }}
 </div>

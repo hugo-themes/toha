@@ -1,0 +1,23 @@
+{{/* Normalize text-only details, ignoring empty entries so they do not create controls. */}}
+{{- $details := dict -}}
+{{- if reflect.IsMap . -}}
+  {{- $summary := strings.TrimSpace (.summary | default "") -}}
+  {{- $items := slice -}}
+  {{- with .items -}}
+    {{- if reflect.IsSlice . -}}
+      {{- range . -}}
+        {{- if reflect.IsMap . -}}
+          {{- $name := strings.TrimSpace (.name | default "") -}}
+          {{- if $name -}}
+            {{- $item := partial "helpers/skill-details.html" . -}}
+            {{- $items = $items | append (merge (dict "name" $name) $item) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if or $summary $items -}}
+    {{- $details = dict "summary" $summary "items" $items -}}
+  {{- end -}}
+{{- end -}}
+{{- return $details -}}

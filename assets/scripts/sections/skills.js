@@ -1,6 +1,8 @@
 import Filterizr from 'filterizr'
+import { initializeSkillDetails } from './skill-details'
 
 document.addEventListener('DOMContentLoaded', () => {
+  initializeSkillDetails(document)
   // ================== Skill cards =====================
 
   // setup skill filter buttons

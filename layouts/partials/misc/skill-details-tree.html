@@ -1,0 +1,21 @@
+<ul class="skill-details-list">
+  {{ range $index, $item := .items }}
+    <li class="skill-details-item">
+      {{ if $item.items }}
+        <details class="skill-details-branch" {{ if and (eq $.depth 0) (eq $index 0) }}open{{ end }}>
+          <summary><span class="skill-details-name">{{ $item.name }}</span></summary>
+          <div class="skill-details-children">
+            {{ if ge $.depth 2 }}<p class="skill-details-parent">{{ i18n "skill_details_within" (dict "Name" $item.name) }}</p>{{ end }}
+            {{ with $item.summary }}<div class="skill-details-summary">{{ . | markdownify }}</div>{{ end }}
+            {{ partial "misc/skill-details-tree.html" (dict "items" $item.items "depth" (add $.depth 1) "parent" $item.name) }}
+          </div>
+        </details>
+      {{ else }}
+        <div class="skill-details-leaf">
+          <p class="skill-details-name">{{ $item.name }}</p>
+          {{ with $item.summary }}<div class="skill-details-summary">{{ . | markdownify }}</div>{{ end }}
+        </div>
+      {{ end }}
+    </li>
+  {{ end }}
+</ul>
