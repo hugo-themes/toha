@@ -32,7 +32,8 @@ test('Hugo renders opt-in, text-only details outside the grid with unique IDs an
           { name: 'Compute', items: [{ name: 'Scaling', items: [{ name: 'A very long capability name at the fourth level', summary: 'Deep descriptive content.' }] }] },
           { name: 'Name-only leaf', items: [] }
         ] },
-        { name: '<script>unsafe()</script>', summary: 'Escaped name.' }
+        { name: '<script>unsafe()</script>', summary: 'Escaped name.' },
+        { name: '<ScRiPt src="unsafe.js">unsafe()</ScRiPt>', summary: 'Escaped mixed-case name with attributes.' }
       ] } },
       { name: 'একই নাম', details: { summary: 'Introduction without items.' } }
     ]
@@ -52,7 +53,8 @@ test('Hugo renders opt-in, text-only details outside the grid with unique IDs an
     assert.match(html, /Deep descriptive content/)
     assert.match(html, /Within Scaling/)
     assert.match(html, /&lt;script(?:&gt;|>)unsafe\(\)&lt;\/script(?:&gt;|>)/)
-    assert.doesNotMatch(html, /<script>|<dialog|role="(?:meter|progressbar)"/)
+    assert.match(html, /&lt;ScRiPt src=(?:&#34;|&quot;|")unsafe\.js(?:&#34;|&quot;|")(?:&gt;|>)unsafe\(\)&lt;\/ScRiPt(?:&gt;|>)/)
+    assert.doesNotMatch(html, /<(?:script|dialog)\b|role="(?:meter|progressbar)"/i)
     for (const summary of html.matchAll(/<summary[^>]*>([\s\S]*?)<\/summary>/g)) assert.doesNotMatch(summary[1], /<a\b/)
     assert.match(html, /<a href="https:\/\/example.org\/evidence">Evidence<\/a>/)
     const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1])
