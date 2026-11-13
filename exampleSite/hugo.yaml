@@ -99,6 +99,10 @@ params:
 
   # Configure various features of this theme
   features:
+    # Gently align homepage sections after scrolling. Disabled by default.
+    scrollSnap:
+      enable: false
+
     # Configure theme color settings
     theme:
       enable: true

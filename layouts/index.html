@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
+<html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}"{{ if .Site.Params.features.scrollSnap.enable | default false }} class="scroll-snap"{{ end }}>
   <head>
     <title>{{- .Site.Title -}}</title>
     {{ $siteDescription := .Site.Params.description }}
@@ -10,13 +10,13 @@
       {{ end }}
     {{ end }}
     <meta name="description" content="{{ $siteDescription }}" />
-    
+
     <!-- import common headers -->
     {{- partial "header.html" . -}}
     {{- partial "opengraph.html" . -}}
     {{- partial "robots.html" . -}}
     {{- partial "structured-data.html" . -}}
-    
+
     <!--================= add analytics if enabled =========================-->
     {{- partial "analytics.html" . -}}
     {{ with resources.Get "scripts/core/theme-scheme.js" }}

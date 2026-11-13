@@ -50,6 +50,10 @@ run = "node --test tests/code-block-panel.test.mjs"
 description = "Verify opt-in skill details, localization, and progressive dialog enhancement"
 run = "node --test tests/skill-details.test.mjs"
 
+[tasks.test-scroll-snap]
+description = "Verify homepage scroll snapping is opt-in and isolated from other pages"
+run = "node --test tests/scroll-snap.test.mjs"
+
 [tasks.example-site]
 description = "Start the development server with live reload"
 depends = ["install-example-deps"]
@@ -65,4 +69,4 @@ run = "npm audit fix --force"
 [tasks.check]
 description = "Run build, lint, URL, and SEO regression tests"
 # This gives the AI a single 'truth' command to validate its work.
-depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details"]
+depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap"]
