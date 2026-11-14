@@ -1,0 +1,116 @@
+@import "tailwindcss" source(none);
+@source "hugo_stats.json";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--primary);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: #ffffff;
+    --surface: #ffffff;
+    --foreground: #202027;
+    --muted: #f4f4f6;
+    --muted-foreground: #64646e;
+    --border: #e5e5ea;
+    --primary: #5552c6;
+    --primary-foreground: #ffffff;
+  }
+  .dark {
+    color-scheme: dark;
+    --background: #141416;
+    --surface: #1b1b1f;
+    --foreground: #ececf0;
+    --muted: #25252b;
+    --muted-foreground: #a4a4af;
+    --border: #303037;
+    --primary: #aaa7ff;
+    --primary-foreground: #1e1b4b;
+  }
+  [x-cloak] { display: none !important; }
+  html { scroll-padding-top: 6rem; }
+  button, summary, a { -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+}
+
+@layer components {
+  .docs-nav-link {
+    @apply flex rounded-lg px-3 py-2 text-sm leading-6 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground;
+  }
+  .docs-nav-link[aria-current="page"] {
+    @apply bg-primary/10 font-medium text-primary;
+  }
+  .docs-page-link {
+    @apply block h-full rounded-xl border border-border p-4 text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-muted;
+  }
+  .docs-theme-toggle {
+    @apply flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground;
+  }
+  .docs-skip-link {
+    @apply fixed top-3 left-5 z-50 -translate-y-24 rounded-lg bg-primary px-4 py-3 text-sm text-primary-foreground focus:translate-y-0;
+  }
+  .docs-toc {
+    @apply text-xs leading-6 text-muted-foreground;
+  }
+  .docs-toc ul { @apply space-y-2; }
+  .docs-toc ul ul { @apply mt-2 border-l border-border pl-3; }
+  .docs-toc a { @apply block hover:text-primary; }
+  .callout-content > :first-child { margin-top: 0; }
+  .callout-content > :last-child { margin-bottom: 0; }
+  .callout-content a { @apply text-primary underline underline-offset-4; }
+  .docs-tree-group[open] > summary .docs-chevron { transform: rotate(90deg); }
+  .docs-tree-group > summary { list-style: none; }
+  .docs-tree-group > summary::-webkit-details-marker { display: none; }
+  @media (min-width: 64rem) {
+    .docs-sidebar { position: sticky; top: 4rem; height: calc(100dvh - 4rem); overflow-y: auto; }
+  }
+  .docs-desktop-toc { position: sticky; top: 4rem; max-height: calc(100dvh - 4rem); overflow-y: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; }
+}
+
+/* Article defaults exclude components, which own their semantic markup/styles. */
+@layer components {
+  .docs-prose { @apply text-[0.9375rem] leading-8; }
+  .docs-prose > :first-child { margin-top: 0; }
+  .docs-prose :where(p, ul, ol, pre, table, blockquote):not(:where(.not-prose, .not-prose *)) { margin-block: 1.25rem; }
+  .docs-prose :where(h2, h3, h4):not(:where(.not-prose, .not-prose *)) {
+    @apply font-semibold tracking-tight text-foreground;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    scroll-margin-top: 6rem;
+  }
+  .docs-prose :where(h2):not(:where(.not-prose, .not-prose *)) { @apply text-2xl; }
+  .docs-prose :where(h3):not(:where(.not-prose, .not-prose *)) { @apply text-xl; }
+  .docs-prose :where(h4):not(:where(.not-prose, .not-prose *)) { @apply text-lg; }
+  .docs-prose :where(a):not(:where(.not-prose, .not-prose *)) { @apply text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary; }
+  .docs-prose :where(strong):not(:where(.not-prose, .not-prose *)) { @apply font-semibold; }
+  .docs-prose :where(ul):not(:where(.not-prose, .not-prose *)) { @apply list-disc pl-6; }
+  .docs-prose :where(ol):not(:where(.not-prose, .not-prose *)) { @apply list-decimal pl-6; }
+  .docs-prose :where(li):not(:where(.not-prose, .not-prose *)) { @apply my-2 pl-1; }
+  .docs-prose :where(li > ul, li > ol):not(:where(.not-prose, .not-prose *)) { margin-block: 0.5rem; }
+  .docs-prose :where(code):not(:where(.not-prose, .not-prose *)) { @apply rounded bg-muted px-1 py-0.5 text-[0.875em]; }
+  .docs-prose :where(pre):not(:where(.not-prose, .not-prose *)) { @apply overflow-x-auto rounded-xl border border-border bg-muted p-5 text-sm leading-7; }
+  .docs-prose :where(pre code):not(:where(.not-prose, .not-prose *)) { padding: 0; background: transparent; font-size: inherit; }
+  .docs-prose :where(blockquote):not(:where(.not-prose, .not-prose *)) { @apply border-l-2 border-border pl-5 text-muted-foreground; }
+  .docs-prose :where(table):not(:where(.not-prose, .not-prose *)) { @apply block w-full overflow-x-auto text-left text-sm; }
+  .docs-prose :where(th, td):not(:where(.not-prose, .not-prose *)) { @apply border-b border-border px-4 py-3; }
+  .docs-prose :where(th):not(:where(.not-prose, .not-prose *)) { @apply font-semibold; }
+  .docs-prose :where(img):not(:where(.not-prose, .not-prose *)) { @apply my-6 max-w-full rounded-xl; }
+  .docs-prose :where(hr):not(:where(.not-prose, .not-prose *)) { @apply my-8 border-border; }
+  .docs-prose .chroma :where(.k, .kd, .kn, .nt, .ow) { color: var(--primary); }
+  .docs-prose .chroma :where(.c, .c1, .cm) { color: var(--muted-foreground); }
+}

@@ -1,0 +1,2 @@
+{{- if not (and site.Params.features.docs.enable (or (eq .Page.Type "docs") (and .Page.IsHome (eq site.Params.home.layout "docs")))) }}{{ errorf "ui-badge requires an enabled modern docs page" }}{{ end -}}
+{{- partial "components/badge.html" (dict "label" (.Get "label") "tone" (.Get "tone")) -}}

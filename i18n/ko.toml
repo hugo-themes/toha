@@ -174,3 +174,35 @@ other = "Close skill details"
 
 [skill_details_within]
 other = "Within {{ .Name }}"
+
+
+# Documentation controls (English fallback; translations welcome).
+[docs_overview]
+other = "Overview"
+
+[docs_page_navigation]
+other = "Page navigation"
+
+[docs_previous]
+other = "Previous"
+
+[docs_next]
+other = "Next"
+
+[docs_skip_content]
+other = "Skip to content"
+
+[docs_navigation]
+other = "Documentation navigation"
+
+[docs_dark_mode]
+other = "Dark mode"
+
+[docs_breadcrumb]
+other = "Breadcrumb"
+
+[docs_on_this_page]
+other = "On this page"
+
+[docs_get_started]
+other = "Explore the documentation"

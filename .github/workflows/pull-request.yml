@@ -24,6 +24,7 @@ jobs:
           mise run test-urls
           mise run test-seo
           mise run test-scroll-snap
+          mise run test-docs
           mise run build
 
   # Run linter

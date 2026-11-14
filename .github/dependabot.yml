@@ -64,6 +64,25 @@ updates:
   - dependency-name: "include-media"
     versions: [">=2.0.0"]
 
+# Update npm dependencies in the docs example (grouped into a single PR)
+- package-ecosystem: "npm"
+  directory: "/exampleSites/docs"
+  schedule:
+    interval: "weekly"
+  labels: ["dependencies", "automerge", "maintenance"]
+  groups:
+    all-dependencies:
+      patterns: ["*"]
+  ignore:
+  - dependency-name: "eslint"
+    versions: [">=9.0.0"]
+  - dependency-name: "eslint-plugin-n"
+    versions: [">=17.0.0"]
+  - dependency-name: "eslint-plugin-promise"
+    versions: [">=7.0.0"]
+  - dependency-name: "include-media"
+    versions: [">=2.0.0"]
+
 # Update Go module dependencies at the repo root (grouped into a single PR)
 - package-ecosystem: "gomod"
   directory: "/"
@@ -91,3 +110,12 @@ updates:
     all-dependencies:
       patterns:
       - "*"
+
+- package-ecosystem: "gomod"
+  directory: "/exampleSites/docs"
+  schedule:
+    interval: "weekly"
+  labels: ["dependencies", "automerge", "maintenance"]
+  groups:
+    all-dependencies:
+      patterns: ["*"]

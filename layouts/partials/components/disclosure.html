@@ -1,0 +1,7 @@
+{{/* Inputs: label (required), content (trusted rendered Markdown), open (bool).
+     Native disclosure keeps keyboard and no-JavaScript behavior in the browser. */}}
+{{- if not .label }}{{ errorf "components/disclosure: label is required" }}{{ end -}}
+<details class="not-prose my-5 rounded-xl border border-border bg-surface p-5"{{ if .open }} open{{ end }}>
+  <summary class="cursor-pointer text-sm font-medium focus-visible:outline-2 focus-visible:outline-ring">{{ .label }}</summary>
+  <div class="mt-3 text-sm leading-7 text-muted-foreground">{{ .content }}</div>
+</details>

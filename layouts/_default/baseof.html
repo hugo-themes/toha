@@ -1,3 +1,6 @@
+{{- if and .Site.Params.features.docs.enable (or (eq .Type "docs") (and (eq .Kind "404") (eq .Site.Params.home.layout "docs"))) -}}
+  {{- partial "docs/page.html" . -}}
+{{- else -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
   <head>
@@ -51,3 +54,5 @@
 
   </body>
 </html>
+
+{{- end -}}

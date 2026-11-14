@@ -1,0 +1,6 @@
+{{- if not (and site.Params.features.docs.enable (or (eq .Page.Type "docs") (and .Page.IsHome (eq site.Params.home.layout "docs")))) }}{{ errorf "ui-button requires an enabled modern docs page" }}{{ end -}}
+{{- $href := .Get "href" -}}
+{{- with .Get "page" -}}
+  {{- with $.Page.GetPage . }}{{ $href = .RelPermalink }}{{ else }}{{ errorf "ui-button: page %q not found" . }}{{ end -}}
+{{- end -}}
+{{- partial "components/button.html" (dict "label" (.Get "label") "href" $href "variant" (.Get "variant") "icon" (.Get "icon") "iconOnly" (eq (.Get "iconOnly") "true") "disabled" (eq (.Get "disabled") "true")) -}}

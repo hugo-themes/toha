@@ -1,0 +1,6 @@
+{{/* Layout adapter: resolve a language-local docs root from site configuration. */}}
+{{- $section := .Site.Params.features.docs.section | default "docs" -}}
+{{- $root := .Site.GetPage $section -}}
+{{- if not $root }}{{ errorf "docs: content section %q not found" $section }}{{ end -}}
+{{- if and $root (not $root.IsSection) }}{{ errorf "docs: %q must identify a content section" $section }}{{ end -}}
+{{- return $root -}}

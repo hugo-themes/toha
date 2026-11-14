@@ -12,6 +12,7 @@ const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>'
 const files = [
   'content/search/_content.gotmpl',
   'layouts/index.html',
+  'layouts/partials/portfolio/home.html',
   'layouts/_default/baseof.html',
   'layouts/_default/sitemap.xml',
   'layouts/partials/opengraph.html',

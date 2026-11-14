@@ -1,0 +1,22 @@
+{{/* Inputs: pages (ordered Page collection), current (Page). No site reads. */}}
+<ul class="space-y-1">
+  {{ range .pages.ByWeight }}
+    {{ $active := eq . $.current }}
+    {{ $branch := or $active (.IsAncestor $.current) }}
+    <li>
+      {{ if .IsSection }}
+        <details class="docs-tree-group"{{ if $branch }} open{{ end }}>
+          <summary class="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground">
+            {{ partial "components/icon.html" (dict "name" "chevron" "class" "docs-chevron size-3.5 shrink-0") }}{{ .LinkTitle }}
+          </summary>
+          <div class="ml-4 border-l border-border pl-2">
+            <a class="docs-nav-link" href="{{ .RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ i18n "docs_overview" }}</a>
+            {{ partial "docs/tree.html" (dict "pages" .Pages "current" $.current) }}
+          </div>
+        </details>
+      {{ else }}
+        <a class="docs-nav-link" href="{{ .RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a>
+      {{ end }}
+    </li>
+  {{ end }}
+</ul>

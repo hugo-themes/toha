@@ -20,7 +20,30 @@ run = ["hugo mod tidy", "hugo mod npm pack", "npm install"]
 
 [tasks.install-example-deps]
 description = "Install dependencies for all example sites"
-depends = ["install-portfolio-deps"]
+depends = ["install-portfolio-deps", "install-docs-deps"]
+
+[tasks.install-docs-deps]
+description = "Install docs example dependencies (including Hugo modules)"
+depends = ["install"]
+dir = "exampleSites/docs"
+run = ["hugo mod tidy", "hugo mod npm pack", "npm install"]
+
+[tasks.build-docs]
+description = "Build the docs example for production"
+depends = ["install-docs-deps"]
+dir = "exampleSites/docs"
+run = "hugo --gc --minify --cleanDestinationDir"
+
+[tasks.docs]
+description = "Start the docs development server with live reload"
+depends = ["install-docs-deps"]
+dir = "exampleSites/docs"
+run = "hugo server -w --bind=0.0.0.0 --renderToMemory"
+
+[tasks.test-docs]
+description = "Verify modern docs, component contracts, and legacy asset isolation"
+depends = ["install"]
+run = "node --test tests/docs-layout.test.mjs"
 
 [tasks.build-portfolio]
 description = "Build the portfolio example for production"
@@ -31,7 +54,7 @@ run = ["hugo --gc --minify --cleanDestinationDir"]
 
 [tasks.build]
 description = "Build all example sites for production"
-depends = ["build-portfolio"]
+depends = ["build-portfolio", "build-docs"]
 
 [tasks.lint]
 description = "Run code linters"
@@ -78,4 +101,4 @@ run = "npm audit fix --force"
 [tasks.check]
 description = "Run build, lint, URL, and SEO regression tests"
 # This gives the AI a single 'truth' command to validate its work.
-depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap"]
+depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap", "test-docs"]

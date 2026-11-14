@@ -1,0 +1,16 @@
+{{- $pages := partial "docs/sequence.html" .root -}}
+{{- $current := .current -}}
+{{- $previous := false -}}
+{{- $next := false -}}
+{{- range $index, $page := $pages -}}
+  {{- if eq $page $current -}}
+    {{- if gt $index 0 }}{{ $previous = index $pages (sub $index 1) }}{{ end -}}
+    {{- if lt $index (sub (len $pages) 1) }}{{ $next = index $pages (add $index 1) }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{ if or $previous $next }}
+<nav class="mt-14 grid gap-4 border-t border-border pt-7 sm:grid-cols-2" aria-label="{{ i18n "docs_page_navigation" }}">
+  <div>{{ with $previous }}<a class="docs-page-link" href="{{ .RelPermalink }}"><span class="text-xs text-muted-foreground">{{ i18n "docs_previous" }}</span><span class="mt-2 flex items-center gap-2 font-medium">{{ partial "components/icon.html" (dict "name" "arrow-left") }}{{ .LinkTitle }}</span></a>{{ end }}</div>
+  <div>{{ with $next }}<a class="docs-page-link text-right" href="{{ .RelPermalink }}"><span class="text-xs text-muted-foreground">{{ i18n "docs_next" }}</span><span class="mt-2 flex items-center justify-end gap-2 font-medium">{{ .LinkTitle }}{{ partial "components/icon.html" (dict "name" "arrow-right") }}</span></a>{{ end }}</div>
+</nav>
+{{ end }}

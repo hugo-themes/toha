@@ -1,0 +1,6 @@
+{{/* Inputs: content (trusted rendered Markdown, required), title (optional).
+     Callers render Markdown using Page.RenderString; plain title is escaped. */}}
+<aside class="not-prose my-6 flex gap-3 rounded-xl border border-primary/20 bg-primary/5 p-5 text-sm leading-7 text-foreground">
+  {{ partial "components/icon.html" (dict "name" "info" "class" "mt-1 size-5 shrink-0 text-primary") }}
+  <div class="min-w-0">{{ with .title }}<p class="mb-1 font-semibold">{{ . }}</p>{{ end }}<div class="callout-content">{{ .content }}</div></div>
+</aside>

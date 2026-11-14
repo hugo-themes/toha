@@ -1,5 +1,8 @@
 {{ $title := .Params.title | default (index hugo.Data site.Language.Lang).site.openGraph.title | default site.Title }}
 {{ $type := .Params.type | default (index hugo.Data site.Language.Lang).site.openGraph.type | default "website" }}
+{{ if and site.Params.features.docs.enable (eq .Type "docs") }}
+  {{ $type = cond .IsPage "article" "website" }}
+{{ end }}
 {{ $description := .Params.description | default (index hugo.Data site.Language.Lang).site.openGraph.description |
 default (index hugo.Data site.Language.Lang).site.description }}
 {{ $url := .Permalink | default (index hugo.Data site.Language.Lang).site.openGraph.url | default site.BaseURL }}
