@@ -38,7 +38,7 @@ need the same update separately. Enable Preview URLs if the dashboard reports
 that they are disabled; `wrangler.jsonc` also enables them on deployment.
 
 `wrangler.jsonc` enables preview URLs, opts into native Previews with
-`"previews": {}`, and serves `exampleSite/public` and its custom 404 pages.
+`"previews": {}`, and serves `exampleSites/portfolio/public` and its custom 404 pages.
 The build uses `/` as Hugo's base URL: links and assets stay on whichever
 preview host serves the site. Canonical, Open Graph, and feed URLs are also
 root-relative in preview builds.

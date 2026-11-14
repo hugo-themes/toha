@@ -286,7 +286,7 @@ For local development, you can make changes in the theme submodule and test the 
 
 At first, fork [this repo](https://github.com/hugo-themes/toha). Then, follow the following steps to use the forked theme for local developments,
 
-We have an example configuration under `exampleSite` folder that will let you run the theme locally. Follow below steps to run the example site.
+Example sites live under `exampleSites/`. The portfolio example in `exampleSites/portfolio` lets you run the theme locally. Follow the steps below to run it.
 
 ### 2. Install Mise
 
@@ -307,10 +307,12 @@ This will install `hugo`, `go`, `node` and other tools that are necessary to run
 Now, run the site locally using following command.
 
 ```bash
-mise run example-site
+mise run portfolio
 ```
 
-Now, you can make change in the theme and they will be reflected immediately on the running site. If you need to change any configuration, you can do that in the `hugo.yaml` file inside `exampleSite` folder. If you need to add any content or data, you can create the respective folder inside `exampleSite` directory and add your desired content or data there.
+Changes to the theme are reflected immediately on the running site. Configure the portfolio example in `exampleSites/portfolio/hugo.yaml`, and add its content and data under `exampleSites/portfolio/content` and `exampleSites/portfolio/data`.
+
+`mise run example-portfolio` and `mise run example-site` remain aliases for the portfolio development server. Use `mise run build-portfolio` to build the portfolio example, or `mise run build` to build all example sites. `mise run check` runs the example builds, lint, and regression tests.
 
 ### Running the forked theme against your own site
 

@@ -5,7 +5,7 @@
   "preview_urls": true,
   "previews": {},
   "assets": {
-    "directory": "./exampleSite/public",
+    "directory": "./exampleSites/portfolio/public",
     "not_found_handling": "404-page"
   }
 }
