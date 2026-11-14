@@ -73,7 +73,8 @@
     "url": "git+https://github.com/hugo-toha/toha.git"
   },
   "scripts": {
-    "build:cloudflare": "npm install && cd exampleSites/portfolio && hugo mod tidy && hugo mod npm pack && npm install && hugo --gc --minify --cleanDestinationDir --baseURL /",
+    "build:cloudflare:portfolio": "npm install && cd exampleSites/portfolio && hugo mod tidy && hugo mod npm pack && npm install && hugo --gc --minify --cleanDestinationDir --baseURL /",
+    "build:cloudflare:docs": "npm install && cd exampleSites/docs && hugo mod tidy && hugo mod npm pack && npm install && hugo --gc --minify --cleanDestinationDir --baseURL /",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
