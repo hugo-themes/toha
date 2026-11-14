@@ -1,5 +1,5 @@
 [tools]
-hugo-extended = 'latest'
+hugo-extended = '0.169.0'
 node = 'latest'
 go = 'latest'
 
