@@ -15,8 +15,8 @@ We use `mise` for deterministic tooling and task management. Use `brew install m
 ### Quick Start
 
 1. **Initialize:** Run `mise run install` to setup tools and dependencies.
-2. **Dev Server:** Run `mise run example-site`.
-   - This will install all dependencies (root & exampleSite) automatically.
+2. **Dev Server:** Run `mise run portfolio` (`mise run example-portfolio` and `mise run example-site` remain aliases).
+   - This will install all dependencies (root & portfolio example) automatically.
    - Serves the site at `localhost:1313`.
 3. **Verify Changes:** Run `mise run check` to execute both linters and a production build.
 
@@ -26,7 +26,7 @@ We use `mise` for deterministic tooling and task management. Use `brew install m
 
 Toha differs from standard Hugo themes. The structure of the homepage and sidebar is primarily driven by JSON/YAML files in the `data/` directory, not just the `content/` directory.
 
-- **`data/`**: The source of truth for the site's layout configuration. Example data can be found under `exampleSite/data`.
+- **`data/`**: The source of truth for the site's layout configuration. Example data can be found under `exampleSites/portfolio/data`.
 - **`layouts/partials/`**: Contains the reusable UI components.
 - **`assets/styles/`**: Styling. We use SCSS.
 
@@ -41,10 +41,11 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
   - `partials/`: Where the core logic lives. Break complex logic into partials.
   - `shortcodes/`: Custom markdown components for users.
 - `i18n/`: Localization files. **All user-facing text must be tokenized here.**
-- `exampleSite/`: The integration test bed.
-  - `hugo.yaml`: Main configuration.
-  - `data/`: Defines layout configurations.
-  - `content/`: Blog posts and markdown content.
+- `exampleSites/`: Complete Hugo sites that demonstrate theme layouts.
+  - `portfolio/`: The portfolio integration test bed.
+    - `hugo.yaml`: Main configuration.
+    - `data/`: Defines layout configurations.
+    - `content/`: Blog posts and markdown content.
 
 ## Coding Guidelines
 
@@ -88,11 +89,11 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 1. Create the partial in `layouts/partials/sections/`.
 2. Add the styling in `assets/styles/sections/`.
 3. Add the entry logic in `layouts/partials/<section-name>.html` (or relevant parent).
-4. Define the data schema in `exampleSite/data/<language code>/sections/<section-name>.yaml`.
+4. Define the data schema in `exampleSites/portfolio/data/<language code>/sections/<section-name>.yaml`.
 5. Wrap the rendering in a conditional check (e.g., `if .Site.Params.features.newSection.enable`).
 
 ### How to Fix a Bug
 
-1. Reproduce it in `exampleSite`.
+1. Reproduce it in the relevant site under `exampleSites/`.
 2. Fix the logic in the theme `layouts` or `assets`.
 3. Verify the fix by running `mise run check`.

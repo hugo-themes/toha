@@ -40,9 +40,9 @@ updates:
   - dependency-name: "include-media"
     versions: [">=2.0.0"]
 
-# Update npm dependencies in exampleSite (grouped into a single PR)
+# Update npm dependencies in the portfolio example (grouped into a single PR)
 - package-ecosystem: "npm"
-  directory: "/exampleSite"
+  directory: "/exampleSites/portfolio"
   schedule:
     interval: "weekly"
   labels:
@@ -78,9 +78,9 @@ updates:
       patterns:
       - "*"
 
-# Update Go module dependencies in exampleSite (grouped into a single PR)
+# Update Go module dependencies in the portfolio example (grouped into a single PR)
 - package-ecosystem: "gomod"
-  directory: "/exampleSite"
+  directory: "/exampleSites/portfolio"
   schedule:
     interval: "weekly"
   labels:
