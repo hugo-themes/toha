@@ -1,3 +1,6 @@
+{{- if and site.Params.features.docs.enable (or (eq .Page.Type "docs") (and .Page.IsHome (eq site.Params.home.layout "docs"))) -}}
+  {{- $highlight := transform.HighlightCodeBlock . -}}{{ $highlight.Wrapped }}
+{{- else -}}
 {{- $options := partial "helpers/code-block-options.html" . -}}
 {{/* Hugo's render-hook Inner omits a nonempty fence's final newline. */}}
 {{- $source := .Inner -}}
@@ -27,3 +30,5 @@
   <div class="code-block" data-code-block><div class="code-block-full" id="{{ $id }}">{{ $highlight.Wrapped }}</div>
   {{/* Inert JSON keeps labels/previews out of Plain/Summary and preserves whitespace when minified. jsonify escapes HTML. */}}
   <script type="application/json" class="code-block-data">{{ $data | jsonify | safeJS }}</script></div>
+
+{{- end -}}

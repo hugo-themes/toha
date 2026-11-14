@@ -1,0 +1,2 @@
+{{- if not (and site.Params.features.docs.enable (or (eq .Page.Type "docs") (and .Page.IsHome (eq site.Params.home.layout "docs")))) }}{{ errorf "ui-disclosure requires an enabled modern docs page" }}{{ end -}}
+{{- partial "components/disclosure.html" (dict "label" (.Get "label") "content" (.Page.RenderString (dict "display" "block") .Inner) "open" (eq (.Get "open") "true")) -}}

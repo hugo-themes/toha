@@ -1,0 +1,2 @@
+{{- if not (and site.Params.features.docs.enable (or (eq .Page.Type "docs") (and .Page.IsHome (eq site.Params.home.layout "docs")))) }}{{ errorf "ui-callout requires an enabled modern docs page" }}{{ end -}}
+{{- partial "components/callout.html" (dict "title" (.Get "title") "content" (.Page.RenderString (dict "display" "block") .Inner)) -}}

@@ -178,3 +178,34 @@ other = "Close skill details"
 
 [skill_details_within]
 other = "Within {{ .Name }}"
+
+
+[docs_overview]
+other = "Vue d’ensemble"
+
+[docs_page_navigation]
+other = "Navigation des pages"
+
+[docs_previous]
+other = "Précédent"
+
+[docs_next]
+other = "Suivant"
+
+[docs_skip_content]
+other = "Aller au contenu"
+
+[docs_navigation]
+other = "Navigation de la documentation"
+
+[docs_dark_mode]
+other = "Mode sombre"
+
+[docs_breadcrumb]
+other = "Fil d’Ariane"
+
+[docs_on_this_page]
+other = "Sur cette page"
+
+[docs_get_started]
+other = "Explorer la documentation"

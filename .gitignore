@@ -1,5 +1,6 @@
 .vscode/
 node_modules/
+/packages/
 .wrangler/
 .DS_Store
 .history/
@@ -7,5 +8,6 @@ node_modules/
 resources/
 public/
 .hugo_build.lock
+hugo_stats.json
 exampleSites/*/packages/
 exampleSites/*/assets/jsconfig.json

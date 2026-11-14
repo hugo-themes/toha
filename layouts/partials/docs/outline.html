@@ -1,0 +1,3 @@
+{{/* Hugo's trusted, escaped TOC HTML has a fixed nav ID. Omit that ID because
+     desktop and mobile outlines coexist; their containers provide the labels. */}}
+{{- replace .TableOfContents ` id="TableOfContents"` "" | safeHTML -}}

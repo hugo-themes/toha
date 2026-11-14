@@ -175,3 +175,34 @@ other = "দক্ষতার বিস্তারিত বন্ধ কর�
 
 [skill_details_within]
 other = "{{ .Name }} এর অন্তর্ভুক্ত"
+
+
+[docs_overview]
+other = "সংক্ষিপ্ত পরিচয়"
+
+[docs_page_navigation]
+other = "পৃষ্ঠার নেভিগেশন"
+
+[docs_previous]
+other = "পূর্ববর্তী"
+
+[docs_next]
+other = "পরবর্তী"
+
+[docs_skip_content]
+other = "মূল বিষয়বস্তুতে যান"
+
+[docs_navigation]
+other = "ডকুমেন্টেশনের নেভিগেশন"
+
+[docs_dark_mode]
+other = "ডার্ক মোড"
+
+[docs_breadcrumb]
+other = "অবস্থান"
+
+[docs_on_this_page]
+other = "এই পৃষ্ঠায়"
+
+[docs_get_started]
+other = "ডকুমেন্টেশন দেখুন"

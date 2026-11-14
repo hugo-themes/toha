@@ -312,6 +312,14 @@ mise run portfolio
 
 Changes to the theme are reflected immediately on the running site. Configure the portfolio example in `exampleSites/portfolio/hugo.yaml`, and add its content and data under `exampleSites/portfolio/content` and `exampleSites/portfolio/data`.
 
+For the opt-in docs layout and shared component gallery, run:
+
+```bash
+mise run docs
+```
+
+Its content and configuration live in `exampleSites/docs/`. See [modern components and layouts](docs/components.md) for component contracts, layout selection, and the modern/legacy asset boundary. `mise run build-docs` builds this example for production.
+
 `mise run example-portfolio` and `mise run example-site` remain aliases for the portfolio development server. Use `mise run build-portfolio` to build the portfolio example, or `mise run build` to build all example sites. `mise run check` runs the example builds, lint, and regression tests.
 
 ### Running the forked theme against your own site

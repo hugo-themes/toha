@@ -27,7 +27,7 @@ test('scroll snapping is opt-in, respects language overrides, and is limited to 
   }
   const root = (path) => readFileSync(join(directory, 'public', path), 'utf8').match(/<html\b[^>]*>/)[0]
   try {
-    for (const path of ['layouts/index.html', 'layouts/_default/baseof.html']) {
+    for (const path of ['layouts/index.html', 'layouts/partials/portfolio/home.html', 'layouts/_default/baseof.html']) {
       mkdirSync(dirname(join(directory, path)), { recursive: true })
       copyFileSync(join(repository, path), join(directory, path))
     }

@@ -28,7 +28,10 @@
       "mermaid": "project",
       "plyr": "project",
       "popper.js": "project",
-      "typeit": "project"
+      "typeit": "project",
+      "tailwindcss": "project",
+      "@tailwindcss/cli": "project",
+      "alpinejs": "project"
     }
   },
   "dependencies": {},
@@ -36,6 +39,8 @@
   "devDependencies": {
     "@fontsource/mulish": "5.3.0",
     "@fortawesome/fontawesome-free": "^7.3.1",
+    "@tailwindcss/cli": "4.3.0",
+    "alpinejs": "3.15.12",
     "bootstrap": "^5.3.9",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
@@ -56,6 +61,7 @@
     "mermaid": "^12.3.0",
     "plyr": "^3.8.5",
     "popper.js": "^1.16.1",
+    "tailwindcss": "4.3.0",
     "typeit": "^8.8.7"
   },
   "homepage": "https://github.com/hugo-toha/toha#readme",

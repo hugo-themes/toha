@@ -1,0 +1,6 @@
+{{/* Flatten the same depth-first order displayed in the sidebar, including section pages. */}}
+{{- $pages := slice . -}}
+{{- range .Pages.ByWeight -}}
+  {{- $pages = $pages | collections.Append (partial "docs/sequence.html" .) -}}
+{{- end -}}
+{{- return $pages -}}

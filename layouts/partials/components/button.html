@@ -1,0 +1,26 @@
+{{/* Inputs: label (required), href (link, otherwise a button), variant
+     (primary|secondary|ghost), icon (optional), iconOnly (default false),
+     disabled (buttons only). No arbitrary HTML or event strings. */}}
+{{- $label := .label -}}
+{{- if not $label }}{{ errorf "components/button: label is required, including icon-only buttons" }}{{ end -}}
+{{- $variant := .variant | default "primary" -}}
+{{- $variants := dict
+  "primary" "bg-primary text-primary-foreground hover:bg-primary/90"
+  "secondary" "border border-border bg-surface text-foreground hover:bg-muted"
+  "ghost" "text-muted-foreground hover:bg-muted hover:text-foreground"
+-}}
+{{- if not (isset $variants $variant) }}{{ errorf "components/button: unknown variant %q" $variant }}{{ end -}}
+{{- if and .href .disabled }}{{ errorf "components/button: disabled links are not supported" }}{{ end -}}
+{{- if and .iconOnly (not .icon) }}{{ errorf "components/button: iconOnly requires icon" }}{{ end -}}
+{{- $classes := printf "not-prose inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 %s" (index $variants $variant) -}}
+{{- if .href -}}
+<a class="{{ $classes }}" href="{{ .href }}"{{ if .iconOnly }} aria-label="{{ $label }}"{{ end }}>
+  {{- with .icon }}{{ partial "components/icon.html" (dict "name" .) }}{{ end -}}
+  {{- if not .iconOnly }}{{ $label }}{{ end -}}
+</a>
+{{- else -}}
+<button class="{{ $classes }}" type="button"{{ if .disabled }} disabled{{ end }}{{ if .iconOnly }} aria-label="{{ $label }}"{{ end }}>
+  {{- with .icon }}{{ partial "components/icon.html" (dict "name" .) }}{{ end -}}
+  {{- if not .iconOnly }}{{ $label }}{{ end -}}
+</button>
+{{- end -}}

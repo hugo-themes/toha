@@ -1,0 +1,83 @@
+{{- if not .Site.Params.features.docs.enable }}{{ errorf "docs layout requires params.features.docs.enable: true" }}{{ end -}}
+{{- $root := partial "docs/root.html" . -}}
+{{- $hasTOC := and (ne .Params.toc false) (gt (len .Fragments.Headings) 0) -}}
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ partial "helpers/get-description.html" . }}">
+  <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}{{ .Site.Title }}</title>
+  <link rel="canonical" href="{{ with .Params.relcanonical }}{{ . | relLangURL }}{{ else }}{{ .Permalink }}{{ end }}">
+  {{ partial "opengraph.html" . }}
+  {{ partial "robots.html" . }}
+  {{ partial "structured-data.html" . }}
+  {{ partial "analytics.html" . }}
+  {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
+  {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "docs/assets.html" . }}{{ end }}
+  {{ $js := resources.Get "scripts/modern/application.js" | js.Build (dict "targetPath" "modern.js" "minify" (not hugo.IsDevelopment)) | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer crossorigin="anonymous"></script>
+</head>
+<body class="min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
+  <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
+  <header class="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-border bg-background px-5 lg:px-8">
+    <a href="{{ .Site.Home.RelPermalink }}" class="flex min-w-0 items-center gap-3 font-semibold tracking-tight">
+      <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">{{ partial "components/icon.html" (dict "name" "book") }}</span>
+      <span class="truncate">{{ .Site.Title }}</span>
+    </a>
+    <div class="flex items-center gap-2">
+      {{ if .IsTranslated }}
+      <details class="relative text-sm">
+        <summary class="cursor-pointer rounded-lg px-3 py-2 text-muted-foreground hover:bg-muted">{{ .Language.LanguageName | default .Language.Lang }}</summary>
+        <ul class="absolute right-0 mt-2 min-w-32 rounded-xl border border-border bg-surface p-2 shadow-lg">
+          {{ range .Translations }}<li><a class="docs-nav-link" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}">{{ .Language.LanguageName | default .Language.Lang }}</a></li>{{ end }}
+        </ul>
+      </details>
+      {{ end }}
+      <button type="button" class="docs-theme-toggle" x-cloak @click="toggleTheme" :aria-pressed="dark" aria-label="{{ i18n "docs_dark_mode" }}">
+        {{ partial "components/icon.html" (dict "name" "sun" "class" "size-5") }}
+      </button>
+    </div>
+  </header>
+  <div class="mx-auto max-w-screen-2xl lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+    <aside class="docs-sidebar border-b border-border bg-background lg:border-r lg:border-b-0" aria-label="{{ i18n "docs_navigation" }}">
+      <details id="docs-navigation" class="docs-navigation" open>
+        <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium lg:hidden">{{ i18n "docs_navigation" }}{{ partial "components/icon.html" (dict "name" "chevron") }}</summary>
+        <nav class="px-4 py-6 lg:px-5" aria-label="{{ i18n "docs_navigation" }}">
+          <p class="mb-3 px-3 text-xs font-semibold tracking-widest text-muted-foreground uppercase">{{ $root.LinkTitle }}</p>
+          <a class="docs-nav-link mb-1" href="{{ $root.RelPermalink }}"{{ if eq . $root }} aria-current="page"{{ end }}>{{ i18n "docs_overview" }}</a>
+          {{ partial "docs/tree.html" (dict "pages" $root.Pages "current" .) }}
+        </nav>
+      </details>
+    </aside>
+    <div class="min-w-0 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem]">
+      <main id="main-content" class="min-w-0 px-6 py-10 sm:px-10 lg:py-14 xl:px-12" tabindex="-1">
+        <article class="mx-auto max-w-3xl">
+          <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs text-muted-foreground" aria-label="{{ i18n "docs_breadcrumb" }}">
+            <a class="hover:text-foreground" href="{{ $root.RelPermalink }}">{{ $root.LinkTitle }}</a>
+            {{ range .Ancestors.Reverse }}{{ if and (not .IsHome) (ne . $root) }}{{ partial "components/icon.html" (dict "name" "chevron" "class" "size-3") }}<a class="hover:text-foreground" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}{{ end }}
+            {{ if ne . $root }}{{ partial "components/icon.html" (dict "name" "chevron" "class" "size-3") }}<span aria-current="page">{{ .LinkTitle }}</span>{{ end }}
+          </nav>
+          <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ if eq .Kind "404" }}{{ i18n "err_404" }}{{ else }}{{ .Title }}{{ end }}</h1>
+          {{ with .Description }}<p class="mt-4 text-lg leading-8 text-muted-foreground">{{ . }}</p>{{ end }}
+          {{ if $hasTOC }}<details class="docs-mobile-toc mt-7 rounded-xl border border-border p-4 xl:hidden"><summary class="cursor-pointer text-sm font-medium">{{ i18n "docs_on_this_page" }}</summary><div class="docs-toc mt-3">{{ partial "docs/outline.html" . }}</div></details>{{ end }}
+          <div class="docs-prose mt-9 max-w-none">{{ .Content }}</div>
+          {{ if or .IsHome (eq .Kind "404") }}
+            <div class="mt-8">{{ partial "components/button.html" (dict "label" (i18n "docs_get_started") "href" $root.RelPermalink "icon" "arrow-right") }}</div>
+          {{ else }}
+            {{ partial "docs/pagination.html" (dict "root" $root "current" .) }}
+          {{ end }}
+        </article>
+      </main>
+      {{ if $hasTOC }}
+      <aside class="hidden xl:block" aria-label="{{ i18n "docs_on_this_page" }}">
+        <div class="docs-desktop-toc px-5 py-14">
+          <p class="mb-4 text-xs font-semibold text-muted-foreground">{{ i18n "docs_on_this_page" }}</p>
+          <div class="docs-toc">{{ partial "docs/outline.html" . }}</div>
+        </div>
+      </aside>
+      {{ end }}
+    </div>
+  </div>
+</body>
+</html>
