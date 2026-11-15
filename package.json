@@ -74,7 +74,7 @@
   },
   "scripts": {
     "build:cloudflare:portfolio": "curl https://mise.run | sh && mise install && mise run build-portfolio",
-    "build:cloudflare:docs": "which mise && curl https://mise.run | sh && mise list && mise install && mise run build-docs",
+    "build:cloudflare:docs": "curl https://mise.run | sh && mise list && mise install && mise run build-docs",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
