@@ -112,16 +112,24 @@ export default function docsSearch (fetcher = globalThis.fetch) {
       this.close()
     },
     clear () {
-      this.query = ''
-      this.resetResults()
-    },
-    resetResults () {
       generation++
+      this.query = ''
       this.results = []
       this.state = 'idle'
     },
+    onInput () {
+      generation++
+      if (!this.query.trim()) {
+        this.results = []
+        this.state = 'idle'
+        return
+      }
+      // Hidden, inert rows preserve the results area's height during refresh.
+      this.$refs.resultsBody.scrollTop = 0
+      this.state = 'loading'
+    },
     focusResult (position) {
-      if (!this.results.length) return
+      if (this.state !== 'ready' || !this.results.length) return
       if (position < 0) {
         this.$refs.input.focus({ preventScroll: true })
         return
@@ -133,8 +141,8 @@ export default function docsSearch (fetcher = globalThis.fetch) {
     async search () {
       const request = ++generation
       const query = this.query.trim().slice(0, 200)
-      this.results = []
       if (!query) {
+        this.results = []
         this.state = 'idle'
         return
       }
@@ -154,7 +162,10 @@ export default function docsSearch (fetcher = globalThis.fetch) {
         this.results = index.search(query, { limit: 8 }).map(resultPreview)
         this.state = 'ready'
       } catch {
-        if (request === generation && query === this.query.trim().slice(0, 200)) this.state = 'error'
+        if (request === generation && query === this.query.trim().slice(0, 200)) {
+          this.results = []
+          this.state = 'error'
+        }
       }
     }
   }

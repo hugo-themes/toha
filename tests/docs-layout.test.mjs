@@ -170,6 +170,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     assert.match(html(), /<button[^>]*id=docs-search-trigger[^>]*aria-haspopup=dialog[^>]*aria-controls=docs-search-dialog[^>]*aria-label="Search documentation"/)
     assert.match(html(), /<dialog[^>]*id=docs-search-dialog[^>]*aria-labelledby=docs-search-title/)
     assert.match(html(), /<input[^>]*id=docs-search-input[^>]*autofocus/)
+    assert.match(html(), /:inert="state !== 'ready'"/)
     assert.match(html(), /aria-label="Close search"/)
     assert.ok(html().indexOf('id=docs-search-trigger') < html().indexOf('docs-theme-toggle'), 'search icon must precede the theme toggle')
     const sidebar = html().match(/<aside[^>]*class="?docs-sidebar[\s\S]*?<\/aside>/)[0]

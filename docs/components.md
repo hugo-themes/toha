@@ -88,10 +88,13 @@ with `x-text`, without constructing HTML from indexed content. Down/Up Arrow
 moves focus between the input and result links; Enter opens a focused link. Closing
 clears the query and restores focus to the icon. The index downloads on the
 first query, stays cached, and offers retry on failure. Results render as text
-and native links, with up to eight title-weighted matches. The search trigger
-stays hidden without JavaScript or native dialog support; navigation remains
-usable. The dialog locks background scrolling and bounds its results to the
-viewport.
+and native links, with up to eight title-weighted matches. The results area has
+a compact minimum height when empty and preserves its previous height while
+refreshing. Previous results are hidden and inert until
+the new query completes, so they cannot receive keyboard or pointer interaction.
+The search trigger stays hidden without JavaScript or native dialog support;
+navigation remains usable. The dialog locks background scrolling and bounds
+its results to the viewport.
 
 `docs/edit-link.html` adapts edit configuration to the shared button/link
 primitive. `edit.baseURL` is the repository URL of the content directory, without

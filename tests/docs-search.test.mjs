@@ -22,7 +22,7 @@ const component = fetcher => {
   const focusable = () => ({ isConnected: true, focused: false, focus () { this.focused = true } })
   const search = Object.assign(docsSearch(fetcher), {
     $el: { dataset: { docsSearchIndex: '/project/docs-search/en.json' }, querySelector: () => dialog },
-    $refs: { dialog, input: focusable(), trigger: focusable() }
+    $refs: { dialog, input: focusable(), trigger: focusable(), resultsBody: { scrollTop: 0 } }
   })
   search.init()
   // Alpine evaluates event handlers at the input/form, not the x-data root.
@@ -135,30 +135,40 @@ test('a pending index cannot restore a stale query or cleared results', async ()
   assert.deepEqual(cleared.results, [])
 })
 
-test('editing a query immediately invalidates old links and pending searches during the debounce', async () => {
+test('editing a query preserves row space while invalidating old links and pending searches', async () => {
   const search = component(async () => response())
   search.query = 'tokens'
   await search.search()
   let focused = false
   search.$refs.dialog.querySelectorAll = () => [{ focus: () => { focused = true } }]
+  search.$refs.resultsBody.scrollTop = 120
   search.query = 'cafe'
-  search.resetResults()
+  const previous = search.results
+  search.onInput()
   search.focusResult(0)
   assert.equal(focused, false, 'Down must not enter old links while the new query is debouncing')
   assert.equal(search.query, 'cafe')
-  assert.deepEqual(search.results, [])
-  await search.search()
+  assert.equal(search.state, 'loading')
+  assert.equal(search.$refs.resultsBody.scrollTop, 0, 'a new query starts at the top of the results area')
+  assert.equal(search.results, previous, 'old rows retain their geometry while hidden and inert')
+  const refreshing = search.search()
+  assert.equal(search.results, previous, 'starting the search must not collapse the pending rows')
+  await refreshing
   assert.equal(search.results[0].title, 'Café')
+  search.query = ''
+  search.onInput()
+  assert.equal(search.state, 'idle')
+  assert.deepEqual(search.results, [], 'clearing the input releases previous row space')
 
   let finish
   const loading = component(() => new Promise(resolve => { finish = resolve }))
   loading.query = 'tokens'
   const pending = loading.search()
   loading.query = 'tokens '
-  loading.resetResults()
+  loading.onInput()
   finish(response())
   await pending
-  assert.equal(loading.state, 'idle')
+  assert.equal(loading.state, 'loading')
   assert.deepEqual(loading.results, [], 'even an unchanged normalized query must wait for the next search')
   await loading.search()
   assert.equal(loading.results[0].title, 'Tokens')
@@ -230,6 +240,7 @@ test('arrow navigation reaches result links and returns to the input without lea
   search.focusResult(0)
   assert.deepEqual(focused, [], 'empty search must not focus stale result elements')
   search.results = documents.slice(0, 2)
+  search.state = 'ready'
   search.focusResult(0)
   search.focusResult(1)
   search.focusResult(99)
