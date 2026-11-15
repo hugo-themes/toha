@@ -3,26 +3,9 @@
   "name": "docs",
   "compatibility_date": "2026-11-08",
   "preview_urls": true,
+  "previews": {},
   "assets": {
-    "directory": "./exampleSites/docs/public",
+    "directory": "./public",
     "not_found_handling": "404-page"
-  },
-  "vars": {
-    "ENVIRONMENT": "production",
-    "GO_VERSION": "1.27.3",
-    "HUGO_VERSION": "extended_0.169.0",
-    "HUGO_ENABLEGITINFO": true,
-    "NODE_VERSION": "26.13.0",
-    "SKIP_DEPENDENCY_INSTALL": true
-  },
-  "previews": {
-    "vars": {
-      "ENVIRONMENT": "preview",
-      "GO_VERSION": "1.27.3",
-      "HUGO_VERSION": "extended_0.169.0",
-      "HUGO_ENABLEGITINFO": true,
-      "NODE_VERSION": "26.13.0",
-      "SKIP_DEPENDENCY_INSTALL": true
-    }
   }
 }
