@@ -1,11 +1,28 @@
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
-  "name": "toha",
+  "name": "docs",
   "compatibility_date": "2026-11-08",
   "preview_urls": true,
-  "previews": {},
   "assets": {
-    "directory": "./public",
+    "directory": "./exampleSites/docs/public",
     "not_found_handling": "404-page"
+  },
+  "vars": {
+    "ENVIRONMENT": "production",
+    "GO_VERSION": "1.27.3",
+    "HUGO_VERSION": "extended_0.169.0",
+    "HUGO_ENABLEGITINFO": true,
+    "NODE_VERSION": "26.13.0",
+    "SKIP_DEPENDENCY_INSTALL": true
+  },
+  "previews": {
+    "vars": {
+      "ENVIRONMENT": "preview",
+      "GO_VERSION": "1.27.3",
+      "HUGO_VERSION": "extended_0.169.0",
+      "HUGO_ENABLEGITINFO": true,
+      "NODE_VERSION": "26.13.0",
+      "SKIP_DEPENDENCY_INSTALL": true
+    }
   }
 }
