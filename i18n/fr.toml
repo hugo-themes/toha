@@ -209,3 +209,44 @@ other = "Sur cette page"
 
 [docs_get_started]
 other = "Explorer la documentation"
+
+[docs_search]
+other = "Rechercher dans la documentation"
+
+
+[docs_search_placeholder]
+other = "Rechercher des pages…"
+
+
+[docs_search_loading]
+other = "Recherche…"
+
+
+[docs_search_empty]
+other = "Aucune page correspondante."
+
+
+[docs_search_results]
+other = "Les pages correspondantes sont affichées ci-dessous."
+
+
+[docs_search_error]
+other = "La recherche est indisponible. Veuillez réessayer."
+
+
+[docs_search_retry]
+other = "Réessayer"
+
+
+[docs_search_no_script]
+other = "La recherche nécessite JavaScript. Utilisez les liens de navigation ci-dessous."
+
+
+[docs_edit_page]
+other = "Modifier cette page"
+
+[docs_search_close]
+other = "Fermer la recherche"
+
+[docs_search_escape]
+other = "Esc"

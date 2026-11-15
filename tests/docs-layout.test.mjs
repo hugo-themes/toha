@@ -24,7 +24,7 @@ function copyModernDependencies (directory) {
     const pkg = JSON.parse(readFileSync(join(source, 'package.json'), 'utf8'))
     for (const dependency of Object.keys({ ...pkg.dependencies, ...pkg.optionalDependencies })) copy(dependency)
   }
-  for (const name of ['alpinejs', 'tailwindcss', '@tailwindcss/cli']) copy(name)
+  for (const name of ['alpinejs', 'tailwindcss', '@tailwindcss/cli', 'fuse.js']) copy(name)
   mkdirSync(join(directory, 'node_modules/.bin'), { recursive: true })
   symlinkSync('../@tailwindcss/cli/dist/index.mjs', join(directory, 'node_modules/.bin/tailwindcss'))
 }
@@ -120,18 +120,97 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     assert.doesNotMatch(html('en/posts/example/index.html'), /modern\.[a-f0-9]+\.js|styles\/modern/)
     assert.match(html('en/404.html'), /styles\/modern/)
     assert.doesNotMatch(html('en/docs/quiet/index.html'), /docs-mobile-toc|docs-desktop-toc/)
+    assert.doesNotMatch(gallery, /docs-search-input|data-docs-edit/)
+
+    // Search and edit are independent opt-ins. The index follows published HTML
+    // and language-local permalinks, rather than the filesystem or blog index.
+    config.params.features.docs.search = { enable: true }
+    config.params.features.docs.edit = { enable: true, baseURL: 'https://github.com/example/site/edit/main/content/' }
+    write('content/docs/excluded.md', '---\ntitle: Not searchable\ndocs:\n  search: false\n  edit: false\n---\nSecret discovery marker.')
+    write('content/docs/draft.md', '---\ntitle: Draft marker\ndraft: true\n---\nUnpublished text.')
+    write('content/docs/unrendered.md', '---\ntitle: Unrendered marker\nbuild:\n  render: never\n  list: never\n---\nUnpublished text.')
+    write('content/docs/headless/index.md', '---\ntitle: Headless marker\nheadless: true\n---\nUnpublished text.')
+    write('content/docs/legacy.md', '---\ntitle: Legacy inside docs\ntype: posts\n---\nLegacy text.')
+    write('content/docs/source folder/café guide.md', '---\ntitle: Escaped source\n---\nAccents and spaces.')
+    write('content/docs/quiet.md', '---\ntitle: No outline\ntoc: false\nweight: 40\ndocs:\n  editURL: https://example.org/alternate.md?edit=true\n---\n## A heading\nContent without an outline.')
+    build()
+    const searchURL = page => page.match(/data-docs-search-index="?([^\s">]+)/)[1]
+    const resource = url => readFileSync(join(directory, 'public', decodeURIComponent(url.replace('/project/', ''))), 'utf8')
+    const index = JSON.parse(resource(searchURL(html())))
+    assert.ok(index.some(page => page.url === '/project/en/docs/' && page.title === 'Introduction'))
+    assert.ok(index.some(page => page.url === '/project/en/docs/guides/composition/'))
+    assert.deepEqual(index.find(page => page.url === '/project/en/docs/guides/composition/').breadcrumbs, ['Documentation', 'Guides'])
+    assert.ok(index.every(page => page.url.startsWith('/project/en/docs/')))
+    assert.doesNotMatch(JSON.stringify(index), /Not searchable|Draft marker|Unrendered marker|Headless marker|Legacy inside docs|Legacy article|code-block-data|<svg/)
+    assert.ok(index.every(page => typeof page.text === 'string'))
+    assert.doesNotMatch(index.find(page => page.title === 'Escaped source').text, /<p>/)
+    const bengaliIndexURL = searchURL(html('bn/docs/components/index.html'))
+    assert.notEqual(bengaliIndexURL, searchURL(html()))
+    const bengaliIndex = JSON.parse(resource(bengaliIndexURL))
+    assert.ok(bengaliIndex.every(page => page.url.startsWith('/project/bn/docs/')))
+    assert.ok(bengaliIndex.some(page => page.title === 'কম্পোনেন্ট' && page.text.includes('বাংলা')))
+    assert.deepEqual(bengaliIndex.find(page => page.title === 'কম্পোনেন্ট').breadcrumbs, ['ডকুমেন্টেশন'])
+    assert.match(html('bn/docs/components/index.html'), /খোঁজা হচ্ছে/)
+    assert.match(html('bn/docs/components/index.html'), /এই পৃষ্ঠা সম্পাদনা করুন/)
+    assert.match(html('bn/docs/components/index.html'), /href="?https:\/\/github.com\/example\/site\/edit\/main\/content\/docs\/components.bn.md/)
+    assert.match(html('en/docs/index.html'), /content\/docs\/_index.md/)
+    const escapedSource = index.find(page => page.title === 'Escaped source')
+    assert.match(resource(`${escapedSource.url}index.html`), /content\/docs\/source%20folder\/caf%C3%A9%20guide.md/)
+    assert.match(html('en/docs/quiet/index.html'), /href="?https:\/\/example.org\/alternate.md\?edit=true/)
+    assert.doesNotMatch(html('en/docs/excluded/index.html'), /data-docs-edit/)
+    assert.doesNotMatch(html('en/404.html'), /data-docs-edit/)
+    assert.doesNotMatch(html('en/posts/example/index.html'), /docs-search-input|data-docs-edit|modern\.[a-f0-9]+\.js/)
+    const searchBundleURL = html().match(/src=(\/project\/modern\.[a-f0-9]+\.js)/)[1]
+    assert.match(resource(searchBundleURL), /Invalid documentation search index/)
+    assert.match(html(), /<noscript>.*Search requires JavaScript/)
+    assert.match(html(), /x-text=part.text/)
+    assert.match(html(), /x-text=crumb/)
+    assert.match(html(), /<kbd[^>]*>Esc<\/kbd>/)
+    assert.doesNotMatch(html(), /x-html/)
+    assert.match(html(), /<button[^>]*id=docs-search-trigger[^>]*aria-haspopup=dialog[^>]*aria-controls=docs-search-dialog[^>]*aria-label="Search documentation"/)
+    assert.match(html(), /<dialog[^>]*id=docs-search-dialog[^>]*aria-labelledby=docs-search-title/)
+    assert.match(html(), /<input[^>]*id=docs-search-input[^>]*autofocus/)
+    assert.match(html(), /:inert="state !== 'ready'"/)
+    assert.match(html(), /aria-label="Close search"/)
+    assert.ok(html().indexOf('id=docs-search-trigger') < html().indexOf('docs-theme-toggle'), 'search icon must precede the theme toggle')
+    const sidebar = html().match(/<aside[^>]*class="?docs-sidebar[\s\S]*?<\/aside>/)[0]
+    assert.doesNotMatch(sidebar, /docs-search-input|docs-search-trigger/)
+
+    config.params.features.docs.edit.baseURL = 'javascript:alert(1)'
+    assert.throws(build, /edit.baseURL must be an absolute HTTP/)
+    config.params.features.docs.edit.baseURL = 'https://example.org/edit?path=content'
+    assert.throws(build, /edit.baseURL must be an absolute HTTP/)
+    delete config.params.features.docs.edit.baseURL
+    build()
+    assert.doesNotMatch(html(), /data-docs-edit/)
+    assert.match(html('en/docs/quiet/index.html'), /data-docs-edit/)
+    write('content/docs/quiet.md', '---\ntitle: Unsafe edit URL\ndocs:\n  editURL: javascript:alert(1)\n---')
+    assert.throws(build, /docs editURL must be an absolute HTTP/)
+    write('content/docs/quiet.md', '---\ntitle: No outline\ntoc: false\n---\n## A heading\nContent without an outline.')
+    config.params.features.docs.search.enable = false
+    config.params.features.docs.edit.enable = false
+    build()
+    assert.doesNotMatch(html(), /docs-search-input|data-docs-edit/)
+    const basicBundleURL = html().match(/src=(\/project\/modern\.[a-f0-9]+\.js)/)[1]
+    assert.notEqual(basicBundleURL, searchBundleURL)
+    assert.doesNotMatch(resource(basicBundleURL), /Invalid documentation search index/)
 
     // Hugo falls back to the site's default locale, which may not be English.
     // Every bundled default locale must still expose named controls.
     config.defaultContentLanguage = 'de'
     const languages = config.languages
     config.languages = { de: { weight: 1, languageName: 'Deutsch' } }
+    config.params.features.docs.search.enable = true
+    config.params.features.docs.edit = { enable: true, baseURL: 'https://example.org/edit/content/' }
     build()
     const german = html('de/docs/components/index.html')
     assert.match(german, /aria-label="Dark mode"/)
     assert.match(german, /aria-label="Documentation navigation"/)
     assert.match(german, /On this page/)
     assert.match(german, /Skip to content/)
+    assert.match(german, /Search documentation/)
+    assert.match(german, /Search is unavailable/)
+    assert.match(german, /Edit this page/)
     config.defaultContentLanguage = 'en'
     config.languages = languages
 

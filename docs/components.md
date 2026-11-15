@@ -57,7 +57,52 @@ it does not unpublish those pages.
 
 The standalone docs example filters the theme's legacy `content/posts/` and
 `content/search/` scaffolding with `ignoreFiles`. Remove that filter for a mixed
-portfolio/blog/docs site. Search and edit links are follow-up milestones.
+portfolio/blog/docs site. Search and edit links are independently opt-in.
+
+### Documentation services
+
+```yaml
+params:
+  features:
+    docs:
+      search:
+        enable: true
+      edit:
+        enable: true
+        baseURL: https://github.com/your-name/your-site/edit/main/content/
+```
+
+Search uses the existing Fuse.js dependency in a separate modern entry point,
+loaded only when search is enabled. `docs/search-index.html` publishes a
+fingerprinted JSON resource per language and docs root. It indexes the root
+and its docs descendants with published HTML; Hugo excludes production drafts.
+Set `docs.search: false` in page front matter to omit a page. This is a discovery
+setting, not access control. The search icon immediately left of the theme
+toggle opens a native modal dialog. It focuses the input, blocks interaction
+with the background page, and closes with Escape, the close button, or a
+backdrop click. The borderless input row includes a search icon and an Esc close
+control; the dialog title and successful-results announcement are available to
+screen readers. Flat result links include language-local breadcrumb context and
+highlighted title/snippet matches. Highlighting uses plain text segments rendered
+with `x-text`, without constructing HTML from indexed content. Down/Up Arrow
+moves focus between the input and result links; Enter opens a focused link. Closing
+clears the query and restores focus to the icon. The index downloads on the
+first query, stays cached, and offers retry on failure. Results render as text
+and native links, with up to eight title-weighted matches. The results area has
+a compact minimum height when empty and preserves its previous height while
+refreshing. Previous results are hidden and inert until
+the new query completes, so they cannot receive keyboard or pointer interaction.
+The search trigger stays hidden without JavaScript or native dialog support;
+navigation remains usable. The dialog locks background scrolling and bounds
+its results to the viewport.
+
+`docs/edit-link.html` adapts edit configuration to the shared button/link
+primitive. `edit.baseURL` is the repository URL of the content directory, without
+a query or fragment. Each segment of `Page.File.Path` is escaped and appended,
+preserving translated filenames and page bundles. A page may set `docs.editURL`
+to an absolute HTTP(S) override or `docs.edit: false` to hide its edit action.
+Without a base URL or override, no action renders. Pages without a source file
+also omit the action. These services do not change legacy blog search or assets.
 
 ## Asset boundary and build configuration
 
@@ -97,7 +142,7 @@ provided for English, Bengali, and French.
 | Partial | Inputs | Behavior |
 | --- | --- | --- |
 | `components/button.html` | Required `label`; optional `href`, `variant` (`primary`, `secondary`, `ghost`), `icon`, `iconOnly`, `disabled` | Link when `href` is supplied, otherwise `type="button"`. Icon-only controls require a label and icon. Disabled links fail validation. |
-| `components/icon.html` | Required `name`; optional `class` | Decorative inline SVG. Names: `book`, `arrow-right`, `arrow-left`, `chevron`, `sun`, `info`, `check`, `code`. Unknown names fail validation. |
+| `components/icon.html` | Required `name`; optional `class` | Decorative inline SVG. Names: `book`, `arrow-right`, `arrow-left`, `chevron`, `sun`, `search`, `close`, `info`, `check`, `code`. Unknown names fail validation. |
 | `components/badge.html` | Required `label`; optional `tone` (`neutral`, `accent`) | Non-interactive supporting label. |
 | `components/callout.html` | `content` (rendered Markdown); optional `title` | Semantic aside with decorative icon and escaped title. |
 | `components/disclosure.html` | Required `label`; optional `content` (rendered Markdown), `open` (boolean) | Native details/summary with keyboard and no-JavaScript support. |

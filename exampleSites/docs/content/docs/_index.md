@@ -12,7 +12,7 @@ cascade:
 The docs layout puts navigation on the left, your content in the center, and an outline on the right. On smaller screens, navigation and the outline become expandable sections.
 
 {{< ui-callout title="An incremental foundation" >}}
-This is the first docs milestone. Search and importing the existing Toha documentation come later. Existing portfolio sites keep their current appearance and configuration.
+The docs shell shares components across layouts. Search and edit links are opt-in services; importing the existing Toha documentation comes later. Existing portfolio sites keep their current appearance and configuration.
 {{< /ui-callout >}}
 
 ## Explore this example
@@ -20,6 +20,7 @@ This is the first docs milestone. Search and importing the existing Toha documen
 - [Get started](getting-started/) with the local development workflow.
 - Browse the [component gallery](components/) to see the shared building blocks.
 - Learn about [composing layouts](guides/composition/).
+- Enable [search and edit links](guides/documentation-services/) for your own docs.
 
 ## Content stays in Markdown
 

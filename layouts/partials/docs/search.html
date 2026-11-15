@@ -1,0 +1,42 @@
+{{- if .Site.Params.features.docs.search.enable -}}
+{{- $root := partial "docs/root.html" . -}}
+{{- $index := partialCached "docs/search-index.html" $root $root.Language.Lang $root.RelPermalink -}}
+<div x-data="docsSearch" data-docs-search-index="{{ $index.RelPermalink }}" x-cloak>
+  <button id="docs-search-trigger" x-ref="trigger" type="button" class="docs-icon-button" x-show="supported" @click="open" aria-haspopup="dialog" aria-controls="docs-search-dialog" aria-label="{{ i18n "docs_search" }}">
+    {{ partial "components/icon.html" (dict "name" "search" "class" "size-5") }}
+  </button>
+  <dialog id="docs-search-dialog" x-ref="dialog" class="docs-search-dialog" aria-labelledby="docs-search-title" @close="onClose" @cancel.prevent="close" @keydown.escape.prevent.stop="close" @pointerdown="startBackdrop" @click="dismissBackdrop">
+    <h2 id="docs-search-title" class="sr-only">{{ i18n "docs_search" }}</h2>
+    <div class="docs-search-input-row">
+      <form class="flex min-w-0 flex-1 items-center gap-3" role="search" @submit.prevent="search">
+        {{ partial "components/icon.html" (dict "name" "search" "class" "size-5 shrink-0 text-muted-foreground") }}
+        <label class="sr-only" for="docs-search-input">{{ i18n "docs_search" }}</label>
+        <input id="docs-search-input" x-ref="input" class="docs-search-input" type="search" autocomplete="off" maxlength="200" autofocus placeholder="{{ i18n "docs_search_placeholder" }}" x-model="query" @input="onInput" @input.debounce.200ms="search" @keydown.down.prevent="focusResult(0)" @keydown.up.prevent="focusResult(results.length - 1)" aria-controls="docs-search-results" aria-describedby="docs-search-status">
+      </form>
+      <button type="button" class="docs-search-escape" @click="close" aria-label="{{ i18n "docs_search_close" }}">
+        <kbd aria-hidden="true">{{ i18n "docs_search_escape" }}</kbd>
+      </button>
+    </div>
+    <div class="docs-search-body" x-ref="resultsBody">
+      <div id="docs-search-status" class="text-xs text-muted-foreground" role="status" aria-live="polite" aria-atomic="true">
+        <span class="docs-search-loading block px-4 py-3" x-show="state === 'loading'">{{ i18n "docs_search_loading" }}</span>
+        <span class="block px-4 py-3" x-show="state === 'ready' && results.length === 0">{{ i18n "docs_search_empty" }}</span>
+        <span class="sr-only" x-show="state === 'ready' && results.length > 0">{{ i18n "docs_search_results" }}</span>
+        <span class="block px-4 py-3" x-show="state === 'error'">{{ i18n "docs_search_error" }}</span>
+      </div>
+      <button type="button" class="docs-nav-link mx-2 mb-2" x-show="state === 'error'" @click="search">{{ i18n "docs_search_retry" }}</button>
+      <ul id="docs-search-results" class="docs-search-results" x-show="results.length > 0" :inert="state !== 'ready'">
+        <template x-for="(result, resultIndex) in results" :key="result.url">
+          <li><a class="docs-search-result" data-search-result :href="result.url" @keydown.down.prevent="focusResult(resultIndex + 1)" @keydown.up.prevent="focusResult(resultIndex - 1)">
+            <span class="docs-search-breadcrumbs" x-show="result.breadcrumbs.length">
+              <template x-for="(crumb, crumbIndex) in result.breadcrumbs" :key="crumbIndex"><span class="inline-flex min-w-0 items-center gap-1"><span x-text="crumb"></span><template x-if="crumbIndex < result.breadcrumbs.length - 1">{{ partial "components/icon.html" (dict "name" "chevron" "class" "size-3 shrink-0") }}</template></span></template>
+            </span>
+            <span class="docs-search-result-title"><template x-for="(part, partIndex) in result.titleParts" :key="partIndex"><span :data-match="part.match" x-text="part.text"></span></template></span>
+            <span class="docs-search-snippet" x-show="result.snippet"><template x-for="(part, partIndex) in result.snippetParts" :key="partIndex"><span :data-match="part.match" x-text="part.text"></span></template></span>
+          </a></li>
+        </template>
+      </ul>
+    </div>
+  </dialog>
+</div>
+{{- end -}}

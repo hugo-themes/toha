@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/config-schema.json",
-  "name": "toha",
+  "name": "portfolio",
   "compatibility_date": "2026-11-08",
   "preview_urls": true,
   "previews": {},

@@ -206,3 +206,44 @@ other = "এই পৃষ্ঠায়"
 
 [docs_get_started]
 other = "ডকুমেন্টেশন দেখুন"
+
+[docs_search]
+other = "ডকুমেন্টেশন খুঁজুন"
+
+
+[docs_search_placeholder]
+other = "পৃষ্ঠা খুঁজুন…"
+
+
+[docs_search_loading]
+other = "খোঁজা হচ্ছে…"
+
+
+[docs_search_empty]
+other = "কোনো পৃষ্ঠা মেলেনি।"
+
+
+[docs_search_results]
+other = "মিলে যাওয়া পৃষ্ঠাগুলো নিচে দেওয়া আছে।"
+
+
+[docs_search_error]
+other = "খোঁজা যাচ্ছে না। আবার চেষ্টা করুন।"
+
+
+[docs_search_retry]
+other = "আবার চেষ্টা করুন"
+
+
+[docs_search_no_script]
+other = "খোঁজার জন্য JavaScript প্রয়োজন। নিচের নেভিগেশন লিংকগুলো ব্যবহার করুন।"
+
+
+[docs_edit_page]
+other = "এই পৃষ্ঠা সম্পাদনা করুন"
+
+[docs_search_close]
+other = "খোঁজা বন্ধ করুন"
+
+[docs_search_escape]
+other = "Esc"
