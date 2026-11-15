@@ -3,9 +3,6 @@ hugo-extended = '0.169.0'
 node = 'latest'
 go = 'latest'
 
-[settings]
-legacy_version_file = false
-
 [tasks.install]
 description = "Install root project dependencies"
 run = "npm install"
