@@ -15,7 +15,9 @@
   {{ partial "analytics.html" . }}
   {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
   {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "docs/assets.html" . }}{{ end }}
-  {{ $js := resources.Get "scripts/modern/application.js" | js.Build (dict "targetPath" "modern.js" "minify" (not hugo.IsDevelopment)) | fingerprint }}
+  {{ $entry := "scripts/modern/application.js" }}
+  {{ if .Site.Params.features.docs.search.enable }}{{ $entry = "scripts/modern/application-search.js" }}{{ end }}
+  {{ $js := resources.Get $entry | js.Build (dict "targetPath" "modern.js" "minify" (not hugo.IsDevelopment)) | fingerprint }}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer crossorigin="anonymous"></script>
 </head>
 <body class="min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
@@ -34,7 +36,8 @@
         </ul>
       </details>
       {{ end }}
-      <button type="button" class="docs-theme-toggle" x-cloak @click="toggleTheme" :aria-pressed="dark" aria-label="{{ i18n "docs_dark_mode" }}">
+      {{ partial "docs/search.html" . }}
+      <button type="button" class="docs-icon-button docs-theme-toggle" x-cloak @click="toggleTheme" :aria-pressed="dark" aria-label="{{ i18n "docs_dark_mode" }}">
         {{ partial "components/icon.html" (dict "name" "sun" "class" "size-5") }}
       </button>
     </div>
@@ -44,6 +47,7 @@
       <details id="docs-navigation" class="docs-navigation" open>
         <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium lg:hidden">{{ i18n "docs_navigation" }}{{ partial "components/icon.html" (dict "name" "chevron") }}</summary>
         <nav class="px-4 py-6 lg:px-5" aria-label="{{ i18n "docs_navigation" }}">
+          {{ if .Site.Params.features.docs.search.enable }}<noscript><p class="mb-4 px-3 text-xs leading-6 text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}
           <p class="mb-3 px-3 text-xs font-semibold tracking-widest text-muted-foreground uppercase">{{ $root.LinkTitle }}</p>
           <a class="docs-nav-link mb-1" href="{{ $root.RelPermalink }}"{{ if eq . $root }} aria-current="page"{{ end }}>{{ i18n "docs_overview" }}</a>
           {{ partial "docs/tree.html" (dict "pages" $root.Pages "current" .) }}
@@ -62,6 +66,7 @@
           {{ with .Description }}<p class="mt-4 text-lg leading-8 text-muted-foreground">{{ . }}</p>{{ end }}
           {{ if $hasTOC }}<details class="docs-mobile-toc mt-7 rounded-xl border border-border p-4 xl:hidden"><summary class="cursor-pointer text-sm font-medium">{{ i18n "docs_on_this_page" }}</summary><div class="docs-toc mt-3">{{ partial "docs/outline.html" . }}</div></details>{{ end }}
           <div class="docs-prose mt-9 max-w-none">{{ .Content }}</div>
+          {{ partial "docs/edit-link.html" . }}
           {{ if or .IsHome (eq .Kind "404") }}
             <div class="mt-8">{{ partial "components/button.html" (dict "label" (i18n "docs_get_started") "href" $root.RelPermalink "icon" "arrow-right") }}</div>
           {{ else }}

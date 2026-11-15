@@ -1,0 +1,24 @@
+{{/* This composition owns repository configuration; the link primitive does not. */}}
+{{- if and .Site.Params.features.docs.edit.enable (ne .Params.docs.edit false) .File -}}
+  {{- $url := .Params.docs.editurl -}}
+  {{- if not $url -}}
+    {{- with .Site.Params.features.docs.edit.baseurl -}}
+      {{- $base := urls.Parse . -}}
+      {{- if or (not (in (slice "https" "http") $base.Scheme)) (not $base.Host) $base.RawQuery $base.Fragment -}}
+        {{- errorf "docs edit.baseURL must be an absolute HTTP(S) repository content URL without query or fragment" -}}
+      {{- end -}}
+      {{- $segments := slice -}}
+      {{- range split $.File.Path "/" -}}{{- $segments = $segments | append (urls.PathEscape .) -}}{{- end -}}
+      {{- $url = printf "%s/%s" (strings.TrimRight "/" .) (delimit $segments "/") -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $url -}}
+    {{- $parsed := urls.Parse . -}}
+    {{- if or (not (in (slice "https" "http") $parsed.Scheme)) (not $parsed.Host) -}}
+      {{- errorf "docs editURL must be an absolute HTTP(S) URL" -}}
+    {{- end -}}
+    <div class="mt-10" data-docs-edit>
+      {{ partial "components/button.html" (dict "label" (i18n "docs_edit_page") "href" . "variant" "ghost" "icon" "code") }}
+    </div>
+  {{- end -}}
+{{- end -}}

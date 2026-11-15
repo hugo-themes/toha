@@ -43,7 +43,7 @@ run = "hugo server -w --bind=0.0.0.0 --renderToMemory"
 [tasks.test-docs]
 description = "Verify modern docs, component contracts, and legacy asset isolation"
 depends = ["install"]
-run = "node --test tests/docs-layout.test.mjs"
+run = "node --test tests/docs-layout.test.mjs tests/docs-search.test.mjs"
 
 [tasks.build-portfolio]
 description = "Build the portfolio example for production"

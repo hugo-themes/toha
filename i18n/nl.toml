@@ -208,3 +208,44 @@ other = "On this page"
 
 [docs_get_started]
 other = "Explore the documentation"
+
+[docs_search]
+other = "Search documentation"
+
+
+[docs_search_placeholder]
+other = "Search pages…"
+
+
+[docs_search_loading]
+other = "Searching…"
+
+
+[docs_search_empty]
+other = "No matching pages."
+
+
+[docs_search_results]
+other = "Matching pages are listed below."
+
+
+[docs_search_error]
+other = "Search is unavailable. Please try again."
+
+
+[docs_search_retry]
+other = "Try again"
+
+
+[docs_search_no_script]
+other = "Search requires JavaScript. Browse the navigation links below."
+
+
+[docs_edit_page]
+other = "Edit this page"
+
+[docs_search_close]
+other = "Close search"
+
+[docs_search_escape]
+other = "Esc"

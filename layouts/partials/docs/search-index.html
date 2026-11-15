@@ -1,0 +1,27 @@
+{{/* A per-language resource; use Hugo's HTML URLs rather than constructing paths. */}}
+{{- $entries := slice -}}
+{{- $root := . -}}
+{{- range partial "docs/sequence.html" . -}}
+  {{- $page := . -}}
+  {{- if and (eq .Type "docs") (ne .Params.docs.search false) -}}
+    {{- $breadcrumbs := slice -}}
+    {{- range .Ancestors.Reverse -}}
+      {{- if or (eq . $root) ($root.IsAncestor .) -}}
+        {{- $breadcrumbs = $breadcrumbs | append .LinkTitle -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if not $breadcrumbs }}{{ $breadcrumbs = slice $root.LinkTitle }}{{ end -}}
+    {{- with .OutputFormats.Get "html" -}}
+      {{- if .RelPermalink -}}
+        {{- $entries = $entries | append (dict
+          "title" $page.Title
+          "url" .RelPermalink
+          "text" ($page.Plain | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace)
+          "breadcrumbs" $breadcrumbs
+        ) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $path := printf "docs-search/%s-%s.json" .Language.Lang (crypto.MD5 .RelPermalink) -}}
+{{- return (resources.FromString $path ($entries | jsonify) | fingerprint) -}}

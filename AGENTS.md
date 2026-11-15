@@ -107,4 +107,5 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 - Use semantic tokens, named variants, real button/link semantics, and accessible labels. Do not rely on HTML class ordering to resolve conflicting Tailwind utilities.
 - Enable docs with `params.features.docs.enable: true` and `type: docs` (usually via content cascade); `params.home.layout: docs` independently selects the homepage.
 - Keep modern Tailwind/Alpine assets and legacy Bootstrap/SCSS assets separate per page. Preserve the default portfolio behavior.
+- Docs search and edit links are separately opt-in under `params.features.docs.search` / `edit`. Search indexes only the current docs tree/language; edit URLs are adapted from source paths at the composition layer. See `docs/components.md` for configuration and per-page overrides.
 - Run `mise run test-docs` for rendering, external-module, URL, and asset-boundary coverage. Delegate visual and keyboard verification to the computer-use agent.

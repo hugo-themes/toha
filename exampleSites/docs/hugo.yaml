@@ -44,3 +44,8 @@ params:
     docs:
       enable: true
       section: docs
+      search:
+        enable: true
+      edit:
+        enable: true
+        baseURL: https://github.com/hugo-themes/toha/edit/main/exampleSites/docs/content/

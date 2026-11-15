@@ -54,9 +54,38 @@
   .docs-page-link {
     @apply block h-full rounded-xl border border-border p-4 text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-muted;
   }
-  .docs-theme-toggle {
+  .docs-icon-button {
     @apply flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground;
   }
+  html.docs-search-open, html.docs-search-open body { overflow: hidden; }
+  .docs-search-dialog {
+    @apply rounded-2xl border border-border bg-surface p-0 text-foreground shadow-xl;
+    width: min(40rem, calc(100vw - 2rem));
+    max-height: 84dvh;
+    margin: 8dvh auto auto;
+  }
+  .docs-search-dialog::backdrop { background: rgb(0 0 0 / 0.55); backdrop-filter: blur(3px); }
+  .docs-search-dialog:not([open]) { display: none; }
+  .docs-search-body { max-height: 55dvh; overflow-y: auto; overscroll-behavior: contain; }
+  .docs-search-input-row { @apply flex items-center gap-3 border-b border-border px-4 py-2; }
+  .docs-search-input-row:focus-within { border-bottom-color: var(--primary); }
+  .docs-search-input {
+    @apply w-full min-w-0 border-0 bg-transparent px-0 py-2 text-base text-foreground placeholder:text-muted-foreground;
+    appearance: none;
+  }
+  .docs-search-input:focus-visible { outline: none; }
+  .docs-search-escape { @apply flex min-h-10 min-w-10 shrink-0 items-center justify-center rounded-lg border border-border px-2 text-xs text-muted-foreground hover:bg-muted hover:text-foreground; }
+  .docs-search-escape kbd { font: inherit; }
+  .docs-search-results { @apply space-y-1 p-2; }
+  .docs-search-result {
+    @apply block rounded-lg px-3 py-2.5 transition-colors hover:bg-muted focus-visible:bg-muted;
+    overflow-wrap: anywhere;
+  }
+  .docs-search-result:focus-visible { outline-offset: -2px; }
+  .docs-search-breadcrumbs { @apply mb-1 flex flex-wrap items-center gap-1 text-xs leading-5 text-muted-foreground; }
+  .docs-search-result-title { @apply block text-sm font-semibold text-foreground; }
+  .docs-search-snippet { @apply mt-2 block border-l border-border pl-3 text-sm leading-6 text-muted-foreground; }
+  .docs-search-result [data-match="true"] { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
   .docs-skip-link {
     @apply fixed top-3 left-5 z-50 -translate-y-24 rounded-lg bg-primary px-4 py-3 text-sm text-primary-foreground focus:translate-y-0;
   }
