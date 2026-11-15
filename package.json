@@ -73,8 +73,9 @@
     "url": "git+https://github.com/hugo-toha/toha.git"
   },
   "scripts": {
-    "build:cloudflare:portfolio": "curl https://mise.run | sh && ~/.local/bin/mise install && ~/.local/bin/mise run build-portfolio",
-    "build:cloudflare:docs": "curl https://mise.run | sh && ~/.local/bin/mise install && ~/.local/bin/mise run build-docs",
+    "build:cloudflare:portfolio": "unset HUGO_VERSION && curl https://mise.run | sh && ~/.local/bin/mise install && ~/.local/bin/mise run build-portfolio",
+    "build:cloudflare:docs": "unset HUGO_VERSION && curl https://mise.run | sh && ~/.local/bin/mise install && ~/.local/bin/mise run build-docs",
+    "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
   "version": "1.0.0",
