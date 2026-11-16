@@ -1,0 +1,5 @@
+{{/* Called through templates.Defer after Hugo has collected all rendered classes. */}}
+{{- with resources.Get "styles/modern/main.css" -}}
+  {{- $css := . | css.TailwindCSS (dict "minify" (not hugo.IsDevelopment)) | fingerprint -}}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- end -}}

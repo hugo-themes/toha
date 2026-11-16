@@ -80,7 +80,9 @@
   },
   "version": "1.0.0",
   "allowScripts": {
-    "core-js@3.47.0": true,
-    "typeit@8.8.7": true
+    "@parcel/watcher@2.6.0": true,
+    "core-js": false,
+    "plyr": false,
+    "typeit": false
   }
 }

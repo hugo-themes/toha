@@ -45,7 +45,7 @@ function write(directory, name, contents) {
 function fixture(config, verify) {
   const directory = mkdtempSync(join(tmpdir(), 'toha-code-blocks-'))
   try {
-    for (const name of ['layouts/_default/_markup/render-codeblock.html', 'layouts/partials/helpers/code-block-options.html', 'layouts/partials/helpers/code-block-labels.html', 'i18n/en.toml', 'i18n/bn.toml', 'i18n/fr.toml']) {
+    for (const name of ['layouts/_default/_markup/render-codeblock.html', 'layouts/partials/helpers/is-modern-page.html', 'layouts/partials/helpers/code-block-options.html', 'layouts/partials/helpers/code-block-labels.html', 'i18n/en.toml', 'i18n/bn.toml', 'i18n/fr.toml']) {
       mkdirSync(dirname(join(directory, name)), { recursive: true })
       copyFileSync(join(repository, name), join(directory, name))
     }

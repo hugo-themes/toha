@@ -247,3 +247,24 @@ other = "খোঁজা বন্ধ করুন"
 
 [docs_search_escape]
 other = "Esc"
+
+[blog_recent_posts]
+other = "সাম্প্রতিক পোস্ট"
+
+[blog_topics]
+other = "বিষয়সমূহ"
+
+[blog_all_posts]
+other = "সব"
+
+[blog_see_all]
+other = "সব পোস্ট দেখুন"
+
+[blog_empty]
+other = "এখনও কোনো পোস্ট নেই।"
+
+[blog_navigation]
+other = "ব্লগ নেভিগেশন"
+
+[blog_feed]
+other = "আরএসএস ফিড"

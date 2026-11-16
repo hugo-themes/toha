@@ -250,3 +250,24 @@ other = "Fermer la recherche"
 
 [docs_search_escape]
 other = "Esc"
+
+[blog_recent_posts]
+other = "Articles récents"
+
+[blog_topics]
+other = "Sujets"
+
+[blog_all_posts]
+other = "Tous"
+
+[blog_see_all]
+other = "Voir tous les articles"
+
+[blog_empty]
+other = "Aucun article pour le moment."
+
+[blog_navigation]
+other = "Navigation du blog"
+
+[blog_feed]
+other = "Flux RSS"

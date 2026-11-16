@@ -15,33 +15,11 @@
   {{ partial "analytics.html" . }}
   {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
   {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "docs/assets.html" . }}{{ end }}
-  {{ $entry := "scripts/modern/application.js" }}
-  {{ if .Site.Params.features.docs.search.enable }}{{ $entry = "scripts/modern/application-search.js" }}{{ end }}
-  {{ $js := resources.Get $entry | js.Build (dict "targetPath" "modern.js" "minify" (not hugo.IsDevelopment)) | fingerprint }}
-  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer crossorigin="anonymous"></script>
+  {{ partial "modern/scripts.html" (dict "search" .Site.Params.features.docs.search.enable) }}
 </head>
 <body class="min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
   <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
-  <header class="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-border bg-background px-5 lg:px-8">
-    <a href="{{ .Site.Home.RelPermalink }}" class="flex min-w-0 items-center gap-3 font-semibold tracking-tight">
-      <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">{{ partial "components/icon.html" (dict "name" "book") }}</span>
-      <span class="truncate">{{ .Site.Title }}</span>
-    </a>
-    <div class="flex items-center gap-2">
-      {{ if .IsTranslated }}
-      <details class="relative text-sm">
-        <summary class="cursor-pointer rounded-lg px-3 py-2 text-muted-foreground hover:bg-muted">{{ .Language.LanguageName | default .Language.Lang }}</summary>
-        <ul class="absolute right-0 mt-2 min-w-32 rounded-xl border border-border bg-surface p-2 shadow-lg">
-          {{ range .Translations }}<li><a class="docs-nav-link" href="{{ .RelPermalink }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}">{{ .Language.LanguageName | default .Language.Lang }}</a></li>{{ end }}
-        </ul>
-      </details>
-      {{ end }}
-      {{ partial "docs/search.html" . }}
-      <button type="button" class="docs-icon-button docs-theme-toggle" x-cloak @click="toggleTheme" :aria-pressed="dark" aria-label="{{ i18n "docs_dark_mode" }}">
-        {{ partial "components/icon.html" (dict "name" "sun" "class" "size-5") }}
-      </button>
-    </div>
-  </header>
+  {{ partial "modern/header.html" (dict "page" . "searchMarkup" (partial "docs/search.html" .) "navigationLabel" (i18n "docs_navigation")) }}
   <div class="mx-auto max-w-screen-2xl lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
     <aside class="docs-sidebar border-b border-border bg-background lg:border-r lg:border-b-0" aria-label="{{ i18n "docs_navigation" }}">
       <details id="docs-navigation" class="docs-navigation" open>

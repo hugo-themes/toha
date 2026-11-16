@@ -1,0 +1,14 @@
+{{/* Explicit inputs: title, href; optional summary, date, dateISO, readingTime,
+     tags (label/href dictionaries). Text stays escaped; no page/site lookups. */}}
+{{- if not (and .title .href) }}{{ errorf "components/post-card: title and href are required" }}{{ end -}}
+<article class="modern-post-card">
+  <div class="flex items-start justify-between gap-3">
+    <h3 class="min-w-0 text-base leading-6 font-semibold"><a class="modern-post-link hover:text-primary" href="{{ .href }}">{{ .title }}</a></h3>
+    {{ with .date }}<time class="shrink-0 pt-0.5 text-xs text-muted-foreground" datetime="{{ $.dateISO }}">{{ . }}</time>{{ end }}
+  </div>
+  {{ with .summary }}<p class="mt-3 line-clamp-4 text-sm leading-6 text-muted-foreground">{{ . }}</p>{{ end }}
+  <div class="mt-auto flex flex-wrap items-center justify-between gap-3 pt-5">
+    {{ with .readingTime }}<span class="inline-flex items-center gap-1.5 text-xs text-muted-foreground">{{ partial "components/icon.html" (dict "name" "clock" "class" "size-3.5") }}{{ . }}</span>{{ end }}
+    {{ with .tags }}<ul class="flex flex-wrap gap-1.5" aria-label="{{ $.tagsLabel }}">{{ range . }}<li><a class="modern-tag" href="{{ .href }}">{{ .label }}</a></li>{{ end }}</ul>{{ end }}
+  </div>
+</article>

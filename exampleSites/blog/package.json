@@ -1,0 +1,14 @@
+{
+  "name": "toha-example-blog",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/hugoautogen"
+  ],
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "core-js": false,
+    "plyr": false,
+    "typeit": false
+  }
+}

@@ -1,0 +1,9 @@
+{{/* Resolve the configured, language-local blog tree at the layout boundary. */}}
+{{- if not (or .Site.Params.features.blog.enable .Site.Params.enableBlogPost) -}}
+  {{- errorf "blog homepage requires params.features.blog.enable: true" -}}
+{{- end -}}
+{{- $section := .Site.Params.features.blog.section | default "posts" -}}
+{{- $root := .Site.GetPage $section -}}
+{{- if not $root }}{{ errorf "blog: content section %q not found" $section }}{{ end -}}
+{{- if and $root (not $root.IsSection) }}{{ errorf "blog: %q must identify a content section" $section }}{{ end -}}
+{{- return $root -}}

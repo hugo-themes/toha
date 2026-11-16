@@ -107,6 +107,25 @@
     .docs-sidebar { position: sticky; top: 4rem; height: calc(100dvh - 4rem); overflow-y: auto; }
   }
   .docs-desktop-toc { position: sticky; top: 4rem; max-height: calc(100dvh - 4rem); overflow-y: auto; }
+  .blog-hero { @apply relative isolate overflow-hidden bg-primary text-white; }
+  .blog-hero-image { @apply absolute inset-0 size-full object-cover; }
+  .blog-hero-shade { @apply absolute inset-0 bg-black/50; }
+  .blog-hero-copy a { @apply underline underline-offset-4; }
+  .blog-topic-nav { @apply sticky top-16 z-20 border-b border-border bg-background; }
+  .blog-topic-link { @apply shrink-0 border-b-2 border-transparent px-3 py-3.5 text-sm hover:border-primary hover:text-primary; }
+  .blog-topic-link:first-child { margin-inline-start: auto; }
+  .blog-topic-link:last-child { margin-inline-end: auto; }
+  .blog-home section[id] { scroll-margin-top: 8rem; }
+  .modern-post-grid { @apply grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4; }
+  .modern-post-card { @apply relative isolate flex min-w-0 flex-col rounded-xl border border-border bg-surface p-5 transition-colors hover:border-primary/50; }
+  .modern-post-link::after { content: ""; @apply absolute inset-0 rounded-xl; }
+  .modern-post-link:focus-visible { outline: none; }
+  .modern-post-link:focus-visible::after { outline: 2px solid var(--primary); outline-offset: 3px; }
+  .modern-tag { @apply inline-flex rounded-md bg-primary/10 px-2 py-0.5 text-xs text-primary hover:bg-primary/20; }
+  .modern-post-card .modern-tag { @apply relative z-10; }
+  .modern-pagination { @apply mt-5 flex flex-wrap items-center justify-end gap-1.5; }
+  .modern-pagination a { @apply flex min-h-9 min-w-9 items-center justify-center rounded-lg border border-border px-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground; }
+  .modern-pagination a[aria-current="page"] { @apply border-primary bg-primary text-primary-foreground; }
 }
 
 @media (prefers-reduced-motion: reduce) {

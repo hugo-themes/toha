@@ -26,6 +26,8 @@
   {{ if (index hugo.Data site.Language.Lang).sections }}
     {{ $sections = (index hugo.Data site.Language.Lang).sections }}
   {{ end }}
+  {{ $portfolioLayout := eq (site.Params.home.layout | default "portfolio") "portfolio" }}
+  {{ if not $portfolioLayout }}{{ $sections = dict }}{{ end }}
 
   {{ $customMenus := site.Params.customMenus }}
   {{ if (index hugo.Data site.Language.Lang).site.customMenus }}
@@ -70,7 +72,7 @@
         {{ if $navigationEnabled }}
         <div class="col-md-4 col-sm-12">
           <h5>{{ i18n "navigation" }}</h5>
-          {{ if $sections }}
+          {{ if or $sections (and (not $portfolioLayout) $customMenusEnabled $customMenus) }}
           <ul>
             {{- range sort $sections "section.weight" }}
               {{ if and (.section.enable) (.section.showOnNavbar)}}

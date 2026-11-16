@@ -1,4 +1,9 @@
+{{/* Keep the legacy import/override contract until its module migration.
+     Dependency warnings belong to Bootstrap/include-media; theme warnings stay visible. */}}
 {{ return (dict
+    "transpiler" "dartsass"
+    "silenceDependencyDeprecations" true
+    "silenceDeprecations" (slice "import")
     "outputStyle" "compressed"
     "enableSourceMap" (not hugo.IsProduction)
     "includePaths" "node_modules"

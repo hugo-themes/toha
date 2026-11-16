@@ -75,7 +75,7 @@ export default function docsSearch (fetcher = globalThis.fetch) {
     supported: false,
     init () {
       const element = this.$el
-      this.indexURL = element.dataset.docsSearchIndex
+      this.indexURL = element.dataset.searchIndex || element.dataset.docsSearchIndex
       this.supported = typeof element.querySelector('dialog')?.showModal === 'function'
     },
     open () {

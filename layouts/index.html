@@ -3,6 +3,8 @@
   {{- partial "portfolio/home.html" . -}}
 {{- else if eq $layout "docs" -}}
   {{- partial "docs/page.html" . -}}
+{{- else if eq $layout "blog" -}}
+  {{- partial "blog/home.html" . -}}
 {{- else -}}
-  {{- errorf "Unknown params.home.layout %q; expected portfolio or docs" $layout -}}
+  {{- errorf "Unknown params.home.layout %q; expected portfolio, docs or blog" $layout -}}
 {{- end -}}
