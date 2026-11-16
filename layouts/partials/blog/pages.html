@@ -1,0 +1,3 @@
+{{/* Keep cards, topic previews and modal search on the same visible post set. */}}
+{{- $posts := where .RegularPagesRecursive "Params.hidden" "!=" true -}}
+{{- return (where $posts "Layout" "") -}}

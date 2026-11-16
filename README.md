@@ -320,6 +320,14 @@ mise run docs
 
 Its content and configuration live in `exampleSites/docs/`. See [modern components and layouts](docs/components.md) for component contracts, layout selection, and the modern/legacy asset boundary. `mise run build-docs` builds this example for production.
 
+For the modern blog homepage with a hero, topic previews, and shared search dialog, run:
+
+```bash
+mise run blog
+```
+
+Its content and configuration live in `exampleSites/blog/`. Use `mise run build-blog` for a production build. See [choosing a homepage](docs/layouts.md) for blog configuration and combining blog, docs, and portfolio pages.
+
 `mise run example-portfolio` and `mise run example-site` remain aliases for the portfolio development server. Use `mise run build-portfolio` to build the portfolio example, or `mise run build` to build all example sites. `mise run check` runs the example builds, lint, and regression tests.
 
 ### Running the forked theme against your own site

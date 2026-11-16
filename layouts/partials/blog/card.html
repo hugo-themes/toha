@@ -1,0 +1,10 @@
+{{- $tags := slice -}}
+{{- if .Site.Params.features.tags.enable -}}
+  {{- range first 3 (.GetTerms "tags") }}{{ $tags = $tags | append (dict "label" .LinkTitle "href" .RelPermalink) }}{{ end -}}
+{{- end -}}
+{{- $date := "" -}}{{- $dateISO := "" -}}
+{{- if not .Date.IsZero }}{{ $date = .Date | time.Format ":date_medium" }}{{ $dateISO = .Date.Format "2006-01-02" }}{{ end -}}
+{{- partial "components/post-card.html" (dict "title" .Title "href" .RelPermalink
+  "summary" ((.Description | default .Summary) | plainify | htmlUnescape | truncate 210)
+  "date" $date "dateISO" $dateISO "readingTime" (printf "%d %s" .ReadingTime (i18n "minute" .ReadingTime))
+  "tags" $tags "tagsLabel" (i18n "tags")) -}}

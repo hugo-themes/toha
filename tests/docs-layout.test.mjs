@@ -1,33 +1,14 @@
 /* eslint-env node */
 import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { test } from 'node:test'
 import { fileURLToPath } from 'node:url'
+import { copyModernDependencies } from './helpers/modern-dependencies.mjs'
 
 const repository = fileURLToPath(new URL('../', import.meta.url))
-
-// Install the already-locked modern dependency closure into an external consumer.
-// No network, symlinks to repository source, or extra Hugo file permissions.
-function copyModernDependencies (directory) {
-  const copied = new Set()
-  function copy (name) {
-    if (copied.has(name)) return
-    const source = join(repository, 'node_modules', name)
-    if (!existsSync(source)) return // Optional native binaries for other platforms.
-    copied.add(name)
-    const target = join(directory, 'node_modules', name)
-    mkdirSync(dirname(target), { recursive: true })
-    cpSync(source, target, { recursive: true })
-    const pkg = JSON.parse(readFileSync(join(source, 'package.json'), 'utf8'))
-    for (const dependency of Object.keys({ ...pkg.dependencies, ...pkg.optionalDependencies })) copy(dependency)
-  }
-  for (const name of ['alpinejs', 'tailwindcss', '@tailwindcss/cli', 'fuse.js']) copy(name)
-  mkdirSync(join(directory, 'node_modules/.bin'), { recursive: true })
-  symlinkSync('../@tailwindcss/cli/dist/index.mjs', join(directory, 'node_modules/.bin/tailwindcss'))
-}
 
 test('external docs consumer renders components, language/subpath URLs, and isolated modern assets', () => {
   const directory = mkdtempSync(join(tmpdir(), 'toha-docs-consumer-'))
@@ -223,6 +204,20 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     build()
     assert.match(html('en/index.html'), /data-portfolio-home/)
 
+    // Blog and docs share modern assets; legacy articles keep their existing bundle.
+    config.params.home.layout = 'blog'
+    config.params.features.blog = { enable: true }
+    write('content/posts/_index.md', '---\ntitle: Posts\n---')
+    write('content/posts/_index.bn.md', '---\ntitle: পোস্ট\n---')
+    build()
+    assert.match(html('en/index.html'), /blog-home/)
+    assert.match(html('en/index.html'), /styles\/modern/)
+    assert.match(html('en/index.html'), /Legacy article/)
+    assert.doesNotMatch(html('en/index.html'), /legacy\.css|legacy\.js|docs-search-dialog/)
+    assert.match(html(), /styles\/modern/)
+    assert.doesNotMatch(html(), /legacy\.css|legacy\.js/)
+    config.params.home.layout = 'portfolio'
+
     // Existing content with type docs retains legacy rendering when disabled.
     config.params.features.docs.enable = false
     rmSync(join(directory, 'content/docs/components.md'))
@@ -247,7 +242,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     config.params.features.docs.section = 'docs'
     config.params.home.layout = 'portfolio'
     write('content/legacy-probe.md', '---\ntitle: Legacy shortcode probe\n---\n{{< ui-badge label="Unstyled" >}}')
-    assert.throws(build, /requires an enabled modern docs page/)
+    assert.throws(build, /requires an enabled modern page/)
     rmSync(join(directory, 'content/legacy-probe.md'))
     write('content/probe.md', '---\ntitle: Contract probe\nlayout: component-probe\n---')
     const invalidInputs = [
@@ -256,6 +251,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
       ['button', '(dict "label" "Action" "iconOnly" true)', /iconOnly requires icon/],
       ['button', '(dict "label" "Action" "href" "/" "disabled" true)', /disabled links are not supported/],
       ['badge', '(dict "label" "Badge" "tone" "invalid")', /unknown tone/],
+      ['post-card', '(dict "title" "Missing URL")', /title and href are required/],
       ['icon', '(dict "name" "invalid")', /unknown name/]
     ]
     for (const [component, inputs, error] of invalidInputs) {

@@ -249,3 +249,24 @@ other = "Close search"
 
 [docs_search_escape]
 other = "Esc"
+
+[blog_recent_posts]
+other = "Recent posts"
+
+[blog_topics]
+other = "Topics"
+
+[blog_all_posts]
+other = "All"
+
+[blog_see_all]
+other = "See all posts"
+
+[blog_empty]
+other = "No posts yet."
+
+[blog_navigation]
+other = "Blog navigation"
+
+[blog_feed]
+other = "RSS feed"

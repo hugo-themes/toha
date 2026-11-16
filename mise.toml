@@ -20,7 +20,30 @@ run = ["hugo mod tidy", "hugo mod npm pack", "npm install"]
 
 [tasks.install-example-deps]
 description = "Install dependencies for all example sites"
-depends = ["install-portfolio-deps", "install-docs-deps"]
+depends = ["install-portfolio-deps", "install-docs-deps", "install-blog-deps"]
+
+[tasks.install-blog-deps]
+description = "Install blog example dependencies (including Hugo modules)"
+depends = ["install"]
+dir = "exampleSites/blog"
+run = ["hugo mod tidy", "hugo mod npm pack", "npm install"]
+
+[tasks.blog]
+description = "Start the blog development server with live reload"
+depends = ["install-blog-deps"]
+dir = "exampleSites/blog"
+run = "hugo server -w --bind=0.0.0.0 --renderToMemory"
+
+[tasks.build-blog]
+description = "Build the blog example for production"
+depends = ["install-blog-deps"]
+dir = "exampleSites/blog"
+run = "hugo --gc --minify --cleanDestinationDir"
+
+[tasks.test-blog]
+description = "Verify blog homepage selection, pagination, feeds, URLs, and layout combinations"
+depends = ["install"]
+run = "node --test tests/blog-layout.test.mjs"
 
 [tasks.install-docs-deps]
 description = "Install docs example dependencies (including Hugo modules)"
@@ -54,7 +77,7 @@ run = ["hugo --gc --minify --cleanDestinationDir"]
 
 [tasks.build]
 description = "Build all example sites for production"
-depends = ["build-portfolio", "build-docs"]
+depends = ["build-portfolio", "build-docs", "build-blog"]
 
 [tasks.lint]
 description = "Run code linters"
@@ -101,4 +124,4 @@ run = "npm audit fix --force"
 [tasks.check]
 description = "Run build, lint, URL, and SEO regression tests"
 # This gives the AI a single 'truth' command to validate its work.
-depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap", "test-docs"]
+depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap", "test-docs", "test-blog"]

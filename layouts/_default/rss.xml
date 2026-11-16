@@ -2,7 +2,12 @@
 {{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
 {{- $pages := slice -}}
 {{- if $.IsHome -}}
-{{- $pages = sort $pctx.RegularPages "Date" "desc" -}}
+{{- if eq .Site.Params.home.layout "blog" -}}
+  {{- $root := partial "blog/root.html" . -}}
+  {{- $pages = sort (partial "blog/pages.html" $root) "Date" "desc" -}}
+{{- else -}}
+  {{- $pages = sort $pctx.RegularPages "Date" "desc" -}}
+{{- end -}}
 {{- else if $.IsSection -}}
 {{- $pages = sort $pctx.RegularPagesRecursive "Date" "desc" -}}
 {{- else -}}

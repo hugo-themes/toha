@@ -1,0 +1,3 @@
+{{- $docs := and .Site.Params.features.docs.enable (or (eq .Type "docs") (and .IsHome (eq .Site.Params.home.layout "docs"))) -}}
+{{- $blog := and .IsHome (eq .Site.Params.home.layout "blog") (or .Site.Params.features.blog.enable .Site.Params.enableBlogPost) -}}
+{{- return (or $docs $blog) -}}

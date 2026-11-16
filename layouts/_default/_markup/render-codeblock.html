@@ -1,4 +1,4 @@
-{{- if and site.Params.features.docs.enable (or (eq .Page.Type "docs") (and .Page.IsHome (eq site.Params.home.layout "docs"))) -}}
+{{- if partial "helpers/is-modern-page.html" .Page -}}
   {{- $highlight := transform.HighlightCodeBlock . -}}{{ $highlight.Wrapped }}
 {{- else -}}
 {{- $options := partial "helpers/code-block-options.html" . -}}

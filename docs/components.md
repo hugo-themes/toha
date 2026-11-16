@@ -1,8 +1,10 @@
 # Modern components and layouts
 
-The opt-in docs layout establishes the shared foundation for future Toha layouts.
+The opt-in docs and blog homepage layouts share a modern component foundation.
 Run `mise run docs` and open **Component gallery** to inspect the primitives.
 Run `mise run portfolio` to work on the existing portfolio.
+Run `mise run blog` for the modern hero, compact cards, topic previews and search.
+See [choosing a homepage](layouts.md) for layout combinations.
 
 ## Ownership
 
@@ -10,10 +12,10 @@ Run `mise run portfolio` to work on the existing portfolio.
 | --- | --- | --- |
 | Tokens and CSS | `assets/styles/modern/main.css` | Semantic roles, light/dark schemes, Tailwind entry point, article typography |
 | Primitives | `layouts/partials/components/` | Explicit inputs, semantic markup, accessibility, named variants |
-| Compositions | `layouts/partials/docs/` | Adapt configuration and Hugo pages into navigation and page structure |
+| Compositions | `layouts/partials/docs/`, `blog/`, `modern/` | Adapt configuration and Hugo pages into navigation and page structure |
 | Interactions | `assets/scripts/modern/` | Alpine initialization, responsive navigation state, persistent theme preference |
 | Markdown adapters | `layouts/shortcodes/ui-*.html` | Render Markdown and pass inputs to primitives |
-| Example and gallery | `exampleSites/docs/` | Runnable content, component variants, build configuration |
+| Examples and gallery | `exampleSites/docs/`, `exampleSites/blog/` | Runnable content, component variants, build configuration |
 
 Keep a small component in one partial. Introduce private helpers only when
 validation, variant selection, or rendering becomes difficult to read together.
@@ -106,10 +108,10 @@ also omit the action. These services do not change legacy blog search or assets.
 
 ## Asset boundary and build configuration
 
-Docs pages load Tailwind and the fingerprinted Alpine bundle. Legacy pages keep
-their Bootstrap/SCSS and existing JavaScript bundles. Avoid loading both global
+Docs pages and blog homepages load Tailwind and the fingerprinted Alpine bundle.
+Legacy pages keep their Bootstrap/SCSS and existing JavaScript bundles. Avoid loading both global
 style systems on one page. Existing shortcodes retain their original styling;
-the `ui-*` shortcodes are for modern docs pages.
+the `ui-*` shortcodes are for enabled modern pages.
 
 Tailwind v4 runs through Hugo's `css.TailwindCSS`. The example enables
 `build.buildStats.enable`, mounts `hugo_stats.json` at
@@ -142,10 +144,14 @@ provided for English, Bengali, and French.
 | Partial | Inputs | Behavior |
 | --- | --- | --- |
 | `components/button.html` | Required `label`; optional `href`, `variant` (`primary`, `secondary`, `ghost`), `icon`, `iconOnly`, `disabled` | Link when `href` is supplied, otherwise `type="button"`. Icon-only controls require a label and icon. Disabled links fail validation. |
-| `components/icon.html` | Required `name`; optional `class` | Decorative inline SVG. Names: `book`, `arrow-right`, `arrow-left`, `chevron`, `sun`, `search`, `close`, `info`, `check`, `code`. Unknown names fail validation. |
+| `components/icon.html` | Required `name`; optional `class` | Decorative inline SVG. Names: `book`, `clock`, `menu`, `arrow-right`, `arrow-left`, `chevron`, `sun`, `search`, `close`, `info`, `check`, `code`. Unknown names fail validation. |
 | `components/badge.html` | Required `label`; optional `tone` (`neutral`, `accent`) | Non-interactive supporting label. |
 | `components/callout.html` | `content` (rendered Markdown); optional `title` | Semantic aside with decorative icon and escaped title. |
 | `components/disclosure.html` | Required `label`; optional `content` (rendered Markdown), `open` (boolean) | Native details/summary with keyboard and no-JavaScript support. |
+| `components/post-card.html` | Required `title`, `href`; optional `summary`, `date`, `dateISO`, `readingTime`, `tags` (`label`/`href`), `tagsLabel` | Compact text card with a full-card post link and separate tag links; metadata and tags are escaped and adapted by the caller. |
+| `components/pagination.html` | Required Hugo `paginator`; localized `label`, `previous`, `next` | Bounded page links with real hrefs and `aria-current`; works without JavaScript. |
+| `components/site-header.html` | `title`, `homeURL`, `links`, `languages`, `languageLabel`, `searchMarkup`, `navigationLabel`, `themeLabel` | Shared responsive header with native mobile/language disclosures and Alpine theme toggle. `searchMarkup` is trusted partial output. |
+| `components/search-dialog.html` | Required unique `id`, fingerprinted `indexURL`, localized `labels` dictionary | Shared native modal, compact stable results area and keyboard navigation; layout adapters select/index content. |
 
 ```go-html-template
 {{ partial "components/button.html" (dict
@@ -158,7 +164,7 @@ provided for English, Bengali, and French.
 Markdown uses `ui-button`, `ui-badge`, `ui-callout`, and `ui-disclosure`.
 `ui-button` also accepts `page`, resolved through `Page.GetPage` to preserve
 language and deployment prefixes. For boolean shortcode inputs, pass the string
-`"true"`. All `ui-*` shortcodes require the docs feature and a modern docs page.
+`"true"`. All `ui-*` shortcodes require an enabled modern docs page or blog homepage.
 
 ## Interaction and verification
 
@@ -173,3 +179,12 @@ Run `mise run check` for all builds, lint, and regression tests. The focused
 subpath URLs, component semantics, class generation, and modern/legacy asset
 isolation. Visual acceptance includes desktop/mobile columns, keyboard focus,
 native disclosures, theme persistence, and no horizontal page overflow.
+
+
+Blog homepage compositions live in `layouts/partials/blog/`; shared modern header,
+asset and search-label adapters live in `layouts/partials/modern/`.
+`helpers/is-modern-page.html` owns modern Markdown/shortcode selection.
+The search dialog retains its existing `docs-search-*` styling hooks for
+compatibility while accepting independent blog/docs IDs and index URLs.
+Blog modal search is separately enabled with `params.features.blog.search.enable`;
+see [homepage configuration](layouts.md) for the complete contract.

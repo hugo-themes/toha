@@ -6,7 +6,7 @@ This is **Toha**, a personal portfolio theme for the [Hugo](https://gohugo.io/) 
 
 - **Goal:** Showcase skills, experience, and thoughts (blog) with elegance and simplicity.
 - **Core Philosophy:** Configuration over Code. Users should control the site via `data/` and `hugo.yaml` without touching HTML/CSS.
-- **Tech Stack:** Hugo (Extended) and Hugo Pipes. Existing layouts use SCSS/Bootstrap and vanilla JavaScript. Opt-in modern docs pages use Tailwind CSS v4, semantic CSS tokens, and Alpine.js.
+- **Tech Stack:** Hugo (Extended) and Hugo Pipes. Existing layouts use SCSS/Bootstrap and vanilla JavaScript. Opt-in modern docs and blog homepages use Tailwind CSS v4, semantic CSS tokens, and Alpine.js.
 
 ## Development Environment
 
@@ -43,6 +43,7 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 - `i18n/`: Localization files. **All user-facing text must be tokenized here.**
 - `exampleSites/`: Complete Hugo sites that demonstrate theme layouts.
   - `docs/`: Modern docs shell and component gallery. Run `mise run docs`.
+  - `blog/`: Modern blog homepage with hero, topic previews, and shared search. Run `mise run blog`.
   - `portfolio/`: The portfolio integration test bed.
     - `hugo.yaml`: Main configuration.
     - `data/`: Defines layout configurations.
@@ -65,7 +66,7 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 
 ### JavaScript
 
-- **JavaScript:** Legacy pages use vanilla JS and existing Bootstrap behavior. Modern docs bundle Alpine through Hugo Pipes; keep content server-rendered and enhance local interaction only.
+- **JavaScript:** Legacy pages use vanilla JS and existing Bootstrap behavior. Modern pages bundle Alpine through Hugo Pipes; keep content server-rendered and enhance local interaction only.
 - **Fingerprinting:** All JS resources in templates must be fingerprinted for cache busting.
   - _Example:_ `$js := resources.Get "js/script.js" | fingerprint`
 - **DOM Manipulation:** Ensure DOM elements exist before attaching listeners.
@@ -106,6 +107,7 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 - `layouts/partials/docs/` adapts site configuration and Hugo pages into compositions. `ui-*` shortcodes are thin adapters to primitives.
 - Use semantic tokens, named variants, real button/link semantics, and accessible labels. Do not rely on HTML class ordering to resolve conflicting Tailwind utilities.
 - Enable docs with `params.features.docs.enable: true` and `type: docs` (usually via content cascade); `params.home.layout: docs` independently selects the homepage.
+- Select a blog homepage with `params.home.layout: blog` and the existing blog enable flag. `layouts/partials/blog/` adapts posts into modern cards, topic previews, and a scoped search index. See `docs/layouts.md`; run `mise run test-blog` for homepage/feed/URL coverage. Blog homepages share modern assets with docs; existing articles/archives keep legacy assets.
 - Keep modern Tailwind/Alpine assets and legacy Bootstrap/SCSS assets separate per page. Preserve the default portfolio behavior.
 - Docs search and edit links are separately opt-in under `params.features.docs.search` / `edit`. Search indexes only the current docs tree/language; edit URLs are adapted from source paths at the composition layer. See `docs/components.md` for configuration and per-page overrides.
 - Run `mise run test-docs` for rendering, external-module, URL, and asset-boundary coverage. Delegate visual and keyboard verification to the computer-use agent.

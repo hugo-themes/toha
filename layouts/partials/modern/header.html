@@ -1,0 +1,7 @@
+{{- $languages := slice -}}
+{{- range .page.Translations -}}
+  {{- $languages = $languages | append (dict "label" (.Language.LanguageName | default .Language.Lang) "code" .Language.Lang "href" .RelPermalink) -}}
+{{- end -}}
+{{- partial "components/site-header.html" (dict "title" .page.Site.Title "homeURL" .page.Site.Home.RelPermalink
+  "links" .links "languages" $languages "languageLabel" (.page.Language.LanguageName | default .page.Language.Lang)
+  "searchMarkup" .searchMarkup "navigationLabel" .navigationLabel "themeLabel" (i18n "docs_dark_mode")) -}}

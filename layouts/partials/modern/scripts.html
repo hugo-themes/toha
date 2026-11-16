@@ -1,0 +1,5 @@
+{{/* Inputs: search (boolean); assets remain separate from the legacy bundle. */}}
+{{- $entry := "scripts/modern/application.js" -}}
+{{- if .search }}{{ $entry = "scripts/modern/application-search.js" }}{{ end -}}
+{{- $js := resources.Get $entry | js.Build (dict "targetPath" "modern.js" "minify" (not hugo.IsDevelopment)) | fingerprint -}}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer crossorigin="anonymous"></script>

@@ -1,0 +1,18 @@
+{{- $entries := slice -}}
+{{- $root := . -}}
+{{- range partial "blog/pages.html" $root -}}
+  {{- if ne .Params.blog.search false -}}
+    {{- $page := . -}}
+    {{- $breadcrumbs := slice -}}
+    {{- range .Ancestors.Reverse -}}
+      {{- if or (eq . $root) ($root.IsAncestor .) }}{{ $breadcrumbs = $breadcrumbs | append .LinkTitle }}{{ end -}}
+    {{- end -}}
+    {{- with .OutputFormats.Get "html" -}}
+      {{- $entries = $entries | append (dict "title" $page.Title "url" .RelPermalink
+        "text" ($page.Plain | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace)
+        "breadcrumbs" $breadcrumbs) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $path := printf "blog-search/%s-%s.json" .Language.Lang (crypto.MD5 .RelPermalink) -}}
+{{- return (resources.FromString $path ($entries | jsonify) | fingerprint) -}}

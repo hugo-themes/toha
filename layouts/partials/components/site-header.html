@@ -1,0 +1,27 @@
+{{/* Explicit inputs: title, homeURL, links, languages, searchMarkup (trusted
+     partial output), navigationLabel, themeLabel. Alpine owns theme interaction. */}}
+<header class="sticky top-0 z-30 border-b border-border bg-background">
+  <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-5 lg:px-8">
+    <a href="{{ .homeURL }}" class="flex min-w-0 items-center gap-3 font-semibold tracking-tight">
+      <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">{{ partial "components/icon.html" (dict "name" "book") }}</span>
+      <span class="truncate">{{ .title }}</span>
+    </a>
+    {{ with .links }}<nav class="mr-auto hidden items-center gap-1 md:flex" aria-label="{{ $.navigationLabel }}">{{ range . }}<a class="docs-nav-link" href="{{ .href }}">{{ .label }}</a>{{ end }}</nav>{{ end }}
+    <div class="flex shrink-0 items-center gap-2">
+      {{ with .links }}
+      <details class="relative md:hidden">
+        <summary class="docs-icon-button cursor-pointer" aria-label="{{ $.navigationLabel }}">{{ partial "components/icon.html" (dict "name" "menu" "class" "size-5") }}</summary>
+        <nav class="absolute right-0 mt-2 min-w-48 rounded-xl border border-border bg-surface p-2 shadow-lg" aria-label="{{ $.navigationLabel }}">{{ range . }}<a class="docs-nav-link" href="{{ .href }}">{{ .label }}</a>{{ end }}</nav>
+      </details>
+      {{ end }}
+      {{ with .languages }}
+      <details class="relative text-sm">
+        <summary class="cursor-pointer rounded-lg px-3 py-2 text-muted-foreground hover:bg-muted">{{ $.languageLabel }}</summary>
+        <ul class="absolute right-0 mt-2 min-w-32 rounded-xl border border-border bg-surface p-2 shadow-lg">{{ range . }}<li><a class="docs-nav-link" href="{{ .href }}" lang="{{ .code }}" hreflang="{{ .code }}">{{ .label }}</a></li>{{ end }}</ul>
+      </details>
+      {{ end }}
+      {{ .searchMarkup }}
+      <button type="button" class="docs-icon-button docs-theme-toggle" x-cloak @click="toggleTheme" :aria-pressed="dark" aria-label="{{ .themeLabel }}">{{ partial "components/icon.html" (dict "name" "sun" "class" "size-5") }}</button>
+    </div>
+  </div>
+</header>

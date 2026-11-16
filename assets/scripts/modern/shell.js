@@ -3,7 +3,7 @@ export default () => ({
   init () {
     const wide = window.matchMedia('(min-width: 64rem)')
     const navigation = document.getElementById('docs-navigation')
-    const resize = () => { navigation.open = wide.matches }
+    const resize = () => { if (navigation) navigation.open = wide.matches }
     resize()
     wide.addEventListener('change', resize)
     this.cleanup = () => wide.removeEventListener('change', resize)

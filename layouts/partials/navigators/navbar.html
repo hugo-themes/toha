@@ -5,6 +5,8 @@
 {{ $notesEnabled  := site.Params.features.notes.enable  | default false }}
 {{ $notesTitle := site.Params.features.notes.title  | default (i18n "notes") }}
 {{ $maxVisibleSections   := site.Params.topNavbar.maxVisibleSections   | default 5 }}
+{{ $portfolioLayout := eq (site.Params.home.layout | default "portfolio") "portfolio" }}
+{{ $portfolioHome := and .IsHome $portfolioLayout }}
 
 {{/*  keep backward compatibility for blog post  */}}
 {{ if site.Params.enableBlogPost }}
@@ -53,7 +55,7 @@
 {{ end }}
 
 {{ $logo := $mainLogo }}
-{{ if .IsHome }}
+{{ if $portfolioHome }}
   {{ $logo = $invertedLogo }}
 {{ end }}
 
@@ -66,13 +68,14 @@
 {{ if (index hugo.Data site.Language.Lang).sections }}
   {{ $sections = (index hugo.Data site.Language.Lang).sections }}
 {{ end }}
+{{ if not $portfolioLayout }}{{ $sections = dict }}{{ end }}
 
 {{ $navBarTitle := (index hugo.Data site.Language.Lang).site.navBarTitle }}
 {{ if not $navBarTitle }}
   {{ $navBarTitle = site.Title }}
 {{ end }}
 
-<nav class="navbar navbar-expand-xl top-navbar shadow {{ if .IsHome}}transparent-navbar homepage{{end}}" id="top-navbar">
+<nav class="navbar navbar-expand-xl top-navbar shadow {{ if $portfolioHome}}transparent-navbar homepage{{end}}" id="top-navbar">
   <div class="container">
     {{ if not .IsHome }}
     <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button">
@@ -86,7 +89,7 @@
       {{- $navBarTitle -}}
     </a>
     <button
-      class="navbar-toggler {{if .IsHome}}navbar-dark{{else}}navbar-light{{end}}"
+      class="navbar-toggler {{if $portfolioHome}}navbar-dark{{else}}navbar-light{{end}}"
       id="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -99,7 +102,7 @@
     <div class="collapse navbar-collapse dynamic-navbar" id="top-nav-items">
       <ul class="nav navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{ if .IsHome }}#home{{else}}{{ partial "helpers/get-page-url.html" "" }}#home{{end}}">{{ i18n "home" }}</a>
+          <a class="nav-link" href="{{ if $portfolioHome }}#home{{else}}{{ partial "helpers/get-page-url.html" "" }}{{ if $portfolioLayout }}#home{{ end }}{{end}}">{{ i18n "home" }}</a>
         </li>
         {{ if $sections }}
           {{ $sectionCount := 1 }}

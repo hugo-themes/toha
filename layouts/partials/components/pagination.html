@@ -1,0 +1,14 @@
+{{/* Explicit inputs: paginator and localized label, previous, next. */}}
+{{- $p := .paginator -}}
+{{- if gt $p.TotalPages 1 -}}
+<nav class="modern-pagination" aria-label="{{ .label }}">
+  {{ if $p.HasPrev }}<a href="{{ $p.Prev.URL }}" aria-label="{{ .previous }}">{{ partial "components/icon.html" (dict "name" "arrow-left") }}</a>{{ end }}
+  {{ range $p.Pagers }}
+    {{ $n := .PageNumber }}
+    {{ if or (eq $n 1) (eq $n $p.TotalPages) (and (ge $n (sub $p.PageNumber 2)) (le $n (add $p.PageNumber 2))) }}
+      <a href="{{ .URL }}"{{ if eq $n $p.PageNumber }} aria-current="page"{{ end }}>{{ $n }}</a>
+    {{ else if or (eq $n (sub $p.PageNumber 3)) (eq $n (add $p.PageNumber 3)) }}<span aria-hidden="true">…</span>{{ end }}
+  {{ end }}
+  {{ if $p.HasNext }}<a href="{{ $p.Next.URL }}" aria-label="{{ .next }}">{{ partial "components/icon.html" (dict "name" "arrow-right") }}</a>{{ end }}
+</nav>
+{{- end -}}
