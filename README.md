@@ -15,9 +15,13 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 
 ![Thumbnail](https://raw.githubusercontent.com/hugo-themes/toha/main/images/screenshot.png)
 
-- **Example Site:** [toha-example-site](https://toha-example-site.netlify.app)
+### Example Sites
+- **Portfolio:** https://portfolio.hugo-themes.com
+- **Blog (WIP):** https://blog.hugo-themes.com
+- **Docs (WIP):** https://docs.hugo-themes.com
+
+### Documentation
 - **Documentation:** [toha-docs.netlify.app](https://toha-docs.netlify.app/posts)
-- **Pull-request previews:** [Cloudflare setup](docs/cloudflare-previews.md)
 
 ## Features
 
