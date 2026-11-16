@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .skills-section {
   .card {
     margin-top: 0.5rem;
@@ -81,7 +83,7 @@ html[data-theme='dark'] {
   padding: 0;
   border: 0;
   background: transparent;
-  color: darken(get-light-color('accent-color'), 8%);
+  color: color.adjust(get-light-color('accent-color'), $lightness: -8%);
   font: inherit;
   font-weight: 600;
   text-align: start;

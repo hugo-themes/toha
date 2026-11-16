@@ -25,8 +25,18 @@ data. Compositions adapt those sources into explicit inputs.
 ## Enable docs
 
 Use the complete `exampleSites/docs/hugo.yaml` as the starting configuration.
-Install Node.js and Hugo Extended using `mise run install`, then run
+Install the pinned tools, including Dart Sass, with `mise install`, then run
 `hugo mod npm pack` and `npm install` in your site.
+
+The legacy Bootstrap stylesheet uses Dart Sass. Its existing Sass import and
+override contract is retained; import deprecations and dependency deprecations
+are scoped out in `helpers/get-sass-options.html` while other theme warnings
+remain visible. Modern pages continue to use Tailwind.
+
+Root and example `package.json` files record npm install-script decisions.
+The reviewed watcher build hook is version-pinned; Core-js and TypeIt notices
+and Plyr's package-manager check are explicitly denied. Use
+`npm install-scripts ls` in each project to review new script-bearing versions.
 
 ```yaml
 params:

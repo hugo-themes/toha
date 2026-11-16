@@ -1,8 +1,10 @@
+@use 'sass:map';
+
 @function get-color($mode, $key) {
-  @if map-has-key($themes, $mode) {
-    $theme: map-get($themes, $mode);
-    @if map-has-key($theme, $key) {
-      @return map-get($theme, $key);
+  @if map.has-key($themes, $mode) {
+    $theme: map.get($themes, $mode);
+    @if map.has-key($theme, $key) {
+      @return map.get($theme, $key);
     }
   }
   @return red; // default color for debugging purpose
@@ -52,21 +54,21 @@
 }
 
 @function get-alert-bg-color($type, $mode) {
-  $colors: map-get($alerts, $type);
+  $colors: map.get($alerts, $type);
   @if $mode == 'light' {
-    @return map-get($colors, 'bg-color');
+    @return map.get($colors, 'bg-color');
   } @else {
-    @return map-get($colors, 'text-color');
+    @return map.get($colors, 'text-color');
   }
   @return red;
 }
 
 @function get-alert-text-color($type, $mode) {
-  $colors: map-get($alerts, $type);
+  $colors: map.get($alerts, $type);
   @if $mode == 'light' {
-    @return map-get($colors, 'text-color');
+    @return map.get($colors, 'text-color');
   } @else {
-    @return map-get($colors, 'bg-color');
+    @return map.get($colors, 'bg-color');
   }
   @return red;
 }
