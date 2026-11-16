@@ -17,7 +17,7 @@ jobs:
           persist-credentials: false
 
       # Setup mise
-      - uses: jdx/mise-action@v5.2.7
+      - uses: jdx/mise-action@v5.2.8
 
       - name: Build
         run: |
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v7.0.1
 
       # Setup mise
-      - uses: jdx/mise-action@v5.2.7
+      - uses: jdx/mise-action@v5.2.8
 
       - name: Lint
         run: |
