@@ -12,6 +12,26 @@ import { copyModernDependencies } from './helpers/modern-dependencies.mjs'
 const repository = fileURLToPath(new URL('../', import.meta.url))
 const example = join(repository, 'exampleSites/docs')
 
+// Collect fixture link targets for existence checks, never for HTML sanitization.
+function * linkedTargets (content) {
+  for (const [tag] of content.matchAll(/<(?:a|img|source|video|link|script|iframe)\b[^>]*>/gi)) {
+    for (const [, quoted, bare] of tag.matchAll(/\s(?:href|src)=(?:"([^"]+)"|([^\s>]+))/gi)) {
+      yield quoted ?? bare
+    }
+  }
+}
+
+test('docs link checks include mixed-case HTML tags and attributes without reading escaped examples or Alpine bindings', () => {
+  const content = `
+    <a href="/docs/guide/">Guide</a>
+    <SCRIPT SRC=/scripts/example.js></SCRIPT>
+    <iMg sRc="/images/example.png">
+    &lt;script src="/scripts/escaped.js"&gt;&lt;/script&gt;
+    <a :href="result.url">Search result</a>
+  `
+  assert.deepEqual([...linkedTargets(content)], ['/docs/guide/', '/scripts/example.js', '/images/example.png'])
+})
+
 test('official docs preserve every imported route, translation, resource, and modern asset boundary', () => {
   const directory = mkdtempSync(join(tmpdir(), 'toha-official-docs-'))
   const ledger = JSON.parse(readFileSync(join(example, 'imports/toha-docs.json'), 'utf8'))
@@ -51,14 +71,11 @@ test('official docs preserve every imported route, translation, resource, and mo
           const alias = html(oldURL)
           assert.ok(alias.includes(`${base.replace(/\/$/, '')}${page.url}`), `alias ${oldURL}`)
         }
-        // Read attributes only from actual opening tags, excluding escaped examples and Alpine bindings.
-        for (const [tag] of content.matchAll(/<(?:a|img|source|video|link|script|iframe)\b[^>]*>/g)) {
-          for (const [, quoted, bare] of tag.matchAll(/\s(?:href|src)=(?:"([^"]+)"|([^\s>]+))/g)) {
-            const target = new URL(quoted ?? bare, base.replace(/\/$/, '') + page.url)
-            if (target.origin !== new URL(base).origin) continue
-            const pathname = decodeURIComponent(target.pathname).slice(prefix.length)
-            if (/^(?:(?:fr|es)\/)?docs\//.test(pathname) || /^(?:videos|images)\//.test(pathname)) localTargets.add(pathname)
-          }
+        for (const href of linkedTargets(content)) {
+          const target = new URL(href, base.replace(/\/$/, '') + page.url)
+          if (target.origin !== new URL(base).origin) continue
+          const pathname = decodeURIComponent(target.pathname).slice(prefix.length)
+          if (/^(?:(?:fr|es)\/)?docs\//.test(pathname) || /^(?:videos|images)\//.test(pathname)) localTargets.add(pathname)
         }
         if (!page.url.includes('/writing-posts/mermaid/')) assert.doesNotMatch(content, /modern-diagrams\./)
       }
