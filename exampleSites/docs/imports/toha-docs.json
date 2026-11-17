@@ -1726,7 +1726,7 @@
   "redirects": [
     {
       "from": "/docs/components/",
-      "to": "/docs/shortcodes/components/"
+      "to": "/docs/shortcodes/"
     },
     {
       "from": "/docs/guides/",

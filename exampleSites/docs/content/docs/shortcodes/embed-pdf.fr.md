@@ -6,10 +6,26 @@ weight: 120
 
 Affichez le lecteur PDF historique. Définissez src et éventuellement renderPageNum et hidePaginator. Ce lecteur dépend du JavaScript historique.
 
-Référence de compatibilité pour les sites existants. Ces exemples sont affichés comme code source sans charger les ressources historiques ou tierces dans les docs modernes.
+Activez `params.features.embedpdf.enable: true` dans `hugo.yaml`. Cet exemple attend `sample.pdf` dans le bundle de la page.
 
 ## Utilisation
 
 ```go-html-template
-{{</* embed-pdf src="/files/document.pdf" renderPageNum="1" hidePaginator="false" */>}}
+{{</* embed-pdf src="sample.pdf" renderPageNum="1" hidePaginator="false" */>}}
 ```
+
+### Aperçu
+
+{{< docs-preview page="/shortcode-previews/embed-pdf" title="embed-pdf" >}}
+
+Cet aperçu exécute le shortcode historique dans un cadre séparé. Les intégrations distantes et le lecteur PDF nécessitent un accès réseau.
+
+## Variantes: `hidePaginator`
+
+```go-html-template
+{{</* embed-pdf src="sample.pdf" renderPageNum="1" hidePaginator="true" */>}}
+```
+
+### Aperçu
+
+{{< docs-preview page="/shortcode-previews/embed-pdf-hidePaginator" title="embed-pdf hidePaginator" >}}

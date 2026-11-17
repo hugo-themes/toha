@@ -14,4 +14,8 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 {{</* video src="/videos/sample.mp4" type="video/mp4" */>}}
 ```
 
-[Ejemplos]({{< relref "/docs/shortcodes" >}})
+### Vista previa
+
+{{< video src="/videos/sample.mp4" type="video/mp4" >}}
+
+Video by [Rahul Sharma](https://www.pexels.com/@rahul-sharma-493988) from [Pexels](https://www.pexels.com).

@@ -1,7 +1,7 @@
 # Modern components and layouts
 
 The opt-in docs and blog homepage layouts share a modern component foundation.
-Run `mise run docs` and open **Component gallery** to inspect the primitives.
+Run `mise run docs` and open **Shortcodes** for individual usage, previews, and variations.
 Run `mise run portfolio` to work on the existing portfolio.
 Run `mise run blog` for the modern hero, compact cards, topic previews and search.
 See [choosing a homepage](layouts.md) for layout combinations.
@@ -14,8 +14,8 @@ See [choosing a homepage](layouts.md) for layout combinations.
 | Primitives | `layouts/partials/components/` | Explicit inputs, semantic markup, accessibility, named variants |
 | Compositions | `layouts/partials/docs/`, `blog/`, `modern/` | Adapt configuration and Hugo pages into navigation and page structure |
 | Interactions | `assets/scripts/modern/` | Alpine initialization, responsive navigation state, persistent theme preference |
-| Markdown adapters | `layouts/shortcodes/ui-*.html` | Render Markdown and pass inputs to primitives |
-| Examples and gallery | `exampleSites/docs/`, `exampleSites/blog/` | Runnable content, component variants, build configuration |
+| Markdown adapters | `layouts/shortcodes/` | Render Markdown and pass inputs to primitives |
+| Examples and references | `exampleSites/docs/`, `exampleSites/blog/` | Runnable content, component variants, build configuration |
 
 Keep a small component in one partial. Introduce private helpers only when
 validation, variant selection, or rendering becomes difficult to read together.
@@ -139,7 +139,7 @@ Docs pages and blog homepages load Tailwind and the fingerprinted Alpine bundle.
 Legacy pages keep their Bootstrap/SCSS and existing JavaScript bundles. Avoid loading both global
 style systems on one page. The `img`, `alert`, `split`, `vs`, `video`, and `mermaid`
 shortcodes adapt to modern markup only on enabled modern pages; their legacy
-branches retain existing behavior. The `ui-*` shortcodes require modern pages.
+branches retain existing behavior. The modern component shortcodes require modern pages.
 
 Modern Mermaid pages require `params.features.flowchart.enable` and page front
 matter `mermaid: true`. A separate fingerprinted bundle renders escaped diagram
@@ -201,12 +201,12 @@ provided for English, Bengali, and French.
 ) }}
 ```
 
-Markdown uses `ui-button`, `ui-badge`, `ui-callout`, `ui-disclosure`, and `ui-text`.
-`ui-callout` accepts the named `tone`; `ui-text` accepts `kind`, abbreviation
+Markdown uses `button`, `badge`, `callout`, `disclosure`, and `text`.
+`callout` accepts the named `tone`; `text` accepts `kind`, abbreviation
 `title`, and plain inner text.
-`ui-button` also accepts `page`, resolved through `Page.GetPage` to preserve
+`button` also accepts `page`, resolved through `Page.GetPage` to preserve
 language and deployment prefixes. For boolean shortcode inputs, pass the string
-`"true"`. All `ui-*` shortcodes require an enabled modern docs page or blog homepage.
+`"true"`. All five component shortcodes require an enabled modern docs page or blog homepage.
 
 ## Interaction and verification
 

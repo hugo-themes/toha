@@ -1,2 +1,0 @@
-{{- if not (partial "helpers/is-modern-page.html" .Page) }}{{ errorf "ui-badge requires an enabled modern page" }}{{ end -}}
-{{- partial "components/badge.html" (dict "label" (.Get "label") "tone" (.Get "tone")) -}}

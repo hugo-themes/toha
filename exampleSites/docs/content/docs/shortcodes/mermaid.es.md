@@ -1,6 +1,7 @@
 ---
 title: mermaid
 linkTitle: mermaid
+mermaid: true
 weight: 60
 ---
 
@@ -11,10 +12,63 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 ## Uso
 
 ```go-html-template
-{{</* mermaid align="center" */>}}
+{{</* mermaid align="left" */>}}
 graph LR;
-  A --> B
+ A --> B
 {{</* /mermaid */>}}
 ```
 
-[Ejemplos]({{< relref "/docs/blog/writing-posts/mermaid" >}})
+### Vista previa
+
+{{< mermaid align="left" >}}
+graph LR;
+ A --> B
+{{< /mermaid >}}
+
+## Variaciones: `center`
+
+```go-html-template
+{{</* mermaid align="center" */>}}
+graph LR;
+ A --> B
+{{</* /mermaid */>}}
+```
+
+### Vista previa
+
+{{< mermaid align="center" >}}
+graph LR;
+ A --> B
+{{< /mermaid >}}
+
+## Variaciones: `right`
+
+```go-html-template
+{{</* mermaid align="right" */>}}
+graph LR;
+ A --> B
+{{</* /mermaid */>}}
+```
+
+### Vista previa
+
+{{< mermaid align="right" >}}
+graph LR;
+ A --> B
+{{< /mermaid >}}
+
+## Variaciones: `background`
+
+```go-html-template
+{{</* mermaid align="center" background="black" */>}}
+graph LR;
+ A --> B
+{{</* /mermaid */>}}
+```
+
+### Vista previa
+
+{{< mermaid align="center" background="black" >}}
+graph LR;
+ A --> B
+{{< /mermaid >}}

@@ -12,11 +12,44 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ```go-html-template
 {{</* split 6 6 */>}}
-Left column.
+**Left**
 
 ---
-Right column.
+**Right**
 {{</* /split */>}}
 ```
 
-[Ejemplos]({{< relref "/docs/shortcodes" >}})
+### Vista previa
+
+{{< split 6 6 >}}
+**Left**
+
+---
+**Right**
+{{< /split >}}
+
+## Variaciones: `4 / 4 / 4`
+
+```go-html-template
+{{</* split 4 4 4 */>}}
+**Left**
+
+---
+**Middle**
+
+---
+**Right**
+{{</* /split */>}}
+```
+
+### Vista previa
+
+{{< split 4 4 4 >}}
+**Left**
+
+---
+**Middle**
+
+---
+**Right**
+{{< /split >}}

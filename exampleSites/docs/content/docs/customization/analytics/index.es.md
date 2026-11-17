@@ -114,4 +114,4 @@ analytics:
       instance: analytics.eu.umami.is
       id: <su id de Umami>
 ```
-donde `scheme` es el protocolo que quieres usar para conectarte a la instancia (por ejemplo: https, http), e `instance` es el dominio (o dirección) de su implementación, que de forma predeterminada apunta a la instancia de la nube de la {{< ui-text kind="abbr" title="Unión Europea" >}}UE{{< /ui-text >}}.
+donde `scheme` es el protocolo que quieres usar para conectarte a la instancia (por ejemplo: https, http), e `instance` es el dominio (o dirección) de su implementación, que de forma predeterminada apunta a la instancia de la nube de la {{< text kind="abbr" title="Unión Europea" >}}UE{{< /text >}}.

@@ -42,10 +42,10 @@ test('official docs preserve every imported route, translation, resource, and mo
     for (const name of ['layouts', 'assets', 'i18n', 'content', 'go.mod', 'hugo.yaml', 'package.hugo.json']) {
       cpSync(join(repository, name), join(directory, 'theme', name), { recursive: true })
     }
-    for (const name of ['content', 'assets', 'static', 'hugo.yaml']) {
+    for (const name of ['content', 'assets', 'static', 'layouts', 'hugo.yaml']) {
       cpSync(join(example, name), join(directory, name), { recursive: true })
     }
-    copyModernDependencies(directory, ['mermaid'])
+    copyModernDependencies(directory, ['mermaid', '@fontsource/mulish', 'bootstrap', 'include-media', 'flag-icons'])
     writeFileSync(join(directory, 'go.mod'), 'module example.org/docs-consumer\n\ngo 1.25\n\nrequire github.com/hugo-toha/toha/v4 v4.7.0\nreplace github.com/hugo-toha/toha/v4 => ./theme\n')
     assert.equal(ledger.pages.length, 136)
     assert.deepEqual(['en', 'fr', 'es'].map(language => ledger.pages.filter(page => page.language === language).length), [46, 44, 46])
@@ -95,7 +95,26 @@ test('official docs preserve every imported route, translation, resource, and mo
       assert.match(html('/docs/portfolio/sections/about/'), /content\/docs\/portfolio\/sections\/about\/index.md/)
       const shortcodeNames = readdirSync(join(repository, 'layouts/shortcodes')).map(name => name.replace(/\.html$/, ''))
       for (const name of shortcodeNames) for (const language of ['', 'fr/', 'es/']) {
-        assert.match(html(`/${language}docs/shortcodes/${name}/`), /styles\/modern/)
+        const reference = html(`/${language}docs/shortcodes/${name}/`)
+        assert.match(reference, /styles\/modern/)
+        assert.match(reference, /<pre/)
+        assert.match(reference, /id=(?:"?)(?:preview|aperçu|vista-previa)/)
+        assert.doesNotMatch(reference, /ui-(?:button|badge|callout|disclosure|text)|Component gallery/)
+      }
+      const shortcodeIndex = html('/docs/shortcodes/')
+      assert.doesNotMatch(shortcodeIndex, /<video|<pre|Component gallery/)
+      for (const name of ['button', 'badge', 'callout', 'disclosure', 'text']) {
+        for (const language of ['', 'fr/', 'es/']) {
+          assert.ok(html(`/${language}docs/shortcodes/ui-${name}/`).includes(`${base.replace(/\/$/, '')}/${language}docs/shortcodes/${name}/`))
+        }
+      }
+      const notePreview = html('/shortcode-previews/note/')
+      assert.match(notePreview, /class=type-notes/)
+      assert.match(notePreview, /class=note-card-holder/)
+      assert.doesNotMatch(notePreview, /styles\/modern/)
+      for (const name of ['embed-pdf', 'embed-pdf-hidePaginator']) {
+        assert.match(html(`/shortcode-previews/${name}/`), /shortcode-pdf-preview\.[a-f0-9]+\.js/)
+        assert.ok(existsSync(join(directory, 'public/shortcode-previews', name, 'sample.pdf')))
       }
       const math = html('/docs/blog/writing-posts/math/')
       assert.equal([...math.matchAll(/<math\b/g)].length, 2, 'inline and block math must both render without JS')
@@ -104,10 +123,10 @@ test('official docs preserve every imported route, translation, resource, and mo
       assert.equal([...diagrams.matchAll(/<pre class=modern-mermaid/g)].length, 6)
       assert.match(diagrams, /modern-diagrams\.[a-f0-9]+\.js/)
       assert.match(diagrams, /Class01 (?:&lt;|<)\|-- AveryLongClass/)
-      const shortcodes = html('/docs/shortcodes/')
+      const shortcodes = html('/docs/shortcodes/alert/')
       for (const tone of ['success', 'danger', 'warning', 'info']) assert.match(shortcodes, new RegExp(`data-tone=${tone}`))
-      assert.match(shortcodes, /md:col-span-6/)
-      assert.match(shortcodes, /<video[^>]*controls/)
+      assert.match(html('/docs/shortcodes/split/'), /md:col-span-6/)
+      assert.match(html('/docs/shortcodes/video/'), /<video[^>]*controls/)
       assert.doesNotMatch(shortcodes, /class="?row\b|col-lg-/)
       assert.match(html('/docs/customization/external-link/'), /href="?https:\/\/example.com\//)
       assert.doesNotMatch(html('/docs/portfolio/sections/featured-posts/'), /\/fr\/docs\/portfolio\/sections\/featured-posts\//)

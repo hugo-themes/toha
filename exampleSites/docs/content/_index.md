@@ -5,4 +5,4 @@ description: Build clear documentation with the same components that will power 
 
 Toha helps you build a portfolio, share your writing, and document your project.
 
-Explore the [documentation]({{< relref "/docs" >}}), try the [component gallery]({{< relref "/docs/shortcodes/components" >}}), or start with the [quickstart]({{< relref "/docs/getting-started/quickstart" >}}).
+Explore the [documentation]({{< relref "/docs" >}}), try the [shortcode references]({{< relref "/docs/shortcodes" >}}), or start with the [quickstart]({{< relref "/docs/getting-started/quickstart" >}}).

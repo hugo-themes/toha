@@ -1,2 +1,0 @@
-{{- if not (partial "helpers/is-modern-page.html" .Page) }}{{ errorf "ui-text requires an enabled modern page" }}{{ end -}}
-{{- partial "components/inline-text.html" (dict "kind" (.Get "kind") "title" (.Get "title") "text" .Inner) -}}

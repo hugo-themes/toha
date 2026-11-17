@@ -42,7 +42,7 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
   - `shortcodes/`: Custom markdown components for users.
 - `i18n/`: Localization files. **All user-facing text must be tokenized here.**
 - `exampleSites/`: Complete Hugo sites that demonstrate theme layouts.
-  - `docs/`: Official English/French/Spanish guides, modern docs shell and component gallery. Run `mise run docs`; preserve imported aliases and attribution (see its README/NOTICE).
+  - `docs/`: Official English/French/Spanish guides, modern docs shell and shortcode references. Run `mise run docs`; preserve imported aliases and attribution (see its README/NOTICE).
   - `blog/`: Modern blog homepage with hero, topic previews, and shared search. Run `mise run blog`.
   - `portfolio/`: The portfolio integration test bed.
     - `hugo.yaml`: Main configuration.
@@ -104,7 +104,7 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 
 - Read `docs/components.md` for primitive contracts and modern/legacy boundaries.
 - Public primitives live in `layouts/partials/components/`; accept explicit dictionaries and avoid reading site/data configuration. Keep simple primitives in one file.
-- `layouts/partials/docs/` adapts site configuration and Hugo pages into compositions. `ui-*` shortcodes are thin adapters to primitives.
+- `layouts/partials/docs/` adapts site configuration and Hugo pages into compositions. Modern component shortcodes are thin adapters to primitives.
 - Use semantic tokens, named variants, real button/link semantics, and accessible labels. Do not rely on HTML class ordering to resolve conflicting Tailwind utilities.
 - Enable docs with `params.features.docs.enable: true` and `type: docs` (usually via content cascade); `params.home.layout: docs` independently selects the homepage.
 - Select a blog homepage with `params.home.layout: blog` and the existing blog enable flag. `layouts/partials/blog/` adapts posts into modern cards, topic previews, and a scoped search index. See `docs/layouts.md`; run `mise run test-blog` for homepage/feed/URL coverage. Blog homepages share modern assets with docs; existing articles/archives keep legacy assets.

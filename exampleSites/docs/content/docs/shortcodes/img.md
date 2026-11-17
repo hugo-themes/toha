@@ -11,7 +11,29 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 ## Usage
 
 ```go-html-template
+{{</* img src="boat.jpg" title="A boat at sea" */>}}
+```
+
+### Preview
+
+{{< img src="boat.jpg" title="A boat at sea" >}}
+
+## Variations: `width, align`
+
+```go-html-template
 {{</* img src="boat.jpg" title="A boat at sea" width="600" align="center" */>}}
 ```
 
-[Live examples]({{< relref "/docs/shortcodes" >}})
+### Preview
+
+{{< img src="boat.jpg" title="A boat at sea" width="600" align="center" >}}
+
+## Variations: `height, width`
+
+```go-html-template
+{{</* img src="boat.jpg" title="A boat at sea" height="200" width="300" */>}}
+```
+
+### Preview
+
+{{< img src="boat.jpg" title="A boat at sea" height="200" width="300" >}}

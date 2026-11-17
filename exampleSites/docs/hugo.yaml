@@ -62,6 +62,8 @@ params:
   home:
     layout: docs
   features:
+    embedpdf:
+      enable: true
     math:
       enable: true
     flowchart:

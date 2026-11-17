@@ -6,7 +6,7 @@ the modern layout demonstration. Content, search, and edit links are local to ea
 language. English, French, and Spanish guides are available; two French articles
 are still untranslated. Language navigation lists only available translations.
 
-The official guides live in `content/docs/`. The component gallery, layout setup,
+The official guides live in `content/docs/`. The shortcode references, layout setup,
 and composition guides share that tree. Put page ordering in `weight` and shorter
 navigation labels in `linkTitle`. Preserve existing `aliases` when editing a
 guide: Hugo adds the language prefix itself, so translated front matter also uses
@@ -28,7 +28,7 @@ posts so documentation builds do not depend on X's remote oEmbed API.
 The existing `img`, `alert`, `split`, `vs`, `video`, and `mermaid` shortcodes adapt
 to modern components on enabled modern pages. Legacy pages retain their existing
 markup and bundles. Inline template execution and arbitrary raw HTML remain
-disabled. Small inline HTML demonstrations use the explicit `ui-text` adapter.
+disabled. Small inline HTML demonstrations use the explicit `text` adapter.
 
 This example imports the working-tree theme through `go.mod`. It is not a
 release-pinned standalone starter. Starter exports and any old-host/domain
@@ -59,10 +59,11 @@ false for other sites. Set `toc: false` in a page's front matter to hide its
 outlines and disable tracking.
 
 Use `_index.md` for sections with child pages, and `index.md` for a standalone
-article bundle with its images. In particular, `shortcodes/_index.md` owns the
-original live demonstrations/resources and has reference pages for all theme
-shortcodes. Compatibility-only examples are shown as escaped source, preserving
-the modern asset boundary. The component gallery remains available there.
+article bundle with its images. The `shortcodes/_index.md` section lists the
+individual shortcode references. Each reference contains usage and preview examples,
+plus variations where supported. Example-owned `docs-preview` frames isolate legacy
+styles and scripts from modern docs. Remote embeds and the PDF viewer require
+network access. The old gallery routes redirect to the shortcode index.
 
 The import ledger keeps original `/posts/` routes and the previous `/docs/`
 routes for moved pages. Retain both sets of aliases when editing. Its `redirects`

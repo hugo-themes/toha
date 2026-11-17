@@ -14,4 +14,8 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 {{</* video src="/videos/sample.mp4" type="video/mp4" */>}}
 ```
 
-[Live examples]({{< relref "/docs/shortcodes" >}})
+### Preview
+
+{{< video src="/videos/sample.mp4" type="video/mp4" >}}
+
+Video by [Rahul Sharma](https://www.pexels.com/@rahul-sharma-493988) from [Pexels](https://www.pexels.com).

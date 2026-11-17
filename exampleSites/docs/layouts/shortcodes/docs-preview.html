@@ -1,0 +1,3 @@
+{{- $page := (index hugo.Sites 0).GetPage (.Get "page") -}}
+{{- if not $page }}{{ errorf "Missing shortcode preview: %s" (.Get "page") }}{{ end -}}
+<iframe class="shortcode-preview" src="{{ $page.RelPermalink }}" title="{{ .Get "title" }}" loading="lazy"></iframe>

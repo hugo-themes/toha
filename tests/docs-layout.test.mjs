@@ -254,7 +254,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     assert.throws(build, /must identify a content section/)
     config.params.features.docs.section = 'docs'
     config.params.home.layout = 'portfolio'
-    write('content/legacy-probe.md', '---\ntitle: Legacy shortcode probe\n---\n{{< ui-badge label="Unstyled" >}}')
+    write('content/legacy-probe.md', '---\ntitle: Legacy shortcode probe\n---\n{{< badge label="Unstyled" >}}')
     assert.throws(build, /requires an enabled modern page/)
     rmSync(join(directory, 'content/legacy-probe.md'))
     write('content/probe.md', '---\ntitle: Contract probe\nlayout: component-probe\n---')

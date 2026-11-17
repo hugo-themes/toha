@@ -12,8 +12,54 @@ Disponible sur les pages historiques et modernes activées ; chacune utilise ses
 
 ```go-html-template
 {{</* alert type="info" */>}}
-Your message.
+**Markdown**: `code`.
 {{</* /alert */>}}
 ```
 
-[Exemples]({{< relref "/docs/shortcodes" >}})
+### Aperçu
+
+{{< alert type="info" >}}
+**Markdown**: `code`.
+{{< /alert >}}
+
+## Variantes: `success`
+
+```go-html-template
+{{</* alert type="success" */>}}
+**Markdown**: `code`.
+{{</* /alert */>}}
+```
+
+### Aperçu
+
+{{< alert type="success" >}}
+**Markdown**: `code`.
+{{< /alert >}}
+
+## Variantes: `warning`
+
+```go-html-template
+{{</* alert type="warning" */>}}
+**Markdown**: `code`.
+{{</* /alert */>}}
+```
+
+### Aperçu
+
+{{< alert type="warning" >}}
+**Markdown**: `code`.
+{{< /alert >}}
+
+## Variantes: `danger`
+
+```go-html-template
+{{</* alert type="danger" */>}}
+**Markdown**: `code`.
+{{</* /alert */>}}
+```
+
+### Aperçu
+
+{{< alert type="danger" >}}
+**Markdown**: `code`.
+{{< /alert >}}
