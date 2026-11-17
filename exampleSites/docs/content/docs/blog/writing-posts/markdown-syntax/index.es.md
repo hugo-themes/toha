@@ -134,12 +134,12 @@ html
 
 ## Otros Elementos — abbr, sub, sup, kbd, mark
 
-{{< ui-text kind="abbr" title="Graphics Interchange Format" >}}GIF{{< /ui-text >}} es un formato de imagen de mapa de bits.
+{{< text kind="abbr" title="Graphics Interchange Format" >}}GIF{{< /text >}} es un formato de imagen de mapa de bits.
 
-H{{< ui-text kind="sub" >}}2{{< /ui-text >}}O
+H{{< text kind="sub" >}}2{{< /text >}}O
 
-X{{< ui-text kind="sup" >}}n{{< /ui-text >}} + Y{{< ui-text kind="sup" >}}n{{< /ui-text >}} = Z{{< ui-text kind="sup" >}}n{{< /ui-text >}}
+X{{< text kind="sup" >}}n{{< /text >}} + Y{{< text kind="sup" >}}n{{< /text >}} = Z{{< text kind="sup" >}}n{{< /text >}}
 
-Presione {{< ui-text kind="kbd" >}}CTRL + ALT + Delete{{< /ui-text >}} para finalizar la sesión.
+Presione {{< text kind="kbd" >}}CTRL + ALT + Delete{{< /text >}} para finalizar la sesión.
 
-La mayoría de las {{< ui-text kind="mark" >}}salamandras{{< /ui-text >}} son nocturnas y cazan insectos, gusanos y otras criaturas pequeñas.
+La mayoría de las {{< text kind="mark" >}}salamandras{{< /text >}} son nocturnas y cazan insectos, gusanos y otras criaturas pequeñas.

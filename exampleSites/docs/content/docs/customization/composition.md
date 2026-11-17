@@ -22,6 +22,6 @@ Navigation trees and page navigation connect primitives to Hugo’s content mode
 
 The docs shell decides where navigation, the article, and the outline belong. Future layouts will reuse the foundation while owning their own structure.
 
-{{< ui-callout title="Progressive enhancement" >}}
+{{< callout title="Progressive enhancement" >}}
 Hugo renders the content and links. Alpine adds theme switching and responsive navigation state. Native disclosures remain usable without JavaScript.
-{{< /ui-callout >}}
+{{< /callout >}}

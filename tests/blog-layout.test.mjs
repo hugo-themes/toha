@@ -58,7 +58,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     write('layouts/partials/helpers/style-bundle.html', '<link rel="stylesheet" href="/legacy.css">')
     write('layouts/partials/helpers/script-bundle.html', '<script src="/legacy.js" defer></script>')
     for (const language of ['en', 'bn']) {
-      write(`content/_index.${language}.md`, `---\ntitle: ${language} Writing\n---\nHome introduction.\n\n{{< ui-badge label="Modern home" >}}`)
+      write(`content/_index.${language}.md`, `---\ntitle: ${language} Writing\n---\nHome introduction.\n\n{{< badge label="Modern home" >}}`)
       // Existing portfolio data must not create dead links in a blog composition.
       write(`data/${language}/sections/about.yaml`, 'section:\n  name: Portfolio biography\n  id: biography\n  enable: true\n  showOnNavbar: true\n  weight: 1\n')
       write(`content/about.${language}.md`, '---\ntitle: About\n---\nIndependent page.')

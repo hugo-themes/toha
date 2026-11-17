@@ -131,12 +131,12 @@ html
 
 ## Other Elements — abbr, sub, sup, kbd, mark
 
-{{< ui-text kind="abbr" title="Graphics Interchange Format" >}}GIF{{< /ui-text >}} is a bitmap image format.
+{{< text kind="abbr" title="Graphics Interchange Format" >}}GIF{{< /text >}} is a bitmap image format.
 
-H{{< ui-text kind="sub" >}}2{{< /ui-text >}}O
+H{{< text kind="sub" >}}2{{< /text >}}O
 
-X{{< ui-text kind="sup" >}}n{{< /ui-text >}} + Y{{< ui-text kind="sup" >}}n{{< /ui-text >}} = Z{{< ui-text kind="sup" >}}n{{< /ui-text >}}
+X{{< text kind="sup" >}}n{{< /text >}} + Y{{< text kind="sup" >}}n{{< /text >}} = Z{{< text kind="sup" >}}n{{< /text >}}
 
-Press {{< ui-text kind="kbd" >}}CTRL + ALT + Delete{{< /ui-text >}} to end the session.
+Press {{< text kind="kbd" >}}CTRL + ALT + Delete{{< /text >}} to end the session.
 
-Most {{< ui-text kind="mark" >}}salamanders{{< /ui-text >}} are nocturnal, and hunt for insects, worms, and other small creatures.
+Most {{< text kind="mark" >}}salamanders{{< /text >}} are nocturnal, and hunt for insects, worms, and other small creatures.

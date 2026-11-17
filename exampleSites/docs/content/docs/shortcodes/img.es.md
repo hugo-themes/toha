@@ -11,7 +11,29 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 ## Uso
 
 ```go-html-template
+{{</* img src="boat.jpg" title="A boat at sea" */>}}
+```
+
+### Vista previa
+
+{{< img src="boat.jpg" title="A boat at sea" >}}
+
+## Variaciones: `width, align`
+
+```go-html-template
 {{</* img src="boat.jpg" title="A boat at sea" width="600" align="center" */>}}
 ```
 
-[Ejemplos]({{< relref "/docs/shortcodes" >}})
+### Vista previa
+
+{{< img src="boat.jpg" title="A boat at sea" width="600" align="center" >}}
+
+## Variaciones: `height, width`
+
+```go-html-template
+{{</* img src="boat.jpg" title="A boat at sea" height="200" width="300" */>}}
+```
+
+### Vista previa
+
+{{< img src="boat.jpg" title="A boat at sea" height="200" width="300" >}}

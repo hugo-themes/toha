@@ -6,15 +6,21 @@ weight: 140
 
 Create a note card with a title. Separate inner cards with three hyphens. Its presentation uses legacy styles.
 
-Compatibility reference for existing sites. These examples are shown as source here and do not load legacy or third-party assets into the modern docs.
-
 ## Usage
 
 ```go-html-template
 {{</* note title="Notes" */>}}
-First note.
+**First note.**
 
 ---
 Second note.
 {{</* /note */>}}
 ```
+
+### Preview
+
+{{< docs-preview page="/shortcode-previews/note" title="note" >}}
+
+This preview runs the legacy shortcode in a separate frame. Remote embeds and the PDF viewer require network access.
+
+The optional `size` argument adds a `<size>-note` CSS class. The theme does not define size variants; add styles in your site before using this hook.

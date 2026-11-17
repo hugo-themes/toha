@@ -6,10 +6,16 @@ weight: 160
 
 Inserta una publicación de Mastodon con user e id, y opcionalmente server. El navegador carga el contenido remoto y su script.
 
-Referencia de compatibilidad para sitios existentes. Los ejemplos se muestran como código fuente sin cargar recursos clásicos ni externos en la documentación moderna.
-
 ## Uso
 
 ```go-html-template
-{{</* mastodon server="mastodon.social" user="username" id="post-id" */>}}
+{{</* mastodon server="mastodon.social" user="Mastodon" id="117625790631441803" */>}}
 ```
+
+### Vista previa
+
+{{< docs-preview page="/shortcode-previews/mastodon" title="mastodon" >}}
+
+Esta vista previa ejecuta el shortcode heredado en un marco separado. Las integraciones remotas y el visor PDF requieren acceso a la red.
+
+[Abrir la publicación si la vista previa no está disponible](https://mastodon.social/@Mastodon/117625790631441803).

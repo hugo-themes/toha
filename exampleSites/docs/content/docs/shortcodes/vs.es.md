@@ -11,7 +11,27 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 ## Uso
 
 ```go-html-template
+Before
 {{</* vs 2 */>}}
+After
 ```
 
-[Ejemplos]({{< relref "/docs/shortcodes" >}})
+### Vista previa
+
+Before
+{{< vs 2 >}}
+After
+
+## Variaciones: `4`
+
+```go-html-template
+Before
+{{</* vs 4 */>}}
+After
+```
+
+### Vista previa
+
+Before
+{{< vs 4 >}}
+After

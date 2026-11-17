@@ -100,7 +100,7 @@ analytics:
 
 ### Umami
 
-[Umami](https://umami.is) est un outil d'analyse open source en total conformité avec le {{< ui-text kind="abbr" title="Règlement Général sur la Protection des Données" >}}RGPD{{< /ui-text >}} avec une approche sans cookies. Il peut être installé sur site ou vous pouvez utiliser la version Cloud fournie. Vous pouvez activer le suivi d'Umami en ajoutant les configurations suivantes sous `params.features` section dans le fichier `hugo.yaml`:
+[Umami](https://umami.is) est un outil d'analyse open source en total conformité avec le {{< text kind="abbr" title="Règlement Général sur la Protection des Données" >}}RGPD{{< /text >}} avec une approche sans cookies. Il peut être installé sur site ou vous pouvez utiliser la version Cloud fournie. Vous pouvez activer le suivi d'Umami en ajoutant les configurations suivantes sous `params.features` section dans le fichier `hugo.yaml`:
 
 ```yaml
 analytics:
@@ -113,4 +113,4 @@ analytics:
       id: <your Umami website id>
 ```
 
-où `scheme` est le système (c'est-à-dire: https, http) que vous voulez utiliser pour vous connecter à l'instance, et `instance` est le domaine (ou l'adresse) de votre déploiement, en pointant par défaut sur l'instance cloud de l'{{< ui-text kind="abbr" title="Union Européenne" >}}UE{{< /ui-text >}}.
+où `scheme` est le système (c'est-à-dire: https, http) que vous voulez utiliser pour vous connecter à l'instance, et `instance` est le domaine (ou l'adresse) de votre déploiement, en pointant par défaut sur l'instance cloud de l'{{< text kind="abbr" title="Union Européenne" >}}UE{{< /text >}}.

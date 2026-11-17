@@ -138,28 +138,28 @@ Ici, vous trouverez d'autres balises HTML décorées par CSS:
 <abbr title="Graphics Interchange Format">GIF</abbr> est un format d'image bitmap.
 ```
 
-{{< ui-text kind="abbr" title="Graphics Interchange Format" >}}GIF{{< /ui-text >}} est un format d'image bitmap.
+{{< text kind="abbr" title="Graphics Interchange Format" >}}GIF{{< /text >}} est un format d'image bitmap.
 
 ```
 H<sub>2</sub>O
 ```
 
-H{{< ui-text kind="sub" >}}2{{< /ui-text >}}O
+H{{< text kind="sub" >}}2{{< /text >}}O
 
 ```
 X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 ```
 
-X{{< ui-text kind="sup" >}}n{{< /ui-text >}} + Y{{< ui-text kind="sup" >}}n{{< /ui-text >}} = Z{{< ui-text kind="sup" >}}n{{< /ui-text >}}
+X{{< text kind="sup" >}}n{{< /text >}} + Y{{< text kind="sup" >}}n{{< /text >}} = Z{{< text kind="sup" >}}n{{< /text >}}
 
 ```
 Pressez <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> pour terminer la session.
 ```
 
-Pressez {{< ui-text kind="kbd" >}}CTRL + ALT + Delete{{< /ui-text >}} pour terminer la session.
+Pressez {{< text kind="kbd" >}}CTRL + ALT + Delete{{< /text >}} pour terminer la session.
 
 ```
 La plupart des <mark>salamandres</mark> sont nocturnes, et chassent les insectes, les vers, et d'autres petites créatures.
 ```
 
-La plupart des {{< ui-text kind="mark" >}}salamandres{{< /ui-text >}} sont nocturnes, et chassent les insectes, les vers, et d'autres petites créatures.
+La plupart des {{< text kind="mark" >}}salamandres{{< /text >}} sont nocturnes, et chassent les insectes, les vers, et d'autres petites créatures.

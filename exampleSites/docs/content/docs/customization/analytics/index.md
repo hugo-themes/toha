@@ -99,7 +99,7 @@ analytics:
 
 ### Umami
 
-[Umami](https://umami.is) is an open source analytics tool fully compliant with {{< ui-text kind="abbr" title="General Data Protection Regulation" >}}GDPR{{< /ui-text >}} and with a cookieless approach. It can be installed on-premise or you can use the provided cloud version.
+[Umami](https://umami.is) is an open source analytics tool fully compliant with {{< text kind="abbr" title="General Data Protection Regulation" >}}GDPR{{< /text >}} and with a cookieless approach. It can be installed on-premise or you can use the provided cloud version.
 You can enable the Umami tracking by adding the following configs under `params.features` section in the `config.yaml` file:
 
 ```yaml
@@ -112,7 +112,7 @@ analytics:
       instance: analytics.eu.umami.is
       id: <your Umami website id>
 ```
-where `scheme` is the scheme (i.e: https, http) you want to use to connect to instance, and `instance` is the domain (or address) of your deployment, by default pointing to the {{< ui-text kind="abbr" title="European Union" >}}EU{{< /ui-text >}} cloud instance.
+where `scheme` is the scheme (i.e: https, http) you want to use to connect to instance, and `instance` is the domain (or address) of your deployment, by default pointing to the {{< text kind="abbr" title="European Union" >}}EU{{< /text >}} cloud instance.
 
 ### Statcounter
 

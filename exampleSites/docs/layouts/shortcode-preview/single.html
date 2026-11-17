@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>{{ .Title }}</title>
+{{ partial "helpers/style-bundle.html" . }}
+</head>
+<body{{ if eq .Params.previewKind "note" }} class="type-notes"{{ end }}>
+{{ if eq .Params.previewKind "note" }}
+<main class="wrapper"><section class="content-section"><div class="content"><div class="note-card-holder">{{ .Content }}</div></div></section></main>
+{{ else }}<main class="container py-3">{{ .Content }}</main>{{ end }}
+{{ range .Resources }}{{ $url := .RelPermalink }}{{ end }}
+{{ if eq .Params.previewKind "embed-pdf" }}
+{{ $js := resources.Get "scripts/features/embedpdf/index.js" | js.Build (dict "targetPath" "shortcode-pdf-preview.js" "minify" true) | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}
+</body></html>
