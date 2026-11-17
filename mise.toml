@@ -1,6 +1,6 @@
 [tools]
 hugo-extended = '0.169.0'
-"github:sass/dart-sass" = '1.108.2'
+"github:sass/dart-sass" = { version = "1.108.2", version_prefix = "" }
 node = 'latest'
 go = 'latest'
 
