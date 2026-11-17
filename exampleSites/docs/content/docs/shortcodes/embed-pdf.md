@@ -28,4 +28,4 @@ This preview runs the legacy shortcode in a separate frame. Remote embeds and th
 
 ### Preview
 
-{{< docs-preview page="/shortcode-previews/embed-pdf-hidePaginator" title="embed-pdf hidePaginator" >}}
+{{< docs-preview page="/shortcode-previews/embed-pdf-hide-paginator" title="embed-pdf hidePaginator" >}}

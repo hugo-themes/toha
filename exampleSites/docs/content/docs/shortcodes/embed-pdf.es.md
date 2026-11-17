@@ -28,4 +28,4 @@ Esta vista previa ejecuta el shortcode heredado en un marco separado. Las integr
 
 ### Vista previa
 
-{{< docs-preview page="/shortcode-previews/embed-pdf-hidePaginator" title="embed-pdf hidePaginator" >}}
+{{< docs-preview page="/shortcode-previews/embed-pdf-hide-paginator" title="embed-pdf hidePaginator" >}}

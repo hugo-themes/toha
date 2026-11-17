@@ -112,7 +112,10 @@ test('official docs preserve every imported route, translation, resource, and mo
       assert.match(notePreview, /class=type-notes/)
       assert.match(notePreview, /class=note-card-holder/)
       assert.doesNotMatch(notePreview, /styles\/modern/)
-      for (const name of ['embed-pdf', 'embed-pdf-hidePaginator']) {
+      const previewDirectories = readdirSync(join(directory, 'public/shortcode-previews'))
+      for (const name of ['embed-pdf', 'embed-pdf-hide-paginator']) {
+        // Check directory entries so macOS cannot hide a route casing mismatch.
+        assert.ok(previewDirectories.includes(name), `Missing exact-case preview directory: ${name}; found ${previewDirectories.join(', ')}`)
         assert.match(html(`/shortcode-previews/${name}/`), /shortcode-pdf-preview\.[a-f0-9]+\.js/)
         assert.ok(existsSync(join(directory, 'public/shortcode-previews', name, 'sample.pdf')))
       }
