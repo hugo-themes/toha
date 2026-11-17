@@ -10,7 +10,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Usage
 
-```go-html-template
+```html
 {{</* split 6 6 */>}}
 **Left**
 
@@ -30,7 +30,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Variations: `4 / 4 / 4`
 
-```go-html-template
+```html
 {{</* split 4 4 4 */>}}
 **Left**
 

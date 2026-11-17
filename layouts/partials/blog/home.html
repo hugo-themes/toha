@@ -24,7 +24,7 @@
 {{- $searchMarkup := "" -}}
 {{- if .Site.Params.features.blog.search.enable -}}
   {{- $index := partialCached "blog/search-index.html" $root $root.Language.Lang $root.RelPermalink -}}
-  {{- $searchMarkup = partial "components/search-dialog.html" (dict "id" "blog-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "search"))) -}}
+  {{- $searchMarkup = partial "components/search-dialog.html" (dict "iconLibrary" (cond (eq .Site.Params.features.componentsDesign.enable true) "lucide" "") "id" "blog-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "search"))) -}}
 {{- end -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}" class="motion-safe:scroll-smooth">
@@ -63,7 +63,7 @@
   {{ with $topics }}
   <nav class="blog-topic-nav" aria-label="{{ i18n "blog_topics" }}">
     <div class="mx-auto flex max-w-screen-2xl items-center gap-2 overflow-x-auto px-5 lg:px-8">
-      <a class="blog-topic-link font-semibold text-primary" href="#recent-posts">{{ i18n "blog_all_posts" }}</a>
+      <a class="blog-topic-link font-semibold text-link" href="#recent-posts">{{ i18n "blog_all_posts" }}</a>
       {{ range . }}<a class="blog-topic-link" href="#{{ .id }}">{{ .page.LinkTitle }}</a>{{ end }}
     </div>
   </nav>
@@ -92,7 +92,7 @@
   <footer class="mt-10 border-t border-border">
     <div class="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-muted-foreground lg:px-8">
       <span>© {{ now.Year }} {{ .Site.Title }}</span>
-      {{ with .OutputFormats.Get "RSS" }}<a class="hover:text-primary" href="{{ .RelPermalink }}">{{ i18n "blog_feed" }}</a>{{ end }}
+      {{ with .OutputFormats.Get "RSS" }}<a class="hover:text-link" href="{{ .RelPermalink }}">{{ i18n "blog_feed" }}</a>{{ end }}
     </div>
   </footer>
 </body>

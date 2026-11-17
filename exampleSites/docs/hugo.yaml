@@ -62,6 +62,8 @@ params:
   home:
     layout: docs
   features:
+    componentsDesign:
+      enable: true
     embedpdf:
       enable: true
     math:

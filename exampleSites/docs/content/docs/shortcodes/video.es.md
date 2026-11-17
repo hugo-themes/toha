@@ -10,7 +10,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Uso
 
-```go-html-template
+```html
 {{</* video src="/videos/sample.mp4" type="video/mp4" */>}}
 ```
 

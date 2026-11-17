@@ -8,7 +8,7 @@ Générez des tailles adaptatives depuis une image locale dans assets avec src, 
 
 ## Utilisation
 
-```go-html-template
+```html
 {{</* rimg src="images/default-background.jpg" alt="Landscape" sizes="100vw" */>}}
 ```
 

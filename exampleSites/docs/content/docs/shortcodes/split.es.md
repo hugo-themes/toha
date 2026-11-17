@@ -10,7 +10,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Uso
 
-```go-html-template
+```html
 {{</* split 6 6 */>}}
 **Left**
 
@@ -30,7 +30,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Variaciones: `4 / 4 / 4`
 
-```go-html-template
+```html
 {{</* split 4 4 4 */>}}
 **Left**
 

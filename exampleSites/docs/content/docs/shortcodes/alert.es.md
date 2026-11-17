@@ -10,7 +10,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Uso
 
-```go-html-template
+```html
 {{</* alert type="info" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}
@@ -24,7 +24,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Variaciones: `success`
 
-```go-html-template
+```html
 {{</* alert type="success" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}
@@ -38,7 +38,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Variaciones: `warning`
 
-```go-html-template
+```html
 {{</* alert type="warning" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}
@@ -52,7 +52,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Variaciones: `danger`
 
-```go-html-template
+```html
 {{</* alert type="danger" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}

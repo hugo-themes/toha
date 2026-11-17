@@ -134,6 +134,21 @@ test('external blog consumer scopes homepage pagination and feed while preservin
         assert.ok(existsSync(join(directory, 'public', language, 'search/index.html')))
       }
     }
+    // The design decorates only the modern homepage, including pagination.
+    config.params.features.componentsDesign = { enable: true }
+    build()
+    for (const language of ['en', 'bn']) {
+      const home = read(`${language}/index.html`)
+      assert.match(home, /data-components-navbar/)
+      assert.match(home, /components-design\.min\.[a-f0-9]+\.css/)
+      assert.match(home, /id="blog-search-trigger"/)
+      assert.match(home, new RegExp(`href="/project/${language}/about/?"`))
+      assert.match(read(`${language}/batch/2/index.html`), /data-components-navbar/)
+      for (const path of ['journal/index.html', 'journal/new/index.html', 'about/index.html']) {
+        assert.doesNotMatch(read(`${language}/${path}`), /components-design|data-components-navbar/)
+      }
+    }
+    delete config.params.features.componentsDesign
     // Legacy flags still enable the new opt-in homepage.
     config.params.features.blog.enable = false
     config.params.enableBlogPost = true

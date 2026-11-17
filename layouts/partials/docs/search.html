@@ -1,5 +1,5 @@
 {{- if .Site.Params.features.docs.search.enable -}}
 {{- $root := partial "docs/root.html" . -}}
 {{- $index := partialCached "docs/search-index.html" $root $root.Language.Lang $root.RelPermalink -}}
-{{- partial "components/search-dialog.html" (dict "id" "docs-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "docs_search")) "legacyData" true) -}}
+{{- partial "components/search-dialog.html" (dict "iconLibrary" (cond (eq .Site.Params.features.componentsDesign.enable true) "lucide" "") "id" "docs-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "docs_search")) "legacyData" true) -}}
 {{- end -}}

@@ -10,7 +10,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Usage
 
-```go-html-template
+```html
 {{</* img src="boat.jpg" title="A boat at sea" */>}}
 ```
 
@@ -20,7 +20,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Variations: `width, align`
 
-```go-html-template
+```html
 {{</* img src="boat.jpg" title="A boat at sea" width="600" align="center" */>}}
 ```
 
@@ -30,7 +30,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Variations: `height, width`
 
-```go-html-template
+```html
 {{</* img src="boat.jpg" title="A boat at sea" height="200" width="300" */>}}
 ```
 

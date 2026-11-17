@@ -8,7 +8,7 @@ Crea una tarjeta de notas con un título. Separa las tarjetas internas con tres 
 
 ## Uso
 
-```go-html-template
+```html
 {{</* note title="Notes" */>}}
 **First note.**
 

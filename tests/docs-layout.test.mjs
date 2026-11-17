@@ -106,6 +106,60 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     assert.doesNotMatch(html('en/docs/quiet/index.html'), /docs-mobile-toc|docs-desktop-toc/)
     assert.doesNotMatch(gallery, /docs-search-input|data-docs-edit/)
 
+    // The imported design is opt-in, self-contained, and modern-page scoped.
+    assert.doesNotMatch(gallery, /components-design|data-components-navbar/)
+    config.params.features.componentsDesign = { enable: true }
+    // Override even explicitly configured inline highlighting, and retain tables.
+    config.markup.highlight.noClasses = true
+    write('content/docs/syntax.md', '---\ntitle: Syntax\n---\n```go {linenos=table hl_lines="2"}\npackage main\nfunc main() { println("hello") }\n```')
+    write('data/config/navbar.json', {
+      brand: { title: 'Consumer brand' },
+      navItems: {
+        alignment: 'left',
+        items: [
+          { title: 'Guides', type: 'categorized-list', categories: [{ name: 'Learn', items: [{ title: 'Getting started', desc: 'Read the guide', icon: 'book', href: '/docs/getting-started/' }] }] },
+          { title: 'Resources', type: 'list', items: [{ title: 'External', href: 'https://example.net/?a=1&b=2' }, { title: 'On this page', href: '#main-content' }] }
+        ]
+      },
+      buttons: [{ title: 'Source', variant: 'outline', href: 'https://github.com/example/project' }],
+      darkModeToggler: false
+    })
+    write('data/bn/config/navbar.json', { brand: { title: 'বাংলা ব্র্যান্ড' }, navItems: { items: [{ title: 'শুরু', type: 'link', href: '/docs/' }] } })
+    build()
+    const designed = html()
+    assert.match(designed, /data-components-navbar/)
+    assert.match(designed, /data-navbar-drawer/)
+    assert.match(designed, /components-nav-categories/)
+    assert.match(designed, /data-alignment=left/)
+    assert.match(designed, /Consumer brand/)
+    assert.match(designed, /href=\/project\/en\/docs\/getting-started\//)
+    assert.match(designed, /Read the guide/)
+    assert.match(designed, /href="https:\/\/example.net\/\?a=1&amp;b=2"/)
+    assert.match(designed, /href=#main-content/)
+    assert.doesNotMatch(designed, /components-theme-toggle/)
+    assert.match(html('bn/docs/components/index.html'), /বাংলা ব্র্যান্ড/)
+    assert.match(html('bn/docs/components/index.html'), /href=\/project\/bn\/docs\//)
+    assert.match(html('bn/docs/components/index.html'), /components-theme-toggle/)
+    const designURL = designed.match(/href="?(\/project\/styles\/modern\/components-design\.min\.[a-f0-9]+\.css)/)[1]
+    assert.match(designed, /components-design[^>]+integrity=/)
+    const designCSS = readFileSync(join(directory, 'public', designURL.replace('/project/', '')), 'utf8')
+    assert.match(designCSS, /oklch\(/)
+    assert.match(designCSS, /font-family:var\(--font-sans\)/)
+    const syntax = html('en/docs/syntax/index.html')
+    assert.match(syntax, /class=chroma/)
+    assert.match(syntax, /class=lntable/)
+    assert.match(syntax, /class="[^"]*\bhl\b/)
+    assert.doesNotMatch(syntax, /style="[^"]*(?:color|background)/)
+    assert.doesNotMatch(html('en/posts/example/index.html'), /components-design|data-components-navbar/)
+    config.params.features.componentsDesign.navbar = { enable: false }
+    build()
+    assert.match(html(), /components-design/)
+    assert.doesNotMatch(html(), /data-components-navbar/)
+    delete config.params.features.componentsDesign
+    config.markup.highlight.noClasses = false
+    build()
+    assert.doesNotMatch(html(), /components-design|data-components-navbar/)
+
     // Search and edit are independent opt-ins. The index follows published HTML
     // and language-local permalinks, rather than the filesystem or blog index.
     config.params.features.docs.search = { enable: true }

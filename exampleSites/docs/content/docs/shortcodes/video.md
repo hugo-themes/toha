@@ -10,7 +10,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Usage
 
-```go-html-template
+```html
 {{</* video src="/videos/sample.mp4" type="video/mp4" */>}}
 ```
 

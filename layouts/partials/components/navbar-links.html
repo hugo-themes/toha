@@ -1,0 +1,26 @@
+{{/* Explicit inputs: items (label, href, optional children/categories/icon/description), currentURL. */}}
+<ul class="components-nav-items">
+  {{- range .items -}}
+  <li>
+    {{- if or .children .categories -}}
+    <details class="components-nav-group" data-navbar-disclosure>
+      <summary class="components-nav-link">{{ .label }}{{ partial "components/icon.html" (dict "library" "lucide" "name" "chevron" "class" "components-nav-chevron") }}</summary>
+      <div class="components-nav-dropdown{{ if .categories }} components-nav-categories{{ end }}">
+        {{- if .categories -}}
+          {{- range .categories -}}
+          <div><p class="components-nav-category">{{ .label }}</p>{{ partial "components/navbar-links.html" (dict "items" .items "currentURL" $.currentURL) }}</div>
+          {{- end -}}
+        {{- else -}}
+          {{ partial "components/navbar-links.html" (dict "items" .children "currentURL" $.currentURL) }}
+        {{- end -}}
+      </div>
+    </details>
+    {{- else -}}
+    <a class="components-nav-link" href="{{ .href }}"{{ if eq .href $.currentURL }} aria-current="page"{{ end }}>
+      {{- with .icon }}<span class="components-nav-item-icon">{{ partial "components/icon.html" (dict "library" "lucide" "name" .) }}</span>{{ end -}}
+      <span>{{ .label }}{{ with .description }}<span class="components-nav-description">{{ . }}</span>{{ end }}</span>
+    </a>
+    {{- end -}}
+  </li>
+  {{- end -}}
+</ul>

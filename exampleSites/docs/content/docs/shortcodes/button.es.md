@@ -12,7 +12,7 @@ Requiere una página moderna activada.
 
 ## Uso
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" */>}}
 ```
 
@@ -22,7 +22,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `secondary`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" variant="secondary" */>}}
 ```
 
@@ -32,7 +32,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `ghost`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" variant="ghost" */>}}
 ```
 
@@ -42,7 +42,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `icon`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" icon="book" */>}}
 ```
 
@@ -52,7 +52,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `iconOnly`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" icon="book" iconOnly="true" */>}}
 ```
 
@@ -62,7 +62,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `disabled`
 
-```go-html-template
+```html
 {{</* button label="Unavailable action" disabled="true" */>}}
 ```
 
