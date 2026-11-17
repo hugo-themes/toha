@@ -1,1 +1,8 @@
+{{- if partial "helpers/is-modern-page.html" .Page -}}
+{{- $spacing := 1 -}}
+{{- if gt (len .Params) 0 }}{{ $spacing = .Get 0 }}{{ end -}}
+{{- if or (lt (float $spacing) 0.0) (gt (float $spacing) 12.0) }}{{ errorf "vs: modern spacing must be between 0 and 12 rem" }}{{ end -}}
+<div class="h-[{{ printf "%g" (float $spacing) }}rem]" aria-hidden="true"></div>
+{{- else -}}
 <div style="margin-top: {{ .Get 0 }}rem;"></div>
+{{- end -}}

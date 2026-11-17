@@ -1,3 +1,9 @@
+{{- if partial "helpers/is-modern-page.html" .Page -}}
+{{- $src := partial "helpers/get-page-resource-url.html" (dict "page" .Page "url" (.Get "src")) -}}
+<img class="modern-image" src="{{ $src }}" alt="{{ .Get "alt" | default (.Get "title") | default "" }}" loading="lazy"
+  {{ with .Get "width" }}width="{{ . }}"{{ end }} {{ with .Get "height" }}height="{{ . }}"{{ end }}
+  {{ with .Get "align" }}data-align="{{ . }}"{{ end }} {{ with .Get "float" }}data-float="{{ . }}"{{ end }}>
+{{- else -}}
 {{- $src := partial "helpers/get-resource-url.html" (.Get "src") -}}
 <img src="{{ $src }}"
     {{ if .Get "title"}}
@@ -16,3 +22,5 @@
         class="{{.Get "align"}}"
     {{end}}
 >
+
+{{- end -}}

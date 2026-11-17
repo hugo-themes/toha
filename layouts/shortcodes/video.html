@@ -1,3 +1,8 @@
+{{- if partial "helpers/is-modern-page.html" .Page -}}
+<video class="modern-video" playsinline controls preload="metadata">
+  <source src="{{ partial "helpers/get-page-resource-url.html" (dict "page" .Page "url" (.Get "src")) }}" type="{{ .Get "type" | default "video/mp4" }}">
+</video>
+{{- else -}}
 {{ $src := .Get "src" }}
 {{ $type := .Get "type" }}
 {{/*
@@ -11,3 +16,5 @@
 <video class="video-player" id="video-{{ $randNumber }}" playsinline controls>
   <source src="{{ $src }}" type="{{ $type | default "video/mp4" }}" />
 </video>
+
+{{- end -}}

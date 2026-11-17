@@ -180,74 +180,74 @@ other = "Close skill details"
 other = "Within {{ .Name }}"
 
 
-# Documentation controls (English fallback; translations welcome).
+# Documentation controls.
 [docs_overview]
-other = "Overview"
+other = "Vista general"
 
 [docs_page_navigation]
-other = "Page navigation"
+other = "Navegación entre páginas"
 
 [docs_previous]
-other = "Previous"
+other = "Anterior"
 
 [docs_next]
-other = "Next"
+other = "Siguiente"
 
 [docs_skip_content]
-other = "Skip to content"
+other = "Saltar al contenido"
 
 [docs_navigation]
-other = "Documentation navigation"
+other = "Navegación de la documentación"
 
 [docs_dark_mode]
-other = "Dark mode"
+other = "Modo oscuro"
 
 [docs_breadcrumb]
-other = "Breadcrumb"
+other = "Ruta de navegación"
 
 [docs_on_this_page]
-other = "On this page"
+other = "En esta página"
 
 [docs_get_started]
-other = "Explore the documentation"
+other = "Explorar la documentación"
 
 [docs_search]
-other = "Search documentation"
+other = "Buscar en la documentación"
 
 
 [docs_search_placeholder]
-other = "Search pages…"
+other = "Buscar páginas…"
 
 
 [docs_search_loading]
-other = "Searching…"
+other = "Buscando…"
 
 
 [docs_search_empty]
-other = "No matching pages."
+other = "No hay páginas coincidentes."
 
 
 [docs_search_results]
-other = "Matching pages are listed below."
+other = "Las páginas coincidentes aparecen debajo."
 
 
 [docs_search_error]
-other = "Search is unavailable. Please try again."
+other = "La búsqueda no está disponible. Inténtalo de nuevo."
 
 
 [docs_search_retry]
-other = "Try again"
+other = "Reintentar"
 
 
 [docs_search_no_script]
-other = "Search requires JavaScript. Browse the navigation links below."
+other = "La búsqueda requiere JavaScript. Usa los enlaces de navegación."
 
 
 [docs_edit_page]
-other = "Edit this page"
+other = "Editar esta página"
 
 [docs_search_close]
-other = "Close search"
+other = "Cerrar la búsqueda"
 
 [docs_search_escape]
 other = "Esc"

@@ -1,0 +1,12 @@
+{{/* Adapt a page's bundle/global/static resource into a deployment-safe URL. */}}
+{{- $url := .url -}}
+{{- with .page.Resources.Get $url -}}
+  {{- $url = .RelPermalink -}}
+{{- else -}}
+  {{- with resources.Get (strings.TrimPrefix "/" $url) -}}
+    {{- $url = .RelPermalink -}}
+  {{- else -}}
+    {{- $url = partial "helpers/get-resource-url.html" $url -}}
+  {{- end -}}
+{{- end -}}
+{{- return $url -}}

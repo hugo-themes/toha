@@ -2,6 +2,20 @@ baseURL: https://example.org/
 title: Toha Docs
 locale: en-us
 defaultContentLanguage: en
+languages:
+  en:
+    label: English
+    locale: en-US
+    weight: 1
+  fr:
+    label: Français
+    locale: fr-FR
+    weight: 2
+  es:
+    label: Español
+    locale: es-ES
+    weight: 3
+enableEmoji: true
 enableRobotsTXT: true
 disableKinds: [taxonomy, term]
 # This standalone example excludes the theme’s legacy blog/search scaffolding.
@@ -30,6 +44,13 @@ security:
     allow: ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']
 
 markup:
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block: [['\[', '\]'], ['$$', '$$']]
+          inline: [['\(', '\)']]
   highlight:
     noClasses: false
   tableOfContents:
@@ -37,13 +58,21 @@ markup:
     endLevel: 3
 
 params:
-  description: A shared component foundation for every Toha layout.
+  description: Guides, configuration, and shared components for the Toha Hugo theme.
   home:
     layout: docs
   features:
+    math:
+      enable: true
+    flowchart:
+      enable: true
     docs:
       enable: true
       section: docs
+      sidebar:
+        groupSections: true
+      toc:
+        scrollSpy: true
       search:
         enable: true
       edit:

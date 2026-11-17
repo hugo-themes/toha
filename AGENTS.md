@@ -42,7 +42,7 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
   - `shortcodes/`: Custom markdown components for users.
 - `i18n/`: Localization files. **All user-facing text must be tokenized here.**
 - `exampleSites/`: Complete Hugo sites that demonstrate theme layouts.
-  - `docs/`: Modern docs shell and component gallery. Run `mise run docs`.
+  - `docs/`: Official English/French/Spanish guides, modern docs shell and component gallery. Run `mise run docs`; preserve imported aliases and attribution (see its README/NOTICE).
   - `blog/`: Modern blog homepage with hero, topic previews, and shared search. Run `mise run blog`.
   - `portfolio/`: The portfolio integration test bed.
     - `hugo.yaml`: Main configuration.
@@ -111,3 +111,6 @@ Toha differs from standard Hugo themes. The structure of the homepage and sideba
 - Keep modern Tailwind/Alpine assets and legacy Bootstrap/SCSS assets separate per page. Preserve the default portfolio behavior.
 - Docs search and edit links are separately opt-in under `params.features.docs.search` / `edit`. Search indexes only the current docs tree/language; edit URLs are adapted from source paths at the composition layer. See `docs/components.md` for configuration and per-page overrides.
 - Run `mise run test-docs` for rendering, external-module, URL, and asset-boundary coverage. Delegate visual and keyboard verification to the computer-use agent.
+- Imported docs are maintained in `exampleSites/docs/content/docs/`; `imports/toha-docs.json` records provenance, not an upstream sync. Translated aliases omit their language prefix because Hugo adds it. Keep the small component contract fixture separate from the full-corpus external-consumer test.
+
+- Docs navigation uses Hugo `_index.md` sections; the example opts into `params.features.docs.sidebar.groupSections`. Keep layout guides in `portfolio/`, `blog/`, `documentation/`, shared references in `shortcodes/` and `customization/`, and preserve both imported and moved-route aliases.

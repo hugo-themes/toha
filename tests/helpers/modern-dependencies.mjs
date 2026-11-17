@@ -7,7 +7,7 @@ const repository = fileURLToPath(new URL('../../', import.meta.url))
 
 // Install the already-locked modern dependency closure into an external consumer.
 // No network, symlinks to repository source, or extra Hugo file permissions.
-export function copyModernDependencies (directory) {
+export function copyModernDependencies (directory, extra = []) {
   const copied = new Set()
   function copy (name) {
     if (copied.has(name)) return
@@ -16,11 +16,11 @@ export function copyModernDependencies (directory) {
     copied.add(name)
     const target = join(directory, 'node_modules', name)
     mkdirSync(dirname(target), { recursive: true })
-    cpSync(source, target, { recursive: true })
+    cpSync(source, target, { recursive: true, verbatimSymlinks: true })
     const pkg = JSON.parse(readFileSync(join(source, 'package.json'), 'utf8'))
     for (const dependency of Object.keys({ ...pkg.dependencies, ...pkg.optionalDependencies })) copy(dependency)
   }
-  for (const name of ['alpinejs', 'tailwindcss', '@tailwindcss/cli', 'fuse.js']) copy(name)
+  for (const name of ['alpinejs', 'tailwindcss', '@tailwindcss/cli', 'fuse.js', ...extra]) copy(name)
   mkdirSync(join(directory, 'node_modules/.bin'), { recursive: true })
   symlinkSync('../@tailwindcss/cli/dist/index.mjs', join(directory, 'node_modules/.bin/tailwindcss'))
 }

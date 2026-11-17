@@ -1,0 +1,8 @@
+{{/* Inputs: kind, text (plain), optional title for abbreviations. */}}
+{{- $kind := .kind -}}
+{{- if eq $kind "abbr" -}}<abbr title="{{ .title }}">{{ .text }}</abbr>
+{{- else if eq $kind "kbd" -}}<kbd>{{ .text }}</kbd>
+{{- else if eq $kind "mark" -}}<mark>{{ .text }}</mark>
+{{- else if eq $kind "sub" -}}<sub>{{ .text }}</sub>
+{{- else if eq $kind "sup" -}}<sup>{{ .text }}</sup>
+{{- else -}}{{ errorf "inline-text: unknown kind %q" $kind }}{{ end -}}

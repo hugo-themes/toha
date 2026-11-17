@@ -54,6 +54,7 @@ for (const basePath of ['', '/subpath']) {
         }))
         for (const path of [
           'layouts/partials/helpers/get-relative-url.html',
+          'layouts/partials/helpers/is-modern-page.html',
           'layouts/partials/helpers/get-page-url.html',
           'layouts/partials/helpers/get-resource-url.html',
           'layouts/partials/cards/publication.html',

@@ -1,0 +1,5 @@
+{{- if and (partial "helpers/is-modern-page.html" .Page) .Page.Site.Params.features.math.enable .Page.Params.math -}}
+  {{- transform.ToMath .Inner (dict "output" "mathml" "displayMode" (eq .Type "block")) -}}
+{{- else -}}
+  {{- if eq .Type "block" }}\[{{ .Inner }}\]{{ else }}\({{ .Inner }}\){{ end -}}
+{{- end -}}
