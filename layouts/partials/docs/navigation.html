@@ -1,0 +1,17 @@
+{{/* Inputs: root, current, groupSections. Nested sections retain the shared tree. */}}
+{{- if .groupSections -}}
+  {{- range .root.Pages.ByWeight -}}
+    {{- if .IsSection -}}
+      <section class="docs-nav-section mt-7" aria-labelledby="docs-nav-{{ (crypto.MD5 .Path) }}">
+        <h2 id="docs-nav-{{ (crypto.MD5 .Path) }}" class="mb-2 px-3 text-xs font-semibold tracking-wide text-primary uppercase">
+          <a class="rounded-sm hover:underline" href="{{ .RelPermalink }}"{{ if eq . $.current }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a>
+        </h2>
+        {{ partial "docs/tree.html" (dict "pages" .Pages "current" $.current) }}
+      </section>
+    {{- else -}}
+      {{ partial "docs/tree.html" (dict "pages" (slice .) "current" $.current) }}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{ partial "docs/tree.html" (dict "pages" .root.Pages "current" .current) }}
+{{- end -}}

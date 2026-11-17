@@ -1,3 +1,10 @@
+{{- if partial "helpers/is-modern-page.html" .Page -}}
+{{- $columns := slice -}}
+{{- range $index, $content := split .Inner "---" -}}
+  {{- $columns = $columns | append (dict "span" ($.Get $index) "content" ($.Page.RenderString (dict "display" "block") $content)) -}}
+{{- end -}}
+{{- partial "components/columns.html" (dict "columns" $columns) -}}
+{{- else -}}
 <div class="row">
     {{ range $idx, $val := split .Inner "---" }}
        <div class="col col-sm-12 col-lg-{{ $.Get $idx }}">
@@ -5,3 +12,5 @@
         </div>
     {{ end }}
 </div>
+
+{{- end -}}

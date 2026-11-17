@@ -1,0 +1,17 @@
+---
+title: video
+linkTitle: video
+weight: 50
+---
+
+Inserta un vídeo con controles nativos en páginas modernas. El diseño clásico conserva su reproductor. Define src y, si hace falta, el tipo MIME.
+
+Disponible en páginas clásicas y modernas activadas; cada una usa sus propios recursos.
+
+## Uso
+
+```go-html-template
+{{</* video src="/videos/sample.mp4" type="video/mp4" */>}}
+```
+
+[Ejemplos]({{< relref "/docs/shortcodes" >}})

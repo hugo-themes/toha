@@ -46,9 +46,11 @@ params:
     docs:
       enable: true
       section: docs
+      sidebar:
+        groupSections: true # Optional; default false.
 ```
 
-The homepage selector accepts `portfolio` (the default) or `docs`. Selecting
+The homepage selector accepts `portfolio` (the default), `blog`, or `docs`. Selecting
 `docs` requires the docs feature and a content section. An unsupported value
 fails the build with a configuration error.
 
@@ -63,9 +65,24 @@ cascade:
 The `section` setting identifies the docs root; `type: docs` selects the modern
 shell for its pages. Leave the homepage selector unset to combine docs with the
 existing portfolio. Page weights control the depth-first sidebar and previous/
-next order. `toc: false` in front matter hides both article outlines.
+next order. Nested folders containing `_index.md` are Hugo sections; folders with
+`index.md` are leaf bundles and cannot contain child pages. Enable
+`params.features.docs.sidebar.groupSections` to show top-level sections as linked
+headings, keeping nested disclosures and the same hierarchy for breadcrumbs,
+search, and pagination. This option defaults to false. The maintained docs use
+`portfolio/`, `blog/`, `documentation/`, `shortcodes/`, `customization/`, and shared
+Getting started/Translation/Community groups; none of these names are hardcoded
+in the theme. `toc: false` in front matter hides both article outlines.
 Disabling the docs feature restores legacy rendering for `type: docs` content;
 it does not unpublish those pages.
+
+Enable `params.features.docs.toc.scrollSpy: true` to highlight the current
+heading in both desktop and mobile outlines (default false). The current link
+uses the primary text color and `aria-current="location"`. Tracking follows the
+headings Hugo includes in the TOC and the configured CSS scroll padding/margins.
+Direct fragment links and native keyboard navigation remain usable; without
+JavaScript, outlines remain ordinary anchor links. `toc: false` also disables
+tracking for that page.
 
 The standalone docs example filters the theme's legacy `content/posts/` and
 `content/search/` scaffolding with `ignoreFiles`. Remove that filter for a mixed
@@ -120,8 +137,19 @@ also omit the action. These services do not change legacy blog search or assets.
 
 Docs pages and blog homepages load Tailwind and the fingerprinted Alpine bundle.
 Legacy pages keep their Bootstrap/SCSS and existing JavaScript bundles. Avoid loading both global
-style systems on one page. Existing shortcodes retain their original styling;
-the `ui-*` shortcodes are for enabled modern pages.
+style systems on one page. The `img`, `alert`, `split`, `vs`, `video`, and `mermaid`
+shortcodes adapt to modern markup only on enabled modern pages; their legacy
+branches retain existing behavior. The `ui-*` shortcodes require modern pages.
+
+Modern Mermaid pages require `params.features.flowchart.enable` and page front
+matter `mermaid: true`. A separate fingerprinted bundle renders escaped diagram
+source using strict Mermaid security, follows the shared theme, and leaves raw
+source available without JavaScript. Alignment accepts left/center/right; the
+modern example's named backgrounds are none/black. Legacy Mermaid configuration
+is unchanged. Modern math requires `params.features.math.enable`, `math: true`,
+and Goldmark passthrough delimiters (`\(...\)` inline, `$$...$$` or
+`\[...\]` blocks). The docs passthrough hook renders native MathML at build time;
+it does not load the legacy KaTeX bundle or remote scripts.
 
 Tailwind v4 runs through Hugo's `css.TailwindCSS`. The example enables
 `build.buildStats.enable`, mounts `hugo_stats.json` at
@@ -156,7 +184,9 @@ provided for English, Bengali, and French.
 | `components/button.html` | Required `label`; optional `href`, `variant` (`primary`, `secondary`, `ghost`), `icon`, `iconOnly`, `disabled` | Link when `href` is supplied, otherwise `type="button"`. Icon-only controls require a label and icon. Disabled links fail validation. |
 | `components/icon.html` | Required `name`; optional `class` | Decorative inline SVG. Names: `book`, `clock`, `menu`, `arrow-right`, `arrow-left`, `chevron`, `sun`, `search`, `close`, `info`, `check`, `code`. Unknown names fail validation. |
 | `components/badge.html` | Required `label`; optional `tone` (`neutral`, `accent`) | Non-interactive supporting label. |
-| `components/callout.html` | `content` (rendered Markdown); optional `title` | Semantic aside with decorative icon and escaped title. |
+| `components/callout.html` | `content` (rendered Markdown); optional `title`, `tone` (`info` default, `success`, `warning`, `danger`) | Semantic aside with decorative icon, role colors, and escaped title. |
+| `components/columns.html` | `columns`, each with integer `span` (1–12) and trusted rendered `content` | Twelve-column grid; stacks on small screens. |
+| `components/inline-text.html` | `kind` (`abbr`, `kbd`, `mark`, `sub`, `sup`), plain `text`, optional abbreviation `title` | Fixed semantic HTML elements; text is escaped, with no arbitrary tag/HTML input. |
 | `components/disclosure.html` | Required `label`; optional `content` (rendered Markdown), `open` (boolean) | Native details/summary with keyboard and no-JavaScript support. |
 | `components/post-card.html` | Required `title`, `href`; optional `summary`, `date`, `dateISO`, `readingTime`, `tags` (`label`/`href`), `tagsLabel` | Compact text card with a full-card post link and separate tag links; metadata and tags are escaped and adapted by the caller. |
 | `components/pagination.html` | Required Hugo `paginator`; localized `label`, `previous`, `next` | Bounded page links with real hrefs and `aria-current`; works without JavaScript. |
@@ -171,7 +201,9 @@ provided for English, Bengali, and French.
 ) }}
 ```
 
-Markdown uses `ui-button`, `ui-badge`, `ui-callout`, and `ui-disclosure`.
+Markdown uses `ui-button`, `ui-badge`, `ui-callout`, `ui-disclosure`, and `ui-text`.
+`ui-callout` accepts the named `tone`; `ui-text` accepts `kind`, abbreviation
+`title`, and plain inner text.
 `ui-button` also accepts `page`, resolved through `Page.GetPage` to preserve
 language and deployment prefixes. For boolean shortcode inputs, pass the string
 `"true"`. All `ui-*` shortcodes require an enabled modern docs page or blog homepage.
@@ -189,6 +221,13 @@ Run `mise run check` for all builds, lint, and regression tests. The focused
 subpath URLs, component semantics, class generation, and modern/legacy asset
 isolation. Visual acceptance includes desktop/mobile columns, keyboard focus,
 native disclosures, theme persistence, and no horizontal page overflow.
+
+The official multilingual documentation is maintained in `exampleSites/docs/`.
+Its README and NOTICE describe source attribution, old-path aliases, and the
+import ledger. `tests/docs-content.test.mjs` builds that full corpus outside the
+checkout at root/subpath URLs; the smaller component fixture stays independent
+of documentation edits. No version selector is introduced without a versioned
+content/support policy.
 
 
 Blog homepage compositions live in `layouts/partials/blog/`; shared modern header,

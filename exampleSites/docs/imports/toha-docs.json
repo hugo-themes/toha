@@ -1,0 +1,1748 @@
+{
+  "repository": "https://github.com/hugo-themes/toha-docs",
+  "commit": "bbff576b800bd9bf1b74088226ff65af08ddc87b",
+  "pages": [
+    {
+      "source": "content/posts/_index.es.md",
+      "sha256": "6d055739a93a27d73d7b6ad2d16dbe3be64457dbce53ea37feaeb2dc99a154f2",
+      "target": "content/docs/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/",
+      "url": "/es/docs/"
+    },
+    {
+      "source": "content/posts/_index.fr.md",
+      "sha256": "d57825e5639359c6c109603a929be0b62581d0a3dbe5c64522987873a7a806d9",
+      "target": "content/docs/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/",
+      "url": "/fr/docs/"
+    },
+    {
+      "source": "content/posts/_index.md",
+      "sha256": "31a9eb41589de8f50e731b1fabb4d60421d8216774545be5f149ad7022d140f6",
+      "target": "content/docs/_index.md",
+      "language": "en",
+      "oldURL": "/posts/",
+      "url": "/docs/"
+    },
+    {
+      "source": "content/posts/analytics/index.es.md",
+      "sha256": "42c3ca8a73bd337c7b9828684e911c82b3e1cbe9efe4fbd4ab78efa74418db71",
+      "target": "content/docs/customization/analytics/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/analytics/",
+      "url": "/es/docs/customization/analytics/",
+      "previousURLs": [
+        "/es/docs/analytics/"
+      ]
+    },
+    {
+      "source": "content/posts/analytics/index.fr.md",
+      "sha256": "663c960ee052cc16e239faff0db4b427813748660f98461789a1169e0097af95",
+      "target": "content/docs/customization/analytics/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/analytics/",
+      "url": "/fr/docs/customization/analytics/",
+      "previousURLs": [
+        "/fr/docs/analytics/"
+      ]
+    },
+    {
+      "source": "content/posts/analytics/index.md",
+      "sha256": "fb90bc4558d5e94e14f27aa2cc77772a14c70d81cc46a1bf35702ad19bb6e793",
+      "target": "content/docs/customization/analytics/index.md",
+      "language": "en",
+      "oldURL": "/posts/analytics/",
+      "url": "/docs/customization/analytics/",
+      "previousURLs": [
+        "/docs/analytics/"
+      ]
+    },
+    {
+      "source": "content/posts/comments/index.es.md",
+      "sha256": "2e3ca66565f4a402f56c4fe204b86e605e009a134cabcf82bdf1e87806c0407f",
+      "target": "content/docs/customization/comments/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/comments/",
+      "url": "/es/docs/customization/comments/",
+      "previousURLs": [
+        "/es/docs/comments/"
+      ]
+    },
+    {
+      "source": "content/posts/comments/index.fr.md",
+      "sha256": "9e5b81fa1f655328b19ce95c4869eb3b36eeb9297d3b0b74d8ae5b60407427ab",
+      "target": "content/docs/customization/comments/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/comments/",
+      "url": "/fr/docs/customization/comments/",
+      "previousURLs": [
+        "/fr/docs/comments/"
+      ]
+    },
+    {
+      "source": "content/posts/comments/index.md",
+      "sha256": "a37eb8a6e499e41559b70a5755bca41caf133bbd4cba463a179805c7e456339a",
+      "target": "content/docs/customization/comments/index.md",
+      "language": "en",
+      "oldURL": "/posts/comments/",
+      "url": "/docs/customization/comments/",
+      "previousURLs": [
+        "/docs/comments/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/_index.es.md",
+      "sha256": "3a8e94e054879250460474138e21d97645d73be2e2ef796d347ac25c6c4d61d3",
+      "target": "content/docs/portfolio/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/",
+      "url": "/es/docs/portfolio/",
+      "previousURLs": [
+        "/es/docs/configuration/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/_index.fr.md",
+      "sha256": "6279aa560e228966aa8cb425361735e2736dad113af8057352feff63a0742528",
+      "target": "content/docs/portfolio/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/",
+      "url": "/fr/docs/portfolio/",
+      "previousURLs": [
+        "/fr/docs/configuration/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/_index.md",
+      "sha256": "483f0a47fc90f8346054cfbde6240c84df1fd74925b9bf666d977809a004ddc7",
+      "target": "content/docs/portfolio/_index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/",
+      "url": "/docs/portfolio/",
+      "previousURLs": [
+        "/docs/configuration/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/_index.es.md",
+      "sha256": "3b3ac0a2fc2b5d9155bf539b48aae9c0f4a6ed89ab6b385269ec4273bda8a88f",
+      "target": "content/docs/portfolio/sections/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/",
+      "url": "/es/docs/portfolio/sections/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/_index.fr.md",
+      "sha256": "c2362b7a3a230b5c16ed5edb535cf380e6ec93791f02f4a979065ba97195a407",
+      "target": "content/docs/portfolio/sections/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/",
+      "url": "/fr/docs/portfolio/sections/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/_index.md",
+      "sha256": "c2362b7a3a230b5c16ed5edb535cf380e6ec93791f02f4a979065ba97195a407",
+      "target": "content/docs/portfolio/sections/_index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/",
+      "url": "/docs/portfolio/sections/",
+      "previousURLs": [
+        "/docs/configuration/sections/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/about/index.es.md",
+      "sha256": "497c75d6283c71997ce914dd7bd49ca25c4023354048f4ef687cb40806196548",
+      "target": "content/docs/portfolio/sections/about/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/about/",
+      "url": "/es/docs/portfolio/sections/about/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/about/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/about/index.fr.md",
+      "sha256": "ebfb07ee42cfb74f8794f1b937c902f04c956ecbe6d57b3de6fba2ecf0bdf5d5",
+      "target": "content/docs/portfolio/sections/about/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/about/",
+      "url": "/fr/docs/portfolio/sections/about/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/about/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/about/index.md",
+      "sha256": "5a6018fdea76e784135763d0b9d0e1d9686a0e5d7266bd8b215888ecd067fb3f",
+      "target": "content/docs/portfolio/sections/about/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/about/",
+      "url": "/docs/portfolio/sections/about/",
+      "previousURLs": [
+        "/docs/configuration/sections/about/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/achievements/index.es.md",
+      "sha256": "52e85d2276dc0c836051a65f3001ddb253a747a8a39fb11c5a47da52bcf2fa6d",
+      "target": "content/docs/portfolio/sections/achievements/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/achievements/",
+      "url": "/es/docs/portfolio/sections/achievements/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/achievements/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/achievements/index.fr.md",
+      "sha256": "ab1ac9164af64adb3795104299596b913aabf1eb4db8cdd110d7861295a92305",
+      "target": "content/docs/portfolio/sections/achievements/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/achievements/",
+      "url": "/fr/docs/portfolio/sections/achievements/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/achievements/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/achievements/index.md",
+      "sha256": "4ebbfa595bff29394cf8c2c4df9ec96b264837d5b21b70a92ef8f458db3fa05e",
+      "target": "content/docs/portfolio/sections/achievements/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/achievements/",
+      "url": "/docs/portfolio/sections/achievements/",
+      "previousURLs": [
+        "/docs/configuration/sections/achievements/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/education/index.es.md",
+      "sha256": "27afb5f65102333fd64d4035760eec44e04d30c5fe8b74ae9fb967bf3cc85ce5",
+      "target": "content/docs/portfolio/sections/education/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/education/",
+      "url": "/es/docs/portfolio/sections/education/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/education/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/education/index.fr.md",
+      "sha256": "59ede698ad0bc44f1ada6659a2e6c085c94d567dfbd282b4361df6b6751d442b",
+      "target": "content/docs/portfolio/sections/education/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/education/",
+      "url": "/fr/docs/portfolio/sections/education/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/education/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/education/index.md",
+      "sha256": "554d1081af22c73caff6993008ee5ae9b75d790676abbb1e8ee30296af12d2c0",
+      "target": "content/docs/portfolio/sections/education/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/education/",
+      "url": "/docs/portfolio/sections/education/",
+      "previousURLs": [
+        "/docs/configuration/sections/education/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/experiences/index.es.md",
+      "sha256": "0e9811d54cf714ddb84eb8be9f557feb9975944f7b54558003567e7e8c6eb4b7",
+      "target": "content/docs/portfolio/sections/experiences/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/experiences/",
+      "url": "/es/docs/portfolio/sections/experiences/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/experiences/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/experiences/index.fr.md",
+      "sha256": "2d14a0ca1fcf8cc6679a48a7f99f767d1a9b3aca6564cc1e75a6dcb66eba2ef2",
+      "target": "content/docs/portfolio/sections/experiences/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/experiences/",
+      "url": "/fr/docs/portfolio/sections/experiences/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/experiences/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/experiences/index.md",
+      "sha256": "ebb1b9a464038378ab5fddc6eb3e60bc0afae40326949c1742967f5fe1430d97",
+      "target": "content/docs/portfolio/sections/experiences/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/experiences/",
+      "url": "/docs/portfolio/sections/experiences/",
+      "previousURLs": [
+        "/docs/configuration/sections/experiences/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/featured-posts/index.es.md",
+      "sha256": "77c93c6b6b0734d02f4eddb4b6804f5d5d127f11e3f4f5c4f6b3e761dbf780f6",
+      "target": "content/docs/portfolio/sections/featured-posts/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/featured-posts/",
+      "url": "/es/docs/portfolio/sections/featured-posts/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/featured-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/featured-posts/index.md",
+      "sha256": "3e8ed4999d8d0edbb224da6a51a17058dce662a3e7afb1a7888e062c7953df9c",
+      "target": "content/docs/portfolio/sections/featured-posts/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/featured-posts/",
+      "url": "/docs/portfolio/sections/featured-posts/",
+      "previousURLs": [
+        "/docs/configuration/sections/featured-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/projects/index.es.md",
+      "sha256": "b3c8571192f6bbc652990e97273137e0ed83f7bbcdf6923af5f280c2458faf64",
+      "target": "content/docs/portfolio/sections/projects/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/projects/",
+      "url": "/es/docs/portfolio/sections/projects/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/projects/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/projects/index.fr.md",
+      "sha256": "7f5044ee2d3f92a8b907421e12722b6be9ea9524bfe74c9cd00cb58dc6d554bf",
+      "target": "content/docs/portfolio/sections/projects/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/projects/",
+      "url": "/fr/docs/portfolio/sections/projects/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/projects/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/projects/index.md",
+      "sha256": "6616f064caad0535619483e246aff9218c9753179915efa91de7a08ac1813691",
+      "target": "content/docs/portfolio/sections/projects/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/projects/",
+      "url": "/docs/portfolio/sections/projects/",
+      "previousURLs": [
+        "/docs/configuration/sections/projects/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/recent-posts/index.es.md",
+      "sha256": "0cd6d41f42427b15d8af8c51d3c7af75d7893bbb631401d6458800cbc6a41a55",
+      "target": "content/docs/portfolio/sections/recent-posts/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/recent-posts/",
+      "url": "/es/docs/portfolio/sections/recent-posts/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/recent-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/recent-posts/index.fr.md",
+      "sha256": "4b883628496ffc35def49d7f7c7be4f04dc610d0ae30f78fb43c748a90b719d8",
+      "target": "content/docs/portfolio/sections/recent-posts/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/recent-posts/",
+      "url": "/fr/docs/portfolio/sections/recent-posts/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/recent-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/recent-posts/index.md",
+      "sha256": "dd11b34f2c9a8f170b5a76dcd03a4af33271c64d11e8f998ac49b0248c559103",
+      "target": "content/docs/portfolio/sections/recent-posts/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/recent-posts/",
+      "url": "/docs/portfolio/sections/recent-posts/",
+      "previousURLs": [
+        "/docs/configuration/sections/recent-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/skills/index.es.md",
+      "sha256": "a300d4038b92dfef9d59933b9a72b558fe44b522b536e0aa3dbd00f9ab7500a2",
+      "target": "content/docs/portfolio/sections/skills/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/sections/skills/",
+      "url": "/es/docs/portfolio/sections/skills/",
+      "previousURLs": [
+        "/es/docs/configuration/sections/skills/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/skills/index.fr.md",
+      "sha256": "c80f40b4efd86019d47603fa1af9584ab607d75936690bf035dcac461a3cbfdb",
+      "target": "content/docs/portfolio/sections/skills/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/sections/skills/",
+      "url": "/fr/docs/portfolio/sections/skills/",
+      "previousURLs": [
+        "/fr/docs/configuration/sections/skills/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/sections/skills/index.md",
+      "sha256": "87ac87b105b41a03bc6318eb814bb20b9af150c39841617ed1b433cfd2862d88",
+      "target": "content/docs/portfolio/sections/skills/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/sections/skills/",
+      "url": "/docs/portfolio/sections/skills/",
+      "previousURLs": [
+        "/docs/configuration/sections/skills/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/site-parameters/index.es.md",
+      "sha256": "e76eadcd178846915c176c3e57a1ba5a088c2c47c0e724de9e8fe07e5383f909",
+      "target": "content/docs/portfolio/site-parameters/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/configuration/site-parameters/",
+      "url": "/es/docs/portfolio/site-parameters/",
+      "previousURLs": [
+        "/es/docs/configuration/site-parameters/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/site-parameters/index.fr.md",
+      "sha256": "0aa38d8694167a4f24564188d57b5d233effb55b606382ca2337712ddc52abb6",
+      "target": "content/docs/portfolio/site-parameters/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/configuration/site-parameters/",
+      "url": "/fr/docs/portfolio/site-parameters/",
+      "previousURLs": [
+        "/fr/docs/configuration/site-parameters/"
+      ]
+    },
+    {
+      "source": "content/posts/configuration/site-parameters/index.md",
+      "sha256": "e808215c0a66525aa4745f83e05a110ad765abd0e7c7f0337d45c02a4111f6f8",
+      "target": "content/docs/portfolio/site-parameters/index.md",
+      "language": "en",
+      "oldURL": "/posts/configuration/site-parameters/",
+      "url": "/docs/portfolio/site-parameters/",
+      "previousURLs": [
+        "/docs/configuration/site-parameters/"
+      ]
+    },
+    {
+      "source": "content/posts/contributing/index.es.md",
+      "sha256": "e7739d4c489b1df5034a5e6e9e2e85a6bac1609388ec0bed0a3f11d06dda7cfa",
+      "target": "content/docs/community/contributing/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/contributing/",
+      "url": "/es/docs/community/contributing/",
+      "previousURLs": [
+        "/es/docs/contributing/"
+      ]
+    },
+    {
+      "source": "content/posts/contributing/index.fr.md",
+      "sha256": "63c282a4a3b6e93c8f60e6f794bdf56742d78ee96741cd1e78a18172722b7dbc",
+      "target": "content/docs/community/contributing/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/contributing/",
+      "url": "/fr/docs/community/contributing/",
+      "previousURLs": [
+        "/fr/docs/contributing/"
+      ]
+    },
+    {
+      "source": "content/posts/contributing/index.md",
+      "sha256": "aa76ac63cdb8d6d4ef51af85db1ec36bf021bd63371dd95bd0a446d76f5dba69",
+      "target": "content/docs/community/contributing/index.md",
+      "language": "en",
+      "oldURL": "/posts/contributing/",
+      "url": "/docs/community/contributing/",
+      "previousURLs": [
+        "/docs/contributing/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/_index.es.md",
+      "sha256": "ede80e22a1c92b9ebd2f758b1c19624681862c84bd2fdbff410fb68efd47951c",
+      "target": "content/docs/customization/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/customizing/",
+      "url": "/es/docs/customization/",
+      "previousURLs": [
+        "/es/docs/customizing/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/_index.fr.md",
+      "sha256": "556a49da2b43ee2d3164111ca14c13fd7e99251ca146ae84adb0e7c58255071b",
+      "target": "content/docs/customization/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/customizing/",
+      "url": "/fr/docs/customization/",
+      "previousURLs": [
+        "/fr/docs/customizing/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/_index.md",
+      "sha256": "3b2c656258a8700591d02977a9998a028403fe18566497af0ef4ec10ab680fe1",
+      "target": "content/docs/customization/_index.md",
+      "language": "en",
+      "oldURL": "/posts/customizing/",
+      "url": "/docs/customization/",
+      "previousURLs": [
+        "/docs/customizing/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/customize-css/index.es.md",
+      "sha256": "2a0e3caeb6d23702d28f6e6c098bb6f353272c5d926ad2dee0c31e6ce6518ab9",
+      "target": "content/docs/customization/customize-css/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/customizing/customize-css/",
+      "url": "/es/docs/customization/customize-css/",
+      "previousURLs": [
+        "/es/docs/customizing/customize-css/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/customize-css/index.fr.md",
+      "sha256": "0415c436574b9831bb7ba98f6fe31846b5dcd363076c4eae4d8481f4d90b9a45",
+      "target": "content/docs/customization/customize-css/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/customizing/customize-css/",
+      "url": "/fr/docs/customization/customize-css/",
+      "previousURLs": [
+        "/fr/docs/customizing/customize-css/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/customize-css/index.md",
+      "sha256": "62db003d12d439a65dcf298c8b0ebc9f30a2d6912f6880311cba173acc7a3e0d",
+      "target": "content/docs/customization/customize-css/index.md",
+      "language": "en",
+      "oldURL": "/posts/customizing/customize-css/",
+      "url": "/docs/customization/customize-css/",
+      "previousURLs": [
+        "/docs/customizing/customize-css/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/customize-layout/index.es.md",
+      "sha256": "a9a9f0ff2a2fa13b0708334e2723fe23852b3bd7cc40a2badd662a5e97c733de",
+      "target": "content/docs/customization/customize-layout/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/customizing/customize-layout/",
+      "url": "/es/docs/customization/customize-layout/",
+      "previousURLs": [
+        "/es/docs/customizing/customize-layout/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/customize-layout/index.fr.md",
+      "sha256": "5d64b6e12361b0e641a064354f97190c8cbb27f202458165f3e07e7b23b15f95",
+      "target": "content/docs/customization/customize-layout/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/customizing/customize-layout/",
+      "url": "/fr/docs/customization/customize-layout/",
+      "previousURLs": [
+        "/fr/docs/customizing/customize-layout/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/customize-layout/index.md",
+      "sha256": "7d73d85a55b6f21519b930b8814ae0f7ce3079e72923a7d4b23013d4d97d0fc7",
+      "target": "content/docs/customization/customize-layout/index.md",
+      "language": "en",
+      "oldURL": "/posts/customizing/customize-layout/",
+      "url": "/docs/customization/customize-layout/",
+      "previousURLs": [
+        "/docs/customizing/customize-layout/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/dark-theme/index.es.md",
+      "sha256": "f7a6a5ef385ca76f2343ace580cc81e47932b30531eb72c8224f3a4743e9b62e",
+      "target": "content/docs/customization/dark-theme/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/customizing/dark-theme/",
+      "url": "/es/docs/customization/dark-theme/",
+      "previousURLs": [
+        "/es/docs/customizing/dark-theme/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/dark-theme/index.fr.md",
+      "sha256": "b5e3f529ee7237185f820fec42d3aeb61e0bc01bf55a6472e09c1aa2f7ea6bfe",
+      "target": "content/docs/customization/dark-theme/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/customizing/dark-theme/",
+      "url": "/fr/docs/customization/dark-theme/",
+      "previousURLs": [
+        "/fr/docs/customizing/dark-theme/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/dark-theme/index.md",
+      "sha256": "7d3415afc963d1149c1bee7ba9ff9ae18acceefcad25e1d4e7e63f64d335cef8",
+      "target": "content/docs/customization/dark-theme/index.md",
+      "language": "en",
+      "oldURL": "/posts/customizing/dark-theme/",
+      "url": "/docs/customization/dark-theme/",
+      "previousURLs": [
+        "/docs/customizing/dark-theme/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/new-section/index.es.md",
+      "sha256": "cd8552076c95d3d55e3483ffb87f9994254fef0d962d22f14680826038c6a658",
+      "target": "content/docs/customization/new-section/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/customizing/new-section/",
+      "url": "/es/docs/customization/new-section/",
+      "previousURLs": [
+        "/es/docs/customizing/new-section/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/new-section/index.fr.md",
+      "sha256": "d5ed570ea7949c53ffe30aadd827052a5444894c5f074a324a7d7d54a4e8ce6d",
+      "target": "content/docs/customization/new-section/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/customizing/new-section/",
+      "url": "/fr/docs/customization/new-section/",
+      "previousURLs": [
+        "/fr/docs/customizing/new-section/"
+      ]
+    },
+    {
+      "source": "content/posts/customizing/new-section/index.md",
+      "sha256": "e504468e6643bca69c094ab9e2584a48b14b74baac60ed73e771e4bf148211c1",
+      "target": "content/docs/customization/new-section/index.md",
+      "language": "en",
+      "oldURL": "/posts/customizing/new-section/",
+      "url": "/docs/customization/new-section/",
+      "previousURLs": [
+        "/docs/customizing/new-section/"
+      ]
+    },
+    {
+      "source": "content/posts/external-link/index.es.md",
+      "sha256": "a2316d0f1966f86d5636bbcce8b9329696d1b82a6b1b092881114cf44bb7540f",
+      "target": "content/docs/customization/external-link/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/external-link/",
+      "url": "/es/docs/customization/external-link/",
+      "previousURLs": [
+        "/es/docs/external-link/"
+      ]
+    },
+    {
+      "source": "content/posts/external-link/index.fr.md",
+      "sha256": "41e5d0e61951e0d9d9149d57fce920a7128920e9b786cec673c3aa5fa1ca0791",
+      "target": "content/docs/customization/external-link/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/external-link/",
+      "url": "/fr/docs/customization/external-link/",
+      "previousURLs": [
+        "/fr/docs/external-link/"
+      ]
+    },
+    {
+      "source": "content/posts/external-link/index.md",
+      "sha256": "03c275da17b057fb633f0ee7cab3caab5bf2cfb7ff9b3af3216b5a00c0f8b6c4",
+      "target": "content/docs/customization/external-link/index.md",
+      "language": "en",
+      "oldURL": "/posts/external-link/",
+      "url": "/docs/customization/external-link/",
+      "previousURLs": [
+        "/docs/external-link/"
+      ]
+    },
+    {
+      "source": "content/posts/features/index.es.md",
+      "sha256": "c7d6f748d5e2a7c65b887b2bec79ae0aad56342bfe7fc9f52ed07fba7f124dd8",
+      "target": "content/docs/features/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/features/",
+      "url": "/es/docs/features/"
+    },
+    {
+      "source": "content/posts/features/index.fr.md",
+      "sha256": "9710271666459ffcb8943129f8e612425abac44c5c40ea58eb8dae36ce60e6c5",
+      "target": "content/docs/features/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/features/",
+      "url": "/fr/docs/features/"
+    },
+    {
+      "source": "content/posts/features/index.md",
+      "sha256": "3f19e52c931affd959414de6c90af378c343bf54dc3571b7e2c6e9f2e359ecf1",
+      "target": "content/docs/features/index.md",
+      "language": "en",
+      "oldURL": "/posts/features/",
+      "url": "/docs/features/"
+    },
+    {
+      "source": "content/posts/getting-started/_index.es.md",
+      "sha256": "1da7bf8577a22ebbedf5db44ad6598859dc7f7a04265f891a770d827d1d0d3e3",
+      "target": "content/docs/getting-started/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/getting-started/",
+      "url": "/es/docs/getting-started/"
+    },
+    {
+      "source": "content/posts/getting-started/_index.fr.md",
+      "sha256": "1d819d025f5025f9cb16477b55ad752b03c95763ca28ba3c53d8e1a4cd4bfd59",
+      "target": "content/docs/getting-started/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/getting-started/",
+      "url": "/fr/docs/getting-started/"
+    },
+    {
+      "source": "content/posts/getting-started/_index.md",
+      "sha256": "79e95ad4b7645908de182e37defeab220a402b9c11e95f4e80abd3c2a9432200",
+      "target": "content/docs/getting-started/_index.md",
+      "language": "en",
+      "oldURL": "/posts/getting-started/",
+      "url": "/docs/getting-started/"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/index.es.md",
+      "sha256": "fea299035166b8bd59f40de632ef0a7d60fc04c612d6488c65f9a41ebc9466ec",
+      "target": "content/docs/getting-started/github-pages/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/getting-started/github-pages/",
+      "url": "/es/docs/getting-started/github-pages/"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/index.fr.md",
+      "sha256": "7dff9ae4f57c5ee20a267a1158589b4946740c0f3621e45ce419b225a0f158ba",
+      "target": "content/docs/getting-started/github-pages/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/getting-started/github-pages/",
+      "url": "/fr/docs/getting-started/github-pages/"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/index.md",
+      "sha256": "5972dae46249cff4b505580b54df1be8352ca9fa3f3b722cfb54e4f61d2cfd0e",
+      "target": "content/docs/getting-started/github-pages/index.md",
+      "language": "en",
+      "oldURL": "/posts/getting-started/github-pages/",
+      "url": "/docs/getting-started/github-pages/"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/index.es.md",
+      "sha256": "1e50ebe893ac7f2f3f658ba9dc5cd4a4f1bcc78984f99eed9caa4727c0b3b1eb",
+      "target": "content/docs/getting-started/netlify/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/getting-started/netlify/",
+      "url": "/es/docs/getting-started/netlify/"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/index.fr.md",
+      "sha256": "0857d9aed98ebf0c79d356a55f23ec49f8fbc411a346c9710c787247c71114a2",
+      "target": "content/docs/getting-started/netlify/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/getting-started/netlify/",
+      "url": "/fr/docs/getting-started/netlify/"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/index.md",
+      "sha256": "71cdf7344824d82f64847a26f7792709df774ec0a63052762349905fbfaf8435",
+      "target": "content/docs/getting-started/netlify/index.md",
+      "language": "en",
+      "oldURL": "/posts/getting-started/netlify/",
+      "url": "/docs/getting-started/netlify/"
+    },
+    {
+      "source": "content/posts/getting-started/prepare-site/index.es.md",
+      "sha256": "c9068e4847943f03770259b0d84ac1ff516b6f28a60dd43c6ca93122c1b434f8",
+      "target": "content/docs/getting-started/prepare-site/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/getting-started/prepare-site/",
+      "url": "/es/docs/getting-started/prepare-site/"
+    },
+    {
+      "source": "content/posts/getting-started/prepare-site/index.fr.md",
+      "sha256": "e557263556eaffa41fb38fca40a56c98cdba29c429f1c5c6e80c9e5db410ce81",
+      "target": "content/docs/getting-started/prepare-site/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/getting-started/prepare-site/",
+      "url": "/fr/docs/getting-started/prepare-site/"
+    },
+    {
+      "source": "content/posts/getting-started/prepare-site/index.md",
+      "sha256": "0239e34542de6b2fddaaf413a27d4aacef4ce8ccc512d001d639b8ae0d7e4e76",
+      "target": "content/docs/getting-started/prepare-site/index.md",
+      "language": "en",
+      "oldURL": "/posts/getting-started/prepare-site/",
+      "url": "/docs/getting-started/prepare-site/"
+    },
+    {
+      "source": "content/posts/getting-started/theme-update/index.es.md",
+      "sha256": "9efb942c16ae63bf3fa539bd500829258dfcb69a845599cce45ac411ece3f6ab",
+      "target": "content/docs/getting-started/theme-update/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/getting-started/theme-update/",
+      "url": "/es/docs/getting-started/theme-update/"
+    },
+    {
+      "source": "content/posts/getting-started/theme-update/index.fr.md",
+      "sha256": "368166a6a26a73c5623e015c8790fce601ee9e77b26a5622abe0481762857d20",
+      "target": "content/docs/getting-started/theme-update/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/getting-started/theme-update/",
+      "url": "/fr/docs/getting-started/theme-update/"
+    },
+    {
+      "source": "content/posts/getting-started/theme-update/index.md",
+      "sha256": "c04fc4ad54e080916340d103c6715d177c599974d5a3ad7d4991d1cce5894679",
+      "target": "content/docs/getting-started/theme-update/index.md",
+      "language": "en",
+      "oldURL": "/posts/getting-started/theme-update/",
+      "url": "/docs/getting-started/theme-update/"
+    },
+    {
+      "source": "content/posts/quickstart/index.es.md",
+      "sha256": "6747a3c5bdd623d46c3e8bd1a4e8eccab034abc717139a7c561910d92b0e2ee8",
+      "target": "content/docs/getting-started/quickstart/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/quickstart/",
+      "url": "/es/docs/getting-started/quickstart/",
+      "previousURLs": [
+        "/es/docs/quickstart/"
+      ]
+    },
+    {
+      "source": "content/posts/quickstart/index.fr.md",
+      "sha256": "be1a80565c02e88f1e196500c62633dd529b4cb9cc991a105eaa42d71a6356d3",
+      "target": "content/docs/getting-started/quickstart/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/quickstart/",
+      "url": "/fr/docs/getting-started/quickstart/",
+      "previousURLs": [
+        "/fr/docs/quickstart/"
+      ]
+    },
+    {
+      "source": "content/posts/quickstart/index.md",
+      "sha256": "ef67e8bcdf1b16717f806c76b38c1dd548d4eb9a5b4e0d9bbbe3236c92831431",
+      "target": "content/docs/getting-started/quickstart/index.md",
+      "language": "en",
+      "oldURL": "/posts/quickstart/",
+      "url": "/docs/getting-started/quickstart/",
+      "previousURLs": [
+        "/docs/quickstart/"
+      ]
+    },
+    {
+      "source": "content/posts/shortcodes/index.es.md",
+      "sha256": "43e68612da46368ffc134acd4113bd1586d33ea0be023f4a73aba3561424f7e6",
+      "target": "content/docs/shortcodes/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/shortcodes/",
+      "url": "/es/docs/shortcodes/"
+    },
+    {
+      "source": "content/posts/shortcodes/index.fr.md",
+      "sha256": "90002f60a1100ca3236878e4ae91f05f0643137fe6162e1662421f8deb0e8909",
+      "target": "content/docs/shortcodes/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/shortcodes/",
+      "url": "/fr/docs/shortcodes/"
+    },
+    {
+      "source": "content/posts/shortcodes/index.md",
+      "sha256": "5ed35c07faf2ca4a9fa4fe89b7dee1779e16490412c1eaa85dc55a4a5820fede",
+      "target": "content/docs/shortcodes/_index.md",
+      "language": "en",
+      "oldURL": "/posts/shortcodes/",
+      "url": "/docs/shortcodes/"
+    },
+    {
+      "source": "content/posts/supports/index.es.md",
+      "sha256": "36f5b7deef56faefb08d80077745c0c1a77e7e25a4196d0a15f860a8a666d725",
+      "target": "content/docs/customization/supports/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/supports/",
+      "url": "/es/docs/customization/supports/",
+      "previousURLs": [
+        "/es/docs/supports/"
+      ]
+    },
+    {
+      "source": "content/posts/supports/index.fr.md",
+      "sha256": "ce027cca0a7b20ea5a94ebdda0fb4a0f1e9354521f217150b8826b1c50cb6f1d",
+      "target": "content/docs/customization/supports/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/supports/",
+      "url": "/fr/docs/customization/supports/",
+      "previousURLs": [
+        "/fr/docs/supports/"
+      ]
+    },
+    {
+      "source": "content/posts/supports/index.md",
+      "sha256": "255fa4c8435e1611ddaef0e7b420c4b80a075790e8d0ea2e064b3030c5e4e357",
+      "target": "content/docs/customization/supports/index.md",
+      "language": "en",
+      "oldURL": "/posts/supports/",
+      "url": "/docs/customization/supports/",
+      "previousURLs": [
+        "/docs/supports/"
+      ]
+    },
+    {
+      "source": "content/posts/translation/_index.es.md",
+      "sha256": "ee370bee6c57001736aa7170d8878229d7102c5929ef4129a163c0834d10aa30",
+      "target": "content/docs/translation/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/translation/",
+      "url": "/es/docs/translation/"
+    },
+    {
+      "source": "content/posts/translation/_index.fr.md",
+      "sha256": "6f2f54d9c88a8dbbab2b9ac153e10602ec4b81a86aa29e4af1c72cecf90a6ba6",
+      "target": "content/docs/translation/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/translation/",
+      "url": "/fr/docs/translation/"
+    },
+    {
+      "source": "content/posts/translation/_index.md",
+      "sha256": "6987928814444b9308af96a644f491a1ef68501bf181d4607ceb866b81118474",
+      "target": "content/docs/translation/_index.md",
+      "language": "en",
+      "oldURL": "/posts/translation/",
+      "url": "/docs/translation/"
+    },
+    {
+      "source": "content/posts/translation/content/index.es.md",
+      "sha256": "ec99746a349a602d7b07fe799d6e5de9adff8335f5bbc6d6ea336d8d7303dc0d",
+      "target": "content/docs/translation/content/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/translation/content/",
+      "url": "/es/docs/translation/content/"
+    },
+    {
+      "source": "content/posts/translation/content/index.fr.md",
+      "sha256": "c87cc2aa552675942c888ace85a5c10ed7bbd1a763c4ff1f63b96fecb1786efc",
+      "target": "content/docs/translation/content/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/translation/content/",
+      "url": "/fr/docs/translation/content/"
+    },
+    {
+      "source": "content/posts/translation/content/index.md",
+      "sha256": "d3f3ff32ea4756b29e1e8f580447c94e02e0209fd8d5c57b7262b4510d15a5bc",
+      "target": "content/docs/translation/content/index.md",
+      "language": "en",
+      "oldURL": "/posts/translation/content/",
+      "url": "/docs/translation/content/"
+    },
+    {
+      "source": "content/posts/translation/new-language/index.es.md",
+      "sha256": "a49dfdd98c4eca278547ed9a8866fefc0e83e1475bf5047d58ef9f4dd5691eb1",
+      "target": "content/docs/translation/new-language/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/translation/new-language/",
+      "url": "/es/docs/translation/new-language/"
+    },
+    {
+      "source": "content/posts/translation/new-language/index.fr.md",
+      "sha256": "76f95d53a6c8f027adde0600d4e23ff51a6bbf75d8c367646e1170cbbb27c4eb",
+      "target": "content/docs/translation/new-language/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/translation/new-language/",
+      "url": "/fr/docs/translation/new-language/"
+    },
+    {
+      "source": "content/posts/translation/new-language/index.md",
+      "sha256": "d1055cdf368563d2f484f51525aeaaf0f793acc467201efc211111f97d1ff13d",
+      "target": "content/docs/translation/new-language/index.md",
+      "language": "en",
+      "oldURL": "/posts/translation/new-language/",
+      "url": "/docs/translation/new-language/"
+    },
+    {
+      "source": "content/posts/translation/site-data/index.es.md",
+      "sha256": "7abbaa1293dab8b96eab5980524ae90e24f12255b937d230953860e1b9b5e040",
+      "target": "content/docs/translation/site-data/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/translation/site-data/",
+      "url": "/es/docs/translation/site-data/"
+    },
+    {
+      "source": "content/posts/translation/site-data/index.fr.md",
+      "sha256": "1d7f010c45d4baa340d358f0488e2aacbfd3e89eb24972998eb5ae54f637cb87",
+      "target": "content/docs/translation/site-data/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/translation/site-data/",
+      "url": "/fr/docs/translation/site-data/"
+    },
+    {
+      "source": "content/posts/translation/site-data/index.md",
+      "sha256": "f27c3198acff19b53c4a5d30bef0e22bb4efb96f7ccbf3d9ac390ed0a02feec9",
+      "target": "content/docs/translation/site-data/index.md",
+      "language": "en",
+      "oldURL": "/posts/translation/site-data/",
+      "url": "/docs/translation/site-data/"
+    },
+    {
+      "source": "content/posts/update-v3-to-v4/index.es.md",
+      "sha256": "0cbd98159292d7fcf71d7d4700edb455802371e10064c6b313625c217701887d",
+      "target": "content/docs/community/update-v3-to-v4/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/update-v3-to-v4/",
+      "url": "/es/docs/community/update-v3-to-v4/",
+      "previousURLs": [
+        "/es/docs/update-v3-to-v4/"
+      ]
+    },
+    {
+      "source": "content/posts/update-v3-to-v4/index.fr.md",
+      "sha256": "d0afb5e95f7e0442f52ed9468d95628dcb7c0abcef83e3f59e0ded085fc17ad1",
+      "target": "content/docs/community/update-v3-to-v4/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/update-v3-to-v4/",
+      "url": "/fr/docs/community/update-v3-to-v4/",
+      "previousURLs": [
+        "/fr/docs/update-v3-to-v4/"
+      ]
+    },
+    {
+      "source": "content/posts/update-v3-to-v4/index.md",
+      "sha256": "624051f8c4194db79f8c31d2de563be477d1f9ef593acf76573506662a838451",
+      "target": "content/docs/community/update-v3-to-v4/index.md",
+      "language": "en",
+      "oldURL": "/posts/update-v3-to-v4/",
+      "url": "/docs/community/update-v3-to-v4/",
+      "previousURLs": [
+        "/docs/update-v3-to-v4/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/_index.es.md",
+      "sha256": "01806b15407b0505aa1e817b1b4773ff10646753d65e55647a9fa337889e2a48",
+      "target": "content/docs/blog/writing-posts/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/",
+      "url": "/es/docs/blog/writing-posts/",
+      "previousURLs": [
+        "/es/docs/writing-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/_index.fr.md",
+      "sha256": "6f98b8844e8c07465115eccf07f100b5c421326a8a221b50535c0336e973723b",
+      "target": "content/docs/blog/writing-posts/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/",
+      "url": "/fr/docs/blog/writing-posts/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/_index.md",
+      "sha256": "96353fb1c25ccebcdcef0337d8a9020b5af5f6898ee1d308e24009c84a4cd41b",
+      "target": "content/docs/blog/writing-posts/_index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/",
+      "url": "/docs/blog/writing-posts/",
+      "previousURLs": [
+        "/docs/writing-posts/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/front-matter/index.es.md",
+      "sha256": "3dc44c2e7a5f4a91e069e010b81410309d287af9058a485a2cae2604c314fe37",
+      "target": "content/docs/blog/writing-posts/front-matter/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/front-matter/",
+      "url": "/es/docs/blog/writing-posts/front-matter/",
+      "previousURLs": [
+        "/es/docs/writing-posts/front-matter/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/front-matter/index.fr.md",
+      "sha256": "62e3fafc9f7af3eb58e378eace107f7111d0e78ec8482bb229f6c63bc9917be6",
+      "target": "content/docs/blog/writing-posts/front-matter/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/front-matter/",
+      "url": "/fr/docs/blog/writing-posts/front-matter/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/front-matter/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/front-matter/index.md",
+      "sha256": "55f5a4ec05a07a559ce48d07069c3775af6f8c65dabe11d65c07880c28f9fdfa",
+      "target": "content/docs/blog/writing-posts/front-matter/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/front-matter/",
+      "url": "/docs/blog/writing-posts/front-matter/",
+      "previousURLs": [
+        "/docs/writing-posts/front-matter/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/markdown-syntax/index.es.md",
+      "sha256": "05a802262a25b09fad0ed88f3a151fd6c4e94884241cfd140f81bb9a2c9117d8",
+      "target": "content/docs/blog/writing-posts/markdown-syntax/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/markdown-syntax/",
+      "url": "/es/docs/blog/writing-posts/markdown-syntax/",
+      "previousURLs": [
+        "/es/docs/writing-posts/markdown-syntax/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/markdown-syntax/index.fr.md",
+      "sha256": "589e5effac4bc2f3a08348520eb50d2d5e8a526715289a18aa6b2ae1ae3278b0",
+      "target": "content/docs/blog/writing-posts/markdown-syntax/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/markdown-syntax/",
+      "url": "/fr/docs/blog/writing-posts/markdown-syntax/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/markdown-syntax/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/markdown-syntax/index.md",
+      "sha256": "d90de16ec8bcf6a8582fbfa5b471043eb533798116abae600fb929d748d6152d",
+      "target": "content/docs/blog/writing-posts/markdown-syntax/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/markdown-syntax/",
+      "url": "/docs/blog/writing-posts/markdown-syntax/",
+      "previousURLs": [
+        "/docs/writing-posts/markdown-syntax/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/math/index.es.md",
+      "sha256": "8e78ad1a226d2b20cdbfb804ea30abf9045b5c4561da6099528ef220492cb53e",
+      "target": "content/docs/blog/writing-posts/math/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/math/",
+      "url": "/es/docs/blog/writing-posts/math/",
+      "previousURLs": [
+        "/es/docs/writing-posts/math/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/math/index.fr.md",
+      "sha256": "0bc0a5890905410dffda7eced7f605403d9abec08c7c76ff6bc131d16a588089",
+      "target": "content/docs/blog/writing-posts/math/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/math/",
+      "url": "/fr/docs/blog/writing-posts/math/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/math/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/math/index.md",
+      "sha256": "38c8389d0f6bf9733fdd53eae31b737ca924b8b3a1069ea850d84120582de76b",
+      "target": "content/docs/blog/writing-posts/math/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/math/",
+      "url": "/docs/blog/writing-posts/math/",
+      "previousURLs": [
+        "/docs/writing-posts/math/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/mermaid/index.es.md",
+      "sha256": "3b1bc0d7d9d4eaf76e216ba0322b961cbf9d8d015175253d5d950cf751ba1c67",
+      "target": "content/docs/blog/writing-posts/mermaid/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/mermaid/",
+      "url": "/es/docs/blog/writing-posts/mermaid/",
+      "previousURLs": [
+        "/es/docs/writing-posts/mermaid/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/mermaid/index.fr.md",
+      "sha256": "5e87547a3da0e6ac2275f7e8f5f5c0501b181caa9a351b2ec178bef85ed01198",
+      "target": "content/docs/blog/writing-posts/mermaid/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/mermaid/",
+      "url": "/fr/docs/blog/writing-posts/mermaid/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/mermaid/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/mermaid/index.md",
+      "sha256": "e07ca05b64780009c291a1f26cce7624c56f04170972923dec02e2dc5830a15d",
+      "target": "content/docs/blog/writing-posts/mermaid/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/mermaid/",
+      "url": "/docs/blog/writing-posts/mermaid/",
+      "previousURLs": [
+        "/docs/writing-posts/mermaid/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/_index.es.md",
+      "sha256": "853ed2993ba8ddf729bbae1cbb80cb7d76835dd66244f4299a3cb53c8a02e16b",
+      "target": "content/docs/blog/writing-posts/organizing/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/organizing/",
+      "url": "/es/docs/blog/writing-posts/organizing/",
+      "previousURLs": [
+        "/es/docs/writing-posts/organizing/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/_index.fr.md",
+      "sha256": "c73d66102d333abbe760a5daa80cbb5d4096d26c83af301bf8c6dd4975c195c8",
+      "target": "content/docs/blog/writing-posts/organizing/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/organizing/",
+      "url": "/fr/docs/blog/writing-posts/organizing/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/organizing/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/_index.md",
+      "sha256": "96023e3107e4a03cf6add4a6c86194dd3a707e5fe9f1a9a1d80879f2e517851e",
+      "target": "content/docs/blog/writing-posts/organizing/_index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/organizing/",
+      "url": "/docs/blog/writing-posts/organizing/",
+      "previousURLs": [
+        "/docs/writing-posts/organizing/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/category/index.es.md",
+      "sha256": "2222599bc6dcbc3059b566843d49bbce7cd54a2f4cad9bfe5384e197ffe0bf72",
+      "target": "content/docs/blog/writing-posts/organizing/category/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/organizing/category/",
+      "url": "/es/docs/blog/writing-posts/organizing/category/",
+      "previousURLs": [
+        "/es/docs/writing-posts/organizing/category/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/category/index.md",
+      "sha256": "e9f6c81b697fa14a5351302480d1488b0fc7ee0ce42abe05d8c46adda91ccbdc",
+      "target": "content/docs/blog/writing-posts/organizing/category/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/organizing/category/",
+      "url": "/docs/blog/writing-posts/organizing/category/",
+      "previousURLs": [
+        "/docs/writing-posts/organizing/category/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/sub-category/_index.es.md",
+      "sha256": "e2bd3250c8ff55512127ab2bb54bf1bf1f4c7567339fb2a504af30bb41e6e03b",
+      "target": "content/docs/blog/writing-posts/organizing/sub-category/_index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/organizing/sub-category/",
+      "url": "/es/docs/blog/writing-posts/organizing/sub-category/",
+      "previousURLs": [
+        "/es/docs/writing-posts/organizing/sub-category/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/sub-category/_index.fr.md",
+      "sha256": "4cd0f7464fef6c708c2540c168a630fda90453638a5474747468c074732566e1",
+      "target": "content/docs/blog/writing-posts/organizing/sub-category/_index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/organizing/sub-category/",
+      "url": "/fr/docs/blog/writing-posts/organizing/sub-category/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/organizing/sub-category/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/sub-category/_index.md",
+      "sha256": "21d82e6be356097395a9b08814d1b6e5e39ddc8c4f003b8624e27fdcf524d2ae",
+      "target": "content/docs/blog/writing-posts/organizing/sub-category/_index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/organizing/sub-category/",
+      "url": "/docs/blog/writing-posts/organizing/sub-category/",
+      "previousURLs": [
+        "/docs/writing-posts/organizing/sub-category/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/sub-category/example/index.es.md",
+      "sha256": "8c901d7a4d6e2b838260b666d43ad0d4ecf97074e0d201fedf65e59fd6aada80",
+      "target": "content/docs/blog/writing-posts/organizing/sub-category/example/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/organizing/sub-category/example/",
+      "url": "/es/docs/blog/writing-posts/organizing/sub-category/example/",
+      "previousURLs": [
+        "/es/docs/writing-posts/organizing/sub-category/example/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/sub-category/example/index.fr.md",
+      "sha256": "9d5f7c84e73921f0b26d59084853ab297f6bf7bbd5c542a314ad8579276a8064",
+      "target": "content/docs/blog/writing-posts/organizing/sub-category/example/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/organizing/sub-category/example/",
+      "url": "/fr/docs/blog/writing-posts/organizing/sub-category/example/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/organizing/sub-category/example/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/organizing/sub-category/example/index.md",
+      "sha256": "82521db7d074d718fec1c6fa333034a8f4ca0d8d47c2a216dcfc121d41d17358",
+      "target": "content/docs/blog/writing-posts/organizing/sub-category/example/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/organizing/sub-category/example/",
+      "url": "/docs/blog/writing-posts/organizing/sub-category/example/",
+      "previousURLs": [
+        "/docs/writing-posts/organizing/sub-category/example/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/rich-content/index.es.md",
+      "sha256": "46e049829f648ab83ac3870a7424a3ed9f71f8265019beb16cdb0fcb17855b80",
+      "target": "content/docs/blog/writing-posts/rich-content/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/rich-content/",
+      "url": "/es/docs/blog/writing-posts/rich-content/",
+      "previousURLs": [
+        "/es/docs/writing-posts/rich-content/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/rich-content/index.fr.md",
+      "sha256": "d81a4661d0e4b3214d7d1676e8fcb4f52dc89ee914dd0a8feb79da696883d152",
+      "target": "content/docs/blog/writing-posts/rich-content/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/rich-content/",
+      "url": "/fr/docs/blog/writing-posts/rich-content/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/rich-content/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/rich-content/index.md",
+      "sha256": "b42cbfc52b1d4f5cf55c0c8dd2f096dd7c049c9ae0de7d43702d481022cca096",
+      "target": "content/docs/blog/writing-posts/rich-content/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/rich-content/",
+      "url": "/docs/blog/writing-posts/rich-content/",
+      "previousURLs": [
+        "/docs/writing-posts/rich-content/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/using-emoji/index.es.md",
+      "sha256": "ae8870035b7d3cf422ac9999f212c90a31efbef74ef6f3106b2e76e45515e4ce",
+      "target": "content/docs/blog/writing-posts/using-emoji/index.es.md",
+      "language": "es",
+      "oldURL": "/es/posts/writing-posts/using-emoji/",
+      "url": "/es/docs/blog/writing-posts/using-emoji/",
+      "previousURLs": [
+        "/es/docs/writing-posts/using-emoji/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/using-emoji/index.fr.md",
+      "sha256": "a909e1bcf9241580d5d41f2e7f4e2634f5ae513083a1bfc0bdfe39b9c7464b4c",
+      "target": "content/docs/blog/writing-posts/using-emoji/index.fr.md",
+      "language": "fr",
+      "oldURL": "/fr/posts/writing-posts/using-emoji/",
+      "url": "/fr/docs/blog/writing-posts/using-emoji/",
+      "previousURLs": [
+        "/fr/docs/writing-posts/using-emoji/"
+      ]
+    },
+    {
+      "source": "content/posts/writing-posts/using-emoji/index.md",
+      "sha256": "52e8e80485a05f8afa7810f5a8705bc963b60085dca32998a23b760f7d14ab7b",
+      "target": "content/docs/blog/writing-posts/using-emoji/index.md",
+      "language": "en",
+      "oldURL": "/posts/writing-posts/using-emoji/",
+      "url": "/docs/blog/writing-posts/using-emoji/",
+      "previousURLs": [
+        "/docs/writing-posts/using-emoji/"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "source": "content/posts/analytics/hero.svg",
+      "sha256": "d3b57922509deb6921abfe6a868530f1accd4435a64ac488f28c059eef0cdb4d",
+      "target": "content/docs/customization/analytics/hero.svg"
+    },
+    {
+      "source": "content/posts/comments/hero.svg",
+      "sha256": "09a915cfd3f39aaf57e807c5dfc8ecf5fc3b3a671b19f2447fff30d966f4a71f",
+      "target": "content/docs/customization/comments/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/about/hero.svg",
+      "sha256": "cf48f1c0a5f4f0e20cf88bd23df9c228c4b3f946a8553eb81a70b0b98a0ad193",
+      "target": "content/docs/portfolio/sections/about/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/about/images/about.png",
+      "sha256": "6c294aabfa7c3d441855f83c91dfedfccf31379105edccd9cae04e7287444b6f",
+      "target": "content/docs/portfolio/sections/about/images/about.png"
+    },
+    {
+      "source": "content/posts/configuration/sections/achievements/hero.svg",
+      "sha256": "4c86c746ed5d5749bc2899165e4bf386ebdc8089ec9012d6fa72134cdb2d024b",
+      "target": "content/docs/portfolio/sections/achievements/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/achievements/images/achievements.png",
+      "sha256": "5a27037636d921c3850e3321194b9b29e6ce9e71b34e7f49e99daa7e9824f0c5",
+      "target": "content/docs/portfolio/sections/achievements/images/achievements.png"
+    },
+    {
+      "source": "content/posts/configuration/sections/education/hero.svg",
+      "sha256": "a896c1a8354e683c0a98858cd1575a969134a915ada70a13eb221bc2257bae3e",
+      "target": "content/docs/portfolio/sections/education/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/experiences/hero.svg",
+      "sha256": "792c2a6592977b14c8d60ea4b31137560dee11c9c908c1d04019233bb3882cf4",
+      "target": "content/docs/portfolio/sections/experiences/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/experiences/images/experiences.png",
+      "sha256": "3cdc54ee6f27b049ccf29f7a63b76e0efd7769ba11e505048a5422042e2092da",
+      "target": "content/docs/portfolio/sections/experiences/images/experiences.png"
+    },
+    {
+      "source": "content/posts/configuration/sections/featured-posts/hero.svg",
+      "sha256": "7885d7e1de395bc9a81848c61b2e22df5c4424f1d0f21fa15cf89ebb9cd3475f",
+      "target": "content/docs/portfolio/sections/featured-posts/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/featured-posts/images/recent-posts.svg",
+      "sha256": "3437f787398beed350ef51a1cc48490d984d206de03734e07c428503dbad69f2",
+      "target": "content/docs/portfolio/sections/featured-posts/images/recent-posts.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/projects/hero.svg",
+      "sha256": "bf35fe24948594486695095542d150051df54e001e2c98fc0cd9030ab05dc92f",
+      "target": "content/docs/portfolio/sections/projects/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/projects/images/projects.png",
+      "sha256": "eb6633a3752853fe97bc73a8b886945a8a67ca134a2d70da005d97bcc001b10d",
+      "target": "content/docs/portfolio/sections/projects/images/projects.png"
+    },
+    {
+      "source": "content/posts/configuration/sections/recent-posts/hero.svg",
+      "sha256": "7885d7e1de395bc9a81848c61b2e22df5c4424f1d0f21fa15cf89ebb9cd3475f",
+      "target": "content/docs/portfolio/sections/recent-posts/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/recent-posts/images/recent-posts.svg",
+      "sha256": "3437f787398beed350ef51a1cc48490d984d206de03734e07c428503dbad69f2",
+      "target": "content/docs/portfolio/sections/recent-posts/images/recent-posts.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/skills/hero.svg",
+      "sha256": "92dd3b632328109d98983e0ace8a2966a98f6895d0c9b08ece91db9bc92c5496",
+      "target": "content/docs/portfolio/sections/skills/hero.svg"
+    },
+    {
+      "source": "content/posts/configuration/sections/skills/images/skills.png",
+      "sha256": "b228bef5f35a913498e618ba778621cc3755a256b9e8e8f4705355fd20df1d5d",
+      "target": "content/docs/portfolio/sections/skills/images/skills.png"
+    },
+    {
+      "source": "content/posts/configuration/site-parameters/hero.svg",
+      "sha256": "4596804e0af026f8f941de8ca21897dc9f050f58553f725ad5c2b54cd56a50b7",
+      "target": "content/docs/portfolio/site-parameters/hero.svg"
+    },
+    {
+      "source": "content/posts/contributing/hero.png",
+      "sha256": "993d80c59fbdb0366d1afadf0357b10d64a3ccfb1b34f82117ef5d457400937e",
+      "target": "content/docs/community/contributing/hero.png"
+    },
+    {
+      "source": "content/posts/customizing/customize-css/hero.png",
+      "sha256": "6507e168bba0d22b13f1c5796564944a3e166b2db925228d2e6d900285edc508",
+      "target": "content/docs/customization/customize-css/hero.png"
+    },
+    {
+      "source": "content/posts/customizing/customize-layout/hero.png",
+      "sha256": "e7a8b6527c25ce75ffce4e555ffdf50fa2238aa7344ecd236340b9c2d51247ca",
+      "target": "content/docs/customization/customize-layout/hero.png"
+    },
+    {
+      "source": "content/posts/customizing/dark-theme/hero.png",
+      "sha256": "7bdee06ae7e7dc4ee907a28514f50910e3727e3640d892187a6f5cb5952a67c3",
+      "target": "content/docs/customization/dark-theme/hero.png"
+    },
+    {
+      "source": "content/posts/customizing/new-section/hero.png",
+      "sha256": "a2846d264118c7d5851f35e59b75d72bb3195add65e779b839657042ae1b139d",
+      "target": "content/docs/customization/new-section/hero.png"
+    },
+    {
+      "source": "content/posts/external-link/hero.svg",
+      "sha256": "09a915cfd3f39aaf57e807c5dfc8ecf5fc3b3a671b19f2447fff30d966f4a71f",
+      "target": "content/docs/customization/external-link/hero.svg"
+    },
+    {
+      "source": "content/posts/features/hero.png",
+      "sha256": "da4e8a237b5c730c578cc7084c954efebb16f98a09f232e604955935c79c96d4",
+      "target": "content/docs/features/hero.png"
+    },
+    {
+      "source": "content/posts/features/images/cards.png",
+      "sha256": "e3f01aa5899576a684717cdae8e9658790e329711539e27c6aeb53fb79667f96",
+      "target": "content/docs/features/images/cards.png"
+    },
+    {
+      "source": "content/posts/features/images/experience-timeline.png",
+      "sha256": "d2db2c241c8c41871c0c48bddfea8d225121c4ae63d8ee090594d0ce6c454308",
+      "target": "content/docs/features/images/experience-timeline.png"
+    },
+    {
+      "source": "content/posts/features/images/gallery.png",
+      "sha256": "2e138940b76dc761366314ce0bc784959c2f220f73e260de6fabb92278c7956e",
+      "target": "content/docs/features/images/gallery.png"
+    },
+    {
+      "source": "content/posts/features/images/minimalist.png",
+      "sha256": "ef33a769e2d6e1d98846880f50ad04f0de269d21780f3c2857bd85ce2a2ffcac",
+      "target": "content/docs/features/images/minimalist.png"
+    },
+    {
+      "source": "content/posts/features/images/responsive.png",
+      "sha256": "30899b7561df54e9226962deac97c3e0ed584cdb42213ab16c9089b9a400a699",
+      "target": "content/docs/features/images/responsive.png"
+    },
+    {
+      "source": "content/posts/features/images/sidebar.png",
+      "sha256": "4b8aad393f1ca73658202da03d1704d1e99ddb5bc41fae9580e29212beba4b4d",
+      "target": "content/docs/features/images/sidebar.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/hero.jpg",
+      "sha256": "0aa005ec76273f25a07227a522ba719028ed98efedf41829d70084d5ec45933b",
+      "target": "content/docs/getting-started/github-pages/hero.jpg"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/action_completed.png",
+      "sha256": "26b5a26a678405a76deda0a497cd4a6c9bc46dba6401e9beac6a0275e6f03382",
+      "target": "content/docs/getting-started/github-pages/images/action_completed.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/action_running.png",
+      "sha256": "92679bb1f8d5da0e9a21349b396b407a498b8d933dff7d36d0526693cb0f839d",
+      "target": "content/docs/getting-started/github-pages/images/action_running.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/enable_action.png",
+      "sha256": "b6a1d151a9c8c123277452527cdd7c0916977e8deecfe57f653e87146e0fbb17",
+      "target": "content/docs/getting-started/github-pages/images/enable_action.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/enable_dependabot.png",
+      "sha256": "8bad9898950e9fa02b13c22b0bc431a5ff902542e96b79d7a8239820af76c604",
+      "target": "content/docs/getting-started/github-pages/images/enable_dependabot.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/github_pages_branch.png",
+      "sha256": "8d5ebc1b50f15dba9cf076d80660ad3a2ed344466c6552cf899edc67d9efab42",
+      "target": "content/docs/getting-started/github-pages/images/github_pages_branch.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/set_default_branch.png",
+      "sha256": "6721863d626c0886de8e3a5ac89d34e559646f89a06dd519de5da3080228ffbf",
+      "target": "content/docs/getting-started/github-pages/images/set_default_branch.png"
+    },
+    {
+      "source": "content/posts/getting-started/github-pages/images/site_deployed.png",
+      "sha256": "1aa3b4bcba453b9014c7d8179951f403ed06f972983b737edba33f4e03c6c3d0",
+      "target": "content/docs/getting-started/github-pages/images/site_deployed.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/hero.png",
+      "sha256": "722e247335f37e74f4c146491c26db587e7ca8d3bd5ac1f2c1ad92518a80df61",
+      "target": "content/docs/getting-started/netlify/hero.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/10.png",
+      "sha256": "be9ea14a85e2b9e348176bfeb494c9218bec8c91ee4a636057ebf25f8086a1b6",
+      "target": "content/docs/getting-started/netlify/images/10.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/2.png",
+      "sha256": "0e19a27a7aa901ca6b7c0766c612a1915ab18af0511fff85a112e54f7fac7482",
+      "target": "content/docs/getting-started/netlify/images/2.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/3.png",
+      "sha256": "054e31f647e2873ced54e1e336b0210791595e467a5c69ca9810086791a3a96b",
+      "target": "content/docs/getting-started/netlify/images/3.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/4.png",
+      "sha256": "e68a94e62738516c24b5a1c5fb3a47ee777718e1c399b1b945a2d6593c9f128c",
+      "target": "content/docs/getting-started/netlify/images/4.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/5.png",
+      "sha256": "b00c8ec9ee0fb10cbc3d5f45c270ab2e1bf2822769af5e0782136e76d453f9ba",
+      "target": "content/docs/getting-started/netlify/images/5.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/6.png",
+      "sha256": "8c7f9ca3cf8540d0d8ed7977623ac7a2f06550b4d9af939316c9c4f214c9ba37",
+      "target": "content/docs/getting-started/netlify/images/6.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/7.png",
+      "sha256": "db82fb10d30e0f1e630760ed193bfefd0b5b85f6ab19a34a4066b7273bb633fd",
+      "target": "content/docs/getting-started/netlify/images/7.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/8.png",
+      "sha256": "245c1ca86c63a7d17afc12c65af7a0cc86c451798213a4e453b518cf2608839b",
+      "target": "content/docs/getting-started/netlify/images/8.png"
+    },
+    {
+      "source": "content/posts/getting-started/netlify/images/9.png",
+      "sha256": "0fc1c9c1ae49e9ec9fbad2e9618c72868611e7c967433e31dc9aa9cba74fb0df",
+      "target": "content/docs/getting-started/netlify/images/9.png"
+    },
+    {
+      "source": "content/posts/getting-started/prepare-site/build-home.svg",
+      "sha256": "91059efd4891a500322a4fb13589d55fb64c149c6d2735dba4668021b8643137",
+      "target": "content/docs/getting-started/prepare-site/build-home.svg"
+    },
+    {
+      "source": "content/posts/getting-started/prepare-site/hero.jpg",
+      "sha256": "fa454e7a6e7120a7490de12ec3754766c1faf092e613a73141db6420d6588aa8",
+      "target": "content/docs/getting-started/prepare-site/hero.jpg"
+    },
+    {
+      "source": "content/posts/getting-started/theme-update/enable_dependabot.png",
+      "sha256": "4025cb9ec3ca3a2f9a9c899dcae5eadc2c2629b580149ce9c8920bba5b968568",
+      "target": "content/docs/getting-started/theme-update/enable_dependabot.png"
+    },
+    {
+      "source": "content/posts/getting-started/theme-update/hero.svg",
+      "sha256": "49ee9d36a616385c37d1d02d9705f02c73672f0a8db98bbeafc174489d9391af",
+      "target": "content/docs/getting-started/theme-update/hero.svg"
+    },
+    {
+      "source": "content/posts/quickstart/hero.png",
+      "sha256": "1bbae15bfd4617323a4158922393f23d8ae2bc0f7dd88fa9d3a77308cec2872e",
+      "target": "content/docs/getting-started/quickstart/hero.png"
+    },
+    {
+      "source": "content/posts/quickstart/images/local_site.png",
+      "sha256": "46e0d9763910e3536d150ea9c06c0f117e786a09c373030a9074d3ad848393a6",
+      "target": "content/docs/getting-started/quickstart/images/local_site.png"
+    },
+    {
+      "source": "content/posts/shortcodes/boat.jpg",
+      "sha256": "e372d7239c2fa44d1451c8a99db0f190e2e355192e8b59f1dc57615951641ac6",
+      "target": "content/docs/shortcodes/boat.jpg"
+    },
+    {
+      "source": "content/posts/supports/hero.svg",
+      "sha256": "7300bc33da74899c348ef5b041d46bac8dd2767c55467ea7742b2fd6f297cfef",
+      "target": "content/docs/customization/supports/hero.svg"
+    },
+    {
+      "source": "content/posts/translation/content/hero.jpg",
+      "sha256": "d5d1fa584d75088edc6083f86e053c85481474398209a4dbb279ee2f3c0fdcc7",
+      "target": "content/docs/translation/content/hero.jpg"
+    },
+    {
+      "source": "content/posts/translation/new-language/hero.jpg",
+      "sha256": "d5d1fa584d75088edc6083f86e053c85481474398209a4dbb279ee2f3c0fdcc7",
+      "target": "content/docs/translation/new-language/hero.jpg"
+    },
+    {
+      "source": "content/posts/translation/site-data/hero.jpg",
+      "sha256": "d5d1fa584d75088edc6083f86e053c85481474398209a4dbb279ee2f3c0fdcc7",
+      "target": "content/docs/translation/site-data/hero.jpg"
+    },
+    {
+      "source": "content/posts/update-v3-to-v4/hero.png",
+      "sha256": "433d0b732ddc58959cd93cd5c6c6a7a96bb1f779bc689e87cade3f6067a259c0",
+      "target": "content/docs/community/update-v3-to-v4/hero.png"
+    },
+    {
+      "source": "content/posts/writing-posts/markdown-syntax/hero.svg",
+      "sha256": "38fe842445cef6bc82d8e5ba2883089801dca5425865240f8aeaadf3a56a0108",
+      "target": "content/docs/blog/writing-posts/markdown-syntax/hero.svg"
+    },
+    {
+      "source": "content/posts/writing-posts/math/hero.svg",
+      "sha256": "4bf5d6065860bc2e43394d7e2061391043edf4752c69e07a5e715585809d0d91",
+      "target": "content/docs/blog/writing-posts/math/hero.svg"
+    },
+    {
+      "source": "content/posts/writing-posts/mermaid/hero.svg",
+      "sha256": "8d110d3d1b4d88932ec77cb6e0f3cec7cf84a351e24f38ac073dce3b2e19dfe8",
+      "target": "content/docs/blog/writing-posts/mermaid/hero.svg"
+    },
+    {
+      "source": "content/posts/writing-posts/rich-content/hero.svg",
+      "sha256": "9cb43cd3b8df622c4786910206712814aa8d44463796fd9519c0f2065079ebd1",
+      "target": "content/docs/blog/writing-posts/rich-content/hero.svg"
+    },
+    {
+      "source": "content/posts/writing-posts/using-emoji/hero.svg",
+      "sha256": "5eb552dd9519e906cdce61a8d125f949246ab27575b7e0e3d688ccf31ab62b7a",
+      "target": "content/docs/blog/writing-posts/using-emoji/hero.svg"
+    }
+  ],
+  "redirects": [
+    {
+      "from": "/docs/components/",
+      "to": "/docs/shortcodes/components/"
+    },
+    {
+      "from": "/docs/guides/",
+      "to": "/docs/documentation/"
+    },
+    {
+      "from": "/docs/guides/composition/",
+      "to": "/docs/customization/composition/"
+    },
+    {
+      "from": "/docs/guides/documentation-services/",
+      "to": "/docs/documentation/services/"
+    },
+    {
+      "from": "/docs/layout-quickstart/",
+      "to": "/docs/documentation/setup/"
+    }
+  ]
+}

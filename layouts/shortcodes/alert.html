@@ -1,3 +1,6 @@
+{{- if partial "helpers/is-modern-page.html" .Page -}}
+{{- partial "components/callout.html" (dict "tone" (.Get "type" | default "info") "content" (.Page.RenderString (dict "display" "block") .Inner)) -}}
+{{- else -}}
 {{ $type := .Get "type"}}
 {{ $icon := "alert-circle"}}
 {{ if eq $type "success" }}
@@ -14,3 +17,5 @@
     <span><i data-feather="{{$icon}}"></i></span>
     <span><strong>{{.Inner | markdownify }}</strong></span>
 </div>
+
+{{- end -}}

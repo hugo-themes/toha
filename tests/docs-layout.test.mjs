@@ -7,6 +7,7 @@ import { dirname, join } from 'node:path'
 import { test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { copyModernDependencies } from './helpers/modern-dependencies.mjs'
+import { writeDocsFixture } from './helpers/docs-fixture.mjs'
 
 const repository = fileURLToPath(new URL('../', import.meta.url))
 
@@ -51,7 +52,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     }
     copyModernDependencies(directory)
     write('go.mod', 'module example.org/consumer\n\ngo 1.25\n\nrequire github.com/hugo-toha/toha/v4 v4.7.0\nreplace github.com/hugo-toha/toha/v4 => ./theme\n')
-    cpSync(join(repository, 'exampleSites/docs/content'), join(directory, 'content'), { recursive: true })
+    writeDocsFixture(write)
     write('content/_index.md', '---\ntitle: Docs home\n---\n## A code example\n\n```sh\necho hello\n```')
     // Legacy fixture services avoid installing Bootstrap; real portfolio builds
     // exercise those bundles. The actual selector and base template stay intact.
@@ -71,6 +72,8 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     const gallery = html()
     const ids = [...gallery.matchAll(/\bid=(?:"([^"]+)"|([^\s>]+))/g)].map(([, quoted, bare]) => quoted ?? bare)
     assert.equal(new Set(ids).size, ids.length, 'responsive outlines must not duplicate element IDs')
+    assert.doesNotMatch(gallery, /docs-nav-section/)
+    assert.doesNotMatch(gallery, /x-data=docsToc/, 'scroll-spy is opt-in')
     assert.match(gallery, /<html lang=en/)
     assert.doesNotMatch(html('en/index.html'), /code-block-data/)
     assert.match(gallery, /property="og:type" content="article"/)
@@ -107,6 +110,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     // and language-local permalinks, rather than the filesystem or blog index.
     config.params.features.docs.search = { enable: true }
     config.params.features.docs.edit = { enable: true, baseURL: 'https://github.com/example/site/edit/main/content/' }
+    config.params.features.docs.toc = { scrollSpy: true }
     write('content/docs/excluded.md', '---\ntitle: Not searchable\ndocs:\n  search: false\n  edit: false\n---\nSecret discovery marker.')
     write('content/docs/draft.md', '---\ntitle: Draft marker\ndraft: true\n---\nUnpublished text.')
     write('content/docs/unrendered.md', '---\ntitle: Unrendered marker\nbuild:\n  render: never\n  list: never\n---\nUnpublished text.')
@@ -115,6 +119,10 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     write('content/docs/source folder/café guide.md', '---\ntitle: Escaped source\n---\nAccents and spaces.')
     write('content/docs/quiet.md', '---\ntitle: No outline\ntoc: false\nweight: 40\ndocs:\n  editURL: https://example.org/alternate.md?edit=true\n---\n## A heading\nContent without an outline.')
     build()
+    assert.match(html(), /x-data=docsToc/)
+    assert.match(html(), /data-docs-content/)
+    assert.doesNotMatch(html('en/docs/quiet/index.html'), /x-data=docsToc/)
+    assert.doesNotMatch(html('en/posts/example/index.html'), /x-data=docsToc/)
     const searchURL = page => page.match(/data-docs-search-index="?([^\s">]+)/)[1]
     const resource = url => readFileSync(join(directory, 'public', decodeURIComponent(url.replace('/project/', ''))), 'utf8')
     const index = JSON.parse(resource(searchURL(html())))
@@ -143,6 +151,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     assert.doesNotMatch(html('en/posts/example/index.html'), /docs-search-input|data-docs-edit|modern\.[a-f0-9]+\.js/)
     const searchBundleURL = html().match(/src=(\/project\/modern\.[a-f0-9]+\.js)/)[1]
     assert.match(resource(searchBundleURL), /Invalid documentation search index/)
+    assert.match(resource(searchBundleURL), /["']docsToc["']/)
     assert.match(html(), /<noscript>.*Search requires JavaScript/)
     assert.match(html(), /x-text=part.text/)
     assert.match(html(), /x-text=crumb/)
@@ -175,6 +184,8 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     const basicBundleURL = html().match(/src=(\/project\/modern\.[a-f0-9]+\.js)/)[1]
     assert.notEqual(basicBundleURL, searchBundleURL)
     assert.doesNotMatch(resource(basicBundleURL), /Invalid documentation search index/)
+    assert.match(html(), /x-data=docsToc/)
+    assert.match(resource(basicBundleURL), /["']docsToc["']/)
 
     // Hugo falls back to the site's default locale, which may not be English.
     // Every bundled default locale must still expose named controls.
@@ -183,8 +194,10 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     config.languages = { de: { weight: 1, languageName: 'Deutsch' } }
     config.params.features.docs.search.enable = true
     config.params.features.docs.edit = { enable: true, baseURL: 'https://example.org/edit/content/' }
+    config.params.features.docs.toc.scrollSpy = false
     build()
     const german = html('de/docs/components/index.html')
+    assert.doesNotMatch(german, /x-data=docsToc/)
     assert.match(german, /aria-label="Dark mode"/)
     assert.match(german, /aria-label="Documentation navigation"/)
     assert.match(german, /On this page/)
@@ -251,6 +264,9 @@ test('external docs consumer renders components, language/subpath URLs, and isol
       ['button', '(dict "label" "Action" "iconOnly" true)', /iconOnly requires icon/],
       ['button', '(dict "label" "Action" "href" "/" "disabled" true)', /disabled links are not supported/],
       ['badge', '(dict "label" "Badge" "tone" "invalid")', /unknown tone/],
+      ['callout', '(dict "content" "Text" "tone" "invalid")', /unknown tone/],
+      ['columns', '(dict "columns" (slice (dict "span" 13 "content" "Text")))', /span must be an integer/],
+      ['inline-text', '(dict "kind" "script" "text" "Text")', /unknown kind/],
       ['post-card', '(dict "title" "Missing URL")', /title and href are required/],
       ['icon', '(dict "name" "invalid")', /unknown name/]
     ]

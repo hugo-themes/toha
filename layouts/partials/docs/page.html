@@ -16,6 +16,10 @@
   {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
   {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "docs/assets.html" . }}{{ end }}
   {{ partial "modern/scripts.html" (dict "search" .Site.Params.features.docs.search.enable) }}
+  {{ if and .Site.Params.features.flowchart.enable .Params.mermaid }}
+    {{ $diagrams := resources.Get "scripts/modern/diagrams.js" | js.Build (dict "targetPath" "modern-diagrams.js" "minify" (not hugo.IsDevelopment)) | fingerprint }}
+    <script src="{{ $diagrams.RelPermalink }}" integrity="{{ $diagrams.Data.Integrity }}" defer crossorigin="anonymous"></script>
+  {{ end }}
 </head>
 <body class="min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
   <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
@@ -28,11 +32,11 @@
           {{ if .Site.Params.features.docs.search.enable }}<noscript><p class="mb-4 px-3 text-xs leading-6 text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}
           <p class="mb-3 px-3 text-xs font-semibold tracking-widest text-muted-foreground uppercase">{{ $root.LinkTitle }}</p>
           <a class="docs-nav-link mb-1" href="{{ $root.RelPermalink }}"{{ if eq . $root }} aria-current="page"{{ end }}>{{ i18n "docs_overview" }}</a>
-          {{ partial "docs/tree.html" (dict "pages" $root.Pages "current" .) }}
+          {{ partial "docs/navigation.html" (dict "root" $root "current" . "groupSections" .Site.Params.features.docs.sidebar.groupSections) }}
         </nav>
       </details>
     </aside>
-    <div class="min-w-0 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem]">
+    <div class="min-w-0 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem]"{{ if and $hasTOC .Site.Params.features.docs.toc.scrollSpy }} x-data="docsToc"{{ end }}>
       <main id="main-content" class="min-w-0 px-6 py-10 sm:px-10 lg:py-14 xl:px-12" tabindex="-1">
         <article class="mx-auto max-w-3xl">
           <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs text-muted-foreground" aria-label="{{ i18n "docs_breadcrumb" }}">
@@ -43,7 +47,7 @@
           <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ if eq .Kind "404" }}{{ i18n "err_404" }}{{ else }}{{ .Title }}{{ end }}</h1>
           {{ with .Description }}<p class="mt-4 text-lg leading-8 text-muted-foreground">{{ . }}</p>{{ end }}
           {{ if $hasTOC }}<details class="docs-mobile-toc mt-7 rounded-xl border border-border p-4 xl:hidden"><summary class="cursor-pointer text-sm font-medium">{{ i18n "docs_on_this_page" }}</summary><div class="docs-toc mt-3">{{ partial "docs/outline.html" . }}</div></details>{{ end }}
-          <div class="docs-prose mt-9 max-w-none">{{ .Content }}</div>
+          <div class="docs-prose mt-9 max-w-none" data-docs-content>{{ .Content }}</div>
           {{ partial "docs/edit-link.html" . }}
           {{ if or .IsHome (eq .Kind "404") }}
             <div class="mt-8">{{ partial "components/button.html" (dict "label" (i18n "docs_get_started") "href" $root.RelPermalink "icon" "arrow-right") }}</div>

@@ -1,3 +1,6 @@
+{{- if partial "helpers/is-modern-page.html" .Page -}}
+<pre class="modern-mermaid" data-align="{{ .Get "align" | default "center" }}"{{ with .Get "background" }} data-background="{{ . }}"{{ end }}>{{ .Inner }}</pre>
+{{- else -}}
 {{ $alignment:= .Get "align"}}
 {{ if not $alignment }}
     {{ $alignment = "center"}}
@@ -11,3 +14,5 @@
 <div class="mermaid" align="{{ $alignment }}" style="background-color: {{ $background }}; border-radius: 5px;">
     {{- safeHTML .Inner -}}
 </div>
+
+{{- end -}}
