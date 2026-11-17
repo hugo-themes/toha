@@ -12,7 +12,7 @@ Requiere una página moderna activada.
 
 ## Uso
 
-```go-html-template
+```html
 {{</* text kind="abbr" title="HyperText Markup Language" */>}}HTML{{</* /text */>}}
 ```
 
@@ -22,7 +22,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `kbd`
 
-```go-html-template
+```html
 {{</* text kind="kbd" */>}}Esc{{</* /text */>}}
 ```
 
@@ -32,7 +32,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `mark`
 
-```go-html-template
+```html
 {{</* text kind="mark" */>}}Highlight{{</* /text */>}}
 ```
 
@@ -42,7 +42,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `sub`
 
-```go-html-template
+```html
 {{</* text kind="sub" */>}}2{{</* /text */>}}
 ```
 
@@ -52,7 +52,7 @@ Requiere una página moderna activada.
 
 ## Variaciones: `sup`
 
-```go-html-template
+```html
 {{</* text kind="sup" */>}}2{{</* /text */>}}
 ```
 

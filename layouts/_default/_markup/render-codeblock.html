@@ -1,5 +1,11 @@
 {{- if partial "helpers/is-modern-page.html" .Page -}}
-  {{- $highlight := transform.HighlightCodeBlock . -}}{{ $highlight.Wrapped }}
+  {{- $options := .Options -}}
+  {{- if .Page.Site.Params.features.componentsDesign.enable -}}
+    {{/* The opt-in design owns syntax colors in both schemes, including sites
+         that use Hugo's default inline highlighting configuration. */}}
+    {{- $options = merge $options (dict "noClasses" false) -}}
+  {{- end -}}
+  {{- $highlight := transform.HighlightCodeBlock . $options -}}{{ $highlight.Wrapped }}
 {{- else -}}
 {{- $options := partial "helpers/code-block-options.html" . -}}
 {{/* Hugo's render-hook Inner omits a nonempty fence's final newline. */}}

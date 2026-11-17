@@ -1,0 +1,12 @@
+{{/* Normalize the source navbar schema at the composition boundary. */}}
+{{- $item := dict "label" .title "href" "" "description" .desc "icon" .icon "children" slice "categories" slice -}}
+{{- with .href }}{{ $item = merge $item (dict "href" (partial "helpers/get-page-url.html" .)) }}{{ end -}}
+{{- $children := slice -}}
+{{- range .items }}{{ $children = $children | append (partial "modern/navbar-item.html" .) }}{{ end -}}
+{{- $categories := slice -}}
+{{- range .categories -}}
+  {{- $items := slice -}}
+  {{- range .items }}{{ $items = $items | append (partial "modern/navbar-item.html" .) }}{{ end -}}
+  {{- $categories = $categories | append (dict "label" .name "items" $items) -}}
+{{- end -}}
+{{- return (merge $item (dict "children" $children "categories" $categories)) -}}

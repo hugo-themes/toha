@@ -8,7 +8,7 @@ Create a note card with a title. Separate inner cards with three hyphens. Its pr
 
 ## Usage
 
-```go-html-template
+```html
 {{</* note title="Notes" */>}}
 **First note.**
 

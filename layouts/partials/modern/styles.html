@@ -3,3 +3,7 @@
   {{- $css := . | css.TailwindCSS (dict "minify" (not hugo.IsDevelopment)) | fingerprint -}}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
 {{- end -}}
+{{- if site.Params.features.componentsDesign.enable -}}
+  {{- $css := resources.Get "styles/modern/components-design.css" | minify | fingerprint -}}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{- end -}}

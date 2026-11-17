@@ -12,7 +12,7 @@ Requires an enabled modern page.
 
 ## Usage
 
-```go-html-template
+```html
 {{</* callout title="info" tone="info" */>}}
 **Markdown**: `code`.
 {{</* /callout */>}}
@@ -26,7 +26,7 @@ Requires an enabled modern page.
 
 ## Variations: `success`
 
-```go-html-template
+```html
 {{</* callout title="success" tone="success" */>}}
 **Markdown**: `code`.
 {{</* /callout */>}}
@@ -40,7 +40,7 @@ Requires an enabled modern page.
 
 ## Variations: `warning`
 
-```go-html-template
+```html
 {{</* callout title="warning" tone="warning" */>}}
 **Markdown**: `code`.
 {{</* /callout */>}}
@@ -54,7 +54,7 @@ Requires an enabled modern page.
 
 ## Variations: `danger`
 
-```go-html-template
+```html
 {{</* callout title="danger" tone="danger" */>}}
 **Markdown**: `code`.
 {{</* /callout */>}}

@@ -1,0 +1,35 @@
+{{/* Explicit inputs: title, logo URL, homeURL, currentURL, links, alignment,
+     buttons, languages, languageLabel, trusted searchMarkup, navigationLabel,
+     themeToggle, themeLabel. Native disclosures preserve navigation without JS. */}}
+<header class="components-navbar sticky top-0 z-30" data-components-navbar>
+  <div class="components-navbar-inner">
+    <a href="{{ .homeURL }}" class="components-navbar-brand">
+      {{ with .logo }}<img src="{{ . }}" alt="" width="36" height="36">{{ end }}
+      <span>{{ .title }}</span>
+    </a>
+    <nav class="components-navbar-desktop" data-alignment="{{ .alignment }}" aria-label="{{ .navigationLabel }}">
+      {{ partial "components/navbar-links.html" (dict "items" .links "currentURL" .currentURL) }}
+    </nav>
+    <div class="components-navbar-tools">
+      <div class="components-navbar-actions">{{ range .buttons }}{{ partial "components/button.html" . }}{{ end }}</div>
+      {{ with .languages }}
+      <details class="components-navbar-language" data-navbar-disclosure>
+        <summary class="components-nav-link">{{ $.languageLabel }}</summary>
+        <ul class="components-nav-dropdown">{{ range . }}<li><a class="components-nav-link" href="{{ .href }}" lang="{{ .code }}" hreflang="{{ .code }}">{{ .label }}</a></li>{{ end }}</ul>
+      </details>
+      {{ end }}
+      {{ .searchMarkup }}
+      {{ if .themeToggle }}<button type="button" class="docs-icon-button components-theme-toggle" x-cloak @click="toggleTheme" :aria-pressed="dark" aria-label="{{ .themeLabel }}">
+        <span x-show="!dark">{{ partial "components/icon.html" (dict "library" "lucide" "name" "sun" "class" "size-6") }}</span>
+        <span x-show="dark" x-cloak>{{ partial "components/icon.html" (dict "library" "lucide" "name" "moon" "class" "size-6") }}</span>
+      </button>{{ end }}
+      <details class="components-navbar-mobile" data-navbar-disclosure data-navbar-drawer>
+        <summary class="docs-icon-button" aria-label="{{ .navigationLabel }}"><span class="components-menu-open">{{ partial "components/icon.html" (dict "library" "lucide" "name" "menu" "class" "size-6") }}</span><span class="components-menu-close">{{ partial "components/icon.html" (dict "library" "lucide" "name" "close" "class" "size-6") }}</span></summary>
+        <nav class="components-navbar-drawer" aria-label="{{ .navigationLabel }}">
+          {{ partial "components/navbar-links.html" (dict "items" .links "currentURL" .currentURL) }}
+          {{ with .buttons }}<div class="components-navbar-drawer-actions">{{ range . }}{{ partial "components/button.html" . }}{{ end }}</div>{{ end }}
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

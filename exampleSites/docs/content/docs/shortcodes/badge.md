@@ -12,7 +12,7 @@ Requires an enabled modern page.
 
 ## Usage
 
-```go-html-template
+```html
 {{</* badge label="neutral" tone="neutral" */>}}
 ```
 
@@ -22,7 +22,7 @@ Requires an enabled modern page.
 
 ## Variations: `accent`
 
-```go-html-template
+```html
 {{</* badge label="accent" tone="accent" */>}}
 ```
 

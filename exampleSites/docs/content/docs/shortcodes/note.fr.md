@@ -8,7 +8,7 @@ Créez une fiche avec un titre. Séparez les cartes internes par trois tirets. S
 
 ## Utilisation
 
-```go-html-template
+```html
 {{</* note title="Notes" */>}}
 **First note.**
 

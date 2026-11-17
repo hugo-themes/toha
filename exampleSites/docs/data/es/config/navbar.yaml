@@ -1,0 +1,40 @@
+brand:
+  title: Toha
+navItems:
+  alignment: center
+  items:
+    - title: Guías
+      type: categorized-list
+      categories:
+        - name: Diseños
+          items:
+            - title: Portafolio
+              desc: Crea tu portafolio personal
+              icon: layout
+              href: /docs/portfolio/
+            - title: Blog
+              desc: Publica tus artículos
+              icon: file-text
+              href: /docs/blog/
+            - title: Documentación
+              desc: Organiza tus guías
+              icon: book
+              href: /docs/documentation/
+        - name: Referencia
+          items:
+            - title: Shortcodes
+              desc: Explora los componentes
+              icon: code
+              href: /docs/shortcodes/
+            - title: Personalización
+              desc: Adapta Toha a tus necesidades
+              icon: layout
+              href: /docs/customization/
+    - title: Primeros pasos
+      type: link
+      href: /docs/getting-started/
+buttons:
+  - title: GitHub
+    variant: outline
+    href: https://github.com/hugo-themes/toha
+darkModeToggler: true

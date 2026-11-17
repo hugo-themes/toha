@@ -8,7 +8,7 @@ Inserta una publicación de Mastodon con user e id, y opcionalmente server. El n
 
 ## Uso
 
-```go-html-template
+```html
 {{</* mastodon server="mastodon.social" user="Mastodon" id="117625790631441803" */>}}
 ```
 

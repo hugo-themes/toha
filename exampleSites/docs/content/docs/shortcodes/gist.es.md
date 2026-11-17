@@ -8,7 +8,7 @@ Inserta un gist de GitHub con los argumentos posicionales usuario, identificador
 
 ## Uso
 
-```go-html-template
+```html
 {{</* gist spf13 7896402 */>}}
 ```
 
@@ -20,7 +20,7 @@ Esta vista previa ejecuta el shortcode heredado en un marco separado. Las integr
 
 ## Variaciones: `filename`
 
-```go-html-template
+```html
 {{</* gist spf13 7896402 "img.html" */>}}
 ```
 

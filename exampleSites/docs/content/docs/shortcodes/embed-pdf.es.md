@@ -10,7 +10,7 @@ Activa `params.features.embedpdf.enable: true` en `hugo.yaml`. El ejemplo espera
 
 ## Uso
 
-```go-html-template
+```html
 {{</* embed-pdf src="sample.pdf" renderPageNum="1" hidePaginator="false" */>}}
 ```
 
@@ -22,7 +22,7 @@ Esta vista previa ejecuta el shortcode heredado en un marco separado. Las integr
 
 ## Variaciones: `hidePaginator`
 
-```go-html-template
+```html
 {{</* embed-pdf src="sample.pdf" renderPageNum="1" hidePaginator="true" */>}}
 ```
 

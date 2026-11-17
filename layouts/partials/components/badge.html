@@ -1,5 +1,5 @@
 {{/* Inputs: label (required), tone (neutral|accent, default neutral). */}}
-{{- $tones := dict "neutral" "border-border bg-muted text-muted-foreground" "accent" "border-primary/20 bg-primary/10 text-primary" -}}
+{{- $tones := dict "neutral" "border-border bg-muted text-muted-foreground" "accent" "border-primary/20 bg-primary/10 text-link" -}}
 {{- $tone := .tone | default "neutral" -}}
 {{- if not .label }}{{ errorf "components/badge: label is required" }}{{ end -}}
 {{- if not (isset $tones $tone) }}{{ errorf "components/badge: unknown tone %q" $tone }}{{ end -}}

@@ -3,7 +3,7 @@
   {{- range .root.Pages.ByWeight -}}
     {{- if .IsSection -}}
       <section class="docs-nav-section mt-7" aria-labelledby="docs-nav-{{ (crypto.MD5 .Path) }}">
-        <h2 id="docs-nav-{{ (crypto.MD5 .Path) }}" class="mb-2 px-3 text-xs font-semibold tracking-wide text-primary uppercase">
+        <h2 id="docs-nav-{{ (crypto.MD5 .Path) }}" class="mb-2 px-3 text-xs font-semibold tracking-wide text-link uppercase">
           <a class="rounded-sm hover:underline" href="{{ .RelPermalink }}"{{ if eq . $.current }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a>
         </h2>
         {{ partial "docs/tree.html" (dict "pages" .Pages "current" $.current) }}

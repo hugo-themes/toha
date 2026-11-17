@@ -8,7 +8,7 @@ Embed a GitHub gist using positional user, gist ID, and optional filename argume
 
 ## Usage
 
-```go-html-template
+```html
 {{</* gist spf13 7896402 */>}}
 ```
 
@@ -20,7 +20,7 @@ This preview runs the legacy shortcode in a separate frame. Remote embeds and th
 
 ## Variations: `filename`
 
-```go-html-template
+```html
 {{</* gist spf13 7896402 "img.html" */>}}
 ```
 

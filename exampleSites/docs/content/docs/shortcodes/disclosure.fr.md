@@ -12,7 +12,7 @@ Nécessite une page moderne activée.
 
 ## Utilisation
 
-```go-html-template
+```html
 {{</* disclosure label="Details" */>}}
 **Markdown**: `code`.
 {{</* /disclosure */>}}
@@ -26,7 +26,7 @@ Nécessite une page moderne activée.
 
 ## Variantes: `open`
 
-```go-html-template
+```html
 {{</* disclosure label="Details" open="true" */>}}
 **Markdown**: `code`.
 {{</* /disclosure */>}}

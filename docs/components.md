@@ -6,6 +6,72 @@ Run `mise run portfolio` to work on the existing portfolio.
 Run `mise run blog` for the modern hero, compact cards, topic previews and search.
 See [choosing a homepage](layouts.md) for layout combinations.
 
+## Components design
+
+Enable `params.features.componentsDesign.enable: true` to use the typography,
+neutral light/dark palette, blue accents, code styling and navbar adapted from
+[hugo-themes/components](https://github.com/hugo-themes/components/tree/a394793400019bd1d1dec1b431d7b194ed4f0b45).
+Both modern examples enable it. It is disabled by default and only affects modern
+docs pages and blog homepages; portfolio, articles and archives retain their
+existing appearance. All code lives in Toha; the original repository is not a
+build or runtime dependency. Fonts use the source design's system sans-serif and
+monospace stacks, without external font requests.
+
+```yaml
+params:
+  features:
+    componentsDesign:
+      enable: true
+      navbar:
+        enable: true # Set false to keep the previous modern header.
+```
+
+Without navbar data, the new header uses the current site title, configured logo,
+homepage links and custom menus. To configure it like the source repository, add
+`data/config/navbar.yaml`, or `data/en/config/navbar.yaml` (and each language) for
+localized content. Localized data replaces the complete global navbar:
+
+```yaml
+brand:
+  title: My site
+  logo: images/logo.svg # Optional Hugo asset.
+navItems:
+  alignment: center # left | center | right
+  items:
+    - title: Resources
+      type: list
+      items:
+        - title: Documentation
+          desc: Guides and reference
+          icon: book
+          href: /docs/
+    - title: Blog
+      type: link
+      href: /posts/
+buttons:
+  - title: GitHub
+    variant: outline # outline | secondary | primary | ghost
+    href: https://github.com/example/project
+darkModeToggler: true
+```
+
+For multi-column menus, use `type: categorized-list` and `categories`, each with
+`name` and `items`. The docs example demonstrates this in English, French and
+Spanish. Labels/descriptions come from your data. Internal `href` values resolve
+against the language and base path; external URLs and fragments stay intact.
+Icons are optional. The components navbar and search use vendored Lucide 0.562.0
+SVGs, matching the source repository, through the bounded `components/icon.html`
+registry. No external icon runtime is loaded; attribution is in `LICENSES/lucide.txt`.
+The navbar preserves search, translation links and the existing theme preference.
+Menus open by click, touch or keyboard; Escape and outside clicks close them.
+Links and disclosure menus also work with JavaScript disabled.
+
+Code fences use class-based Chroma highlighting when this design is enabled,
+even if the site otherwise uses Hugo's inline colors. Code panels use a dark
+background and a complete syntax palette in both schemes, with the existing
+language, line-number and highlighted-line options. Article styles exclude
+`not-prose` components.
+
 ## Ownership
 
 | Layer | Source | Responsibility |
@@ -21,6 +87,11 @@ Keep a small component in one partial. Introduce private helpers only when
 validation, variant selection, or rendering becomes difficult to read together.
 Primitives accept dictionaries; they do not read site configuration or portfolio
 data. Compositions adapt those sources into explicit inputs.
+
+Use `text-link`/`--link` for foreground accents, links and focus indicators;
+`bg-primary`/`--primary` and `text-primary-foreground` are paired filled-control
+roles. They share a color by default, while the components design supplies a
+brighter foreground accent in dark mode for readable small text.
 
 ## Enable docs
 

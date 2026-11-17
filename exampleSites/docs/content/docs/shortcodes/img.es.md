@@ -10,7 +10,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Uso
 
-```go-html-template
+```html
 {{</* img src="boat.jpg" title="A boat at sea" */>}}
 ```
 
@@ -20,7 +20,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Variaciones: `width, align`
 
-```go-html-template
+```html
 {{</* img src="boat.jpg" title="A boat at sea" width="600" align="center" */>}}
 ```
 
@@ -30,7 +30,7 @@ Disponible en páginas clásicas y modernas activadas; cada una usa sus propios 
 
 ## Variaciones: `height, width`
 
-```go-html-template
+```html
 {{</* img src="boat.jpg" title="A boat at sea" height="200" width="300" */>}}
 ```
 

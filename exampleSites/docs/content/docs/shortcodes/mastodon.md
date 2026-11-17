@@ -8,7 +8,7 @@ Embed a Mastodon post with user and id, plus an optional server. This loads the 
 
 ## Usage
 
-```go-html-template
+```html
 {{</* mastodon server="mastodon.social" user="Mastodon" id="117625790631441803" */>}}
 ```
 

@@ -1,7 +1,22 @@
+{{- if eq .library "lucide" -}}
+  {{- partial "components/lucide-icon.html" . -}}
+{{- else -}}
 {{/* Decorative inline icon. Inputs: name (required), class (optional).
      Accessible names belong on the containing control, never on this SVG. */}}
 {{- $paths := dict
   "book" `M4 19.5A2.5 2.5 0 0 1 6.5 17H20 M6.5 3H20v19H6.5A2.5 2.5 0 0 1 4 19.5v-14A2.5 2.5 0 0 1 6.5 3Z M8 7h8 M8 11h6`
+  "moon" `M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z`
+  "box" `m12 3 9 5v8l-9 5-9-5V8l9-5Z m-9 5 9 5 9-5 m-9 5v8 M7.5 5.5l9 5`
+  "share-2" `M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z M18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z m-9.4-9.5 6.8-4 m-6.8 7 6.8 4`
+  "user-plus" `M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0 M20 8v6 m-3-3h6`
+  "layout" `M3 3h18v18H3V3Z M3 9h18 M9 9v12`
+  "globe" `M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0 M3 12h18 M12 3a18 18 0 0 1 0 18 18 18 0 0 1 0-18`
+  "cpu" `M6 6h12v12H6V6Z M9 9h6v6H9V9Z M9 1v5 m6-5v5 M9 18v5 m6-5v5 M1 9h5 m-5 6h5 M18 9h5 m-5 6h5`
+  "smile" `M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0 M8 14s1 3 4 3 4-3 4-3 M9 9h.01 M15 9h.01`
+  "maximize" `M8 3H3v5 m13-5h5v5 M3 16v5h5 m13-5v5h-5`
+  "shield" `m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4Z`
+  "bookmark" `M5 3h14v18l-7-4-7 4V3Z`
+  "file-text" `M14 2H4v20h16V8l-6-6Z M14 2v6h6 M8 13h8 M8 17h6`
   "clock" `M12 8v4l3 2 M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0`
   "menu" `M4 6h16 M4 12h16 M4 18h16`
   "arrow-right" `M5 12h14 m-6-6 6 6-6 6`
@@ -18,3 +33,5 @@
 {{- with index $paths $name -}}
 <svg class="{{ $.class | default "size-4 shrink-0" }}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="{{ . }}" /></svg>
 {{- else -}}{{ errorf "components/icon: unknown name %q" $name }}{{- end -}}
+
+{{- end -}}

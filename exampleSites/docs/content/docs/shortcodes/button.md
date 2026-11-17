@@ -12,7 +12,7 @@ Requires an enabled modern page.
 
 ## Usage
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" */>}}
 ```
 
@@ -22,7 +22,7 @@ Requires an enabled modern page.
 
 ## Variations: `secondary`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" variant="secondary" */>}}
 ```
 
@@ -32,7 +32,7 @@ Requires an enabled modern page.
 
 ## Variations: `ghost`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" variant="ghost" */>}}
 ```
 
@@ -42,7 +42,7 @@ Requires an enabled modern page.
 
 ## Variations: `icon`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" icon="book" */>}}
 ```
 
@@ -52,7 +52,7 @@ Requires an enabled modern page.
 
 ## Variations: `iconOnly`
 
-```go-html-template
+```html
 {{</* button label="Portfolio" page="/docs/portfolio" icon="book" iconOnly="true" */>}}
 ```
 
@@ -62,7 +62,7 @@ Requires an enabled modern page.
 
 ## Variations: `disabled`
 
-```go-html-template
+```html
 {{</* button label="Unavailable action" disabled="true" */>}}
 ```
 

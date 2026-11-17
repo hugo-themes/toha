@@ -10,7 +10,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Usage
 
-```go-html-template
+```html
 {{</* alert type="info" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}
@@ -24,7 +24,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Variations: `success`
 
-```go-html-template
+```html
 {{</* alert type="success" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}
@@ -38,7 +38,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Variations: `warning`
 
-```go-html-template
+```html
 {{</* alert type="warning" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}
@@ -52,7 +52,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Variations: `danger`
 
-```go-html-template
+```html
 {{</* alert type="danger" */>}}
 **Markdown**: `code`.
 {{</* /alert */>}}

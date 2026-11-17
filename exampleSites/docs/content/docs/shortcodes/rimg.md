@@ -8,7 +8,7 @@ Generate responsive sizes from a local image in assets using src, alt, and optio
 
 ## Usage
 
-```go-html-template
+```html
 {{</* rimg src="images/default-background.jpg" alt="Landscape" sizes="100vw" */>}}
 ```
 

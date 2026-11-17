@@ -46,6 +46,8 @@ params:
         limit: 4
         postsPerTopic: 4
   features:
+    componentsDesign:
+      enable: true
     blog:
       enable: true
       section: posts

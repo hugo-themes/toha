@@ -1,0 +1,35 @@
+{{/* Adapt site/data configuration; public navbar primitives receive explicit inputs. */}}
+{{- $page := .page -}}
+{{- $config := hugo.Data.config.navbar | default dict -}}
+{{- with index hugo.Data $page.Language.Lang }}{{ with .config.navbar }}{{ $config = . }}{{ end }}{{ end -}}
+{{- $links := .links | default slice -}}
+{{- if not $links -}}
+  {{- $links = slice (dict "label" (i18n "home") "href" $page.Site.Home.RelPermalink) -}}
+  {{- $customMenus := $page.Site.Params.customMenus -}}
+  {{- with index hugo.Data $page.Language.Lang }}{{ with .site.customMenus }}{{ $customMenus = . }}{{ end }}{{ end -}}
+  {{- range $customMenus -}}
+    {{- if not .hideFromNavbar }}{{ $links = $links | append (dict "label" .name "href" (partial "helpers/get-page-url.html" .url)) }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if isset $config "navItems" -}}
+  {{- $links = slice -}}
+  {{- range $config.navItems.items }}{{ $links = $links | append (partial "modern/navbar-item.html" .) }}{{ end -}}
+{{- end -}}
+{{- $buttons := slice -}}
+{{- range $config.buttons -}}
+  {{- $variant := .variant | default "primary" -}}
+  {{- if eq $variant "outline" }}{{ $variant = "secondary" }}{{ end -}}
+  {{- $buttons = $buttons | append (dict "label" .title "href" (partial "helpers/get-page-url.html" .href) "variant" $variant) -}}
+{{- end -}}
+{{- $logo := "" -}}
+{{- with $config.brand.logo | default $page.Site.Params.logo.main -}}
+  {{- with resources.Get . }}{{ $logo = .RelPermalink }}{{ end -}}
+{{- end -}}
+{{- $themeToggle := true -}}
+{{- if isset $config "darkModeToggler" }}{{ $themeToggle = $config.darkModeToggler }}{{ end -}}
+{{- partial "components/navbar.html" (dict "title" ($config.brand.title | default $page.Site.Title)
+  "logo" $logo "homeURL" $page.Site.Home.RelPermalink "currentURL" $page.RelPermalink
+  "links" $links "alignment" ($config.navItems.alignment | default "center") "buttons" $buttons
+  "languages" .languages "languageLabel" ($page.Language.Label | default $page.Language.Lang)
+  "searchMarkup" .searchMarkup "navigationLabel" .navigationLabel
+  "themeToggle" $themeToggle "themeLabel" (i18n "docs_dark_mode")) -}}

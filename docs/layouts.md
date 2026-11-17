@@ -15,6 +15,11 @@ current templates and legacy assets; their modernization is a later step. A
 product homepage is also a future layout. Modern and legacy bundles stay separate
 per page.
 
+The modern docs and blog examples also enable the optional components design.
+See [components design](components.md#components-design) for its typography,
+light/dark colors, code styling and configurable navbar. Enable it with
+`params.features.componentsDesign.enable: true`; it does not affect legacy pages.
+
 ## Blog-first site
 
 Start with the complete `exampleSites/blog/hugo.yaml`. Modern pages require the

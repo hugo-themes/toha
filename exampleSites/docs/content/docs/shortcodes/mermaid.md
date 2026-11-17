@@ -11,7 +11,7 @@ Available in legacy and enabled modern pages; each uses its own markup and asset
 
 ## Usage
 
-```go-html-template
+```html
 {{</* mermaid align="left" */>}}
 graph LR;
  A --> B
@@ -27,7 +27,7 @@ graph LR;
 
 ## Variations: `center`
 
-```go-html-template
+```html
 {{</* mermaid align="center" */>}}
 graph LR;
  A --> B
@@ -43,7 +43,7 @@ graph LR;
 
 ## Variations: `right`
 
-```go-html-template
+```html
 {{</* mermaid align="right" */>}}
 graph LR;
  A --> B
@@ -59,7 +59,7 @@ graph LR;
 
 ## Variations: `background`
 
-```go-html-template
+```html
 {{</* mermaid align="center" background="black" */>}}
 graph LR;
  A --> B
