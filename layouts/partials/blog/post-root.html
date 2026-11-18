@@ -1,0 +1,9 @@
+{{/* Only standard posts within the configured tree use the opt-in reading layout. */}}
+{{- $root := false -}}
+{{- $blog := .Site.Params.features.blog -}}
+{{- if and .IsPage (eq .Layout "") (or $blog.enable .Site.Params.enableBlogPost) -}}
+  {{- with .Site.GetPage ($blog.section | default "posts") -}}
+    {{- if and .IsSection (or (eq . $.CurrentSection) (.IsAncestor $.CurrentSection)) }}{{ $root = . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $root -}}

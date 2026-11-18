@@ -1,0 +1,13 @@
+{{- $root := . -}}
+{{- $series := slice -}}
+{{- with $root.Site.GetPage "/series" -}}
+  {{- if and (eq .Kind "taxonomy") (.OutputFormats.Get "HTML") -}}
+    {{- range .Pages.ByTitle -}}
+      {{- $members := partialCached "blog/series-members.html" (dict "term" . "root" $root) $root.RelPermalink .Path -}}
+      {{- if $members -}}
+        {{- $series = $series | append (dict "page" . "posts" $members "count" (len $members)) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $series -}}

@@ -18,8 +18,7 @@
   {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "docs/assets.html" . }}{{ end }}
   {{ partial "modern/scripts.html" (dict "search" .Site.Params.features.docs.search.enable) }}
   {{ if and .Site.Params.features.flowchart.enable .Params.mermaid }}
-    {{ $diagrams := resources.Get "scripts/modern/diagrams.js" | js.Build (dict "targetPath" "modern-diagrams.js" "minify" (not hugo.IsDevelopment)) | fingerprint }}
-    <script src="{{ $diagrams.RelPermalink }}" integrity="{{ $diagrams.Data.Integrity }}" defer crossorigin="anonymous"></script>
+    {{ partial "modern/diagrams.html" . }}
   {{ end }}
 </head>
 <body class="docs-page min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
@@ -27,7 +26,7 @@
   {{ partial "modern/header.html" (dict "page" . "searchMarkup" (partial "docs/search.html" .) "navigationLabel" (i18n "docs_navigation")) }}
   <div class="lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
     <aside class="docs-sidebar border-b border-border bg-background lg:border-r lg:border-b-0" aria-label="{{ i18n "docs_navigation" }}">
-      <details id="docs-navigation" class="docs-navigation" open>
+      <details id="docs-navigation" class="docs-navigation" data-responsive-navigation open>
         <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium lg:hidden">{{ i18n "docs_navigation" }}{{ partial "components/icon.html" (dict "name" "chevron") }}</summary>
         <nav class="px-4 py-6 lg:px-5" aria-label="{{ i18n "docs_navigation" }}">
           {{ if .Site.Params.features.docs.search.enable }}<noscript><p class="mb-4 px-3 text-xs leading-6 text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}

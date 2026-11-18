@@ -1,0 +1,14 @@
+{{- $page := .page -}}
+{{- $root := .root -}}
+{{- $links := slice (dict "label" (i18n "home") "href" $page.Site.Home.RelPermalink) (dict "label" ($page.Site.Params.features.blog.title | default (i18n "posts")) "href" $root.RelPermalink) -}}
+{{- $menus := $page.Site.Params.customMenus -}}
+{{- with (index hugo.Data $page.Language.Lang).site.customMenus }}{{ $menus = . }}{{ end -}}
+{{- range $menus -}}
+  {{- if not .hideFromNavbar }}{{ $links = $links | append (dict "label" .name "href" (partial "helpers/get-page-url.html" .url)) }}{{ end -}}
+{{- end -}}
+{{- $searchMarkup := "" -}}
+{{- if $page.Site.Params.features.blog.search.enable -}}
+  {{- $index := partialCached "blog/search-index.html" $root $root.Language.Lang $root.RelPermalink -}}
+  {{- $searchMarkup = partial "components/search-dialog.html" (dict "iconLibrary" (cond (eq $page.Site.Params.features.componentsDesign.enable true) "lucide" "") "id" "blog-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "search"))) -}}
+{{- end -}}
+{{- partial "modern/header.html" (dict "page" $page "links" $links "searchMarkup" $searchMarkup "navigationLabel" (i18n "blog_navigation")) -}}

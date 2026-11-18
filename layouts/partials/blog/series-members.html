@@ -1,0 +1,8 @@
+{{/* Term order honors Hugo's series_weight. Keep only published blog posts. */}}
+{{- $members := slice -}}
+{{- range partialCached "blog/term-posts.html" .term .term.Site.Language.Lang .term.Path -}}
+  {{- if $.root.IsAncestor . -}}
+    {{- $members = $members | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $members -}}

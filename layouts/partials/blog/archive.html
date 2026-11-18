@@ -1,0 +1,106 @@
+{{- $page := .page -}}
+{{- $root := .root -}}
+{{- $isTaxonomy := eq $page.Kind "taxonomy" -}}
+{{- $isSeries := eq $page.Type "series" -}}
+{{- $isSeriesIndex := and $isTaxonomy $isSeries -}}
+{{- $showPostCards := and (eq $page.Kind "term") (in (slice "categories" "tags") $page.Type) -}}
+{{- $firstPost := false -}}
+{{- if and $isSeries (eq $page.Kind "term") -}}
+  {{- with partialCached "blog/series-members.html" (dict "term" $page "root" $root) $root.RelPermalink $page.Path -}}
+    {{- $firstPost = index . 0 -}}
+  {{- end -}}
+{{- end -}}
+{{- if $firstPost -}}
+  {{- partial "blog/series-redirect.html" (dict "term" $page "post" $firstPost) -}}
+{{- else -}}
+{{- $entries := slice -}}
+{{- $paginator := false -}}
+{{- $canonical := $page.Permalink -}}
+{{- if not $isSeriesIndex -}}
+  {{- if $isTaxonomy -}}
+    {{- $entries = first 0 $page.Pages -}}
+    {{- range $page.Pages.ByTitle -}}
+      {{- if .OutputFormats.Get "HTML" -}}
+        {{- $entries = $entries | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else if eq $page.Kind "term" -}}
+    {{- $entries = partialCached "blog/term-posts.html" $page $page.Site.Language.Lang $page.Path -}}
+  {{- else -}}
+    {{- $entries = partial "blog/pages.html" $page -}}
+  {{- end -}}
+  {{- $paginator = $page.Paginate $entries ($page.Site.Params.features.pagination.maxPostsPerPage | default 12) -}}
+  {{- if gt $paginator.PageNumber 1 }}{{ $canonical = $paginator.URL | absURL }}{{ end -}}
+{{- end -}}
+{{- with $page.Params.relcanonical }}{{ $canonical = . | relLangURL }}{{ end -}}
+<!DOCTYPE html>
+<html lang="{{ $page.Site.Language.Locale | default $page.Site.Language.Lang }}">
+{{ partial "blog/head.html" (dict "page" $page "title" (printf "%s · %s" $page.Title $page.Site.Title) "canonical" $canonical) }}
+<body class="blog-archive min-h-screen bg-background text-foreground antialiased" x-data="modernShell">
+  <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
+  {{ partial "blog/header.html" . }}
+  <div class="blog-layout">
+    {{ partial "blog/sidebar.html" . }}
+    <main id="main-content" class="mx-auto w-full min-w-0 max-w-6xl space-y-9 px-5 py-8 sm:px-8 lg:px-10 lg:py-10" tabindex="-1">
+      <header>
+        {{ partial "blog/breadcrumb.html" . }}
+        <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ $page.Title }}</h1>
+        {{ with $page.Description }}<p class="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{{ . }}</p>{{ end }}
+      </header>
+      {{ if and $page.IsSection (eq $paginator.PageNumber 1) $paginator.Pages }}
+        <section aria-labelledby="archive-recent-title">
+          <h2 id="archive-recent-title" class="mb-4 text-xl font-semibold tracking-tight">{{ i18n "blog_recent_posts" }}</h2>
+          <div class="blog-archive-grid">
+            {{ range first 3 $entries.ByDate.Reverse }}{{ partial "blog/card.html" . }}{{ end }}
+          </div>
+        </section>
+        {{ partial "blog/archive-series.html" (dict "root" $root "posts" $entries) }}
+      {{ end }}
+      {{ if $isSeriesIndex }}
+        {{ with partialCached "blog/series-list.html" $root $root.RelPermalink }}
+          {{ partial "blog/series-grid.html" . }}
+        {{ else }}
+          <p class="text-sm text-muted-foreground">{{ i18n "blog_topics_empty" }}</p>
+        {{ end }}
+      {{ else }}
+      <section aria-labelledby="archive-index-title">
+        <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="archive-index-title" class="text-xl font-semibold tracking-tight">{{ i18n (cond $isTaxonomy "blog_topics" "blog_archive_all_posts") }}</h2>
+          {{ if and $page.IsSection $entries }}<span class="text-sm text-muted-foreground">{{ i18n "blog_post_count" (len $entries) }}</span>{{ end }}
+        </div>
+        {{ with $paginator.Pages }}
+        {{ if $page.IsSection }}
+        {{ partial "blog/archive-post-table.html" (dict "page" $page "posts" . "labelledBy" "archive-index-title") }}
+        {{ else if $showPostCards }}
+        <div class="blog-archive-grid">
+          {{ range . }}{{ partial "blog/card.html" . }}{{ end }}
+        </div>
+        {{ else }}
+        <ul class="blog-archive-index">
+          {{ range . }}
+          <li class="min-w-0">
+            <a class="blog-archive-row" href="{{ .RelPermalink }}">
+              <span class="min-w-0 break-words font-medium">{{ .LinkTitle }}</span>
+              {{ if $isTaxonomy }}
+                {{ $postCount := len (partialCached "blog/term-posts.html" . .Site.Language.Lang .Path) }}
+                <span class="shrink-0 text-xs text-muted-foreground">{{ i18n "blog_post_count" $postCount }}</span>
+              {{ else if not .Date.IsZero }}
+                <time class="shrink-0 text-xs text-muted-foreground" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
+              {{ end }}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+        {{ else }}
+        <p class="text-sm text-muted-foreground">{{ i18n (cond $isTaxonomy "blog_topics_empty" "blog_empty") }}</p>
+        {{ end }}
+        {{ partial "components/pagination.html" (dict "paginator" $paginator "label" (i18n "docs_page_navigation") "previous" (i18n "docs_previous") "next" (i18n "docs_next")) }}
+      </section>
+      {{ end }}
+    </main>
+  </div>
+  {{ partial "blog/footer.html" $page }}
+</body>
+</html>
+{{- end -}}

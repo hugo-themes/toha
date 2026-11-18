@@ -1,0 +1,26 @@
+{{- $page := .page -}}
+{{- $taxonomy := .taxonomy -}}
+{{- $isTags := eq $taxonomy.Type "tags" -}}
+{{- $canSelectTerm := and (eq $page.Kind "term") (eq $taxonomy.Type $page.Type) -}}
+{{- $label := i18n $taxonomy.Type | default $taxonomy.LinkTitle -}}
+<li class="px-3">
+  <h2 class="mb-2 text-xs font-semibold tracking-wide text-link uppercase">
+    <a class="hover:underline aria-[current=page]:underline" href="{{ $taxonomy.RelPermalink }}"{{ if eq $taxonomy $page }} aria-current="page"{{ end }}>{{ $label }}</a>
+  </h2>
+  <ul class="{{ if $isTags }}flex flex-wrap gap-1.5{{ else }}space-y-0.5{{ end }}" role="list">
+    {{ range $taxonomy.Pages.ByTitle }}
+      {{ if .OutputFormats.Get "HTML" }}
+        {{ $count := len (partialCached "blog/term-posts.html" . .Site.Language.Lang .Path) }}
+        {{ if $count }}
+        <li class="min-w-0">
+          <a class="{{ if $isTags }}blog-sidebar-tag{{ else }}blog-sidebar-category{{ end }}" href="{{ .RelPermalink }}"{{ if and $canSelectTerm (eq . $page) }} aria-current="page"{{ end }}>
+            <span class="min-w-0">{{ .LinkTitle }}</span>
+            <span class="blog-sidebar-count" aria-hidden="true">{{ $count }}</span>
+            <span class="sr-only">{{ i18n "blog_post_count" $count }}</span>
+          </a>
+        </li>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </ul>
+</li>

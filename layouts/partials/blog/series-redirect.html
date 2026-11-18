@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="{{ .term.Language.Locale | default .term.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ .term.Title }}</title>
+  <link rel="canonical" href="{{ .post.Permalink }}">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url={{ .post.Permalink }}">
+</head>
+<body>
+  <a href="{{ .post.RelPermalink }}">{{ .post.LinkTitle }}</a>
+</body>
+</html>

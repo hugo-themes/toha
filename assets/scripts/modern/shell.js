@@ -11,8 +11,8 @@ export default () => ({
       })
     }
     const wide = window.matchMedia('(min-width: 64rem)')
-    const navigation = document.getElementById('docs-navigation')
-    const resize = () => { if (navigation) navigation.open = wide.matches }
+    const panels = document.querySelectorAll('[data-responsive-navigation]')
+    const resize = () => { panels.forEach(panel => { panel.open = wide.matches }) }
     resize()
     wide.addEventListener('change', resize)
     this.cleanup = () => wide.removeEventListener('change', resize)

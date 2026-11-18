@@ -28,6 +28,11 @@ security:
 outputs:
   home: [HTML, RSS, JSON]
 
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
 markup:
   highlight:
     noClasses: false
@@ -39,24 +44,32 @@ params:
   home:
     layout: blog
     blog:
+      postsPerPage: 3
       hero:
         image: images/default-background.jpg
       topics:
         taxonomy: categories
         limit: 4
-        postsPerTopic: 4
+        postsPerTopic: 3
   features:
     componentsDesign:
       enable: true
     blog:
       enable: true
       section: posts
+      archive:
+        enable: true
+      post:
+        enable: true
       search:
         enable: true
     theme:
       enable: true
     toc:
       enable: true
+    codeBlock:
+      copyButton:
+        enable: true
     tags:
       enable: true
       on_card: true

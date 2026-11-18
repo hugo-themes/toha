@@ -1,0 +1,28 @@
+{{- $features := .Site.Params.features -}}
+{{- $author := "" -}}
+{{- if ne $features.blog.showAuthor false }}{{ $author = partial "helpers/get-author-name.html" . }}{{ end -}}
+{{- $showDate := and (ne $features.showDate.singlePage false) (not .Date.IsZero) -}}
+{{- $showReadingTime := ne $features.readingTime.enable false -}}
+{{- if or $author $showDate $showReadingTime }}
+<ul class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+  {{ with $author }}<li class="font-medium text-foreground">{{ . }}</li>{{ end }}
+  {{ if $showDate }}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time></li>{{ end }}
+  {{ if $showReadingTime }}
+  <li class="inline-flex items-center gap-1.5">
+    {{ partial "components/icon.html" (dict "name" "clock" "class" "size-3.5") }}
+    {{ .ReadingTime }} {{ i18n "minute" .ReadingTime }}
+  </li>
+  {{ end }}
+</ul>
+{{- end -}}
+{{- if $features.tags.enable }}
+  {{- $tags := slice -}}
+  {{- range .GetTerms "tags" -}}
+    {{- if .OutputFormats.Get "HTML" }}{{ $tags = $tags | append . }}{{ end -}}
+  {{- end -}}
+  {{- with $tags }}
+  <ul class="mt-4 flex flex-wrap gap-2" aria-label="{{ i18n "tags" }}">
+    {{ range . }}<li><a class="modern-tag" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+  </ul>
+  {{- end -}}
+{{- end -}}

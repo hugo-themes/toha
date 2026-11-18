@@ -1,0 +1,17 @@
+{{- $page := .page -}}
+{{- $root := .root -}}
+<nav class="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground" aria-label="{{ i18n "docs_breadcrumb" }}">
+  <a class="hover:text-link" href="{{ $page.Site.Home.RelPermalink }}">{{ i18n "home" }}</a>
+  {{ if ne $page $root }}
+    {{ partial "components/icon.html" (dict "name" "chevron" "class" "size-3") }}
+    <a class="hover:text-link" href="{{ $root.RelPermalink }}">{{ $root.LinkTitle }}</a>
+    {{ range $page.Ancestors.Reverse }}
+      {{ if and (not .IsHome) (ne . $root) (.OutputFormats.Get "HTML") }}
+        {{ partial "components/icon.html" (dict "name" "chevron" "class" "size-3") }}
+        <a class="hover:text-link" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ partial "components/icon.html" (dict "name" "chevron" "class" "size-3") }}
+  <span aria-current="page">{{ $page.LinkTitle }}</span>
+</nav>

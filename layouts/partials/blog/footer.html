@@ -1,0 +1,6 @@
+<footer class="mt-10 border-t border-border">
+  <div class="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-muted-foreground lg:px-8">
+    <span>© {{ now.Year }} {{ .Site.Title }}</span>
+    {{ with .OutputFormats.Get "RSS" }}<a class="hover:text-link" href="{{ .RelPermalink }}">{{ i18n "blog_feed" }}</a>{{ end }}
+  </div>
+</footer>

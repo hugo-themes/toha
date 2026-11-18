@@ -265,6 +265,9 @@ other = "All"
 [blog_see_all]
 other = "See all posts"
 
+[blog_start_series]
+other = "Start series"
+
 [blog_empty]
 other = "No posts yet."
 
@@ -273,3 +276,34 @@ other = "Blog navigation"
 
 [blog_feed]
 other = "RSS feed"
+
+[blog_archive_browse]
+other = "Browse the blog"
+
+[blog_archive_all_posts]
+other = "All posts"
+
+[blog_post_date]
+other = "Date"
+
+[blog_reading_time]
+other = "Reading time"
+
+[blog_post_title]
+other = "Title"
+
+[series]
+other = "Series"
+
+[blog_all_series]
+other = "All series"
+
+[blog_post_count]
+one = "{{ .Count }} post"
+other = "{{ .Count }} posts"
+
+[blog_topics_empty]
+other = "No topics yet."
+
+[blog_series_position]
+other = "Part {{ .Part }} of {{ .Total }}"

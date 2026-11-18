@@ -1,6 +1,6 @@
 # Modern components and layouts
 
-The opt-in docs and blog homepage layouts share a modern component foundation.
+The opt-in docs and blog layouts share a modern component foundation.
 Run `mise run docs` and open **Shortcodes** for individual usage, previews, and variations.
 Run `mise run portfolio` to work on the existing portfolio.
 Run `mise run blog` for the modern hero, compact cards, topic previews and search.
@@ -11,13 +11,12 @@ See [choosing a homepage](layouts.md) for layout combinations.
 Enable `params.features.componentsDesign.enable: true` to use the typography,
 neutral light/dark palette, blue accents, code styling and navbar adapted from
 [hugo-themes/components](https://github.com/hugo-themes/components/tree/a394793400019bd1d1dec1b431d7b194ed4f0b45).
-Both modern examples enable it. It is disabled by default and only affects modern
-docs pages and blog homepages; portfolio, articles and archives retain their
-existing appearance. All code lives in Toha; the original repository is not a
-build or runtime dependency. Fonts use the source design's system sans-serif and
-monospace stacks, without external font requests.
+Both modern examples enable it. The design is disabled by default and applies
+only to modern layouts. All code lives in Toha; the original repository is not
+a build or runtime dependency. Fonts use the source design's system sans-serif
+and monospace stacks, without external font requests.
 
-Docs and blog homepages share a full-width navbar. The opt-in dark palette
+Modern layouts share a full-width navbar. The opt-in dark palette
 follows Vercel Docs, including syntax colors for Hugo-highlighted code.
 [Vercel AI SDK docs](https://vercel.com/docs/ai-sdk)
 
@@ -312,7 +311,7 @@ of documentation edits. No version selector is introduced without a versioned
 content/support policy.
 
 
-Blog homepage compositions live in `layouts/partials/blog/`; shared modern header,
+Blog compositions live in `layouts/partials/blog/`; shared modern header,
 asset and search-label adapters live in `layouts/partials/modern/`.
 `helpers/is-modern-page.html` owns modern Markdown/shortcode selection.
 The search dialog retains its existing `docs-search-*` styling hooks for

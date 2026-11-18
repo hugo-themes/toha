@@ -1,0 +1,46 @@
+{{- $features := .page.Site.Params.features -}}
+{{- $showDate := ne $features.showDate.postCards false -}}
+{{- $showReadingTime := ne $features.readingTime.enable false -}}
+{{- $showTags := $features.tags.enable -}}
+<div class="overflow-hidden rounded-xl border border-border bg-surface">
+  <table class="blog-post-table" aria-labelledby="{{ .labelledBy }}">
+    <thead class="hidden bg-muted/50 text-xs text-muted-foreground md:table-header-group">
+      <tr>
+        {{ if $showDate }}<th scope="col">{{ i18n "blog_post_date" }}</th>{{ end }}
+        {{ if $showReadingTime }}<th scope="col">{{ i18n "blog_reading_time" }}</th>{{ end }}
+        <th scope="col">{{ i18n "blog_post_title" }}</th>
+        {{ if $showTags }}<th scope="col" class="w-1/3">{{ i18n "tags" }}</th>{{ end }}
+      </tr>
+    </thead>
+    <tbody>
+      {{ range .posts }}
+        {{ $date := "" }}{{ $dateISO := "" }}{{ $readingTime := "" }}{{ $tags := "" }}
+        {{ if and $showDate (not .Date.IsZero) }}
+          {{ $date = .Date | time.Format ":date_medium" }}
+          {{ $dateISO = .Date.Format "2006-01-02" }}
+        {{ end }}
+        {{ if $showReadingTime }}{{ $readingTime = printf "%d %s" .ReadingTime (i18n "minute" .ReadingTime) }}{{ end }}
+        {{ if $showTags }}{{ $tags = partial "blog/archive-post-tags.html" . }}{{ end }}
+        <tr>
+          {{ if $showDate }}
+          <td class="hidden whitespace-nowrap text-muted-foreground md:table-cell">
+            {{ with $date }}<time datetime="{{ $dateISO }}">{{ . }}</time>{{ end }}
+          </td>
+          {{ end }}
+          {{ if $showReadingTime }}<td class="hidden whitespace-nowrap text-muted-foreground md:table-cell">{{ $readingTime }}</td>{{ end }}
+          <th scope="row" class="font-normal">
+            <a class="font-semibold hover:text-link hover:underline" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            {{ if or $date $readingTime }}
+            <div class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground md:hidden">
+              {{ with $date }}<time datetime="{{ $dateISO }}">{{ . }}</time>{{ end }}
+              {{ with $readingTime }}<span>{{ . }}</span>{{ end }}
+            </div>
+            {{ end }}
+            {{ with $tags }}<div class="mt-2 md:hidden">{{ . }}</div>{{ end }}
+          </th>
+          {{ if $showTags }}<td class="hidden md:table-cell">{{ $tags }}</td>{{ end }}
+        </tr>
+      {{ end }}
+    </tbody>
+  </table>
+</div>

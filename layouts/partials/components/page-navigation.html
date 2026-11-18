@@ -1,0 +1,17 @@
+{{/* Inputs: previous and next links with a LinkTitle and RelPermalink. */}}
+{{ if or .previous .next }}
+<nav class="mt-12 grid gap-4 border-t border-border pt-7 sm:grid-cols-2" aria-label="{{ i18n "docs_page_navigation" }}">
+  {{ with .previous }}
+    <a class="docs-page-link" rel="prev" href="{{ .RelPermalink }}">
+      <span class="text-xs text-muted-foreground">{{ i18n "docs_previous" }}</span>
+      <span class="mt-2 flex items-center gap-2 font-medium">{{ partial "components/icon.html" (dict "name" "arrow-left") }}{{ .LinkTitle }}</span>
+    </a>
+  {{ end }}
+  {{ with .next }}
+    <a class="docs-page-link sm:col-start-2" rel="next" href="{{ .RelPermalink }}">
+      <span class="text-xs text-muted-foreground">{{ i18n "docs_next" }}</span>
+      <span class="mt-2 flex items-center gap-2 font-medium">{{ .LinkTitle }}{{ partial "components/icon.html" (dict "name" "arrow-right") }}</span>
+    </a>
+  {{ end }}
+</nav>
+{{ end }}

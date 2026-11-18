@@ -1,5 +1,9 @@
 {{- if and .Site.Params.features.docs.enable (or (eq .Type "docs") (and (eq .Kind "404") (eq .Site.Params.home.layout "docs"))) -}}
   {{- partial "docs/page.html" . -}}
+{{- else if $archiveRoot := (and .Site.Params.features.blog.archive.enable (partial "blog/archive-root.html" .)) -}}
+  {{- partial "blog/archive.html" (dict "page" . "root" $archiveRoot) -}}
+{{- else if $postRoot := (and .Site.Params.features.blog.post.enable (partial "blog/post-root.html" .)) -}}
+  {{- partial "blog/post.html" (dict "page" . "root" $postRoot) -}}
 {{- else -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">

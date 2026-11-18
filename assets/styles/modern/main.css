@@ -52,7 +52,7 @@
   :focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 }
 
-:is(.docs-page, .blog-home) > header > :is(.modern-header-inner, .components-navbar-inner) { max-width: none; }
+:is(.docs-page, .blog-home, .blog-archive, .blog-post) > header > :is(.modern-header-inner, .components-navbar-inner) { max-width: none; }
 
 /* Modern pages reuse the code panel behavior with modern surface tokens. */
 .docs-prose[data-code-copy-labels] .code-block[data-initialized] {
@@ -95,7 +95,7 @@
   .docs-nav-link {
     @apply flex rounded-lg px-3 py-2 text-sm leading-6 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground;
   }
-  .docs-nav-link[aria-current="page"] {
+  .docs-nav-link:is([aria-current="page"], [aria-current="location"]) {
     @apply bg-primary/10 font-medium text-link;
   }
   .docs-page-link {
@@ -148,13 +148,13 @@
   .callout-content > :first-child { margin-top: 0; }
   .callout-content > :last-child { margin-bottom: 0; }
   .callout-content a { @apply text-link underline underline-offset-4; }
-  .docs-tree-group[open] > summary .docs-chevron { transform: rotate(90deg); }
-  .docs-tree-group > summary { list-style: none; }
-  .docs-tree-group > summary::-webkit-details-marker { display: none; }
+  :is(.docs-tree-group, .blog-navigation, .blog-topic-dropdown)[open] > summary .docs-chevron { transform: rotate(90deg); }
+  :is(.docs-tree-group, .blog-navigation, .blog-topic-dropdown) > summary { list-style: none; }
+  :is(.docs-tree-group, .blog-navigation, .blog-topic-dropdown) > summary::-webkit-details-marker { display: none; }
   @media (min-width: 64rem) {
-    .docs-sidebar { position: sticky; top: 4rem; height: calc(100dvh - 4rem); overflow-y: auto; }
+    :is(.docs-sidebar, .blog-sidebar) { position: sticky; top: var(--modern-header-height, 4rem); height: calc(100dvh - var(--modern-header-height, 4rem)); overflow-y: auto; }
   }
-  .docs-desktop-toc { position: sticky; top: 4rem; max-height: calc(100dvh - 4rem); overflow-y: auto; }
+  .docs-desktop-toc { position: sticky; top: var(--modern-header-height, 4rem); max-height: calc(100dvh - var(--modern-header-height, 4rem)); overflow-y: auto; }
   .blog-hero { @apply relative isolate overflow-hidden bg-primary text-white; }
   .blog-hero-image { @apply absolute inset-0 size-full object-cover; }
   .blog-hero-shade { @apply absolute inset-0 bg-black/50; }
@@ -162,11 +162,64 @@
   .blog-hero-copy > :last-child { margin-bottom: 0; }
   .blog-hero-copy :is(.code-block, pre) { text-align: start; }
   .blog-topic-nav { @apply sticky top-16 z-20 border-b border-border bg-background; }
+  .blog-topic-options {
+    @apply absolute inset-x-0 top-full max-h-[min(22rem,60dvh)] overflow-y-auto overscroll-contain border-y border-border bg-background px-3 py-2 shadow-lg sm:px-6;
+  }
   .blog-topic-link { @apply shrink-0 border-b-2 border-transparent px-3 py-3.5 text-sm hover:border-primary hover:text-link; }
-  .blog-topic-link:first-child { margin-inline-start: auto; }
+  .blog-topic-link:first-child { @apply ms-auto font-semibold text-link; }
   .blog-topic-link:last-child { margin-inline-end: auto; }
   .blog-home section[id] { scroll-margin-top: 8rem; }
-  .modern-post-grid { @apply grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4; }
+  .blog-layout { @apply lg:grid lg:grid-cols-[16rem_minmax(0,1fr)]; }
+  .blog-sidebar { background-color: var(--sidebar, var(--background)); }
+  .blog-sidebar a { overflow-wrap: anywhere; }
+  .blog-sidebar-count { @apply shrink-0 rounded bg-primary/10 px-1.5 text-xs leading-5 text-muted-foreground tabular-nums; }
+  .blog-sidebar-category {
+    @apply inline-flex max-w-full items-center gap-2 py-0.5 text-sm leading-6 text-muted-foreground hover:text-foreground hover:underline;
+    &[aria-current="page"] { @apply font-semibold text-link underline; }
+  }
+  .blog-sidebar-tag {
+    @apply inline-flex max-w-full items-center gap-1.5 rounded-md border border-border bg-surface py-1 pe-1 ps-2 text-xs leading-5 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-foreground;
+    &[aria-current="page"] { @apply border-primary bg-primary text-primary-foreground; }
+    &[aria-current="page"] .blog-sidebar-count { @apply bg-background/15 text-inherit; }
+  }
+  .blog-archive-grid {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  }
+  .blog-archive-index { @apply grid gap-x-8 border-t border-border sm:grid-cols-2; }
+  .blog-archive-row {
+    @apply flex min-h-12 items-center justify-between gap-3 border-b border-border py-2.5 text-sm hover:text-link focus-visible:text-link;
+  }
+  .blog-post-table { @apply w-full border-collapse text-start text-sm; }
+  .blog-post-table :is(th, td) { @apply px-4 py-3 text-start align-top; }
+  .blog-post-table th { @apply font-medium; }
+  .blog-post-table tbody tr + tr { @apply border-t border-border; }
+  .blog-post-table thead { @apply border-b border-border; }
+  .blog-post-table a { overflow-wrap: anywhere; }
+  .blog-series-link { @apply bg-surface; }
+  .blog-series-icon { @apply flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-link; }
+  .blog-post-main { overflow-wrap: anywhere; }
+  .blog-post-content :is(h2, h3, h4, h5, h6) { scroll-margin-top: 0; }
+  .blog-post-hero { @apply mt-7 h-auto w-full rounded-xl; }
+  .blog-post-outline {
+    @apply border-s border-border ps-5;
+    top: calc(var(--modern-header-height, 4rem) + 2rem);
+    max-height: calc(100dvh - var(--modern-header-height, 4rem) - 3rem);
+  }
+  @media (min-width: 80rem) {
+    .blog-post-layout:has(> aside) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 12rem;
+      column-gap: 2rem;
+    }
+  }
+  .blog-post-content .pdf-viewer { @apply my-6; }
+  .blog-post-content .pdf-viewer canvas { @apply hidden h-auto w-full rounded-lg border border-border; }
+  .blog-post-content .pdf-viewer .paginator { @apply mb-2 hidden text-sm; }
+  .blog-post-content .pdf-viewer .paginator > div { @apply inline-block me-2; }
+  .blog-post-content .pdf-viewer .loading-wrapper { @apply hidden; }
+  .blog-post-content .pdf-viewer button { @apply rounded-md border border-border px-2 py-1 hover:bg-muted; }
+  .modern-post-grid { @apply grid gap-4 md:grid-cols-2 lg:grid-cols-3; }
   .modern-post-card { @apply relative isolate flex min-w-0 flex-col rounded-xl border border-border bg-surface p-5 transition-colors hover:border-primary/50; }
   .modern-post-link::after { content: ""; @apply absolute inset-0 rounded-xl; }
   .modern-post-link:focus-visible { outline: none; }

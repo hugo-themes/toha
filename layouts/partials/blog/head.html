@@ -1,0 +1,19 @@
+{{- $page := .page -}}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ partial "helpers/get-description.html" $page }}">
+  <title>{{ .title }}</title>
+  <link rel="canonical" href="{{ .canonical | default $page.Permalink }}">
+  {{ partial "misc/favicon.html" $page }}
+  {{ partial "opengraph.html" $page }}
+  {{ if $page.IsPage }}{{ partial "twitter_cards.html" $page }}{{ end }}
+  {{ partial "robots.html" $page }}
+  {{ partial "structured-data.html" $page }}
+  {{ partial "analytics.html" $page }}
+  {{ with $page.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ $page.Site.Title }}">{{ end }}
+  {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
+  {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "modern/styles.html" . }}{{ end }}
+  {{ partial "modern/scripts.html" (dict "search" $page.Site.Params.features.blog.search.enable) }}
+  {{ if $page.IsPage }}{{ partial "blog/post-assets.html" $page }}{{ end }}
+</head>

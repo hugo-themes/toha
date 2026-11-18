@@ -76,102 +76,22 @@
         <div class="row ps-3 pe-3">
           <!--Social Media Share Buttons-->
           <div class="col-md-6 share-buttons">
-            {{- /* Show the row only if at least one supported button is enabled. */}}
-            {{- $shareButtons := site.Params.features.blog.shareButtons }}
-            {{- $anyShareButton := false }}
-            {{- if reflect.IsMap $shareButtons }}
-            {{- range slice "facebook" "twitter" "reddit" "tumblr" "pocket" "linkedin" "diaspora" "mastodon" "whatsapp" "email" }}
-            {{- if index $shareButtons . }}{{ $anyShareButton = true }}{{ end }}
-            {{- end }}
-            {{- end }}
-            {{ if $anyShareButton }}
+            {{ with partial "helpers/post-share-links.html" . }}
             <strong>{{ i18n "share_on" }}:</strong>
-            {{ if site.Params.features.blog.shareButtons.facebook }}
-            <a class="btn icon-button bg-facebook" href="https://www.facebook.com/sharer.php?u={{ .Permalink }}"
-              target="_blank">
-              <i class="fab fa-facebook"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.twitter }}
-            <a class="btn icon-button bg-twitter"
-              href="https://twitter.com/share?url={{ .Permalink }}&text={{ .Title }}&via={{- site.Title -}}"
-              target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.reddit }}
-            <a class="btn icon-button bg-reddit"
-              href="https://reddit.com/submit?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
-              <i class="fab fa-reddit"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.tumblr }}
-            <a class="btn icon-button bg-tumblr"
-              href="https://www.tumblr.com/share/link?url={{ .Permalink }}&name={{ .Title }}{{- with .Params.description -}}&description={{- . -}}{{- end -}}"
-              target="_blank">
-              <i class="fab fa-tumblr"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.pocket }}
-            <a class="btn icon-button bg-pocket"
-              href="https://getpocket.com/save?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
-              <i class="fab fa-get-pocket"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.linkedin }}
-            <a class="btn icon-button bg-linkedin"
-              href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}&title={{ .Title }}" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.diaspora }}
-            <a class="btn icon-button bg-diaspora"
-              href="https://share.diasporafoundation.org/?title={{ .Title }}&url={{ .Permalink }}" rel="nofollow"
-              target="_blank">
-              <i class="fab fa-diaspora"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.mastodon }}
-            <a class="btn icon-button bg-mastodon"
-              href="https://mastodon.social/share?text={{ .Title }} - {{ .Permalink }}" target="_blank">
-              <i class="fab fa-mastodon"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.whatsapp }}
-            <a class="btn icon-button bg-whatsapp"
-              href="https://api.whatsapp.com/send?text={{ .Title }} {{ .Permalink }}" target="_blank">
-              <i class="fab fa-whatsapp"></i>
-            </a>
-            {{ end }}
-            {{ if site.Params.features.blog.shareButtons.email }}
-            <a class="btn icon-button" href="mailto:?subject={{ .Title }}&body={{ .Permalink }}" target="_blank">
-              <i class="fas fa-envelope-open-text"></i>
+            {{ range . }}
+            <a class="btn icon-button{{ if ne .id "email" }} bg-{{ .id }}{{ end }}" href="{{ .href }}"
+              target="_blank" rel="noopener{{ if eq .id "diaspora" }} nofollow{{ end }}" aria-label="{{ .label }}">
+              <i class="{{ .icon }}" aria-hidden="true"></i>
             </a>
             {{ end }}
             {{ end }}
           </div>
-
-          <!--- Improve this page button --->
-          {{ if site.Params.GitRepo }}
-          {{ if site.Params.GitBranch }}
-          {{ .Scratch.Set "GitBranch" site.Params.GitBranch }}
-          {{ else }}
-          {{ .Scratch.Set "GitBranch" "main" }}
-          {{ end }}
+          {{ with partial "helpers/post-edit-url.html" . }}
           <div class="col-md-6 btn-improve-page">
-            {{ if ( eq site.Params.GitForge "gitlab" ) }}
-            <a href="{{ site.Params.GitRepo }}/-/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
-              title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
-              {{ else if ( eq site.Params.GitForge "gitea" ) }}
-              <a href="{{ site.Params.GitRepo }}/_edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
-                title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
-                {{ else }} <!--- Make Github-style the default -->
-                <a href="{{ site.Params.GitRepo }}/edit/{{ .Scratch.Get "GitBranch" }}/content/{{ .File.Path }}"
-                  title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
-                  {{ end }}
-                  <i class="fas fa-code-branch"></i>
-                  {{ i18n "improve_this_page" }}
-                </a>
+            <a href="{{ . }}" title="{{ i18n "improve_this_page" }}" target="_blank" rel="noopener">
+              <i class="fas fa-code-branch"></i>
+              {{ i18n "improve_this_page" }}
+            </a>
           </div>
           {{ end }}
         </div>
