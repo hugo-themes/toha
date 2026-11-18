@@ -1,0 +1,5 @@
+{{- $labels := "" -}}
+{{- if (partial "helpers/code-block-options.html" .).copyButton -}}
+  {{- $labels = partial "helpers/code-block-labels.html" . | jsonify -}}
+{{- end -}}
+{{- return $labels -}}

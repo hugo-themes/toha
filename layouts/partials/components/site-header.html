@@ -1,7 +1,7 @@
 {{/* Explicit inputs: title, homeURL, links, languages, searchMarkup (trusted
      partial output), navigationLabel, themeLabel. Alpine owns theme interaction. */}}
 <header class="sticky top-0 z-30 border-b border-border bg-background">
-  <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-5 lg:px-8">
+  <div class="modern-header-inner mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-5 lg:px-8">
     <a href="{{ .homeURL }}" class="flex min-w-0 items-center gap-3 font-semibold tracking-tight">
       <span class="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">{{ partial "components/icon.html" (dict "name" "book") }}</span>
       <span class="truncate">{{ .title }}</span>

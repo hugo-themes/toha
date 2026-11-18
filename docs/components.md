@@ -17,6 +17,10 @@ existing appearance. All code lives in Toha; the original repository is not a
 build or runtime dependency. Fonts use the source design's system sans-serif and
 monospace stacks, without external font requests.
 
+Docs and blog homepages share a full-width navbar. The opt-in dark palette
+follows Vercel Docs, including syntax colors for Hugo-highlighted code.
+[Vercel AI SDK docs](https://vercel.com/docs/ai-sdk)
+
 ```yaml
 params:
   features:
@@ -119,7 +123,14 @@ params:
       section: docs
       sidebar:
         groupSections: true # Optional; default false.
+    codeBlock:
+      copyButton:
+        enable: true # Optional; default false.
 ```
+
+The copy button copies the original code, including whitespace. Displayed line
+numbers are excluded. Docs, blog homepages, and legacy pages use the same
+`codeBlock.copyButton` setting.
 
 The homepage selector accepts `portfolio` (the default), `blog`, or `docs`. Selecting
 `docs` requires the docs feature and a content section. An unsupported value

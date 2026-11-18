@@ -108,7 +108,7 @@ export function initializeCodeBlocks(root, clipboard = globalThis.navigator?.cli
     if (!hash) return
     let id
     try { id = decodeURIComponent(hash.slice(1)) } catch { return }
-    const target = root.getElementById(id)
+    const target = document.getElementById(id)
     if (!target) return
     controllers.forEach(({ full, expand }) => {
       if (full.contains(target)) {
@@ -143,7 +143,7 @@ function preparePlainBlocks(root, settings) {
     const full = document.createElement('div')
     full.className = 'code-block-full'
     let id = `code-block-plain-${ordinal}`
-    while (root.getElementById(id)) id += '-code'
+    while (document.getElementById(id)) id += '-code'
     full.id = id
     pre.parentElement.replaceChild(block, pre)
     full.appendChild(pre)

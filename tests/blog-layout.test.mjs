@@ -44,6 +44,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
   }
   const read = path => readFileSync(join(directory, 'public', path), 'utf8')
   const titles = html => [...html.matchAll(/<h3[^>]*><a[^>]*>([^<]+)<\/a><\/h3>/g)].map(([, title]) => title)
+  const snippet = 'echo "Hello, Toha"\n'
   const recent = html => html.split('id="post-card-holder"')[1].split('</section>')[0]
   const archiveTitles = html => [...html.matchAll(/<h5 class="card-title">([^<]+)<\/h5>/g)].map(([, title]) => title)
   try {
@@ -58,7 +59,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     write('layouts/partials/helpers/style-bundle.html', '<link rel="stylesheet" href="/legacy.css">')
     write('layouts/partials/helpers/script-bundle.html', '<script src="/legacy.js" defer></script>')
     for (const language of ['en', 'bn']) {
-      write(`content/_index.${language}.md`, `---\ntitle: ${language} Writing\n---\nHome introduction.\n\n{{< badge label="Modern home" >}}`)
+      write(`content/_index.${language}.md`, `---\ntitle: ${language} Writing\n---\nHome introduction.\n\n{{< badge label="Modern home" >}}\n\n\`\`\`sh\n${snippet}\`\`\``)
       // Existing portfolio data must not create dead links in a blog composition.
       write(`data/${language}/sections/about.yaml`, 'section:\n  name: Portfolio biography\n  id: biography\n  enable: true\n  showOnNavbar: true\n  weight: 1\n')
       write(`content/about.${language}.md`, '---\ntitle: About\n---\nIndependent page.')
@@ -87,6 +88,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
         assert.match(home, new RegExp(`<h1[^>]*>${language} Writing</h1>`))
         assert.match(home, /Home introduction/)
         assert.match(home, /Modern home/)
+        assert.doesNotMatch(home, /data-code-copy-labels|code-block-data/)
         assert.deepEqual(titles(recent(home)), [`${section} new`, `${section} middle`])
         assert.deepEqual(titles(recent(second)), [`${section} old`, `${section} nested`])
         assert.deepEqual(titles(recent(home)), archiveTitles(read(`${language}/${section}/index.html`)))
@@ -136,12 +138,18 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     }
     // The design decorates only the modern homepage, including pagination.
     config.params.features.componentsDesign = { enable: true }
+    config.params.features.codeBlock = { copyButton: { enable: true } }
     build()
     for (const language of ['en', 'bn']) {
       const home = read(`${language}/index.html`)
       assert.match(home, /data-components-navbar/)
       assert.match(home, /components-design\.min\.[a-f0-9]+\.css/)
       assert.match(home, /id="blog-search-trigger"/)
+      assert.match(home, /class="docs-prose blog-hero-copy[^>]*data-code-copy-labels=/)
+      assert.match(home, /class="chroma"/)
+      const code = JSON.parse(home.match(/<script[^>]*class="code-block-data"[^>]*>(.*?)<\/script>/s)[1])
+      assert.equal(code.source, snippet)
+      assert.equal(code.copyButton, true)
       assert.match(home, new RegExp(`href="/project/${language}/about/?"`))
       assert.match(read(`${language}/batch/2/index.html`), /data-components-navbar/)
       for (const path of ['journal/index.html', 'journal/new/index.html', 'about/index.html']) {
@@ -162,6 +170,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     const plain = read('en/index.html')
     assert.doesNotMatch(plain, /id="blog-search-(trigger|dialog)"|class="blog-hero"|data-blog-topic/)
     assert.match(plain, /<h1[^>]*>en Writing/)
+    assert.match(plain, /class="docs-prose mt-4" data-code-copy-labels=/)
     config.params.home.blog.hero = { image: 'images/default-background.jpg' }
     config.params.home.blog.topics.enable = true
     config.disableKinds = ['taxonomy', 'term']

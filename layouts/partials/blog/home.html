@@ -2,6 +2,7 @@
 {{- $posts := partial "blog/pages.html" $root -}}
 {{- $options := .Site.Params.home.blog -}}
 {{- $heroEnabled := ne $options.hero.enable false -}}
+{{- $codeCopyLabels := partial "modern/code-copy-labels.html" . -}}
 {{- $topics := slice -}}
 {{- if ne $options.topics.enable false -}}
   {{- $taxonomy := $options.topics.taxonomy | default "categories" -}}
@@ -56,7 +57,7 @@
     <div class="blog-hero-shade" aria-hidden="true"></div>
     <div class="relative mx-auto flex min-h-96 max-w-4xl flex-col justify-center px-6 py-20 text-center sm:min-h-[30rem] sm:py-28">
       <h1 id="blog-title" class="text-3xl font-semibold tracking-tight sm:text-5xl">{{ .Title }}</h1>
-      <div class="blog-hero-copy mt-5 text-lg leading-8 sm:text-xl">{{ .Content }}</div>
+      <div class="docs-prose blog-hero-copy mt-5 text-lg leading-8 sm:text-xl"{{ with $codeCopyLabels }} data-code-copy-labels="{{ . }}"{{ end }}>{{ .Content }}</div>
     </div>
   </section>
   {{ end }}
@@ -69,7 +70,7 @@
   </nav>
   {{ end }}
   <main id="main-content" class="mx-auto max-w-screen-2xl space-y-12 px-5 py-9 lg:px-8" tabindex="-1">
-    {{ if not $heroEnabled }}<header><h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1><div class="docs-prose mt-4">{{ .Content }}</div></header>{{ end }}
+    {{ if not $heroEnabled }}<header><h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1><div class="docs-prose mt-4"{{ with $codeCopyLabels }} data-code-copy-labels="{{ . }}"{{ end }}>{{ .Content }}</div></header>{{ end }}
     {{ if .Site.Params.features.blog.search.enable }}<noscript><p class="text-sm text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}
     <section id="recent-posts" aria-labelledby="recent-posts-title">
       <h2 id="recent-posts-title" class="mb-4 text-xl font-semibold tracking-tight">{{ i18n "blog_recent_posts" }}</h2>

@@ -52,6 +52,29 @@
   :focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 }
 
+:is(.docs-page, .blog-home) > header > :is(.modern-header-inner, .components-navbar-inner) { max-width: none; }
+
+/* Modern pages reuse the code panel behavior with modern surface tokens. */
+.docs-prose[data-code-copy-labels] .code-block[data-initialized] {
+  @apply my-6 min-w-0 overflow-hidden rounded-lg border border-border;
+}
+.docs-prose .code-block-header {
+  @apply flex flex-wrap items-center gap-x-2 border-b border-border bg-background px-3 py-1 text-xs text-muted-foreground;
+}
+.docs-prose .code-block-title { @apply min-w-0 font-mono; overflow-wrap: anywhere; }
+.docs-prose .code-block-language { overflow-wrap: anywhere; }
+.docs-prose .code-block-copy {
+  @apply ms-auto min-h-8 cursor-pointer rounded-md px-2 py-1 text-foreground hover:bg-muted disabled:cursor-wait;
+}
+.docs-prose .code-block-copy:focus-visible { outline-offset: 1px; }
+.docs-prose .code-block-status { @apply sr-only; }
+.docs-prose .code-block-full { @apply overflow-x-auto; }
+.docs-prose[data-code-copy-labels] .code-block[data-initialized] :is(.highlight, pre) {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
 @layer components {
   .modern-callout { --callout-color: var(--primary); border-color: color-mix(in srgb, var(--callout-color) 30%, transparent); background: color-mix(in srgb, var(--callout-color) 6%, transparent); }
   .modern-callout > svg { color: var(--callout-color); }
@@ -135,7 +158,9 @@
   .blog-hero { @apply relative isolate overflow-hidden bg-primary text-white; }
   .blog-hero-image { @apply absolute inset-0 size-full object-cover; }
   .blog-hero-shade { @apply absolute inset-0 bg-black/50; }
-  .blog-hero-copy a { @apply underline underline-offset-4; }
+  .blog-hero-copy { --prose-headings: currentColor; --link: currentColor; }
+  .blog-hero-copy > :last-child { margin-bottom: 0; }
+  .blog-hero-copy :is(.code-block, pre) { text-align: start; }
   .blog-topic-nav { @apply sticky top-16 z-20 border-b border-border bg-background; }
   .blog-topic-link { @apply shrink-0 border-b-2 border-transparent px-3 py-3.5 text-sm hover:border-primary hover:text-link; }
   .blog-topic-link:first-child { margin-inline-start: auto; }
@@ -164,7 +189,7 @@
 
 /* Article defaults exclude components, which own their semantic markup/styles. */
 @layer components {
-  .docs-prose { @apply text-[0.9375rem] leading-8; }
+  .docs-prose:not(.blog-hero-copy) { @apply text-[0.9375rem] leading-8; }
   .docs-prose > :first-child { margin-top: 0; }
   .docs-prose :where(p, ul, ol, pre, table, blockquote):not(:where(.not-prose, .not-prose *)) { margin-block: 1.25rem; }
   .docs-prose :where(h2, h3, h4):not(:where(.not-prose, .not-prose *)) {
