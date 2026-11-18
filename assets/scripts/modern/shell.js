@@ -1,6 +1,15 @@
+import { initializeCodeBlocks } from '../features/codeBlockPanel/panel.js'
+
 export default () => ({
   dark: document.documentElement.classList.contains('dark'),
   init () {
+    const codeContent = document.querySelector('[data-code-copy-labels]')
+    if (codeContent) {
+      initializeCodeBlocks(codeContent, navigator.clipboard, {
+        copyButton: true,
+        labels: JSON.parse(codeContent.dataset.codeCopyLabels)
+      })
+    }
     const wide = window.matchMedia('(min-width: 64rem)')
     const navigation = document.getElementById('docs-navigation')
     const resize = () => { if (navigation) navigation.open = wide.matches }

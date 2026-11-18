@@ -1,6 +1,7 @@
 {{- if not .Site.Params.features.docs.enable }}{{ errorf "docs layout requires params.features.docs.enable: true" }}{{ end -}}
 {{- $root := partial "docs/root.html" . -}}
 {{- $hasTOC := and (ne .Params.toc false) (gt (len .Fragments.Headings) 0) -}}
+{{- $codeCopyLabels := partial "modern/code-copy-labels.html" . -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
 <head>
@@ -21,10 +22,10 @@
     <script src="{{ $diagrams.RelPermalink }}" integrity="{{ $diagrams.Data.Integrity }}" defer crossorigin="anonymous"></script>
   {{ end }}
 </head>
-<body class="min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
+<body class="docs-page min-h-screen bg-background text-foreground antialiased" x-data="docsShell">
   <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
   {{ partial "modern/header.html" (dict "page" . "searchMarkup" (partial "docs/search.html" .) "navigationLabel" (i18n "docs_navigation")) }}
-  <div class="mx-auto max-w-screen-2xl lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+  <div class="lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
     <aside class="docs-sidebar border-b border-border bg-background lg:border-r lg:border-b-0" aria-label="{{ i18n "docs_navigation" }}">
       <details id="docs-navigation" class="docs-navigation" open>
         <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium lg:hidden">{{ i18n "docs_navigation" }}{{ partial "components/icon.html" (dict "name" "chevron") }}</summary>
@@ -47,7 +48,7 @@
           <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ if eq .Kind "404" }}{{ i18n "err_404" }}{{ else }}{{ .Title }}{{ end }}</h1>
           {{ with .Description }}<p class="mt-4 text-lg leading-8 text-muted-foreground">{{ . }}</p>{{ end }}
           {{ if $hasTOC }}<details class="docs-mobile-toc mt-7 rounded-xl border border-border p-4 xl:hidden"><summary class="cursor-pointer text-sm font-medium">{{ i18n "docs_on_this_page" }}</summary><div class="docs-toc mt-3">{{ partial "docs/outline.html" . }}</div></details>{{ end }}
-          <div class="docs-prose mt-9 max-w-none" data-docs-content>{{ .Content }}</div>
+          <div class="docs-prose mt-9 max-w-none" data-docs-content{{ with $codeCopyLabels }} data-code-copy-labels="{{ . }}"{{ end }}>{{ .Content }}</div>
           {{ partial "docs/edit-link.html" . }}
           {{ if or .IsHome (eq .Kind "404") }}
             <div class="mt-8">{{ partial "components/button.html" (dict "label" (i18n "docs_get_started") "href" $root.RelPermalink "icon" "arrow-right") }}</div>

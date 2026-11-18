@@ -64,6 +64,9 @@ params:
   features:
     componentsDesign:
       enable: true
+    codeBlock:
+      copyButton:
+        enable: true
     embedpdf:
       enable: true
     math:

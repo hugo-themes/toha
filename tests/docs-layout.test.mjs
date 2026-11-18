@@ -109,6 +109,7 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     // The imported design is opt-in, self-contained, and modern-page scoped.
     assert.doesNotMatch(gallery, /components-design|data-components-navbar/)
     config.params.features.componentsDesign = { enable: true }
+    config.params.features.codeBlock = { copyButton: { enable: true }, folding: { enable: true, previewLines: 1 } }
     // Override even explicitly configured inline highlighting, and retain tables.
     config.markup.highlight.noClasses = true
     write('content/docs/syntax.md', '---\ntitle: Syntax\n---\n```go {linenos=table hl_lines="2"}\npackage main\nfunc main() { println("hello") }\n```')
@@ -150,6 +151,12 @@ test('external docs consumer renders components, language/subpath URLs, and isol
     assert.match(syntax, /class=lntable/)
     assert.match(syntax, /class="[^"]*\bhl\b/)
     assert.doesNotMatch(syntax, /style="[^"]*(?:color|background)/)
+    assert.match(syntax, /data-code-copy-labels=/)
+    const codeData = JSON.parse(syntax.match(/<script[^>]*class="?code-block-data"?[^>]*>(.*?)<\/script>/s)[1])
+    assert.equal(codeData.source, 'package main\nfunc main() { println("hello") }\n')
+    assert.equal(codeData.copyButton, true)
+    assert.equal(codeData.preview, '')
+    assert.match(html('en/index.html'), /data-code-copy-labels=[\s\S]*code-block-data/)
     assert.doesNotMatch(html('en/posts/example/index.html'), /components-design|data-components-navbar/)
     config.params.features.componentsDesign.navbar = { enable: false }
     build()

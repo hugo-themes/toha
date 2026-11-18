@@ -258,14 +258,16 @@ test('copy preserves all raw source after highlighting and reports retryable err
 test('plain fences get a single panel and full-source copy before highlighter mutation', async (context) => {
   context.mock.timers.enable({ apis: ['setTimeout'] })
   const document = dom()
+  const content = document.createElement('article')
+  document.appendChild(content)
   const pre = document.createElement('pre')
   const code = document.createElement('code')
   code.className = 'language-go'
   code.textContent = snippet
   pre.appendChild(code)
-  document.appendChild(pre)
+  content.appendChild(pre)
   let copied
-  initializeCodeBlocks(document, { writeText: async (value) => { copied = value } }, { labels, copyButton: true, folding: true, previewLines: 2 })
+  initializeCodeBlocks(content, { writeText: async (value) => { copied = value } }, { labels, copyButton: true, folding: true, previewLines: 2 })
   assert.equal(document.querySelectorAll('.code-block-copy').length, 1)
   assert.equal(document.querySelector('.code-block-toggle').textContent, 'Show all 5 lines')
   assert.equal(document.querySelector('.code-block-title').textContent, 'go')

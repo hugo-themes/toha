@@ -1,5 +1,5 @@
 ---
-title: Field notes
+title: Toha Blogs
 ---
 
-Ideas, guides, and small discoveries from building with Toha.
+Share you ideas, knowledge, tricks with Toha Blog.

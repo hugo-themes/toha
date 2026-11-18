@@ -1,5 +1,5 @@
 baseURL: https://example.org/
-title: Toha Journal
+title: Toha Blog
 locale: en-us
 defaultContentLanguage: en
 enableRobotsTXT: true
@@ -33,7 +33,7 @@ markup:
     noClasses: false
 
 params:
-  description: Field notes on building with Toha.
+  description: Blog on building with Toha.
   author:
     name: Toha contributors
   home:

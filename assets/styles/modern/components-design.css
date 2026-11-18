@@ -16,28 +16,31 @@
   --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+/* Dark palette based on https://vercel.com/docs/ai-sdk and the reference screenshot. */
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --surface: oklch(0.21 0.006 285.885);
-  --foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --border: oklch(1 0 0 / 10%);
-  --link: oklch(0.746 0.16 259.815);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --prose-body: #d1d5db;
-  --prose-headings: #ffffff;
+  --background: #000;
+  --surface: #0d0d0d;
+  --foreground: #eaeaea;
+  --muted: #1d1d1d;
+  --muted-foreground: #979797;
+  --border: #292929;
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+  --link: var(--foreground);
+  --sidebar: var(--background);
+  --prose-body: var(--foreground);
+  --prose-headings: var(--foreground);
+  --syntax-keyword: #ef6a8d;
+  --syntax-string: #72b871;
+  --syntax-function: #b47af1;
+  --syntax-literal: #5c9cfa;
 }
 body { font-family: var(--font-sans); }
 code, kbd, pre, samp { font-family: var(--font-mono); }
 .docs-sidebar { background: var(--sidebar); }
-@media (min-width: 64rem) {
-  .docs-sidebar {
-    box-shadow: -100vmax 0 0 100vmax var(--sidebar);
-    clip-path: inset(0 0 0 -100vmax);
-  }
-}
-.docs-prose { font-size: 1rem; line-height: 1.75; color: var(--prose-body); }
+.docs-prose:not(.blog-hero-copy) { font-size: 1rem; line-height: 1.75; color: var(--prose-body); }
+.dark .blog-hero { background-color: var(--background); color: var(--foreground); }
+.dark .blog-hero-shade { background-color: rgb(0 0 0 / 60%); }
 .docs-prose :where(h1, h2, h3, h4, h5, h6, strong, code):not(:where(.not-prose, .not-prose *)), main article > h1 { color: var(--prose-headings); }
 .docs-prose :where(li)::marker { color: #d1d5db; }
 .dark .docs-prose :where(li)::marker { color: #4b5563; }
@@ -185,6 +188,29 @@ code, kbd, pre, samp { font-family: var(--font-mono); }
 /* GenericInserted */ .docs-prose .chroma .gi { color:#a6e22e }
 /* GenericStrong */ .docs-prose .chroma .gs { font-weight:bold }
 /* GenericSubheading */ .docs-prose .chroma .gu { color:#75715e }
+
+.dark .docs-prose :where(pre):not(:where(.highlight *, .not-prose, .not-prose *)),
+.dark .docs-prose .highlight {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+.dark .docs-prose :where(code):not(:where(pre *, .not-prose, .not-prose *)) {
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.dark .docs-prose .chroma,
+.dark .docs-prose .chroma .bg {
+  background: var(--surface);
+  color: var(--foreground);
+}
+.dark .docs-prose .chroma .hl { background: var(--muted); }
+.dark .docs-prose .chroma :is(.c, .ch, .cm, .c1, .cs, .cp, .cpf, .gu, .ln, .lnt) { color: var(--muted-foreground); }
+.dark .docs-prose .chroma :is(.k, .kc, .kd, .kn, .kp, .kr, .o, .ow, .gd) { color: var(--syntax-keyword); }
+.dark .docs-prose .chroma :is(.s, .sa, .sb, .sc, .dl, .sd, .s1, .s2, .se, .sh, .si, .sr, .ss, .sx, .gi) { color: var(--syntax-string); }
+.dark .docs-prose .chroma :is(.nf, .fm, .nc, .ne) { color: var(--syntax-function); }
+.dark .docs-prose .chroma :is(.kt, .na, .no, .nd, .nl, .nx, .nt, .nb, .bp, .nv, .vc, .vg, .vi, .vm, .l, .ld, .m, .mb, .mf, .mh, .mi, .il, .mo) { color: var(--syntax-literal); }
+.dark .docs-prose .chroma .p { color: var(--foreground); }
+.dark .docs-prose .chroma .err { background: var(--muted); color: var(--syntax-keyword); }
 
 /* Match the reference navbar's foreground icons and compact action buttons. */
 .components-navbar .docs-icon-button { color: var(--foreground); }

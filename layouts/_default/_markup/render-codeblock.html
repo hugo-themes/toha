@@ -1,17 +1,18 @@
-{{- if partial "helpers/is-modern-page.html" .Page -}}
-  {{- $options := .Options -}}
-  {{- if .Page.Site.Params.features.componentsDesign.enable -}}
-    {{/* The opt-in design owns syntax colors in both schemes, including sites
-         that use Hugo's default inline highlighting configuration. */}}
-    {{- $options = merge $options (dict "noClasses" false) -}}
-  {{- end -}}
-  {{- $highlight := transform.HighlightCodeBlock . $options -}}{{ $highlight.Wrapped }}
-{{- else -}}
+{{- $modern := partial "helpers/is-modern-page.html" .Page -}}
 {{- $options := partial "helpers/code-block-options.html" . -}}
+{{- $highlightOptions := .Options -}}
+{{- if and $modern .Page.Site.Params.features.componentsDesign.enable -}}
+  {{/* The opt-in design owns syntax colors in both schemes, including sites
+       that use Hugo's default inline highlighting configuration. */}}
+  {{- $highlightOptions = merge $highlightOptions (dict "noClasses" false) -}}
+{{- end -}}
+{{- if and $modern (not $options.copyButton) -}}
+  {{- $highlight := transform.HighlightCodeBlock . $highlightOptions -}}{{ $highlight.Wrapped }}
+{{- else -}}
 {{/* Hugo's render-hook Inner omits a nonempty fence's final newline. */}}
 {{- $source := .Inner -}}
 {{- if $source }}{{ $source = printf "%s\n" $source }}{{ end -}}
-{{- $highlight := transform.HighlightCodeBlock . (merge (dict "code" $source) .Options) -}}
+{{- $highlight := transform.HighlightCodeBlock . (merge (dict "code" $source) $highlightOptions) -}}
   {{- $labels := partial "helpers/code-block-labels.html" . -}}
   {{- $lines := split (strings.TrimSuffix "\n" $source) "\n" -}}
   {{- $previewLines := $options.previewLines -}}
@@ -19,7 +20,7 @@
     {{- if findRE `^[1-9][0-9]*$` (printf "%v" .) }}{{ $previewLines = int . }}{{ end -}}
   {{- end -}}
   {{- $preview := "" -}}
-  {{- if and $options.folding (gt (len $lines) $previewLines) -}}
+  {{- if and (not $modern) $options.folding (gt (len $lines) $previewLines) -}}
     {{- $previewSource := printf "%s\n" (delimit (first $previewLines $lines) "\n") -}}
     {{/* Remove explicit anchor options before setting false; merge treats false as empty. */}}
     {{- $previewOptions := dict "anchorlinenos" false -}}
