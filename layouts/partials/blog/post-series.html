@@ -1,0 +1,35 @@
+{{- $page := .page -}}
+{{- $root := .root -}}
+{{- if ne $page.Params.hidden true -}}
+  {{- range $page.GetTerms "series" -}}
+    {{- $members := partialCached "blog/series-members.html" (dict "term" . "root" $root) $root.RelPermalink .Path -}}
+    {{- $position := 0 -}}
+    {{- range $i, $member := $members -}}
+      {{- if eq $member $page }}{{ $position = add $i 1 }}{{ break }}{{ end -}}
+    {{- end -}}
+    {{- if and $position (gt (len $members) 1) }}
+<details class="docs-tree-group mt-6 rounded-xl border border-border bg-surface" data-responsive-navigation open>
+  <summary class="flex cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3">
+    <span class="min-w-0">
+      <span class="block text-sm font-semibold">{{ .LinkTitle }}</span>
+      <span class="block text-xs text-muted-foreground">{{ i18n "blog_series_position" (dict "Part" $position "Total" (len $members)) }}</span>
+    </span>
+    {{ partial "components/icon.html" (dict "name" "chevron" "class" "docs-chevron size-4 shrink-0 text-muted-foreground") }}
+  </summary>
+  <nav class="border-t border-border px-4 pt-2 pb-3" aria-label="{{ .LinkTitle }}">
+    <ol class="list-none space-y-1" role="list">
+      {{ range $i, $member := $members }}
+        {{ $current := eq $member $page }}
+        <li>
+          {{ if $current }}<span class="docs-nav-link gap-2" aria-current="page">{{ else }}<a class="docs-nav-link gap-2" href="{{ $member.RelPermalink }}">{{ end }}
+            <span class="shrink-0 tabular-nums" aria-hidden="true">{{ add $i 1 }}.</span>
+            <span class="min-w-0 break-words">{{ $member.LinkTitle }}</span>
+          {{ if $current }}</span>{{ else }}</a>{{ end }}
+        </li>
+      {{ end }}
+    </ol>
+  </nav>
+</details>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

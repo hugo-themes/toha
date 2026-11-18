@@ -1,0 +1,42 @@
+{{- $page := .page -}}
+{{- $root := .root -}}
+{{- $modernArchive := $page.Site.Params.features.blog.archive.enable -}}
+{{- $taxonomies := slice -}}
+{{- range partial "blog/archive-taxonomies.html" $page -}}
+  {{- with $page.Site.GetPage (printf "/%s" .) -}}
+    {{- if and (eq .Kind "taxonomy") .Pages (.OutputFormats.Get "HTML") -}}
+      {{- $taxonomies = $taxonomies | append . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<aside class="blog-sidebar border-b border-border lg:border-r lg:border-b-0">
+  <details class="blog-navigation" data-responsive-navigation open>
+    <summary class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium lg:hidden">
+      {{ i18n "blog_archive_browse" }}{{ partial "components/icon.html" (dict "name" "chevron" "class" "docs-chevron size-4") }}
+    </summary>
+    <nav class="px-4 pt-1 pb-5 lg:px-5 lg:py-8" aria-label="{{ i18n "blog_archive_browse" }}">
+      <a class="docs-nav-link" href="{{ $root.RelPermalink }}"{{ if eq $page $root }} aria-current="page"{{ else if and $page.IsPage (eq $page.CurrentSection $root) }} aria-current="location"{{ end }}>{{ $root.LinkTitle }}</a>
+      {{ partial "blog/sidebar-tree.html" (dict "section" $root "current" $page) }}
+      {{ with $taxonomies }}
+      <ul class="mt-5 {{ if $modernArchive }}space-y-5{{ else }}space-y-1{{ end }} border-t border-border pt-4">
+        {{ range . }}
+          {{ $taxonomy := . }}
+          {{ if and $modernArchive (in (slice "categories" "tags") .Type) }}
+            {{ partial "blog/sidebar-topics.html" (dict "taxonomy" . "page" $page) }}
+          {{ else if and $modernArchive (eq .Type "series") }}
+            {{ with partialCached "blog/series-list.html" $root $root.RelPermalink }}
+            <li>
+              <a class="docs-nav-link items-center gap-2" href="{{ $taxonomy.RelPermalink }}"{{ if eq $taxonomy $page }} aria-current="page"{{ end }}>
+                {{ i18n "series" }} <span class="blog-sidebar-count">{{ len . }}</span>
+              </a>
+            </li>
+            {{ end }}
+          {{ else }}
+            <li><a class="docs-nav-link" href="{{ .RelPermalink }}"{{ if eq . $page }} aria-current="page"{{ else if eq .Type $page.Type }} aria-current="location"{{ end }}>{{ i18n .Type | default .LinkTitle }}</a></li>
+          {{ end }}
+        {{ end }}
+      </ul>
+      {{ end }}
+    </nav>
+  </details>
+</aside>

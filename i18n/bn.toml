@@ -260,6 +260,9 @@ other = "সব"
 [blog_see_all]
 other = "সব পোস্ট দেখুন"
 
+[blog_start_series]
+other = "সিরিজ শুরু করুন"
+
 [blog_empty]
 other = "এখনও কোনো পোস্ট নেই।"
 
@@ -268,3 +271,33 @@ other = "ব্লগ নেভিগেশন"
 
 [blog_feed]
 other = "আরএসএস ফিড"
+
+[blog_archive_browse]
+other = "ব্লগ দেখুন"
+
+[blog_archive_all_posts]
+other = "সব পোস্ট"
+
+[blog_post_date]
+other = "তারিখ"
+
+[blog_reading_time]
+other = "পড়ার সময়"
+
+[blog_post_title]
+other = "শিরোনাম"
+
+[series]
+other = "সিরিজ"
+
+[blog_all_series]
+other = "সব সিরিজ"
+
+[blog_post_count]
+other = "{{ .Count }}টি পোস্ট"
+
+[blog_topics_empty]
+other = "এখনও কোনো বিষয় নেই।"
+
+[blog_series_position]
+other = "পর্ব {{ .Part }} / {{ .Total }}"

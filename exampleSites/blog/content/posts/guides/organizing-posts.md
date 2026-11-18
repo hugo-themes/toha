@@ -3,6 +3,8 @@ title: Give your posts room to grow
 date: 2026-01-03
 tags: [Writing, Organization]
 categories: [Guides]
+series: [Building with Toha]
+series_weight: 30
 ---
 
 Begin with a few Markdown files. As a topic grows, move related articles into a

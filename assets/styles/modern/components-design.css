@@ -216,7 +216,4 @@ code, kbd, pre, samp { font-family: var(--font-mono); }
 .components-navbar .docs-icon-button { color: var(--foreground); }
 .components-navbar-actions > a, .components-navbar-drawer-actions > a { min-height: 2rem; height: 2rem; padding: 0 0.75rem; border-radius: 0.375rem; font-weight: 500; }
 body:has(> .components-navbar) .blog-topic-nav { top: 3.5rem; }
-body:has(> .components-navbar) .docs-desktop-toc { top: 3.5rem; max-height: calc(100dvh - 3.5rem); }
-@media (min-width: 64rem) {
-  body:has(> .components-navbar) .docs-sidebar { top: 3.5rem; height: calc(100dvh - 3.5rem); }
-}
+body:has(> .components-navbar) { --modern-header-height: 3.5rem; }

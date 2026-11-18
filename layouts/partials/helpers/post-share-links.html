@@ -1,0 +1,25 @@
+{{- $links := slice -}}
+{{- $settings := .Site.Params.features.blog.shareButtons -}}
+{{- if reflect.IsMap $settings -}}
+  {{- $url := .Permalink | urlquery -}}
+  {{- $title := .Title | urlquery -}}
+  {{- $text := printf "%s %s" .Title .Permalink | urlquery -}}
+  {{- $description := "" -}}
+  {{- with .Params.description }}{{ $description = printf "&description=%s" (. | urlquery) }}{{ end -}}
+  {{- $services := slice
+    (dict "id" "facebook" "label" "Facebook" "icon" "fab fa-facebook" "href" (printf "https://www.facebook.com/sharer.php?u=%s" $url))
+    (dict "id" "twitter" "label" "X" "icon" "fab fa-twitter" "href" (printf "https://twitter.com/share?url=%s&text=%s&via=%s" $url $title (.Site.Title | urlquery)))
+    (dict "id" "reddit" "label" "Reddit" "icon" "fab fa-reddit" "href" (printf "https://reddit.com/submit?url=%s&title=%s" $url $title))
+    (dict "id" "tumblr" "label" "Tumblr" "icon" "fab fa-tumblr" "href" (printf "https://www.tumblr.com/share/link?url=%s&name=%s%s" $url $title $description))
+    (dict "id" "pocket" "label" "Pocket" "icon" "fab fa-get-pocket" "href" (printf "https://getpocket.com/save?url=%s&title=%s" $url $title))
+    (dict "id" "linkedin" "label" "LinkedIn" "icon" "fab fa-linkedin" "href" (printf "https://www.linkedin.com/shareArticle?url=%s&title=%s" $url $title))
+    (dict "id" "diaspora" "label" "Diaspora" "icon" "fab fa-diaspora" "href" (printf "https://share.diasporafoundation.org/?title=%s&url=%s" $title $url))
+    (dict "id" "mastodon" "label" "Mastodon" "icon" "fab fa-mastodon" "href" (printf "https://mastodon.social/share?text=%s" (printf "%s - %s" .Title .Permalink | urlquery)))
+    (dict "id" "whatsapp" "label" "WhatsApp" "icon" "fab fa-whatsapp" "href" (printf "https://api.whatsapp.com/send?text=%s" $text))
+    (dict "id" "email" "label" (i18n "email") "icon" "fas fa-envelope-open-text" "href" (printf "mailto:?subject=%s&body=%s" (replace $title "+" "%20") $url))
+  -}}
+  {{- range $services -}}
+    {{- if index $settings .id }}{{ $links = $links | append . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $links -}}

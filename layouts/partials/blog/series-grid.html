@@ -1,0 +1,16 @@
+<ul class="blog-archive-grid">
+  {{ range . }}
+  <li class="min-w-0">
+    <a class="blog-series-link docs-page-link" href="{{ (index .posts 0).RelPermalink }}">
+      <span class="flex min-w-0 items-start gap-3">
+        <span class="blog-series-icon">{{ partial "components/icon.html" (dict "name" "book") }}</span>
+        <span class="min-w-0 break-words">
+          <span class="block font-semibold">{{ .page.LinkTitle }}</span>
+          <span class="mt-1 block text-xs text-muted-foreground">{{ i18n "blog_post_count" .count }}</span>
+        </span>
+      </span>
+      {{ with .page.Description }}<span class="mt-3 line-clamp-2 text-sm leading-6 text-muted-foreground">{{ . }}</span>{{ end }}
+    </a>
+  </li>
+  {{ end }}
+</ul>

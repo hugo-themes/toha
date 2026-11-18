@@ -12,20 +12,7 @@
 
 {{ partial "helpers/style-bundle.html" . }}
 
-<!--================= fab-icon =========================-->
-{{/* add favicon only if the site author has provided the the favicon */}}
-{{ if site.Params.logo.favicon }}
-  {{ $favicon := site.Params.logo.favicon }}
-
-  {{/* resize the favicon. don't resize svg because it is not supported */}}
-  {{ $favicon = resources.Get $favicon }}
-  {{ if and $favicon (ne $favicon.MediaType.SubType "svg") }}
-    {{ $favicon = $favicon.Resize "42x" }}
-  {{ end }}
-  {{ $favicon = $favicon.RelPermalink}}
-
-  <link rel="icon" type="image/png" href="{{ $favicon }}" />
-{{end}}
+{{ partial "misc/favicon.html" . }}
 
 {{ with .OutputFormats.Get "rss" -}}
   {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}

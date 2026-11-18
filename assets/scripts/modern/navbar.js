@@ -1,6 +1,5 @@
 // Enhance native disclosures; navigation remains available without JavaScript.
-const navbar = document.querySelector('[data-components-navbar]')
-if (navbar) {
+for (const navbar of document.querySelectorAll('[data-components-navbar], [data-blog-topic-navigation]')) {
   const disclosures = [...navbar.querySelectorAll('[data-navbar-disclosure]')]
   const close = (item, restoreFocus = false) => {
     item.open = false

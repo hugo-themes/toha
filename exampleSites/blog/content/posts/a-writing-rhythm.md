@@ -3,6 +3,8 @@ title: A small writing rhythm
 date: 2026-01-01
 tags: [Writing]
 categories: [Practice]
+series: [The writing workflow]
+series_weight: 20
 ---
 
 Save a question during the week. Write down what you tried, what surprised you,

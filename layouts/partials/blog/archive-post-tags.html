@@ -1,0 +1,9 @@
+{{- $tags := slice -}}
+{{- range .GetTerms "tags" -}}
+  {{- if .OutputFormats.Get "HTML" }}{{ $tags = $tags | append . }}{{ end -}}
+{{- end -}}
+{{- with $tags -}}
+<ul class="flex flex-wrap gap-1.5" aria-label="{{ i18n "tags" }}" role="list">
+  {{ range . }}<li class="min-w-0"><a class="modern-tag wrap-anywhere" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}
+</ul>
+{{- end -}}

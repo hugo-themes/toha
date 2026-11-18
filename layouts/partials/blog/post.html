@@ -1,0 +1,65 @@
+{{- $page := .page -}}
+{{- $features := $page.Site.Params.features -}}
+{{- $hasOutline := and $features.toc.enable (ne $page.Params.enableTOC false) (ne $page.Params.toc false) (gt (len $page.Fragments.Headings) 0) -}}
+{{- $codeCopyLabels := partial "modern/code-copy-labels.html" $page -}}
+{{- $canonical := $page.Permalink -}}
+{{- with $page.Params.relcanonical }}{{ $canonical = . | relLangURL }}{{ end -}}
+<!DOCTYPE html>
+<html lang="{{ $page.Site.Language.Locale | default $page.Site.Language.Lang }}">
+{{ partial "blog/head.html" (dict "page" $page "title" (printf "%s · %s" $page.Title $page.Site.Title) "canonical" $canonical) }}
+<body class="blog-post min-h-screen bg-background text-foreground antialiased" x-data="modernShell">
+  <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
+  {{ partial "blog/header.html" . }}
+  <div class="blog-layout">
+    {{ partial "blog/sidebar.html" . }}
+    <div class="blog-post-layout mx-auto w-full min-w-0 max-w-[76rem] px-5 py-9 sm:px-8 lg:py-14"{{ if $hasOutline }} x-data="docsToc"{{ end }}>
+      <main id="main-content" class="blog-post-main mx-auto w-full min-w-0 max-w-3xl" tabindex="-1">
+        <article>
+          <header class="border-b border-border pb-7">
+            {{ partial "blog/breadcrumb.html" . }}
+            <h1 class="text-3xl leading-tight font-semibold tracking-tight sm:text-5xl">{{ $page.Title }}</h1>
+            {{ with $page.Description }}<p class="mt-4 text-lg leading-8 text-muted-foreground">{{ . }}</p>{{ end }}
+            {{ partial "blog/post-meta.html" $page }}
+          </header>
+          {{ with partial "helpers/get-hero.html" (dict "context" $page "fallback" false) }}
+            {{ if eq .ResourceType "image" }}
+              {{ $hero := . }}
+              {{ $raster := ne .MediaType.SubType "svg" }}
+              {{ if and $raster (ne .MediaType.SubType "gif") (gt .Width 1440) }}{{ $hero = .Resize "1440x" }}{{ end }}
+              <img class="blog-post-hero" src="{{ $hero.RelPermalink }}" alt="{{ $page.Params.heroAlt }}"{{ if $raster }} width="{{ $hero.Width }}" height="{{ $hero.Height }}"{{ end }}>
+            {{ end }}
+          {{ end }}
+          {{ partial "blog/post-series.html" . }}
+          {{ if $hasOutline }}
+          <details class="docs-mobile-toc mt-6 rounded-xl border border-border p-4 xl:hidden">
+            <summary class="cursor-pointer text-sm font-medium">{{ i18n "docs_on_this_page" }}</summary>
+            <div class="docs-toc mt-3">{{ partial "docs/outline.html" $page }}</div>
+          </details>
+          {{ end }}
+          <div class="docs-prose blog-post-content mt-8" data-docs-content{{ with $codeCopyLabels }} data-code-copy-labels="{{ . }}"{{ end }}>{{ $page.Content }}</div>
+          {{ partial "blog/post-actions.html" $page }}
+          {{ with index (partialCached "blog/post-sequence.html" .root .root.Language.Lang .root.Path) $page.Path }}
+            {{ partial "components/page-navigation.html" . }}
+          {{ end }}
+        </article>
+        {{ if or $features.comment.enable $page.Site.Config.Services.Disqus.Shortname }}
+          <div class="mt-10">
+            {{ if $features.comment.enable }}{{ partial "comments.html" $features.comment.services }}{{ end }}
+            {{ with $page.Site.Config.Services.Disqus.Shortname }}{{ partial "comments/disqus.html" (dict "disqus" (dict "shortName" .)) }}{{ end }}
+          </div>
+        {{ end }}
+      </main>
+      {{ if $hasOutline }}
+      <aside class="hidden min-w-0 xl:block" aria-label="{{ i18n "docs_on_this_page" }}">
+        <div class="docs-desktop-toc blog-post-outline">
+          <p class="mb-3 text-xs font-semibold text-foreground">{{ i18n "docs_on_this_page" }}</p>
+          <div class="docs-toc">{{ partial "docs/outline.html" $page }}</div>
+        </div>
+      </aside>
+      {{ end }}
+    </div>
+  </div>
+  {{ partial "blog/footer.html" $page }}
+  {{ partial "misc/support.html" $page }}
+</body>
+</html>

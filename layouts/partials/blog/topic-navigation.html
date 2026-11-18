@@ -1,0 +1,18 @@
+{{- $links := slice (dict "href" "#recent-posts" "label" (i18n "blog_all_posts")) -}}
+{{- range . -}}
+  {{- $links = $links | append (dict "href" (printf "#%s" .id) "label" .page.LinkTitle) -}}
+{{- end -}}
+<nav class="blog-topic-nav" aria-label="{{ i18n "blog_topics" }}" data-blog-topic-navigation>
+  <details class="blog-topic-dropdown lg:hidden" data-navbar-disclosure>
+    <summary class="flex min-h-12 cursor-pointer items-center justify-between gap-3 px-5 text-sm font-medium sm:px-8">
+      {{ i18n "blog_topics" }}
+      {{ partial "components/icon.html" (dict "name" "chevron" "class" "docs-chevron size-4 shrink-0") }}
+    </summary>
+    <ul class="blog-topic-options" role="list">
+      {{ range $links }}<li><a class="docs-nav-link wrap-anywhere" href="{{ .href }}">{{ .label }}</a></li>{{ end }}
+    </ul>
+  </details>
+  <div class="mx-auto hidden max-w-screen-2xl items-center gap-2 overflow-x-auto px-8 lg:flex">
+    {{ range $links }}<a class="blog-topic-link" href="{{ .href }}">{{ .label }}</a>{{ end }}
+  </div>
+</nav>

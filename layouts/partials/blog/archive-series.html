@@ -1,0 +1,21 @@
+{{- $series := slice -}}
+{{- $root := .root -}}
+{{- $allSeries := partialCached "blog/series-list.html" $root $root.RelPermalink -}}
+{{- range sort $allSeries "count" "desc" -}}
+  {{- if intersect $.posts .posts -}}
+    {{- $series = $series | append . -}}
+    {{- if eq (len $series) 3 }}{{ break }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- with $series }}
+{{- $index := $root.Site.GetPage "/series" -}}
+<section aria-labelledby="archive-series-title">
+  <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+    <h2 id="archive-series-title" class="text-xl font-semibold tracking-tight">{{ i18n "series" }}</h2>
+    <a class="inline-flex items-center gap-2 text-sm font-medium text-link hover:underline" href="{{ $index.RelPermalink }}">
+      {{ i18n "blog_all_series" }}{{ partial "components/icon.html" (dict "name" "arrow-right") }}
+    </a>
+  </div>
+  {{ partial "blog/series-grid.html" . }}
+</section>
+{{- end }}

@@ -1,0 +1,21 @@
+{{/* The explicit sidebar order takes precedence for its posts. Cache the
+     neighbor map so rendering many posts does not scan the tree per page. */}}
+{{- $pages := slice -}}
+{{- range partial "blog/pages.html" . -}}
+  {{- if .OutputFormats.Get "HTML" }}{{ $pages = $pages | append . }}{{ end -}}
+{{- end -}}
+{{- $menuPages := slice -}}
+{{- with .Site.Menus.sidebar -}}
+  {{- $menuPages = intersect (partial "helpers/get-pages.html" .) $pages -}}
+{{- end -}}
+{{- $neighbors := newScratch -}}
+{{- range slice $pages $menuPages -}}
+  {{- $sequence := . -}}
+  {{- range $i, $page := $sequence -}}
+    {{- $previous := false -}}{{- $next := false -}}
+    {{- if gt $i 0 }}{{ $previous = index $sequence (sub $i 1) }}{{ end -}}
+    {{- if lt (add $i 1) (len $sequence) }}{{ $next = index $sequence (add $i 1) }}{{ end -}}
+    {{- $neighbors.SetInMap "pages" $page.Path (dict "previous" $previous "next" $next) -}}
+  {{- end -}}
+{{- end -}}
+{{- return ($neighbors.Get "pages" | default dict) -}}

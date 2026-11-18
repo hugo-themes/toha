@@ -1,0 +1,7 @@
+{{- with site.Params.logo.favicon -}}
+  {{- with resources.Get . -}}
+    {{- $favicon := . -}}
+    {{- if ne .MediaType.SubType "svg" }}{{ $favicon = .Resize "42x" }}{{ end -}}
+    <link rel="icon" type="{{ $favicon.MediaType.Type }}" href="{{ $favicon.RelPermalink }}">
+  {{- end -}}
+{{- end -}}

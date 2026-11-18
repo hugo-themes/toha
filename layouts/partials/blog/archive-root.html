@@ -1,0 +1,12 @@
+{{/* Select the blog tree and the published taxonomy routes used to browse it. */}}
+{{- $root := false -}}
+{{- $blog := .Site.Params.features.blog -}}
+{{- if and (or $blog.enable .Site.Params.enableBlogPost) (in (slice "section" "taxonomy" "term") .Kind) -}}
+  {{- with .Site.GetPage ($blog.section | default "posts") -}}
+    {{- $taxonomies := partial "blog/archive-taxonomies.html" $ -}}
+    {{- if and .IsSection (or (eq . $) (.IsAncestor $) (and (in (slice "taxonomy" "term") $.Kind) (in $taxonomies $.Type))) -}}
+      {{- $root = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $root -}}

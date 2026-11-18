@@ -6,47 +6,34 @@
 {{- $topics := slice -}}
 {{- if ne $options.topics.enable false -}}
   {{- $taxonomy := $options.topics.taxonomy | default "categories" -}}
+  {{- $startSeries := and (eq $taxonomy "series") .Site.Params.features.blog.archive.enable -}}
   {{- with index .Site.Taxonomies $taxonomy -}}
     {{- range .ByCount -}}
       {{- $members := intersect $posts .Pages -}}
-      {{- if and $members .Page .Page.RelPermalink -}}
-        {{- $topics = $topics | append (dict "page" .Page "posts" $members "id" (printf "topic-%s" (crypto.MD5 .Page.RelPermalink))) -}}
+      {{- $href := "" -}}
+      {{- $label := i18n "blog_see_all" -}}
+      {{- if and $startSeries .Page -}}
+        {{- $members = partialCached "blog/series-members.html" (dict "term" .Page "root" $root) $root.RelPermalink .Page.Path -}}
+        {{- with $members -}}
+          {{- $href = (index . 0).RelPermalink -}}
+          {{- $label = i18n "blog_start_series" -}}
+        {{- end -}}
+      {{- else if and $members .Page (.Page.OutputFormats.Get "HTML") -}}
+        {{- $href = .Page.RelPermalink -}}
+      {{- end -}}
+      {{- if $href -}}
+        {{- $topics = $topics | append (dict "page" .Page "posts" $members "href" $href "label" $label "id" (printf "topic-%s" (crypto.MD5 (.Page.RelPermalink | default .Page.Path)))) -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
   {{- $topics = first ($options.topics.limit | default 5) $topics -}}
 {{- end -}}
-{{- $links := slice (dict "label" (i18n "home") "href" .Site.Home.RelPermalink) (dict "label" (.Site.Params.features.blog.title | default (i18n "posts")) "href" $root.RelPermalink) -}}
-{{- $menus := .Site.Params.customMenus -}}
-{{- with (index hugo.Data .Language.Lang).site.customMenus }}{{ $menus = . }}{{ end -}}
-{{- range $menus -}}
-  {{- if not .hideFromNavbar }}{{ $links = $links | append (dict "label" .name "href" (partial "helpers/get-page-url.html" .url)) }}{{ end -}}
-{{- end -}}
-{{- $searchMarkup := "" -}}
-{{- if .Site.Params.features.blog.search.enable -}}
-  {{- $index := partialCached "blog/search-index.html" $root $root.Language.Lang $root.RelPermalink -}}
-  {{- $searchMarkup = partial "components/search-dialog.html" (dict "iconLibrary" (cond (eq .Site.Params.features.componentsDesign.enable true) "lucide" "") "id" "blog-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "search"))) -}}
-{{- end -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}" class="motion-safe:scroll-smooth">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ partial "helpers/get-description.html" . }}">
-  <title>{{ .Title }}</title>
-  <link rel="canonical" href="{{ .Permalink }}">
-  {{ partial "opengraph.html" . }}
-  {{ partial "robots.html" . }}
-  {{ partial "structured-data.html" . }}
-  {{ partial "analytics.html" . }}
-  {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ $.Site.Title }}">{{ end }}
-  {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
-  {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "modern/styles.html" . }}{{ end }}
-  {{ partial "modern/scripts.html" (dict "search" .Site.Params.features.blog.search.enable) }}
-</head>
+{{ partial "blog/head.html" (dict "page" . "title" .Title) }}
 <body class="blog-home min-h-screen bg-background text-foreground antialiased" x-data="modernShell">
   <a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
-  {{ partial "modern/header.html" (dict "page" . "links" $links "searchMarkup" $searchMarkup "navigationLabel" (i18n "blog_navigation")) }}
+  {{ partial "blog/header.html" (dict "page" . "root" $root) }}
   {{ if $heroEnabled }}
   <section class="blog-hero" aria-labelledby="blog-title">
     {{ with $options.hero.image }}
@@ -61,40 +48,29 @@
     </div>
   </section>
   {{ end }}
-  {{ with $topics }}
-  <nav class="blog-topic-nav" aria-label="{{ i18n "blog_topics" }}">
-    <div class="mx-auto flex max-w-screen-2xl items-center gap-2 overflow-x-auto px-5 lg:px-8">
-      <a class="blog-topic-link font-semibold text-link" href="#recent-posts">{{ i18n "blog_all_posts" }}</a>
-      {{ range . }}<a class="blog-topic-link" href="#{{ .id }}">{{ .page.LinkTitle }}</a>{{ end }}
-    </div>
-  </nav>
-  {{ end }}
-  <main id="main-content" class="mx-auto max-w-screen-2xl space-y-12 px-5 py-9 lg:px-8" tabindex="-1">
+  {{ with $topics }}{{ partial "blog/topic-navigation.html" . }}{{ end }}
+  <main id="main-content" class="mx-auto max-w-6xl space-y-12 px-5 py-9 sm:px-8 lg:px-10" tabindex="-1">
     {{ if not $heroEnabled }}<header><h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1><div class="docs-prose mt-4"{{ with $codeCopyLabels }} data-code-copy-labels="{{ . }}"{{ end }}>{{ .Content }}</div></header>{{ end }}
     {{ if .Site.Params.features.blog.search.enable }}<noscript><p class="text-sm text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}
-    <section id="recent-posts" aria-labelledby="recent-posts-title">
+    <section id="recent-posts" aria-labelledby="recent-posts-title" tabindex="-1">
       <h2 id="recent-posts-title" class="mb-4 text-xl font-semibold tracking-tight">{{ i18n "blog_recent_posts" }}</h2>
-      {{ $paginator := .Paginate $posts (.Site.Params.features.pagination.maxPostsPerPage | default 12) }}
+      {{ $pageSize := $options.postsPerPage | default (.Site.Params.features.pagination.maxPostsPerPage | default 12) }}
+      {{ $paginator := .Paginate $posts $pageSize }}
       <div id="post-card-holder" class="modern-post-grid">
         {{ range $paginator.Pages }}{{ partial "blog/card.html" . }}{{ else }}<p class="text-sm text-muted-foreground">{{ i18n "blog_empty" }}</p>{{ end }}
       </div>
       {{ partial "components/pagination.html" (dict "paginator" $paginator "label" (i18n "docs_page_navigation") "previous" (i18n "docs_previous") "next" (i18n "docs_next")) }}
     </section>
     {{ range $topics }}
-    <section id="{{ .id }}" aria-labelledby="{{ .id }}-title" data-blog-topic>
+    <section id="{{ .id }}" aria-labelledby="{{ .id }}-title" tabindex="-1" data-blog-topic>
       <div class="mb-4 flex items-center justify-between gap-4">
         <h2 id="{{ .id }}-title" class="text-xl font-semibold tracking-tight">{{ .page.LinkTitle }}</h2>
-        {{ partial "components/button.html" (dict "label" (i18n "blog_see_all") "href" .page.RelPermalink "variant" "secondary" "icon" "arrow-right") }}
+        {{ partial "components/button.html" (dict "label" .label "href" .href "variant" "secondary" "icon" "arrow-right") }}
       </div>
-      <div class="modern-post-grid">{{ range first ($options.topics.postsPerTopic | default 4) .posts }}{{ partial "blog/card.html" . }}{{ end }}</div>
+      <div class="modern-post-grid">{{ range first ($options.topics.postsPerTopic | default 3) .posts }}{{ partial "blog/card.html" . }}{{ end }}</div>
     </section>
     {{ end }}
   </main>
-  <footer class="mt-10 border-t border-border">
-    <div class="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-muted-foreground lg:px-8">
-      <span>© {{ now.Year }} {{ .Site.Title }}</span>
-      {{ with .OutputFormats.Get "RSS" }}<a class="hover:text-link" href="{{ .RelPermalink }}">{{ i18n "blog_feed" }}</a>{{ end }}
-    </div>
-  </footer>
+  {{ partial "blog/footer.html" . }}
 </body>
 </html>

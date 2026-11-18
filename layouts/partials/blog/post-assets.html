@@ -1,0 +1,13 @@
+{{- $features := .Site.Params.features -}}
+{{- if and $features.flowchart (ne $features.flowchart.enable false) (or .Params.mermaid (.HasShortcode "mermaid")) -}}
+  {{- partial "modern/diagrams.html" . -}}
+{{- end -}}
+{{- if and $features.embedpdf (ne $features.embedpdf.enable false) (.HasShortcode "embed-pdf") -}}
+  {{- $pdf := resources.Get "scripts/features/embedpdf/index.js" | js.Build (dict "targetPath" "modern-pdf.js" "minify" (not hugo.IsDevelopment)) | fingerprint -}}
+  <script src="{{ $pdf.RelPermalink }}" integrity="{{ $pdf.Data.Integrity }}" defer crossorigin="anonymous"></script>
+{{- end -}}
+{{- if and $features.math (ne $features.math.enable false) (isset ($features.math.services | default dict) "katex") -}}
+  {{- $options := merge ($features.math.services.katex | default dict) (dict "output" "mathml") -}}
+  {{- $math := resources.Get "scripts/features/math/katex.js" | js.Build (dict "targetPath" "modern-math.js" "minify" (not hugo.IsDevelopment) "params" (dict "math" (dict "katex" $options))) | fingerprint -}}
+  <script src="{{ $math.RelPermalink }}" integrity="{{ $math.Data.Integrity }}" defer crossorigin="anonymous"></script>
+{{- end -}}

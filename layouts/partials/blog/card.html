@@ -1,6 +1,9 @@
 {{- $tags := slice -}}
 {{- if .Site.Params.features.tags.enable -}}
-  {{- range first 3 (.GetTerms "tags") }}{{ $tags = $tags | append (dict "label" .LinkTitle "href" .RelPermalink) }}{{ end -}}
+  {{- range .GetTerms "tags" -}}
+    {{- if .OutputFormats.Get "HTML" }}{{ $tags = $tags | append (dict "label" .LinkTitle "href" .RelPermalink) }}{{ end -}}
+    {{- if eq (len $tags) 3 }}{{ break }}{{ end -}}
+  {{- end -}}
 {{- end -}}
 {{- $date := "" -}}{{- $dateISO := "" -}}
 {{- if not .Date.IsZero }}{{ $date = .Date | time.Format ":date_medium" }}{{ $dateISO = .Date.Format "2006-01-02" }}{{ end -}}

@@ -1,0 +1,2 @@
+{{- $diagrams := resources.Get "scripts/modern/diagrams.js" | js.Build (dict "targetPath" "modern-diagrams.js" "minify" (not hugo.IsDevelopment)) | fingerprint -}}
+<script src="{{ $diagrams.RelPermalink }}" integrity="{{ $diagrams.Data.Integrity }}" defer crossorigin="anonymous"></script>

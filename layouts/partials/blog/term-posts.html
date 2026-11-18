@@ -1,0 +1,9 @@
+{{/* Match the visible posts on term cards and in the sidebar counts. */}}
+{{- $posts := partial "blog/pages.html" . -}}
+{{- $visible := first 0 $posts -}}
+{{- range $posts -}}
+  {{- if .OutputFormats.Get "HTML" -}}
+    {{- $visible = $visible | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $visible -}}

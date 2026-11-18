@@ -1,0 +1,10 @@
+{{- $url := "" -}}
+{{- if and .Site.Params.GitRepo .File -}}
+  {{- $prefix := "edit" -}}
+  {{- if eq .Site.Params.GitForge "gitlab" }}{{ $prefix = "-/edit" }}{{ end -}}
+  {{- if eq .Site.Params.GitForge "gitea" }}{{ $prefix = "_edit" }}{{ end -}}
+  {{- $segments := slice -}}
+  {{- range split .File.Path "/" }}{{ $segments = $segments | append (urls.PathEscape .) }}{{ end -}}
+  {{- $url = printf "%s/%s/%s/content/%s" (strings.TrimRight "/" .Site.Params.GitRepo) $prefix (.Site.Params.GitBranch | default "main") (delimit $segments "/") -}}
+{{- end -}}
+{{- return $url -}}

@@ -3,6 +3,8 @@ title: Links first, enhancements second
 date: 2026-01-02
 tags: [Accessibility, Writing]
 categories: [Design]
+series: [The writing workflow]
+series_weight: 10
 ---
 
 A reader should be able to follow a post, browse the archive, and reach the next
@@ -11,6 +13,6 @@ archive.
 
 ## Load at your own pace
 
-With `params.features.pagination.lazyLoad: true`, the existing load-more control
-fetches the next batch. The pagination remains available when JavaScript is
-disabled or the request fails.
+The modern archive keeps pagination as ordinary links. In the legacy archive,
+`params.features.pagination.lazyLoad: true` adds a load-more control alongside
+those links.

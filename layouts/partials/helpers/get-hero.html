@@ -1,9 +1,11 @@
 {{ $context := . }}
 {{ $width := "" }}
+{{ $fallback := true }}
 
 {{ if reflect.IsMap . }}
 {{ $context = .context }}
 {{ $width = .width }}
+{{ $fallback = ne .fallback false }}
 {{ end }}
 
 {{/* check if there is any hero image in the same folder as the markdown file */}}
@@ -20,7 +22,7 @@
 {{ end }}
 
 {{/* if hero image is not provided, then use the default hero image */}}
-{{ if not $heroImage }}
+{{ if and (not $heroImage) $fallback }}
 {{ $heroImage = resources.Get "images/default-hero.jpg"}}
 {{ end }}
 
