@@ -17,11 +17,11 @@ A [Hugo](https://gohugo.io/) theme for a personal portfolio with minimalist desi
 
 ### Example Sites
 - **Portfolio:** https://portfolio.hugo-themes.com
-- **Blog (WIP):** https://blog.hugo-themes.com
-- **Docs (WIP):** https://docs.hugo-themes.com
+- **Blog:** https://blog.hugo-themes.com
+- **Docs:** https://docs.hugo-themes.com
 
 ### Documentation
-- **Documentation:** [toha-docs.netlify.app](https://toha-docs.netlify.app/posts)
+- **Documentation:** https://docs.hugo-themes.com
 
 ## Features
 
