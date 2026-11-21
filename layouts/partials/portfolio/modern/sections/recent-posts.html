@@ -1,0 +1,12 @@
+{{- $id := ._sectionID -}}
+{{- $blogSection := site.Params.features.blog.section | default "posts" -}}
+{{- $numShow := .section.numShow | default 3 -}}
+{{- $posts := where (where site.RegularPages.ByDate.Reverse "Type" $blogSection) "Layout" "!=" "search" -}}
+{{- $posts = where $posts "Params.hidden" "!=" true -}}
+{{- $action := dict -}}
+{{- if .section.showMoreButton -}}
+  {{- $href := partial "helpers/get-page-url.html" (printf "/%s/" $blogSection) -}}
+  {{- $action = dict "label" (i18n "show_more") "href" $href "icon" "arrow-right" -}}
+{{- end -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section "action" $action) }}
+{{ partial "portfolio/modern/post-grid.html" (dict "posts" (first $numShow $posts)) }}

@@ -1,0 +1,70 @@
+{{- $page := .page -}}
+{{- $base := $page.RelPermalink -}}
+{{- $homeLabel := i18n "home" -}}
+{{- $entries := slice -}}
+{{- range .sections -}}
+  {{- $data := .data -}}
+  {{- $sec := $data.section -}}
+  {{- $id := partial "helpers/get-section-id.html" $data -}}
+  {{- $secURL := printf "%s#%s" $base $id -}}
+  {{- $secName := $sec.name | default (title $id) -}}
+
+  {{- if eq .kind "about" -}}
+    {{- $entries = $entries | append (dict "title" $secName "url" $secURL "text" (($data.summary | default "") | markdownify | plainify | htmlUnescape) "breadcrumbs" (slice $homeLabel)) -}}
+  {{- else if eq .kind "skills" -}}
+    {{- range $data.skills -}}
+      {{- $entries = $entries | append (dict "title" .name "url" $secURL "text" ((.summary | default "") | markdownify | plainify | htmlUnescape) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "certifications" -}}
+    {{- range .certItems -}}
+      {{- $entries = $entries | append (dict "title" .name "url" $secURL "text" (.issuer | default (i18n "portfolio_verified")) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "experiences" -}}
+    {{- range $data.experiences -}}
+      {{- $roles := slice -}}
+      {{- range .positions }}{{ $roles = $roles | append .designation }}{{ end -}}
+      {{- $text := printf "%s %s" (delimit $roles ", ") ((.company.overview | default "") | markdownify | plainify | htmlUnescape) -}}
+      {{- $entries = $entries | append (dict "title" .company.name "url" $secURL "text" ($text | strings.TrimSpace) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "education" -}}
+    {{- range $data.degrees -}}
+      {{- $text := printf "%s %s" (.institution.name | default "") (.timeframe | default "") -}}
+      {{- $entries = $entries | append (dict "title" .name "url" $secURL "text" ($text | strings.TrimSpace) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "projects" -}}
+    {{- range $data.projects -}}
+      {{- $text := printf "%s %s" (.summary | default "" | markdownify | plainify | htmlUnescape) (delimit (.tags | default slice) " ") -}}
+      {{- $entries = $entries | append (dict "title" .name "url" $secURL "text" ($text | strings.TrimSpace) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "publications" -}}
+    {{- range $data.publications -}}
+      {{- $text := printf "%s %s" (.publishedIn.name | default "") (.paper.summary | default "" | markdownify | plainify | htmlUnescape) -}}
+      {{- $entries = $entries | append (dict "title" .title "url" $secURL "text" ($text | strings.TrimSpace) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "featured-posts" -}}
+    {{- range $data.posts -}}
+      {{- with $page.Site.GetPage . -}}
+        {{- $entries = $entries | append (dict "title" .Title "url" $secURL "text" ((.Description | default .Summary) | plainify | htmlUnescape) "breadcrumbs" (slice $secName)) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else if eq .kind "recent-posts" -}}
+    {{- $blogSection := $page.Site.Params.features.blog.section | default "posts" -}}
+    {{- $posts := where (where $page.Site.RegularPages.ByDate.Reverse "Type" $blogSection) "Layout" "!=" "search" -}}
+    {{- $posts = where $posts "Params.hidden" "!=" true -}}
+    {{- $numShow := $data.section.numShow | default 3 -}}
+    {{- range first $numShow $posts -}}
+      {{- $entries = $entries | append (dict "title" .Title "url" $secURL "text" ((.Description | default .Summary) | plainify | htmlUnescape) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "accomplishments" -}}
+    {{- range $data.accomplishments -}}
+      {{- $text := printf "%s %s" (.organization.name | default "") (.courseOverview | default "" | markdownify | plainify | htmlUnescape) -}}
+      {{- $entries = $entries | append (dict "title" .name "url" $secURL "text" ($text | strings.TrimSpace) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- else if eq .kind "achievements" -}}
+    {{- range $data.achievements -}}
+      {{- $entries = $entries | append (dict "title" .title "url" $secURL "text" (.summary | default "" | markdownify | plainify | htmlUnescape) "breadcrumbs" (slice $secName)) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $path := printf "portfolio-search/%s-%s.json" $page.Language.Lang (crypto.MD5 $page.RelPermalink) -}}
+{{- return (resources.FromString $path ($entries | jsonify) | fingerprint) -}}

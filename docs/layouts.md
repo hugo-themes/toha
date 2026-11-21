@@ -97,12 +97,15 @@ lives in `exampleSites/blog/`.
 
 Enable `params.features.blog.archive.enable` alongside the blog feature. This
 works with any homepage and uses the same modern asset settings as the blog
-example. The new layout covers the selected blog section, its subsections, and
-the site's category, tag, series, and configured topic taxonomy pages. Existing
-term membership and links are preserved. The shared blog sidebar lists series
-first, followed by categories and tag chips with post counts. Selecting a
-category or tag shows its posts as text cards. The `features.blog.search.enable`
-setting also controls the search dialog on these pages.
+example. The new layout covers the selected blog section and the site's category,
+sub-category, tag, series, and configured topic taxonomy pages. Keep posts flat
+beneath `content/posts/` and set `categories` and optional `subcategories`
+(`subcategory: subcategories` under `taxonomies`) in front matter: the shared blog
+sidebar renders the Category and Sub-category tree above the divider using the
+same unified archive view (Recent posts, matching Series, and All posts table),
+followed by Series and Tags below the divider. Selecting a tag shows matching
+posts as text cards. The `features.blog.search.enable` setting also controls the
+search dialog on these pages.
 
 The first page of each section highlights up to three recent posts. The All
 posts table lists the date, reading time, title, and tags. On narrow screens,
@@ -170,8 +173,45 @@ Feature flags retain their existing layout/navigation meaning. Disabling a flag
 does not unpublish Markdown or remove its URLs, legacy search records, or sitemap
 entries. Remove/exclude unwanted content explicitly using Hugo configuration.
 
+## Modern portfolio homepage
+
+The default portfolio homepage keeps legacy Bootstrap/SCSS rendering. Set
+`params.features.portfolio.modern.enable: true` with the same Tailwind `buildStats`,
+`hugo_stats.json` mount, and executable allowlist settings shown above to use the
+modern data-driven portfolio shell (`layouts/partials/portfolio/modern/`). When
+`features.portfolio.modern.enable` is `true`, blog archives and reading pages also
+default to the modern blog layouts (and inherit `portfolio.modern.search.enable` for
+blog search) unless explicitly overridden with `params.features.blog.archive.enable`,
+`params.features.blog.post.enable`, or `params.features.blog.search.enable`:
+
+```yaml
+params:
+  home:
+    layout: portfolio
+  features:
+    componentsDesign:
+      enable: true
+    portfolio:
+      enable: true
+      modern:
+        enable: true # Optional modern portfolio shell; default false.
+        navigation: bar # bar | rail (desktop section navigation)
+        hero:
+          style: photo # photo | surface
+        search:
+          enable: false # Optional modal search over portfolio sections/items.
+        certifications:
+          enable: true # Renders `about.badges` certifications when no dedicated section exists.
+```
+
+Existing `data/` YAML files (`author`, `site`, `sections/*`) keep working unchanged.
+Optional `contributions` (list) and `stars` (string) on `projects` enrich the
+two-column project cards when present.
+
 ## Verification
 
+`mise run test-portfolio-modern` checks the opt-in modern portfolio build against
+multilingual portfolio data, asset isolation, bar/rail navigation, dialogs, and search.
 `mise run test-blog` checks an external theme consumer, selected-tree filtering,
 homepage and archive pagination, topic and series browsing, reading pages,
 modal index isolation, feed/search/sitemap publication, multilingual subpaths,

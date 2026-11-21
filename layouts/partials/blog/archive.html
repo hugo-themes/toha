@@ -3,7 +3,9 @@
 {{- $isTaxonomy := eq $page.Kind "taxonomy" -}}
 {{- $isSeries := eq $page.Type "series" -}}
 {{- $isSeriesIndex := and $isTaxonomy $isSeries -}}
-{{- $showPostCards := and (eq $page.Kind "term") (in (slice "categories" "tags") $page.Type) -}}
+{{- $isCategoryTerm := and (eq $page.Kind "term") (in (slice "categories" "subcategories") $page.Type) -}}
+{{- $isArchiveView := or $page.IsSection $isCategoryTerm -}}
+{{- $showPostCards := and (eq $page.Kind "term") (eq $page.Type "tags") -}}
 {{- $firstPost := false -}}
 {{- if and $isSeries (eq $page.Kind "term") -}}
   {{- with partialCached "blog/series-members.html" (dict "term" $page "root" $root) $root.RelPermalink $page.Path -}}
@@ -47,7 +49,7 @@
         <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ $page.Title }}</h1>
         {{ with $page.Description }}<p class="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">{{ . }}</p>{{ end }}
       </header>
-      {{ if and $page.IsSection (eq $paginator.PageNumber 1) $paginator.Pages }}
+      {{ if and $isArchiveView (eq $paginator.PageNumber 1) $paginator.Pages }}
         <section aria-labelledby="archive-recent-title">
           <h2 id="archive-recent-title" class="mb-4 text-xl font-semibold tracking-tight">{{ i18n "blog_recent_posts" }}</h2>
           <div class="blog-archive-grid">
@@ -66,10 +68,10 @@
       <section aria-labelledby="archive-index-title">
         <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
           <h2 id="archive-index-title" class="text-xl font-semibold tracking-tight">{{ i18n (cond $isTaxonomy "blog_topics" "blog_archive_all_posts") }}</h2>
-          {{ if and $page.IsSection $entries }}<span class="text-sm text-muted-foreground">{{ i18n "blog_post_count" (len $entries) }}</span>{{ end }}
+          {{ if and $isArchiveView $entries }}<span class="text-sm text-muted-foreground">{{ i18n "blog_post_count" (len $entries) }}</span>{{ end }}
         </div>
         {{ with $paginator.Pages }}
-        {{ if $page.IsSection }}
+        {{ if $isArchiveView }}
         {{ partial "blog/archive-post-table.html" (dict "page" $page "posts" . "labelledBy" "archive-index-title") }}
         {{ else if $showPostCards }}
         <div class="blog-archive-grid">

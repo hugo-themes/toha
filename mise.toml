@@ -109,6 +109,11 @@ run = "node --test tests/skill-details.test.mjs"
 description = "Verify homepage scroll snapping is opt-in and isolated from other pages"
 run = "node --test tests/scroll-snap.test.mjs"
 
+[tasks.test-portfolio-modern]
+description = "Verify opt-in modern portfolio homepage, sections, dialogs, slider, search, and isolation"
+depends = ["install"]
+run = "node --test tests/portfolio-modern.test.mjs"
+
 [tasks.portfolio]
 description = "Start the portfolio development server with live reload"
 alias = ["example-portfolio", "example-site"]
@@ -125,4 +130,4 @@ run = "npm audit fix --force"
 [tasks.check]
 description = "Run build, lint, URL, and SEO regression tests"
 # This gives the AI a single 'truth' command to validate its work.
-depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap", "test-docs", "test-blog"]
+depends = ["lint", "build", "test-urls", "test-seo", "test-pagination", "test-code-blocks", "test-skill-details", "test-scroll-snap", "test-portfolio-modern", "test-docs", "test-blog"]

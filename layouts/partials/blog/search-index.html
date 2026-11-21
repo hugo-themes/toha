@@ -3,9 +3,23 @@
 {{- range partial "blog/pages.html" $root -}}
   {{- if ne .Params.blog.search false -}}
     {{- $page := . -}}
-    {{- $breadcrumbs := slice -}}
-    {{- range .Ancestors.Reverse -}}
-      {{- if or (eq . $root) ($root.IsAncestor .) }}{{ $breadcrumbs = $breadcrumbs | append .LinkTitle }}{{ end -}}
+    {{- $breadcrumbs := slice $root.LinkTitle -}}
+    {{- $hasCategory := false -}}
+    {{- range first 1 ($page.GetTerms "categories") -}}
+      {{- if .OutputFormats.Get "HTML" -}}
+        {{- $breadcrumbs = $breadcrumbs | append .LinkTitle -}}
+        {{- $hasCategory = true -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if $hasCategory -}}
+      {{- range first 1 ($page.GetTerms "subcategories") -}}
+        {{- if .OutputFormats.Get "HTML" }}{{ $breadcrumbs = $breadcrumbs | append .LinkTitle }}{{ end -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $breadcrumbs = slice -}}
+      {{- range .Ancestors.Reverse -}}
+        {{- if or (eq . $root) ($root.IsAncestor .) }}{{ $breadcrumbs = $breadcrumbs | append .LinkTitle }}{{ end -}}
+      {{- end -}}
     {{- end -}}
     {{- with .OutputFormats.Get "html" -}}
       {{- $entries = $entries | append (dict "title" $page.Title "url" .RelPermalink

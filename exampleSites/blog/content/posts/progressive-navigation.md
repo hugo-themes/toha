@@ -3,6 +3,7 @@ title: Links first, enhancements second
 date: 2026-01-02
 tags: [Accessibility, Writing]
 categories: [Design]
+subcategories: [Navigation]
 series: [The writing workflow]
 series_weight: 10
 ---

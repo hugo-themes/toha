@@ -1,0 +1,25 @@
+{{- $page := .page -}}
+{{- $links := slice (dict "label" (i18n "home") "href" $page.Site.Home.RelPermalink) -}}
+{{- if or $page.Site.Params.features.blog.enable $page.Site.Params.enableBlogPost -}}
+  {{- $blogSection := $page.Site.Params.features.blog.section | default "posts" -}}
+  {{- $blogURL := partial "helpers/get-page-url.html" (printf "/%s/" $blogSection) -}}
+  {{- $links = $links | append (dict "label" ($page.Site.Params.features.blog.title | default (i18n "posts")) "href" $blogURL) -}}
+{{- end -}}
+{{- if $page.Site.Params.features.notes.enable -}}
+  {{- $notesURL := partial "helpers/get-page-url.html" "/notes/" -}}
+  {{- $links = $links | append (dict "label" (i18n "notes") "href" $notesURL) -}}
+{{- end -}}
+{{- $menus := $page.Site.Params.customMenus -}}
+{{- with (index hugo.Data $page.Language.Lang).site.customMenus }}{{ $menus = . }}{{ end -}}
+{{- range $menus -}}
+  {{- if not .hideFromNavbar -}}
+    {{- $links = $links | append (dict "label" .name "href" (partial "helpers/get-page-url.html" .url)) -}}
+  {{- end -}}
+{{- end -}}
+{{- $searchMarkup := "" -}}
+{{- if $page.Site.Params.features.portfolio.modern.search.enable -}}
+  {{- $index := partialCached "portfolio/modern/search-index.html" (dict "page" $page "sections" .sections) $page.Language.Lang $page.RelPermalink -}}
+  {{- $iconLib := cond (eq $page.Site.Params.features.componentsDesign.enable true) "lucide" "" -}}
+  {{- $searchMarkup = partial "components/search-dialog.html" (dict "iconLibrary" $iconLib "id" "portfolio-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "search"))) -}}
+{{- end -}}
+{{- partial "modern/header.html" (dict "page" $page "links" $links "searchMarkup" $searchMarkup "navigationLabel" (i18n "portfolio_navigation")) -}}

@@ -1,0 +1,21 @@
+{{- $rawIcon := lower (.icon | default "") -}}
+{{- $rawName := lower (.name | default "") -}}
+{{- $out := "globe" -}}
+{{- if or (in $rawIcon "envelope") (in $rawName "mail") (in $rawName "ইমেইল") -}}
+  {{- $out = "mail" -}}
+{{- else if or (in $rawIcon "phone") (in $rawName "phone") (in $rawName "ফোন") -}}
+  {{- $out = "phone" -}}
+{{- else if or (in $rawIcon "github") (in $rawName "github") -}}
+  {{- $out = "github" -}}
+{{- else if or (in $rawIcon "linkedin") (in $rawName "linkedin") -}}
+  {{- $out = "linkedin" -}}
+{{- else if or (in $rawIcon "stack-overflow") (in $rawName "stack") -}}
+  {{- $out = "layers" -}}
+{{- else if or (in $rawIcon "twitter") (in $rawIcon "x-twitter") (in $rawName "twitter") -}}
+  {{- $out = "share-2" -}}
+{{- else if or (in $rawIcon "mastodon") (in $rawName "mastodon") (in $rawName "mastadon") -}}
+  {{- $out = "at-sign" -}}
+{{- else if or (in $rawIcon "researchgate") (in $rawName "researchgate") -}}
+  {{- $out = "graduation-cap" -}}
+{{- end -}}
+{{- return $out -}}

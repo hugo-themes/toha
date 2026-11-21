@@ -30,6 +30,7 @@ outputs:
 
 taxonomies:
   category: categories
+  subcategory: subcategories
   tag: tags
   series: series
 

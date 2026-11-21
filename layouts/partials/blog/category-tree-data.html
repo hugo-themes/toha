@@ -1,0 +1,42 @@
+{{/* Group published sub-category terms beneath their parent category terms. */}}
+{{- $root := . -}}
+{{- $items := slice -}}
+{{- $parentScratch := newScratch -}}
+{{- with $root.Site.GetPage "/categories" -}}
+  {{- if and (eq .Kind "taxonomy") (.OutputFormats.Get "HTML") -}}
+    {{- range .Pages.ByTitle -}}
+      {{- if .OutputFormats.Get "HTML" -}}
+        {{- $catTerm := . -}}
+        {{- $catPosts := partialCached "blog/term-posts.html" $catTerm $catTerm.Site.Language.Lang $catTerm.Path -}}
+        {{- if $catPosts -}}
+          {{- $subScratch := newScratch -}}
+          {{- range $catPosts -}}
+            {{- range (.GetTerms "subcategories") -}}
+              {{- if and (.OutputFormats.Get "HTML") (not ($subScratch.Get .Path)) -}}
+                {{- $subPosts := partialCached "blog/term-posts.html" . .Site.Language.Lang .Path -}}
+                {{- if $subPosts -}}
+                  {{- $subScratch.Set .Path (dict "page" . "count" (len $subPosts)) -}}
+                  {{- if not ($parentScratch.Get .Path) -}}
+                    {{- $parentScratch.Set .Path $catTerm -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+          {{- $subs := slice -}}
+          {{- with $root.Site.GetPage "/subcategories" -}}
+            {{- if and (eq .Kind "taxonomy") (.OutputFormats.Get "HTML") -}}
+              {{- range .Pages.ByTitle -}}
+                {{- with ($subScratch.Get .Path) -}}
+                  {{- $subs = $subs | append . -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+          {{- $items = $items | append (dict "page" $catTerm "count" (len $catPosts) "subcategories" $subs) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "items" $items "parents" $parentScratch) -}}

@@ -209,9 +209,9 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     config.params.features.blog = { enable: true, section: 'journal', search: { enable: true }, archive: { enable: true } }
     config.params.features.componentsDesign = { enable: true }
     config.params.features.pagination.lazyLoad = true
-    config.taxonomies = { category: 'categories', tag: 'tags', series: 'series' }
+    config.taxonomies = { category: 'categories', subcategory: 'subcategories', tag: 'tags', series: 'series' }
     for (const language of ['en', 'bn']) {
-      write(`content/journal/new.${language}.md`, '---\ntitle: journal new\ndate: 2025-01-05\ncategories: [Architecture]\ntags: [Writing, Feed-only, Architecture]\nseries: [Site Design, Code Review, Publishing, Writing Guides]\nseries_weight: 20\nhero: https://example.org/thumbnail.jpg\n---\nNew article.')
+      write(`content/journal/new.${language}.md`, '---\ntitle: journal new\ndate: 2025-01-05\ncategories: [Architecture]\nsubcategories: [Guides]\ntags: [Writing, Feed-only, Architecture]\nseries: [Site Design, Code Review, Publishing, Writing Guides]\nseries_weight: 20\nhero: https://example.org/thumbnail.jpg\n---\nNew article.')
       write(`content/journal/guides/nested.${language}.md`, '---\ntitle: journal nested\ndate: 2024-01-01\ncategories: [Architecture]\nseries: [Site Design]\nseries_weight: 10\n---\nNested article.')
       write(`content/notes/aside.${language}.md`, '---\ntitle: An aside\ndate: 2025-02-01\ncategories: [Architecture]\nseries: [Outside the blog]\n---\nIndependent notes.')
       write(`content/journal/guides/basics/_index.${language}.md`, '---\ntitle: Basics\n---')
@@ -245,19 +245,19 @@ test('external blog consumer scopes homepage pagination and feed while preservin
       assert.ok(archive.includes(`class="blog-series-link docs-page-link" href="${prefix}journal/guides/nested/"`))
       assert.ok(!archive.includes(`href="${prefix}series/site-design/"`))
       assert.equal((archive.match(/class="blog-series-link docs-page-link"/g) ?? []).length, 3)
-      assert.match(archive, new RegExp(`class="blog-sidebar-category" href="${prefix}categories/architecture/">\\s*<span[^>]+>Architecture</span>\\s*<span[^>]+>7</span>`))
-      assert.match(archive, new RegExp(`class="blog-sidebar-tag" href="${prefix}tags/writing/">\\s*<span[^>]+>writing</span>\\s*<span[^>]+>6</span>`, 'i'))
-      assert.match(archive, new RegExp(`href="${prefix}series/">\\s*[^<]*<span class="blog-sidebar-count">4</span>`))
       const sidebar = archive.match(/<aside class="blog-sidebar[^>]*>([\s\S]*?)<\/aside>/)[1]
-      const taxonomyLinks = [...sidebar.matchAll(/href="[^"]*\/(series|categories|tags)\/"/g)].map(([, taxonomy]) => taxonomy)
-      assert.deepEqual(taxonomyLinks, ['series', 'categories', 'tags'])
-      assert.match(archive, /id="blog-search-trigger"/)
-      assert.equal(archive.match(/data-search-index="([^"]+)"/)[1], home.match(/data-search-index="([^"]+)"/)[1])
-      assert.match(archive, language === 'bn' ? /সব পোস্ট/ : /All posts/)
+      const [aboveDivider, belowDivider] = sidebar.split('border-t border-border pt-4')
+      assert.match(aboveDivider, new RegExp(`<summary[^>]*>[\\s\\S]*Architecture[\\s\\S]*<span class="blog-sidebar-count"[^>]*>7</span>`))
+      assert.match(aboveDivider, new RegExp(`href="${prefix}subcategories/guides/">\\s*<span[^>]*>Guides</span>\\s*<span class="blog-sidebar-count"[^>]*>1</span>`))
+      assert.match(aboveDivider, new RegExp(`href="${prefix}categories/design/">\\s*<span[^>]*>Design</span>\\s*<span class="blog-sidebar-count"[^>]*>2</span>`))
+      assert.doesNotMatch(sidebar, /class="blog-sidebar-category"/)
+      assert.match(belowDivider, new RegExp(`class="blog-sidebar-tag" href="${prefix}tags/writing/">\\s*<span[^>]+>writing</span>\\s*<span[^>]+>6</span>`, 'i'))
+      assert.match(belowDivider, new RegExp(`href="${prefix}series/">\\s*[^<]*<span class="blog-sidebar-count">4</span>`))
+      const taxonomyLinks = [...belowDivider.matchAll(/href="[^"]*\/(series|categories|subcategories|tags)\/"/g)].map(([, taxonomy]) => taxonomy)
+      assert.deepEqual(taxonomyLinks, ['series', 'tags'])
       const guides = read(`${language}/journal/guides/index.html`)
       assert.deepEqual(tableTitles(guides), ['journal nested'])
       assert.doesNotMatch(guides, /<nav class="modern-pagination"/)
-      assert.match(guides, /<details class="docs-tree-group" open>/)
       assert.match(read(`${language}/journal/guides/basics/index.html`), language === 'bn' ? /এখনও কোনো পোস্ট নেই/ : /No posts yet/)
       const series = read(`${language}/series/index.html`)
       assert.equal((series.match(/class="blog-series-link docs-page-link"/g) ?? []).length, 4, 'every series appears on one page')
@@ -271,13 +271,23 @@ test('external blog consumer scopes homepage pagination and feed while preservin
       assert.doesNotMatch(redirect, /class="blog-archive/)
       const category = read(`${language}/categories/architecture/index.html`)
       assert.match(category, /<body class="blog-archive/)
-      assert.deepEqual(titles(category), ['An aside', 'journal new'], 'taxonomy cards still include posts from other sections')
-      assert.ok(category.includes(`class="blog-sidebar-category" href="${prefix}categories/architecture/" aria-current="page"`))
-      assert.doesNotMatch(category, /class="blog-sidebar-tag"[^>]*aria-current/)
+      assert.deepEqual(tableTitles(category), ['An aside', 'journal new'], 'category archive uses unified table including matching cross-section posts')
+      const recentCat = sectionCards(category, 'archive-recent-title')
+      assert.equal(recentCat.length, 3)
+      assert.equal(recentCat[0], 'An aside')
+      assert.ok(recentCat.includes('journal new'))
+      assert.match(category, /<details class="docs-tree-group" open>/)
+      assert.ok(category.includes(`href="${prefix}categories/architecture/" aria-current="page"`))
       assert.ok(category.includes(`href="${prefix}categories/architecture/batch/2/"`))
-      assert.equal(titles(read(`${language}/categories/architecture/batch/2/index.html`)).length, 2)
+      assert.equal(tableTitles(read(`${language}/categories/architecture/batch/2/index.html`)).length, 2)
+      const subcategory = read(`${language}/subcategories/guides/index.html`)
+      assert.match(subcategory, /<body class="blog-archive/)
+      assert.deepEqual(tableTitles(subcategory), ['journal new'])
+      assert.ok(subcategory.includes(`<details class="docs-tree-group" open>`))
+      assert.ok(subcategory.includes(`href="${prefix}subcategories/guides/" aria-current="page"`))
+      assert.ok(subcategory.includes(`href="${prefix}categories/architecture/">Architecture</a>`))
       const design = read(`${language}/categories/design/index.html`)
-      assert.equal(titles(design).length, 2)
+      assert.equal(tableTitles(design).length, 2)
       assert.doesNotMatch(design, /<nav class="modern-pagination"/)
       assert.deepEqual(indexTitles(read(`${language}/tags/index.html`)).map(title => title.toLowerCase()), ['architecture', 'writing'])
       assert.ok(existsSync(join(directory, 'public', language, 'tags/feed-only/index.xml')))
@@ -285,10 +295,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
       assert.equal(titles(tagged).length, 2)
       assert.ok(tagged.includes(`class="blog-sidebar-tag" href="${prefix}tags/writing/" aria-current="page"`))
       assert.ok(tagged.includes(`href="${prefix}tags/writing/batch/2/"`))
-      const taggedArchitecture = read(`${language}/tags/architecture/index.html`)
-      assert.ok(taggedArchitecture.includes(`class="blog-sidebar-tag" href="${prefix}tags/architecture/" aria-current="page"`))
-      assert.doesNotMatch(tagged + taggedArchitecture, /class="blog-sidebar-category"[^>]*aria-current/)
-      assert.doesNotMatch(category + tagged, /<img\b|thumbnail\.jpg|blog-archive-row/)
+      assert.doesNotMatch(tagged, /<img\b|thumbnail\.jpg|blog-archive-row/)
       for (const path of ['posts/index.html', 'journal/new/index.html', 'notes/aside/index.html']) {
         assert.doesNotMatch(read(`${language}/${path}`), /<body class="blog-archive|data-components-navbar/)
       }
@@ -305,7 +312,9 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     assert.ok(seriesPreview?.includes('Start series'))
     assert.match(seriesPreview, /href="\/project\/en\/journal\/guides\/nested\/"/)
     assert.doesNotMatch(seriesPreview, /href="[^"]*\/series\/site-design\//)
-    assert.match(read('en/journal/new/index.html'), /class="blog-sidebar-tag" href="\/project\/en\/tags\/writing\/"/)
+    const modernNewPost = read('en/journal/new/index.html')
+    assert.match(modernNewPost, /class="blog-sidebar-tag" href="\/project\/en\/tags\/writing\/"/)
+    assert.match(modernNewPost, /href="\/project\/en\/subcategories\/guides\/" aria-current="location"/)
     delete config.params.features.blog.post
     config.params.home.layout = 'portfolio'
     config.params.features.blog.search.enable = false
@@ -319,7 +328,7 @@ test('external blog consumer scopes homepage pagination and feed while preservin
     assert.match(standalone, /<body class="blog-archive/)
     assert.equal((postTable(standalone).match(/<th scope="col"/g) ?? []).length, 1)
     assert.doesNotMatch(postTable(standalone), /<time|modern-tag/)
-    assert.doesNotMatch(standalone, /id="blog-search-trigger"|id="archive-series-title"|href="[^"]*\/(series|categories|tags)\//)
+    assert.doesNotMatch(standalone, /id="blog-search-trigger"|id="archive-series-title"|href="[^"]*\/(series|categories|subcategories|tags)\//)
     assert.doesNotMatch(read('en/index.html'), /data-components-navbar/)
 
     delete config.disableKinds
@@ -404,7 +413,7 @@ ${snippet}\`\`\`
       assert.match(nested, /class="blog-post-hero"[^>]*alt="A notebook" width="\d+" height="\d+"/)
       assert.doesNotMatch(nested, /docs-mobile-toc|blog-post-outline/)
       assert.ok(nested.includes(`href="${prefix}journal/guides/"`))
-      assert.ok(nested.includes(`href="${prefix}journal/guides/" aria-current="location"`))
+      assert.ok(nested.includes(`href="${prefix}journal/" aria-current="location"`))
       assert.match(nested, language === 'bn' ? /পর্ব 1 \/ 2/ : /Part 1 of 2/)
       assert.doesNotMatch(read(`${language}/journal/middle/index.html`), /aria-label="Site Design"/)
       for (const path of ['journal/index.html', 'journal/custom/index.html', 'posts/new/index.html', 'notes/aside/index.html']) {

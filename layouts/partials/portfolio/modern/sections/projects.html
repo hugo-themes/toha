@@ -1,0 +1,110 @@
+{{- $id := ._sectionID -}}
+{{- $hasFilter := and (ne .section.filter false) .buttons -}}
+{{- $filterCfg := dict -}}
+{{- if $hasFilter -}}
+  {{- $filterCfg = dict "id" $id "buttons" .buttons "label" (i18n "portfolio_filter_projects") -}}
+{{- end -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section "filter" $filterCfg) }}
+{{- if $hasFilter }}<p class="portfolio-sr-status" id="{{ $id }}-status" role="status"></p>{{ end -}}
+
+<div class="projects-grid"{{ if $hasFilter }} data-filter-grid="{{ $id }}"{{ end }}>
+  {{- range .projects -}}
+    {{- $cats := delimit (.tags | default slice) "," -}}
+    {{- $target := .target | default "blank" -}}
+    {{- $targetAttr := cond (eq $target "self") "_self" "_blank" -}}
+    {{- $projectURL := "" -}}
+    {{- if .repo -}}
+      {{- $projectURL = .repo -}}
+    {{- else if .url -}}
+      {{- $projectURL = partial "helpers/get-page-url.html" .url -}}
+    {{- end -}}
+    {{- $isExternal := findRE `(?i)^https?://` $projectURL -}}
+    {{- $logoRes := false -}}
+    {{- with .logo -}}
+      {{- $logoRes = resources.Get . -}}
+    {{- end -}}
+    {{- $shotRes := false -}}
+    {{- with .image -}}
+      {{- $shotRes = resources.Get . -}}
+    {{- end -}}
+    {{- if and $shotRes (ne $shotRes.MediaType.SubType "svg") }}{{ $shotRes = $shotRes.Fit "1200x1200" }}{{ end -}}
+    {{- $contribs := .contributions | default .highlights -}}
+  <article class="modern-card{{ if $projectURL }} interactive{{ end }}"{{ if $cats }} data-cats="{{ $cats }}"{{ end }}>
+    <div class="project-top">
+      <div class="project-brand">
+        {{- if or $logoRes .logo -}}
+        <span class="project-logo" aria-hidden="true">
+          {{- if $logoRes -}}
+            {{- $img := $logoRes -}}
+            {{- if ne $img.MediaType.SubType "svg" }}{{ $img = $img.Fit "64x64" }}{{ end -}}
+            <img src="{{ $img.RelPermalink }}" alt="">
+          {{- else -}}
+            {{ partial "components/icon.html" (dict "name" "code") }}
+          {{- end -}}
+        </span>
+        {{- else -}}
+        <span class="project-logo" aria-hidden="true">{{ partial "components/icon.html" (dict "name" "file-text") }}</span>
+        {{- end -}}
+        <div>
+          <h3 class="project-title">
+            {{- if $projectURL -}}
+            <a class="modern-card-link" href="{{ $projectURL }}"{{ if or (eq $targetAttr "_blank") $isExternal }} target="{{ $targetAttr }}" rel="noopener"{{ else }} target="{{ $targetAttr }}"{{ end }}>{{ .name }}</a>
+            {{- else -}}
+            {{ .name }}
+            {{- end -}}
+          </h3>
+          {{- if or .role .timeline -}}
+          <p class="project-meta">
+            {{- with .role }}{{ . }}{{ end -}}
+            {{- if and .role .timeline }} &middot; {{ end -}}
+            {{- with .timeline }}<span class="mono">{{ . }}</span>{{ end -}}
+          </p>
+          {{- end -}}
+        </div>
+      </div>
+      {{- with .stars -}}
+      <span class="project-stars" title="{{ i18n "portfolio_stars_label" }}">{{ partial "components/icon.html" (dict "name" "star") }}{{ . }}</span>
+      {{- end -}}
+    </div>
+
+    {{- with .summary }}<p class="project-summary">{{ . | markdownify }}</p>{{ end -}}
+
+    {{- with $contribs -}}
+    <span class="project-contrib-label">{{ i18n "portfolio_contributions" }}</span>
+    <ul class="project-contrib-list">
+      {{- range . }}<li>{{ . | markdownify }}</li>{{ end -}}
+    </ul>
+    {{- end -}}
+
+    {{- if or .tags $shotRes $projectURL -}}
+    <div class="project-foot">
+      <div class="project-foot-bar">
+        {{- if .tags -}}
+        <ul class="tag-list" aria-label="{{ i18n "tags" }}">
+          {{- range .tags -}}
+            {{- if $.linkTags -}}
+            <li><a class="modern-tag" href="{{ partial "helpers/get-page-url.html" (printf "/tags/%s/" (urlize .)) }}">{{ . }}</a></li>
+            {{- else -}}
+            <li class="modern-tag">{{ . }}</li>
+            {{- end -}}
+          {{- end -}}
+        </ul>
+        {{- end -}}
+        {{- if $shotRes -}}
+        <button type="button" class="preview-shot-btn" data-lightbox-src="{{ $shotRes.RelPermalink }}" data-lightbox-title="{{ .name }}" data-lightbox-caption="{{ .summary | markdownify | plainify | htmlUnescape }}">
+          {{ partial "components/icon.html" (dict "name" "image" "class" "size-3.5") }}
+          <span>{{ i18n "portfolio_preview" }}</span>
+        </button>
+        {{- else if .repo -}}
+        <span class="project-dest" aria-hidden="true">{{ i18n "portfolio_github" }} {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3.5") }}</span>
+        {{- else if $isExternal -}}
+        <span class="project-dest" aria-hidden="true">{{ i18n "portfolio_website" }} {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3.5") }}</span>
+        {{- else if $projectURL -}}
+        <span class="project-dest" aria-hidden="true">{{ i18n "portfolio_view_post" }} &rarr;</span>
+        {{- end -}}
+      </div>
+    </div>
+    {{- end -}}
+  </article>
+  {{- end -}}
+</div>

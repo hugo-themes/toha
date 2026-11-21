@@ -1,0 +1,26 @@
+{{- $id := ._sectionID -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section) }}
+<div class="accomplishments-grid">
+  {{- range .accomplishments -}}
+  <article class="modern-card">
+    <div class="acc-head">
+      {{- if .organization.url -}}
+      <a class="acc-org" href="{{ partial "helpers/get-page-url.html" .organization.url }}" target="_blank" rel="noopener">{{ .organization.name }}</a>
+      {{- else -}}
+      <span class="acc-org">{{ .organization.name }}</span>
+      {{- end -}}
+      {{- with .timeline }}<span class="position-date">{{ . }}</span>{{ end -}}
+    </div>
+    <h3 class="project-title" style="margin-top:0.35rem;">{{ .name }}</h3>
+    {{- with .courseOverview }}<p class="skill-summary">{{ . | markdownify }}</p>{{ end -}}
+    {{- with .certificateURL -}}
+    <div class="acc-footer">
+      <a class="pf-btn" href="{{ partial "helpers/get-resource-url.html" . }}" target="_blank" rel="noopener">
+        <span>{{ i18n "view_certificate" }}</span>
+        {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3.5") }}
+      </a>
+    </div>
+    {{- end -}}
+  </article>
+  {{- end -}}
+</div>

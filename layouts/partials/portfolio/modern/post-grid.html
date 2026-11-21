@@ -1,0 +1,29 @@
+{{- $showDate := site.Params.features.showDate.postCards | default true -}}
+{{- $showReadingTime := site.Params.features.readingTime.enable | default true -}}
+{{- $showTags := and site.Params.features.tags.enable (site.Params.features.tags.on_card | default true) -}}
+<div class="modern-post-grid">
+  {{- range .posts -}}
+    {{- $tags := slice -}}
+    {{- if $showTags -}}
+      {{- range .GetTerms "tags" -}}
+        {{- if .OutputFormats.Get "HTML" }}{{ $tags = $tags | append (dict "label" .LinkTitle "href" .RelPermalink) }}{{ end -}}
+        {{- if eq (len $tags) 3 }}{{ break }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $date := "" -}}{{- $dateISO := "" -}}
+    {{- if and $showDate (not .Date.IsZero) -}}
+      {{- $date = .Date | time.Format ":date_medium" -}}
+      {{- $dateISO = .Date.Format "2006-01-02" -}}
+    {{- end -}}
+    {{- $readingTime := "" -}}
+    {{- if $showReadingTime -}}
+      {{- $readingTime = printf "%d %s" .ReadingTime (i18n "minute" .ReadingTime) -}}
+    {{- end -}}
+    {{- partial "components/post-card.html" (dict "title" .Title "href" .RelPermalink
+      "summary" ((.Description | default .Summary) | plainify | htmlUnescape | truncate 210)
+      "date" $date "dateISO" $dateISO "readingTime" $readingTime
+      "tags" $tags "tagsLabel" (i18n "tags")) -}}
+  {{- else -}}
+    <p class="text-sm text-muted-foreground">{{ i18n "blog_empty" }}</p>
+  {{- end -}}
+</div>

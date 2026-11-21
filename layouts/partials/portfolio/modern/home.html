@@ -1,0 +1,227 @@
+{{- $page := . -}}
+{{- $config := $page.Site.Params.features.portfolio.modern | default dict -}}
+{{- $navLayout := $config.navigation | default "bar" -}}
+{{- if not (in (slice "bar" "rail") $navLayout) -}}
+  {{- errorf "Unknown params.features.portfolio.modern.navigation %q; expected bar or rail" $navLayout -}}
+{{- end -}}
+{{- $heroStyle := "photo" -}}
+{{- with $config.hero }}{{ with .style }}{{ $heroStyle = . }}{{ end }}{{ end -}}
+{{- if not (in (slice "photo" "surface") $heroStyle) -}}
+  {{- errorf "Unknown params.features.portfolio.modern.hero.style %q; expected photo or surface" $heroStyle -}}
+{{- end -}}
+
+{{- $author := hugo.Data.author | default dict -}}
+{{- with (index hugo.Data $page.Site.Language.Lang).author }}{{ $author = . }}{{ end -}}
+{{- $rawSections := hugo.Data.sections | default dict -}}
+{{- with (index hugo.Data $page.Site.Language.Lang).sections }}{{ $rawSections = . }}{{ end -}}
+
+{{- $builtInKinds := slice "about" "skills" "certifications" "experiences" "education" "projects" "publications" "featured-posts" "recent-posts" "accomplishments" "achievements" -}}
+{{- $ordered := slice -}}
+{{- $hasCertSection := false -}}
+{{- $hasSkills := false -}}
+{{- $hasAbout := false -}}
+
+{{- range sort $rawSections "section.weight" -}}
+  {{- if .section.enable -}}
+    {{- $id := partial "helpers/get-section-id.html" . -}}
+    {{- $tpl := .section.template | default "" -}}
+    {{- $kind := $id -}}
+    {{- $tplClean := strings.TrimSuffix ".html" (strings.TrimPrefix "sections/" $tpl) -}}
+    {{- if eq $tplClean "education-alt" }}{{ $tplClean = "education" }}{{ end -}}
+    {{- if in $builtInKinds $tplClean }}{{ $kind = $tplClean }}{{ end -}}
+    {{- $isBuiltInTpl := or (not $tpl) (in (slice (printf "sections/%s.html" $kind) "sections/education-alt.html") $tpl) -}}
+    {{- $modernPath := printf "portfolio/modern/sections/%s.html" $kind -}}
+    {{- $resolvedPartial := "" -}}
+    {{- if and $isBuiltInTpl (templates.Exists (printf "partials/%s" $modernPath)) -}}
+      {{- $resolvedPartial = $modernPath -}}
+    {{- else if $tpl -}}
+      {{- $resolvedPartial = $tpl -}}
+    {{- else -}}
+      {{- $resolvedPartial = printf "sections/%s.html" $id -}}
+    {{- end -}}
+    {{- if eq $kind "certifications" }}{{ $hasCertSection = true }}{{ end -}}
+    {{- if eq $kind "skills" }}{{ $hasSkills = true }}{{ end -}}
+    {{- if eq $kind "about" }}{{ $hasAbout = true }}{{ end -}}
+    {{- $ordered = $ordered | append (dict "id" $id "kind" $kind "partialPath" $resolvedPartial "data" . "showInNav" (.section.showOnNavbar | default false) "certItems" slice) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $badgeCerts := slice -}}
+{{- $certsOptIn := true -}}
+{{- if isset $config "certifications" }}{{ if isset $config.certifications "enable" }}{{ $certsOptIn = $config.certifications.enable }}{{ end }}{{ end -}}
+{{- if and $certsOptIn (not $hasCertSection) $rawSections.about $rawSections.about.section.enable -}}
+  {{- range ($rawSections.about.badges | default slice) -}}
+    {{- if eq .type "certification" }}{{ $badgeCerts = $badgeCerts | append . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $badgeCerts -}}
+  {{- $certItems := partial "portfolio/modern/cert-items.html" $badgeCerts -}}
+  {{- $certName := i18n "portfolio_certifications" -}}
+  {{- $certEntry := dict "id" "certifications" "kind" "certifications" "partialPath" "portfolio/modern/sections/certifications.html" "data" (dict "section" (dict "id" "certifications" "name" $certName "enable" true "showOnNavbar" true)) "showInNav" true "certItems" $certItems -}}
+  {{- $anchorKind := cond $hasSkills "skills" (cond $hasAbout "about" "") -}}
+  {{- if $anchorKind -}}
+    {{- $withCert := slice -}}
+    {{- range $ordered -}}
+      {{- $withCert = $withCert | append . -}}
+      {{- if eq .kind $anchorKind }}{{ $withCert = $withCert | append $certEntry }}{{ end -}}
+    {{- end -}}
+    {{- $ordered = $withCert -}}
+  {{- else -}}
+    {{- $ordered = (slice $certEntry) | append $ordered -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $navSections := slice -}}
+{{- range $ordered -}}
+  {{- if .showInNav }}{{ $navSections = $navSections | append . }}{{ end -}}
+{{- end -}}
+
+{{- $bgLight := site.Params.background | default "/images/default-background.jpg" -}}
+{{- $bgDark := site.Params.darkBackground | default "" -}}
+{{- $bgLightRes := resources.Get $bgLight -}}
+{{- $bgDarkRes := false -}}
+{{- with $bgDark -}}
+  {{- $bgDarkRes = resources.Get . -}}
+{{- end -}}
+{{- if and $bgLightRes (ne $bgLightRes.MediaType.SubType "svg") }}{{ $bgLightRes = $bgLightRes.Resize "1600x" }}{{ end -}}
+{{- if and $bgDarkRes (ne $bgDarkRes.MediaType.SubType "svg") }}{{ $bgDarkRes = $bgDarkRes.Resize "1600x" }}{{ end -}}
+
+{{- $avatarPath := $author.image | default "/images/default-avatar.png" -}}
+{{- $avatarRes := resources.Get $avatarPath -}}
+{{- if and $avatarRes (ne $avatarRes.MediaType.SubType "svg") (ne $avatarRes.MediaType.SubType "gif") -}}
+  {{- $avatarRes = $avatarRes.Fit "184x184" -}}
+{{- end -}}
+
+{{- $displayName := $author.nickname | default $author.name -}}
+{{- $greeting := $author.greeting | default "" -}}
+{{- $headline := cond (ne $greeting "") (strings.TrimSpace (printf "%s %s" $greeting $displayName)) $displayName -}}
+{{- $aboutSec := $rawSections.about | default dict -}}
+{{- $socialLinks := slice -}}
+{{- if and $aboutSec $aboutSec.section.enable $aboutSec.socialLinks -}}
+  {{- $socialLinks = $aboutSec.socialLinks -}}
+{{- end -}}
+
+{{- $scrollSnap := "" -}}
+{{- if $page.Site.Params.features.scrollSnap.enable | default false }}{{ $scrollSnap = " scroll-snap" }}{{ end -}}
+<!DOCTYPE html>
+<html lang="{{ $page.Site.Language.Locale | default $page.Site.Language.Lang }}" class="portfolio-modern-root{{ $scrollSnap }}" data-layout="{{ $navLayout }}" data-hero="{{ $heroStyle }}">
+{{ partial "portfolio/modern/head.html" (dict "page" $page "sections" $ordered) }}
+<body class="portfolio-modern min-h-screen bg-background text-foreground antialiased" x-data="modernShell">
+<a class="docs-skip-link" href="#main-content">{{ i18n "docs_skip_content" }}</a>
+
+{{ partial "portfolio/modern/header.html" (dict "page" $page "sections" $ordered) }}
+
+<section class="blog-hero{{ if $bgDarkRes }} has-dark-hero{{ end }}" id="home" aria-labelledby="hero-title">
+  {{- if eq $heroStyle "photo" -}}
+    {{- with $bgLightRes }}<img class="blog-hero-image blog-hero-image--light" src="{{ .RelPermalink }}" alt="" fetchpriority="high">{{ end -}}
+    {{- with $bgDarkRes }}<img class="blog-hero-image blog-hero-image--dark" src="{{ .RelPermalink }}" alt="" fetchpriority="high">{{ end -}}
+    {{- if or $bgLightRes $bgDarkRes }}<div class="blog-hero-shade" aria-hidden="true"></div>{{ end -}}
+  {{- end -}}
+  <div class="hero-inner">
+    {{- with $avatarRes }}<img class="hero-avatar" src="{{ .RelPermalink }}" alt="{{ $author.name }}" width="92" height="92">{{ end -}}
+    <h1 class="hero-title" id="hero-title">{{ $headline }}</h1>
+    {{- if and $aboutSec $aboutSec.section.enable $aboutSec.designation -}}
+    <p class="hero-role">
+      {{ $aboutSec.designation }}
+      {{- with $aboutSec.company }} {{ i18n "at" }} <a href="{{ partial "helpers/get-page-url.html" .url }}" target="_blank" rel="noopener">{{ .name }}</a>{{ end -}}
+    </p>
+    {{- end -}}
+    {{- with $author.summary -}}
+      <p class="hero-summary">{{ delimit . " · " }}</p>
+    {{- end -}}
+    {{- if $socialLinks -}}
+    <div class="hero-socials" aria-label="{{ i18n "portfolio_social_profiles" }}">
+      {{- range $socialLinks -}}
+        {{- $href := .url -}}
+        {{- if eq .name "Email" }}{{ $href = printf "mailto:%s" .url -}}
+        {{- else if eq .name (i18n "phone") }}{{ $href = printf "tel:%s" .url -}}
+        {{- else }}{{ $href = partial "helpers/get-page-url.html" .url }}{{ end -}}
+        {{- $iconName := partial "portfolio/modern/social-icon.html" (dict "icon" (.icon | default "") "name" .name) -}}
+        <a class="hero-social-link" href="{{ $href }}"{{ if findRE `(?i)^https?://` $href }} target="_blank" rel="{{ .rel | default "noopener" }}"{{ else if .rel }} rel="{{ .rel }}"{{ end }} aria-label="{{ .name }}" title="{{ .name }}">{{ partial "components/icon.html" (dict "name" $iconName "class" "size-4") }}</a>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </div>
+</section>
+
+{{- if $navSections -}}
+<nav class="portfolio-topic-nav" aria-label="{{ i18n "portfolio_navigation" }}">
+  <details class="topic-mobile" id="topic-mobile" data-portfolio-disclosure>
+    <summary>
+      <span>{{ i18n "portfolio_section_label" }}: <strong id="mobile-active-label">{{ (index $navSections 0).data.section.name }}</strong></span>
+      {{ partial "components/icon.html" (dict "name" "chevron-down" "class" "topic-chevron size-4") }}
+    </summary>
+    <ul class="topic-mobile-list">
+      {{- range $idx, $sec := $navSections -}}
+      <li><a href="#{{ $sec.id }}" data-spy="{{ $sec.id }}"{{ if eq $idx 0 }} aria-current="location"{{ end }}>{{ $sec.data.section.name }}</a></li>
+      {{- end -}}
+    </ul>
+  </details>
+  <div class="topic-desktop">
+    {{- range $idx, $sec := $navSections -}}
+    <a class="topic-link" href="#{{ $sec.id }}" data-spy="{{ $sec.id }}"{{ if eq $idx 0 }} aria-current="location"{{ end }}>{{ $sec.data.section.name }}</a>
+    {{- end -}}
+  </div>
+</nav>
+{{- end -}}
+
+<div class="portfolio-shell">
+  {{- if $navSections -}}
+  <aside class="portfolio-rail" aria-label="{{ i18n "portfolio_navigation" }}">
+    <p class="rail-label">{{ i18n "navigation" }}</p>
+    <ul>
+      {{- range $idx, $sec := $navSections -}}
+      <li><a class="docs-nav-link" href="#{{ $sec.id }}" data-spy="{{ $sec.id }}"{{ if eq $idx 0 }} aria-current="location"{{ end }}>{{ $sec.data.section.name }}</a></li>
+      {{- end -}}
+    </ul>
+  </aside>
+  {{- end -}}
+
+  <main id="main-content" tabindex="-1">
+    {{- range $idx, $entry := $ordered -}}
+      {{- $bandClass := "section-band" -}}
+      {{- if eq $entry.kind "about" }}{{ $bandClass = "section-band about-band" }}{{ end -}}
+      {{- if eq (mod $idx 2) 1 }}{{ $bandClass = printf "%s alt" $bandClass }}{{ end -}}
+      {{- $secName := $entry.data.section.name -}}
+    <section class="{{ $bandClass }}" id="{{ $entry.id }}" {{ if eq $entry.kind "about" }}aria-label="{{ $secName }}"{{ else }}aria-labelledby="{{ $entry.id }}-title"{{ end }} data-section-name="{{ $secName }}">
+      <div class="section-inner">
+        {{- $ctx := merge $entry.data (dict "_sectionID" $entry.id "_allSections" $rawSections "_orderedSections" $ordered "_certItems" $entry.certItems "_page" $page) -}}
+        {{- partial $entry.partialPath $ctx -}}
+      </div>
+    </section>
+    {{- end -}}
+  </main>
+</div>
+
+{{ partial "portfolio/modern/footer.html" $page }}
+
+<dialog id="portfolio-detail-dialog" class="portfolio-dialog" aria-labelledby="portfolio-dialog-title">
+  <div id="portfolio-detail-content"></div>
+</dialog>
+
+<dialog id="portfolio-lightbox-dialog" class="lightbox-dialog" aria-labelledby="portfolio-lightbox-title">
+  <div class="lightbox-head">
+    <h2 class="lightbox-title" id="portfolio-lightbox-title">{{ i18n "portfolio_preview" }}</h2>
+    <button type="button" class="docs-icon-button" id="portfolio-lightbox-close" aria-label="{{ i18n "portfolio_close_dialog" }}">
+      {{ partial "components/icon.html" (dict "name" "close" "class" "size-4") }}
+    </button>
+  </div>
+  <div class="lightbox-body">
+    <img id="portfolio-lightbox-img" src="" alt="">
+    <div class="lightbox-foot">
+      <p id="portfolio-lightbox-caption" class="lightbox-caption"></p>
+      <div class="lightbox-nav" id="portfolio-lightbox-nav" hidden>
+        <button type="button" class="docs-icon-button" id="portfolio-lightbox-prev" aria-label="{{ i18n "portfolio_previous_slide" }}">
+          {{ partial "components/icon.html" (dict "name" "chevron-left" "class" "size-4") }}
+        </button>
+        <span class="lightbox-counter" id="portfolio-lightbox-counter"></span>
+        <button type="button" class="docs-icon-button" id="portfolio-lightbox-next" aria-label="{{ i18n "portfolio_next_slide" }}">
+          {{ partial "components/icon.html" (dict "name" "chevron" "class" "size-4") }}
+        </button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+</body>
+</html>

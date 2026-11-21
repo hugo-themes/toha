@@ -1,0 +1,105 @@
+{{- $id := ._sectionID -}}
+{{- $hasFilter := and .section.filter .buttons -}}
+{{- $filterCfg := dict -}}
+{{- if $hasFilter -}}
+  {{- $filterCfg = dict "id" $id "buttons" .buttons "label" (i18n "portfolio_filter_skills") -}}
+{{- end -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section "filter" $filterCfg) }}
+{{- if $hasFilter }}<p class="portfolio-sr-status" id="{{ $id }}-status" role="status"></p>{{ end -}}
+
+{{- $skillsWithDetails := slice -}}
+<div class="skills-grid"{{ if $hasFilter }} data-filter-grid="{{ $id }}"{{ end }}>
+  {{- range $idx, $skill := .skills -}}
+    {{- $details := partial "helpers/skill-details.html" $skill.details -}}
+    {{- $tplID := cond (ne (len $details) 0) (printf "%s-tpl-%d" $id $idx) "" -}}
+    {{- if $tplID -}}
+      {{- $skillsWithDetails = $skillsWithDetails | append (dict "tplID" $tplID "skill" $skill "details" $details) -}}
+    {{- end -}}
+    {{- $cats := delimit ($skill.categories | default slice) "," -}}
+    {{- $logoRes := false -}}
+    {{- with $skill.logo -}}
+      {{- $logoRes = resources.Get . -}}
+    {{- end -}}
+  <article class="modern-card{{ if or $tplID $skill.url }} interactive{{ end }} skill-card{{ if $tplID }} has-details{{ end }}"{{ if $cats }} data-cats="{{ $cats }}"{{ end }}>
+    <div class="skill-head">
+      {{- if or $logoRes $skill.icon -}}
+      <span class="skill-icon" aria-hidden="true">
+        {{- if $logoRes -}}
+          {{- $img := $logoRes -}}
+          {{- if ne $img.MediaType.SubType "svg" }}{{ $img = $img.Fit "48x48" }}{{ end -}}
+          <img src="{{ $img.RelPermalink }}" alt="">
+        {{- else -}}
+          {{ partial "components/icon.html" (dict "name" "code") }}
+        {{- end -}}
+      </span>
+      {{- end -}}
+      <h3 class="skill-title">
+        {{- if $tplID -}}
+        <button type="button" class="skill-card-btn" data-dialog-open="{{ $tplID }}" data-dialog-variant="skill" aria-haspopup="dialog" aria-controls="portfolio-detail-dialog">{{ $skill.name }}</button>
+        {{- else if $skill.url -}}
+        <a class="modern-card-link" href="{{ partial "helpers/get-page-url.html" $skill.url }}" target="_blank" rel="noopener">{{ $skill.name }}</a>
+        {{- else -}}
+        {{ $skill.name }}
+        {{- end -}}
+      </h3>
+      {{- if $tplID -}}
+        {{ partial "components/icon.html" (dict "name" "maximize" "class" "skill-more-icon") }}
+      {{- else if $skill.url -}}
+        {{ partial "components/icon.html" (dict "name" "external-link" "class" "skill-more-icon") }}
+      {{- end -}}
+    </div>
+    {{- with $skill.summary }}<p class="skill-summary">{{ . | markdownify }}</p>{{ end -}}
+  </article>
+  {{- end -}}
+</div>
+
+{{- range $skillsWithDetails -}}
+<template id="{{ .tplID }}">
+  <div class="portfolio-dialog-head">
+    <div class="portfolio-dialog-brand">
+      {{- with .skill.logo -}}
+        {{- with resources.Get . -}}
+          {{- $img := . -}}
+          {{- if ne $img.MediaType.SubType "svg" }}{{ $img = $img.Fit "48x48" }}{{ end -}}
+          <span class="skill-icon"><img src="{{ $img.RelPermalink }}" alt=""></span>
+        {{- end -}}
+      {{- end -}}
+      <h2 class="portfolio-dialog-title" data-dialog-title>{{ .skill.name }}</h2>
+    </div>
+    <div class="portfolio-dialog-actions">
+      {{- with .skill.url -}}
+      <a class="pub-link-pill" href="{{ partial "helpers/get-page-url.html" . }}" target="_blank" rel="noopener">{{ i18n "more" }} {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3") }}</a>
+      {{- end -}}
+      <button type="button" class="docs-icon-button" data-dialog-close aria-label="{{ i18n "skill_details_close" }}">{{ partial "components/icon.html" (dict "name" "close") }}</button>
+    </div>
+  </div>
+  <div class="portfolio-dialog-body">
+    {{- with .details.summary }}<div class="portfolio-dialog-lead">{{ . | markdownify }}</div>{{ end -}}
+    {{- with .details.items -}}
+    <div class="skill-tree">
+      {{ partial "misc/skill-details-tree.html" (dict "items" . "depth" 0 "parent" "") }}
+    </div>
+    {{- end -}}
+  </div>
+</template>
+{{- end -}}
+
+{{- $soft := .softSkills | default slice -}}
+{{- if and (not $soft) ._allSections.about ._allSections.about.section.enable -}}
+  {{- range (._allSections.about.badges | default slice) -}}
+    {{- if eq .type "soft-skill-indicator" }}{{ $soft = $soft | append . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $soft -}}
+<div class="soft-block">
+  <h3 class="soft-title">{{ i18n "portfolio_soft_skills" }}</h3>
+  <dl class="soft-grid">
+    {{- range $soft -}}
+    <div class="soft-item">
+      <dt>{{ .name }}{{ with .percentage }}<span>{{ . }}%</span>{{ end }}</dt>
+      {{- with .summary }}<dd>{{ . | markdownify }}</dd>{{ end -}}
+    </div>
+    {{- end -}}
+  </dl>
+</div>
+{{- end -}}

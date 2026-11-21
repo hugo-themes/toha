@@ -1,5 +1,8 @@
 {{- if partial "helpers/is-modern-page.html" .Page -}}
-{{- partial "components/callout.html" (dict "tone" (.Get "type" | default "info") "content" (.Page.RenderString (dict "display" "block") .Inner)) -}}
+{{- $type := .Get "type" | default "info" -}}
+{{- $toneMap := dict "info" "info" "success" "success" "warning" "warning" "danger" "danger" "primary" "info" "secondary" "info" "dark" "info" "light" "info" -}}
+{{- $tone := index $toneMap $type | default $type -}}
+{{- partial "components/callout.html" (dict "tone" $tone "content" (.Page.RenderString (dict "display" "block") .Inner)) -}}
 {{- else -}}
 {{ $type := .Get "type"}}
 {{ $icon := "alert-circle"}}

@@ -35,11 +35,11 @@ params:
         enable: true
 ```
 
-## Organize the archive
+## Organize with categories & series
 
-Group posts into sections by adding an `_index.md` file to a folder. Use tags
-across sections for recurring topics, and reserve a series for articles that
-belong together. The [archive](../) links to each of these entry points.
+Group related posts directly in front matter using `categories` and optional
+`subcategories`. Use `tags` for recurring topics and `series` for multi-part
+articles that belong together. The [archive](../) links to each entry point.
 
 ## Keep writing
 

@@ -6,7 +6,7 @@
 {{- $topics := slice -}}
 {{- if ne $options.topics.enable false -}}
   {{- $taxonomy := $options.topics.taxonomy | default "categories" -}}
-  {{- $startSeries := and (eq $taxonomy "series") .Site.Params.features.blog.archive.enable -}}
+  {{- $startSeries := and (eq $taxonomy "series") (partial "blog/feature-enabled.html" (dict "page" . "feature" "archive")) -}}
   {{- with index .Site.Taxonomies $taxonomy -}}
     {{- range .ByCount -}}
       {{- $members := intersect $posts .Pages -}}
@@ -51,7 +51,7 @@
   {{ with $topics }}{{ partial "blog/topic-navigation.html" . }}{{ end }}
   <main id="main-content" class="mx-auto max-w-6xl space-y-12 px-5 py-9 sm:px-8 lg:px-10" tabindex="-1">
     {{ if not $heroEnabled }}<header><h1 class="text-3xl font-semibold tracking-tight">{{ .Title }}</h1><div class="docs-prose mt-4"{{ with $codeCopyLabels }} data-code-copy-labels="{{ . }}"{{ end }}>{{ .Content }}</div></header>{{ end }}
-    {{ if .Site.Params.features.blog.search.enable }}<noscript><p class="text-sm text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}
+    {{ if partial "blog/feature-enabled.html" (dict "page" . "feature" "search") }}<noscript><p class="text-sm text-muted-foreground">{{ i18n "docs_search_no_script" }}</p></noscript>{{ end }}
     <section id="recent-posts" aria-labelledby="recent-posts-title" tabindex="-1">
       <h2 id="recent-posts-title" class="mb-4 text-xl font-semibold tracking-tight">{{ i18n "blog_recent_posts" }}</h2>
       {{ $pageSize := $options.postsPerPage | default (.Site.Params.features.pagination.maxPostsPerPage | default 12) }}

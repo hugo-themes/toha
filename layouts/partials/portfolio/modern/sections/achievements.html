@@ -1,0 +1,49 @@
+{{- $id := ._sectionID -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section) }}
+{{- $slides := slice -}}
+{{- range .achievements -}}
+  {{- $img := resources.Get .image -}}
+  {{- if $img -}}
+    {{- $slideImg := $img -}}
+    {{- $fullImg := $img -}}
+    {{- if ne $img.MediaType.SubType "svg" -}}
+      {{- $slideImg = $img.Resize "1200x" -}}
+      {{- $fullImg = $img.Resize "1600x" -}}
+    {{- end -}}
+    {{- $slides = $slides | append (merge . (dict "_slideSrc" $slideImg.RelPermalink "_fullSrc" $fullImg.RelPermalink)) -}}
+  {{- end -}}
+{{- end -}}
+{{- if $slides -}}
+<div class="ach-showcase" data-ach-showcase>
+  <div class="ach-stage">
+    <div class="ach-track" data-ach-track role="region" aria-roledescription="carousel" aria-label="{{ .section.name }}">
+      {{- range $slides -}}
+      <figure class="ach-slide">
+        <img src="{{ ._slideSrc }}" alt="{{ .title }}">
+        <figcaption class="gallery-overlay">
+          <h3 class="gallery-title">{{ .title }}</h3>
+          {{- with .summary }}<p class="gallery-caption">{{ . | markdownify | plainify | htmlUnescape }}</p>{{ end -}}
+        </figcaption>
+        <span class="gallery-expand" aria-hidden="true">{{ partial "components/icon.html" (dict "name" "maximize") }}</span>
+        <button type="button" class="gallery-trigger" data-lightbox-gallery="achievements" data-lightbox-src="{{ ._fullSrc }}" data-lightbox-title="{{ .title }}" data-lightbox-caption="{{ .summary | markdownify | plainify | htmlUnescape }}" aria-label="{{ i18n "portfolio_expand_photo" (dict "Title" .title) }}"></button>
+      </figure>
+      {{- end -}}
+    </div>
+    {{- if gt (len $slides) 1 -}}
+    <button type="button" class="ach-arrow prev" data-ach-prev aria-label="{{ i18n "portfolio_previous_slide" }}">
+      {{ partial "components/icon.html" (dict "name" "chevron-left" "class" "size-5") }}
+    </button>
+    <button type="button" class="ach-arrow next" data-ach-next aria-label="{{ i18n "portfolio_next_slide" }}">
+      {{ partial "components/icon.html" (dict "name" "chevron" "class" "size-5") }}
+    </button>
+    {{- end -}}
+  </div>
+  {{- if gt (len $slides) 1 -}}
+  <div class="ach-dots" role="group" aria-label="{{ i18n "portfolio_select_slide" }}">
+    {{- range $idx, $slide := $slides -}}
+    <button type="button" class="ach-dot" data-ach-index="{{ $idx }}" aria-pressed="{{ cond (eq $idx 0) "true" "false" }}" aria-label="{{ i18n "portfolio_slide_label" (dict "Index" (add $idx 1) "Title" $slide.title) }}"></button>
+    {{- end -}}
+  </div>
+  {{- end -}}
+</div>
+{{- end -}}

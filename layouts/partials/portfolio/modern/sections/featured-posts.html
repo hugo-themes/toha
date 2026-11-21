@@ -1,0 +1,10 @@
+{{- $id := ._sectionID -}}
+{{- $blogSection := site.Params.features.blog.section | default "posts" -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section) }}
+{{- $pages := slice -}}
+{{- range $post := .posts -}}
+  {{- $target := site.GetPage $post -}}
+  {{- if not $target }}{{ $target = site.GetPage (printf "%s/%s" $blogSection $post) }}{{ end -}}
+  {{- with $target }}{{ $pages = $pages | append . }}{{ end -}}
+{{- end -}}
+{{ partial "portfolio/modern/post-grid.html" (dict "posts" $pages) }}

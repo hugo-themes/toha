@@ -14,6 +14,6 @@
   {{ with $page.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ $page.Site.Title }}">{{ end }}
   {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
   {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "modern/styles.html" . }}{{ end }}
-  {{ partial "modern/scripts.html" (dict "search" $page.Site.Params.features.blog.search.enable) }}
+  {{ partial "modern/scripts.html" (dict "search" (partial "blog/feature-enabled.html" (dict "page" $page "feature" "search"))) }}
   {{ if $page.IsPage }}{{ partial "blog/post-assets.html" $page }}{{ end }}
 </head>

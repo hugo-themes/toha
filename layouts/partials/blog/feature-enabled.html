@@ -1,0 +1,24 @@
+{{- $page := .page -}}
+{{- $feature := .feature -}}
+{{- $features := $page.Site.Params.features | default dict -}}
+{{- $blog := $features.blog | default dict -}}
+{{- $portfolioModern := dict -}}
+{{- with $features.portfolio }}{{ with .modern }}{{ if reflect.IsMap . }}{{ $portfolioModern = . }}{{ end }}{{ end }}{{ end -}}
+{{- $isPortfolioHome := eq ($page.Site.Params.home.layout | default "portfolio") "portfolio" -}}
+{{- $modernPortfolio := and $isPortfolioHome (eq $portfolioModern.enable true) -}}
+{{- $enabled := false -}}
+{{- if in (slice "archive" "post") $feature -}}
+  {{- $enabled = $modernPortfolio -}}
+{{- else if eq $feature "search" -}}
+  {{- $modernSearch := false -}}
+  {{- with $portfolioModern.search }}{{ if reflect.IsMap . }}{{ $modernSearch = eq .enable true }}{{ end }}{{ end -}}
+  {{- $enabled = and $modernPortfolio $modernSearch -}}
+{{- end -}}
+{{- if reflect.IsMap $blog -}}
+  {{- with (index $blog $feature) -}}
+    {{- if and (reflect.IsMap .) (isset . "enable") -}}
+      {{- $enabled = eq .enable true -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $enabled -}}

@@ -1,1 +1,1 @@
-{{- return (uniq (slice "series" "categories" "tags" ($.Site.Params.home.blog.topics.taxonomy | default "categories"))) -}}
+{{- return (uniq (slice "series" "categories" "subcategories" "tags" ($.Site.Params.home.blog.topics.taxonomy | default "categories"))) -}}
