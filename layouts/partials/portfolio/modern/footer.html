@@ -1,0 +1,83 @@
+{{- $footerEnabled := site.Params.footer.enable | default true -}}
+{{- if $footerEnabled -}}
+  {{- $author := hugo.Data.author -}}
+  {{- with (index hugo.Data site.Language.Lang).author }}{{ $author = . }}{{ end -}}
+  {{- $siteConfig := hugo.Data.site | default dict -}}
+  {{- with (index hugo.Data site.Language.Lang).site }}{{ $siteConfig = . }}{{ end -}}
+  {{- $contactMeEnabled := site.Params.footer.contactMe.enable | default true -}}
+  {{- $credentialsEnabled := site.Params.footer.credentials.enable | default true -}}
+  {{- $disclaimerEnabled := site.Params.footer.disclaimer.enable | default false -}}
+  {{- $disclaimer := $siteConfig.disclaimer | default "" -}}
+  {{- $copyright := now.Format "2006" | printf "© %s Copyright." -}}
+  {{- with $siteConfig.copyright }}{{ $copyright = . }}{{ end -}}
+  {{- $showContact := and $contactMeEnabled $author $author.contactInfo -}}
+  {{- $showDisclaimer := and $disclaimerEnabled $disclaimer -}}
+<footer class="portfolio-footer">
+  <div class="footer-inner">
+    {{- if or $showContact $showDisclaimer -}}
+    <div class="footer-grid{{ if not (and $showContact $showDisclaimer) }} single-col{{ end }}">
+      {{- if $showContact -}}
+      <div>
+        <h2 class="footer-heading">{{ strings.TrimSuffix ":" (i18n "contact_me") }}</h2>
+        <ul class="footer-contact-list">
+          {{- range $key, $value := $author.contactInfo -}}
+            {{- if eq $key "email" -}}
+              {{- range (cond (reflect.IsSlice $value) $value (slice $value)) -}}
+                <li><a href="{{ printf "mailto:%s" . }}" target="_blank" rel="noopener">{{ partial "components/icon.html" (dict "name" "mail") }}<span>{{ . }}</span></a></li>
+              {{- end -}}
+            {{- else if eq $key "phone" -}}
+              <li><a href="{{ printf "tel:%s" $value | safeURL }}" target="_blank" rel="noopener">{{ partial "components/icon.html" (dict "name" "phone") }}<span>{{ $value }}</span></a></li>
+            {{- else if eq $key "github" -}}
+              <li><a href="{{ printf "https://github.com/%s" $value }}" target="_blank" rel="noopener">{{ partial "components/icon.html" (dict "name" "github") }}<span>{{ $value }}</span></a></li>
+            {{- else if eq $key "linkedin" -}}
+              <li><a href="{{ printf "https://www.linkedin.com/in/%s" $value }}" target="_blank" rel="noopener">{{ partial "components/icon.html" (dict "name" "linkedin") }}<span>{{ $author.name }}</span></a></li>
+            {{- else if eq $key "researchgate" -}}
+              <li><a href="{{ printf "https://www.researchgate.net/profile/%s" $value }}" target="_blank" rel="noopener">{{ partial "components/icon.html" (dict "name" "graduation-cap") }}<span>ResearchGate</span></a></li>
+            {{- else if reflect.IsMap $value -}}
+              {{- $iconName := partial "portfolio/modern/social-icon.html" (dict "icon" ($value.icon | default "") "name" $key) -}}
+              {{- if $value.url -}}
+                <li><a href="{{ $value.url }}" target="_blank" rel="noopener">{{ partial "components/icon.html" (dict "name" $iconName) }}<span>{{ $value.text }}</span></a></li>
+              {{- else -}}
+                <li><span class="footer-contact-plain">{{ partial "components/icon.html" (dict "name" $iconName) }}<span>{{ $value.text }}</span></span></li>
+              {{- end -}}
+            {{- else -}}
+              {{- $iconName := partial "portfolio/modern/social-icon.html" (dict "name" $key) -}}
+              <li><span class="footer-contact-plain">{{ partial "components/icon.html" (dict "name" $iconName) }}<span>{{ title $key }}: {{ $value }}</span></span></li>
+            {{- end -}}
+          {{- end -}}
+        </ul>
+      </div>
+      {{- end -}}
+      {{- if $showDisclaimer -}}
+      <div>
+        <h2 class="footer-heading">{{ i18n "disclaimer_text" }}</h2>
+        <p class="footer-disclaimer">{{ $disclaimer | markdownify }}</p>
+      </div>
+      {{- end -}}
+    </div>
+    {{- end -}}
+    {{- if $credentialsEnabled -}}
+      {{- $themeLogo := resources.Get "/images/theme-logo.png" -}}
+      {{- if and $themeLogo (ne $themeLogo.MediaType.SubType "svg") }}{{ $themeLogo = $themeLogo.Resize "32x" }}{{ end -}}
+      {{- $hugoLogo := resources.Get "/images/hugo-logo.svg" -}}
+      {{- if and $hugoLogo (ne $hugoLogo.MediaType.SubType "svg") }}{{ $hugoLogo = $hugoLogo.Resize "32x" }}{{ end -}}
+    <div class="footer-bottom">
+      <div class="footer-meta">
+        <span>{{ $copyright | markdownify }}</span>
+        <span aria-hidden="true">&middot;</span>
+        <a class="footer-brand" href="https://github.com/hugo-toha/toha" target="_blank" rel="noopener">
+          {{- with $themeLogo }}<img src="{{ .RelPermalink }}" alt="">{{ end -}}
+          <span>Toha</span>
+        </a>
+        <span aria-hidden="true">&middot;</span>
+        <a class="footer-brand" href="https://gohugo.io/" target="_blank" rel="noopener">
+          <span>{{ i18n "hugoAttributionText" }} Hugo</span>
+          {{- with $hugoLogo }}<img src="{{ .RelPermalink }}" alt="">{{ end -}}
+        </a>
+      </div>
+      <a class="footer-brand" href="#home">{{ i18n "portfolio_back_to_top" }} &uarr;</a>
+    </div>
+    {{- end -}}
+  </div>
+</footer>
+{{- end -}}

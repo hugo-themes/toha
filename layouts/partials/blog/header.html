@@ -7,7 +7,7 @@
   {{- if not .hideFromNavbar }}{{ $links = $links | append (dict "label" .name "href" (partial "helpers/get-page-url.html" .url)) }}{{ end -}}
 {{- end -}}
 {{- $searchMarkup := "" -}}
-{{- if $page.Site.Params.features.blog.search.enable -}}
+{{- if partial "blog/feature-enabled.html" (dict "page" $page "feature" "search") -}}
   {{- $index := partialCached "blog/search-index.html" $root $root.Language.Lang $root.RelPermalink -}}
   {{- $searchMarkup = partial "components/search-dialog.html" (dict "iconLibrary" (cond (eq $page.Site.Params.features.componentsDesign.enable true) "lucide" "") "id" "blog-search" "indexURL" $index.RelPermalink "labels" (partial "modern/search-labels.html" (i18n "search"))) -}}
 {{- end -}}

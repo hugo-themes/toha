@@ -1,6 +1,10 @@
 {{- $layout := .Site.Params.home.layout | default "portfolio" -}}
 {{- if eq $layout "portfolio" -}}
-  {{- partial "portfolio/home.html" . -}}
+  {{- if .Site.Params.features.portfolio.modern.enable -}}
+    {{- partial "portfolio/modern/home.html" . -}}
+  {{- else -}}
+    {{- partial "portfolio/home.html" . -}}
+  {{- end -}}
 {{- else if eq $layout "docs" -}}
   {{- partial "docs/page.html" . -}}
 {{- else if eq $layout "blog" -}}

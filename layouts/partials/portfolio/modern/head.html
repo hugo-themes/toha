@@ -1,0 +1,38 @@
+{{- $page := .page -}}
+{{- $description := partial "helpers/get-description.html" $page -}}
+{{- with (index hugo.Data $page.Language.Lang).site -}}
+  {{- with .description }}{{ $description = . }}{{ end -}}
+{{- else -}}
+  {{- with hugo.Data.site }}{{ with .description }}{{ $description = . }}{{ end }}{{ end -}}
+{{- end -}}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ $description }}">
+  <title>{{ $page.Site.Title }}</title>
+  {{- with $page.Params.relcanonical -}}
+  <link rel="canonical" href="{{ . | relLangURL }}">
+  {{- else -}}
+  <link rel="canonical" href="{{ $page.Permalink }}">
+  {{- end -}}
+  {{ partial "misc/favicon.html" $page }}
+  {{ partial "opengraph.html" $page }}
+  {{ partial "robots.html" $page }}
+  {{ partial "structured-data.html" $page }}
+  {{ partial "analytics.html" $page }}
+  {{ with $page.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ $page.Site.Title }}">{{ end }}
+  {{ with resources.Get "scripts/modern/theme-init.js" }}<script>{{ .Content | safeJS }}</script>{{ end }}
+  {{ with (templates.Defer (dict "key" "toha-modern-css")) }}{{ partial "modern/styles.html" . }}{{ end }}
+  {{- with resources.Get "styles/modern/portfolio.css" -}}
+    {{- $pfCSS := . | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $pfCSS.RelPermalink }}" integrity="{{ $pfCSS.Data.Integrity }}" crossorigin="anonymous">
+  {{- end -}}
+  {{- $entry := "scripts/modern/portfolio-application.js" -}}
+  {{- if $page.Site.Params.features.portfolio.modern.search.enable -}}
+    {{- $entry = "scripts/modern/portfolio-application-search.js" -}}
+  {{- end -}}
+  {{- with resources.Get $entry -}}
+    {{- $pfJS := . | js.Build (dict "targetPath" "portfolio-modern.js" "minify" (not hugo.IsDevelopment)) | fingerprint -}}
+    <script src="{{ $pfJS.RelPermalink }}" integrity="{{ $pfJS.Data.Integrity }}" defer crossorigin="anonymous"></script>
+  {{- end -}}
+</head>

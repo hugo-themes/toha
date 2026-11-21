@@ -1,0 +1,151 @@
+{{- $id := ._sectionID -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section) }}
+{{- $degreesWithDetails := slice -}}
+<div class="edu-grid">
+  {{- range $idx, $deg := .degrees -}}
+    {{- $hasDetails := or $deg.publications $deg.takenCourses $deg.extracurricularActivities $deg.customSections -}}
+    {{- $tplID := cond $hasDetails (printf "%s-tpl-%d" $id $idx) "" -}}
+    {{- if $tplID -}}
+      {{- $degreesWithDetails = $degreesWithDetails | append (dict "tplID" $tplID "deg" $deg) -}}
+    {{- end -}}
+    {{- $inst := $deg.institution | default dict -}}
+    {{- $lightLogo := false -}}
+    {{- with $inst.logo -}}
+      {{- $lightLogo = resources.Get . -}}
+    {{- end -}}
+    {{- $darkLogo := false -}}
+    {{- with $inst.darkLogo -}}
+      {{- $darkLogo = resources.Get . -}}
+    {{- end -}}
+  <article class="modern-card{{ if $hasDetails }} interactive has-details{{ end }} edu-card">
+    <div class="edu-head">
+      {{- if $lightLogo -}}
+      <div{{ if $darkLogo }} class="has-dark-logo"{{ end }}>
+        <img class="edu-logo light-logo" src="{{ $lightLogo.RelPermalink }}" alt="" width="38" height="38">
+        {{- with $darkLogo }}<img class="edu-logo dark-logo" src="{{ .RelPermalink }}" alt="" width="38" height="38">{{ end -}}
+      </div>
+      {{- end -}}
+      <div>
+        <h3 class="edu-title">{{ $deg.name }}</h3>
+        {{- with $inst.name }}<p class="edu-school">{{ . }}</p>{{ end -}}
+      </div>
+    </div>
+    <div class="edu-footer">
+      <p class="edu-meta">
+        {{- with $deg.timeframe }}{{ . }}{{ end -}}
+        {{- if and $deg.timeframe $deg.grade }} &middot; {{ end -}}
+        {{- with $deg.grade }}{{ .scale }} {{ .achieved }} / {{ .outOf }}{{ end -}}
+      </p>
+      {{- if $tplID -}}
+      <button type="button" class="edu-card-btn" data-dialog-open="{{ $tplID }}" data-dialog-variant="wide" aria-haspopup="dialog" aria-controls="portfolio-detail-dialog">{{ i18n "project_details" }}</button>
+      {{- end -}}
+    </div>
+  </article>
+  {{- end -}}
+</div>
+
+{{- range $degreesWithDetails -}}
+  {{- $deg := .deg -}}
+  {{- $inst := $deg.institution | default dict -}}
+  {{- $lightLogo := false -}}
+  {{- with $inst.logo -}}
+    {{- $lightLogo = resources.Get . -}}
+  {{- end -}}
+  {{- $darkLogo := false -}}
+  {{- with $inst.darkLogo -}}
+    {{- $darkLogo = resources.Get . -}}
+  {{- end -}}
+<template id="{{ .tplID }}">
+  <div class="portfolio-dialog-head">
+    <div class="portfolio-dialog-brand">
+      {{- if $lightLogo -}}
+      <div{{ if $darkLogo }} class="has-dark-logo"{{ end }}>
+        <img class="edu-logo light-logo" src="{{ $lightLogo.RelPermalink }}" alt="" width="34" height="34">
+        {{- with $darkLogo }}<img class="edu-logo dark-logo" src="{{ .RelPermalink }}" alt="" width="34" height="34">{{ end -}}
+      </div>
+      {{- end -}}
+      <div>
+        <h2 class="portfolio-dialog-title" data-dialog-title>{{ $deg.name }}</h2>
+        <p class="edu-school" style="margin-top:0.05rem;">
+          {{- if $inst.url -}}
+            <a href="{{ partial "helpers/get-page-url.html" $inst.url }}" style="color:var(--link);" target="_blank" rel="noopener">{{ $inst.name }}</a>
+          {{- else -}}
+            {{ $inst.name }}
+          {{- end -}}
+          {{- with $deg.timeframe }} &middot; <span class="mono">{{ . }}</span>{{ end -}}
+          {{- with $deg.grade }} &middot; <span class="mono">{{ .scale }} {{ .achieved }} / {{ .outOf }}</span>{{ end -}}
+        </p>
+      </div>
+    </div>
+    <div class="portfolio-dialog-actions">
+      <button type="button" class="docs-icon-button" data-dialog-close aria-label="{{ i18n "portfolio_close_dialog" }}">{{ partial "components/icon.html" (dict "name" "close") }}</button>
+    </div>
+  </div>
+  <div class="portfolio-dialog-body">
+    <div class="edu-dialog-sections">
+      {{- with $deg.takenCourses -}}
+      <div>
+        <span class="edu-sublabel">{{ i18n "taken_courses" }} ({{ len .courses }})</span>
+        {{- if .showGrades -}}
+          {{- $hideScale := .hideScale -}}
+        <div class="table-wrap">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>{{ i18n "course_name" }}</th>
+                {{- if not $hideScale }}<th>{{ i18n "total_credit" }}</th>{{ end -}}
+                <th>{{ i18n "obtained_credit" }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{- range .courses -}}
+              <tr>
+                <td>{{ .name }}</td>
+                {{- if not $hideScale }}<td class="mono">{{ .outOf }}</td>{{ end -}}
+                <td class="mono">{{ .achieved }}</td>
+              </tr>
+              {{- end -}}
+            </tbody>
+          </table>
+        </div>
+        {{- else -}}
+        <ul class="resp-list">
+          {{- range .courses }}<li>{{ .name }}</li>{{ end -}}
+        </ul>
+        {{- end -}}
+      </div>
+      {{- end -}}
+      {{- with $deg.customSections -}}
+        {{- range . -}}
+        <div>
+          <span class="edu-sublabel">{{ .name }}</span>
+          <div class="portfolio-dialog-lead">{{ .content | markdownify }}</div>
+        </div>
+        {{- end -}}
+      {{- end -}}
+      {{- with $deg.publications -}}
+      <div>
+        <span class="edu-sublabel">{{ i18n "publications" }} ({{ len . }})</span>
+        <ul class="resp-list">
+          {{- range . -}}
+            {{- if .url -}}
+            <li><a href="{{ partial "helpers/get-page-url.html" .url }}" target="_blank" rel="noopener">{{ .title }}</a></li>
+            {{- else -}}
+            <li>{{ .title }}</li>
+            {{- end -}}
+          {{- end -}}
+        </ul>
+      </div>
+      {{- end -}}
+      {{- with $deg.extracurricularActivities -}}
+      <div>
+        <span class="edu-sublabel">{{ i18n "extracurricular_activities" }} ({{ len . }})</span>
+        <ul class="resp-list">
+          {{- range . }}<li>{{ . | markdownify }}</li>{{ end -}}
+        </ul>
+      </div>
+      {{- end -}}
+    </div>
+  </div>
+</template>
+{{- end -}}

@@ -1,0 +1,9 @@
+{{- $items := slice -}}
+{{- range . -}}
+  {{- $issuer := .issuer | default "" -}}
+  {{- if and (not $issuer) (.url | default "" | findRE `(?i)credly\.com`) -}}
+    {{- $issuer = "Credly" -}}
+  {{- end -}}
+  {{- $items = $items | append (merge . (dict "_issuer" $issuer)) -}}
+{{- end -}}
+{{- return $items -}}

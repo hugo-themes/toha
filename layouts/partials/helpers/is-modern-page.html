@@ -1,4 +1,9 @@
-{{- $docs := and .Site.Params.features.docs.enable (or (eq .Type "docs") (and .IsHome (eq .Site.Params.home.layout "docs"))) -}}
-{{- $blog := and .IsHome (eq .Site.Params.home.layout "blog") (or .Site.Params.features.blog.enable .Site.Params.enableBlogPost) -}}
-{{- $post := and .Site.Params.features.blog.post.enable (partial "blog/post-root.html" .) -}}
-{{- return (or $docs $blog $post) -}}
+{{- $features := .Site.Params.features | default dict -}}
+{{- $docs := and $features.docs.enable (or (eq .Type "docs") (and .IsHome (eq .Site.Params.home.layout "docs"))) -}}
+{{- $blog := and .IsHome (eq .Site.Params.home.layout "blog") (or $features.blog.enable .Site.Params.enableBlogPost) -}}
+{{- $modernPortfolio := and (eq (.Site.Params.home.layout | default "portfolio") "portfolio") $features.portfolio.modern.enable -}}
+{{- $portfolio := and .IsHome $modernPortfolio -}}
+{{- $postEnabled := $modernPortfolio -}}
+{{- with $features.blog }}{{ with .post }}{{ if and (reflect.IsMap .) (isset . "enable") }}{{ $postEnabled = eq .enable true }}{{ end }}{{ end }}{{ end -}}
+{{- $post := and $postEnabled (partial "blog/post-root.html" .) -}}
+{{- return (or $docs $blog $post $portfolio) -}}

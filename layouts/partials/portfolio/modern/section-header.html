@@ -1,0 +1,29 @@
+{{- if not .section.hideTitle -}}
+<div class="section-head">
+  <div class="section-heading-group">
+    <h2 class="section-title" id="{{ .id }}-title">{{ .section.name }}</h2>
+  </div>
+  {{- with .filter -}}
+    {{- partial "portfolio/modern/filter-controls.html" . -}}
+  {{- end -}}
+  {{- with .action -}}
+    <a class="pf-btn" href="{{ .href }}">
+      <span>{{ .label }}</span>
+      {{- with .icon }}{{ partial "components/icon.html" (dict "name" .) }}{{ end -}}
+    </a>
+  {{- end -}}
+</div>
+{{- else -}}
+<h2 class="sr-only" id="{{ .id }}-title">{{ .section.name }}</h2>
+  {{- if or .filter .action -}}
+  <div class="section-head" style="justify-content: flex-end;">
+    {{- with .filter }}{{ partial "portfolio/modern/filter-controls.html" . }}{{ end -}}
+    {{- with .action -}}
+      <a class="pf-btn" href="{{ .href }}">
+        <span>{{ .label }}</span>
+        {{- with .icon }}{{ partial "components/icon.html" (dict "name" .) }}{{ end -}}
+      </a>
+    {{- end -}}
+  </div>
+  {{- end -}}
+{{- end -}}

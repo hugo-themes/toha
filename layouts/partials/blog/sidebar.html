@@ -1,12 +1,20 @@
 {{- $page := .page -}}
 {{- $root := .root -}}
-{{- $modernArchive := $page.Site.Params.features.blog.archive.enable -}}
+{{- $modernArchive := partial "blog/feature-enabled.html" (dict "page" $page "feature" "archive") -}}
 {{- $taxonomies := slice -}}
 {{- range partial "blog/archive-taxonomies.html" $page -}}
-  {{- with $page.Site.GetPage (printf "/%s" .) -}}
-    {{- if and (eq .Kind "taxonomy") .Pages (.OutputFormats.Get "HTML") -}}
-      {{- $taxonomies = $taxonomies | append . -}}
+  {{- if not (in (slice "categories" "subcategories") .) -}}
+    {{- with $page.Site.GetPage (printf "/%s" .) -}}
+      {{- if and (eq .Kind "taxonomy") .Pages (.OutputFormats.Get "HTML") -}}
+        {{- $taxonomies = $taxonomies | append . -}}
+      {{- end -}}
     {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $hasCategoryLocation := false -}}
+{{- if and $page.IsPage $modernArchive -}}
+  {{- range ($page.GetTerms "categories") -}}
+    {{- if .OutputFormats.Get "HTML" }}{{ $hasCategoryLocation = true }}{{ end -}}
   {{- end -}}
 {{- end -}}
 <aside class="blog-sidebar border-b border-border lg:border-r lg:border-b-0">
@@ -15,13 +23,15 @@
       {{ i18n "blog_archive_browse" }}{{ partial "components/icon.html" (dict "name" "chevron" "class" "docs-chevron size-4") }}
     </summary>
     <nav class="px-4 pt-1 pb-5 lg:px-5 lg:py-8" aria-label="{{ i18n "blog_archive_browse" }}">
-      <a class="docs-nav-link" href="{{ $root.RelPermalink }}"{{ if eq $page $root }} aria-current="page"{{ else if and $page.IsPage (eq $page.CurrentSection $root) }} aria-current="location"{{ end }}>{{ $root.LinkTitle }}</a>
-      {{ partial "blog/sidebar-tree.html" (dict "section" $root "current" $page) }}
+      <a class="docs-nav-link" href="{{ $root.RelPermalink }}"{{ if eq $page $root }} aria-current="page"{{ else if and $page.IsPage (not $hasCategoryLocation) (or (eq $page.CurrentSection $root) ($root.IsAncestor $page)) }} aria-current="location"{{ end }}>{{ $root.LinkTitle }}</a>
+      {{ if $modernArchive }}
+        {{ partial "blog/sidebar-categories.html" (dict "root" $root "current" $page) }}
+      {{ end }}
       {{ with $taxonomies }}
       <ul class="mt-5 {{ if $modernArchive }}space-y-5{{ else }}space-y-1{{ end }} border-t border-border pt-4">
         {{ range . }}
           {{ $taxonomy := . }}
-          {{ if and $modernArchive (in (slice "categories" "tags") .Type) }}
+          {{ if and $modernArchive (eq .Type "tags") }}
             {{ partial "blog/sidebar-topics.html" (dict "taxonomy" . "page" $page) }}
           {{ else if and $modernArchive (eq .Type "series") }}
             {{ with partialCached "blog/series-list.html" $root $root.RelPermalink }}

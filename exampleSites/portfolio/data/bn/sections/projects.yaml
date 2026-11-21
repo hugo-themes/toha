@@ -48,7 +48,7 @@ projects:
   tags: ["academic","iot"]
 
 - name: Rich Content
-  url: "posts/category/sub-category/rich-content/"
+  url: "/posts/diagrams-media-and-embeds/"
   # Optional: control how project links open. Allowed values: "blank" (default) or "self".
   # "blank" opens links in a new tab, "self" opens them in the current tab.
   target: self

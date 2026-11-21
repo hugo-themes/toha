@@ -1,0 +1,61 @@
+{{- $root := .root -}}
+{{- $current := .current -}}
+{{- $catData := partialCached "blog/category-tree-data.html" $root $root.Language.Lang $root.RelPermalink -}}
+{{- $pageCatPaths := slice -}}
+{{- $pageSubPaths := slice -}}
+{{- if $current.IsPage -}}
+  {{- range ($current.GetTerms "categories") }}{{ $pageCatPaths = $pageCatPaths | append .Path }}{{ end -}}
+  {{- range ($current.GetTerms "subcategories") }}{{ $pageSubPaths = $pageSubPaths | append .Path }}{{ end -}}
+{{- end -}}
+{{- with $catData.items -}}
+<ul class="mt-1 space-y-1">
+  {{- range . -}}
+    {{- $cat := .page -}}
+    {{- $catActive := eq $cat.Path $current.Path -}}
+    {{- $catInPost := and $current.IsPage (in $pageCatPaths $cat.Path) -}}
+    {{- $hasSubActive := false -}}
+    {{- $hasSubInPost := false -}}
+    {{- range .subcategories -}}
+      {{- if eq .page.Path $current.Path }}{{ $hasSubActive = true }}{{ end -}}
+      {{- if and $current.IsPage (in $pageSubPaths .page.Path) }}{{ $hasSubInPost = true }}{{ end -}}
+    {{- end -}}
+    <li>
+      {{- if .subcategories -}}
+      <details class="docs-tree-group"{{ if or $catActive $hasSubActive $catInPost $hasSubInPost }} open{{ end }}>
+        <summary class="docs-nav-link cursor-pointer items-center justify-between gap-2">
+          <span class="flex min-w-0 items-center gap-2">
+            {{ partial "components/icon.html" (dict "name" "chevron" "class" "docs-chevron size-3.5 shrink-0") }}
+            <span class="min-w-0 truncate">{{ $cat.LinkTitle }}</span>
+          </span>
+          <span class="blog-sidebar-count" aria-hidden="true">{{ .count }}</span>
+          <span class="sr-only">{{ i18n "blog_post_count" .count }}</span>
+        </summary>
+        <div class="ms-4 border-s border-border ps-2">
+          <a class="docs-nav-link items-center justify-between gap-2" href="{{ $cat.RelPermalink }}"{{ if $catActive }} aria-current="page"{{ else if and $catInPost (not $hasSubInPost) }} aria-current="location"{{ end }}>
+            <span class="min-w-0 truncate">{{ i18n "docs_overview" }}</span>
+            <span class="blog-sidebar-count" aria-hidden="true">{{ .count }}</span>
+            <span class="sr-only">{{ i18n "blog_post_count" .count }}</span>
+          </a>
+          {{- range .subcategories -}}
+            {{- $sub := .page -}}
+            {{- $subActive := eq $sub.Path $current.Path -}}
+            {{- $subInPost := and $current.IsPage (in $pageSubPaths $sub.Path) -}}
+          <a class="docs-nav-link items-center justify-between gap-2" href="{{ $sub.RelPermalink }}"{{ if $subActive }} aria-current="page"{{ else if $subInPost }} aria-current="location"{{ end }}>
+            <span class="min-w-0 truncate">{{ $sub.LinkTitle }}</span>
+            <span class="blog-sidebar-count" aria-hidden="true">{{ .count }}</span>
+            <span class="sr-only">{{ i18n "blog_post_count" .count }}</span>
+          </a>
+          {{- end -}}
+        </div>
+      </details>
+      {{- else -}}
+      <a class="docs-nav-link items-center justify-between gap-2" href="{{ $cat.RelPermalink }}"{{ if $catActive }} aria-current="page"{{ else if $catInPost }} aria-current="location"{{ end }}>
+        <span class="min-w-0 truncate">{{ $cat.LinkTitle }}</span>
+        <span class="blog-sidebar-count" aria-hidden="true">{{ .count }}</span>
+        <span class="sr-only">{{ i18n "blog_post_count" .count }}</span>
+      </a>
+      {{- end -}}
+    </li>
+  {{- end -}}
+</ul>
+{{- end -}}

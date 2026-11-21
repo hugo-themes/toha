@@ -1,0 +1,127 @@
+{{- $id := ._sectionID -}}
+{{- $hasFilter := and (ne .section.filter false) .buttons -}}
+{{- $filterCfg := dict -}}
+{{- if $hasFilter -}}
+  {{- $filterCfg = dict "id" $id "buttons" .buttons "label" (i18n "portfolio_filter_publications") -}}
+{{- end -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section "filter" $filterCfg) }}
+{{- if $hasFilter }}<p class="portfolio-sr-status" id="{{ $id }}-status" role="status"></p>{{ end -}}
+
+{{- $pubsWithDialog := slice -}}
+<div class="pub-grid"{{ if $hasFilter }} data-filter-grid="{{ $id }}"{{ end }}>
+  {{- range $idx, $pub := .publications -}}
+    {{- $cats := delimit ($pub.categories | default slice) "," -}}
+    {{- $venue := $pub.publishedIn.name | default "" -}}
+    {{- with $pub.publishedIn.volume }}{{ $venue = printf "%s %v" $venue . }}{{ end -}}
+    {{- with $pub.publishedIn.articleNumber }}{{ $venue = printf "%s, %v" $venue . }}{{ end -}}
+    {{- $authorsPlain := slice -}}
+    {{- range $pub.authors }}{{ $authorsPlain = $authorsPlain | append .name }}{{ end -}}
+    {{- $paper := $pub.paper | default dict -}}
+    {{- $hasDialog := or $paper.summary $paper.doi $paper.arxiv $paper.url ($pub.authors) -}}
+    {{- $tplID := cond $hasDialog (printf "%s-tpl-%d" $id $idx) "" -}}
+    {{- if $tplID -}}
+      {{- $pubsWithDialog = $pubsWithDialog | append (dict "tplID" $tplID "pub" $pub "venue" $venue) -}}
+    {{- end -}}
+    {{- $metaParts := slice -}}
+    {{- with $pub.publishedIn.date }}{{ $metaParts = $metaParts | append . }}{{ end -}}
+    {{- with $paper.doi }}{{ $metaParts = $metaParts | append (i18n "publication_doi") }}{{ end -}}
+    {{- with $paper.arxiv }}{{ $metaParts = $metaParts | append (i18n "publication_arxiv") }}{{ end -}}
+  <article class="modern-card{{ if $tplID }} interactive has-details{{ end }} edu-card"{{ if $cats }} data-cats="{{ $cats }}"{{ end }}>
+    <div>
+      <h3 class="edu-title">{{ $pub.title }}</h3>
+      {{- with $venue }}<p class="edu-school">{{ . }}</p>{{ end -}}
+      {{- with $authorsPlain }}<p class="pub-authors">{{ delimit . ", " }}</p>{{ end -}}
+      {{- with $pub.tags -}}
+      <ul class="tag-list pub-tags" aria-label="{{ i18n "portfolio_topics" }}">
+        {{- range . }}<li class="modern-tag">{{ . }}</li>{{ end -}}
+      </ul>
+      {{- end -}}
+    </div>
+    {{- if or $metaParts $tplID -}}
+    <div class="edu-footer">
+      {{- if $metaParts }}<p class="edu-meta">{{ delimit $metaParts " · " }}</p>{{ end -}}
+      {{- if $tplID -}}
+      <button type="button" class="edu-card-btn" data-dialog-open="{{ $tplID }}" data-dialog-variant="wide" aria-haspopup="dialog" aria-controls="portfolio-detail-dialog">{{ i18n "project_details" }}</button>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </article>
+  {{- end -}}
+</div>
+
+{{- range $pubsWithDialog -}}
+  {{- $pub := .pub -}}
+  {{- $paper := $pub.paper | default dict -}}
+  {{- $urlText := $paper.urlText | default (i18n "portfolio_paper_link") -}}
+<template id="{{ .tplID }}">
+  <div class="portfolio-dialog-head">
+    <div class="portfolio-dialog-brand">
+      <div>
+        <h2 class="portfolio-dialog-title" data-dialog-title>{{ $pub.title }}</h2>
+        {{- if or .venue $pub.publishedIn.date -}}
+        <p class="edu-school" style="margin-top:0.08rem;">
+          {{- if $pub.publishedIn.url -}}
+            <a href="{{ partial "helpers/get-page-url.html" $pub.publishedIn.url }}" target="_blank" rel="noopener" style="color:var(--link);">{{ .venue }}</a>
+          {{- else -}}
+            {{ .venue }}
+          {{- end -}}
+          {{- if and .venue $pub.publishedIn.date }} &middot; {{ end -}}
+          {{- with $pub.publishedIn.date }}<span class="mono">{{ . }}</span>{{ end -}}
+        </p>
+        {{- end -}}
+      </div>
+    </div>
+    <div class="portfolio-dialog-actions">
+      <button type="button" class="docs-icon-button" data-dialog-close aria-label="{{ i18n "portfolio_close_dialog" }}">{{ partial "components/icon.html" (dict "name" "close") }}</button>
+    </div>
+  </div>
+  <div class="portfolio-dialog-body">
+    <div class="edu-dialog-sections">
+      {{- with $pub.authors -}}
+      <div>
+        <span class="edu-sublabel">{{ i18n "portfolio_authors" }}</span>
+        <p class="pub-dialog-authors">
+          {{- range $i, $author := . -}}
+            {{- if gt $i 0 }}, {{ end -}}
+            {{- if $author.url -}}
+              <a href="{{ partial "helpers/get-page-url.html" $author.url }}" target="_blank" rel="noopener">{{ $author.name }}</a>
+            {{- else -}}
+              {{ $author.name }}
+            {{- end -}}
+          {{- end -}}
+        </p>
+      </div>
+      {{- end -}}
+      {{- with $paper.summary -}}
+      <div>
+        <span class="edu-sublabel">{{ i18n "portfolio_abstract" }}</span>
+        <div class="portfolio-dialog-lead">{{ . | markdownify }}</div>
+      </div>
+      {{- end -}}
+      {{- with $pub.tags -}}
+      <div>
+        <span class="edu-sublabel">{{ i18n "portfolio_topics" }}</span>
+        <ul class="tag-list" aria-label="{{ i18n "portfolio_topics" }}">
+          {{- range . }}<li class="modern-tag">{{ . }}</li>{{ end -}}
+        </ul>
+      </div>
+      {{- end -}}
+    </div>
+    {{- if or $paper.doi $paper.arxiv $paper.url -}}
+    <div class="portfolio-dialog-meta">
+      <div class="pub-links">
+        {{- with $paper.doi -}}
+        <a class="pub-link-pill" href="https://doi.org/{{ . }}" target="_blank" rel="noopener">{{ i18n "publication_doi" }} {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3") }}</a>
+        {{- end -}}
+        {{- with $paper.arxiv -}}
+        <a class="pub-link-pill" href="https://arxiv.org/abs/{{ . }}" target="_blank" rel="noopener">{{ i18n "publication_arxiv" }}:{{ . }} {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3") }}</a>
+        {{- end -}}
+        {{- with $paper.url -}}
+        <a class="pub-link-pill" href="{{ partial "helpers/get-resource-url.html" . }}" target="_blank" rel="noopener">{{ $urlText }} {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3") }}</a>
+        {{- end -}}
+      </div>
+    </div>
+    {{- end -}}
+  </div>
+</template>
+{{- end -}}

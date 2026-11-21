@@ -1,0 +1,69 @@
+{{- $id := ._sectionID -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section) }}
+<ol class="timeline">
+  {{- range .experiences -}}
+    {{- $company := .company -}}
+    {{- $positions := .positions | default slice -}}
+    {{- $oldest := dict -}}
+    {{- $latest := dict -}}
+    {{- if gt (len $positions) 0 -}}
+      {{- $oldest = index (last 1 $positions) 0 -}}
+      {{- $latest = index (first 1 $positions) 0 -}}
+    {{- end -}}
+    {{- $lightLogo := false -}}
+    {{- with $company.logo -}}
+      {{- $lightLogo = resources.Get . -}}
+    {{- end -}}
+    {{- $darkLogo := false -}}
+    {{- with $company.darkLogo -}}
+      {{- $darkLogo = resources.Get . -}}
+    {{- end -}}
+  <li class="timeline-item">
+    <article class="modern-card">
+      <div class="timeline-card-head">
+        <div class="timeline-org">
+          {{- if $lightLogo -}}
+          <div{{ if $darkLogo }} class="has-dark-logo"{{ end }}>
+            <img class="timeline-logo light-logo" src="{{ $lightLogo.RelPermalink }}" alt="{{ $company.name }}" width="40" height="40">
+            {{- with $darkLogo }}<img class="timeline-logo dark-logo" src="{{ .RelPermalink }}" alt="{{ $company.name }}" width="40" height="40">{{ end -}}
+          </div>
+          {{- end -}}
+          <div>
+            <h3 class="timeline-company">
+              {{- if $company.url -}}
+              <a href="{{ partial "helpers/get-page-url.html" $company.url }}" target="_blank" rel="noopener">{{ $company.name }}</a>
+              {{- else -}}
+              {{ $company.name }}
+              {{- end -}}
+            </h3>
+            <div class="timeline-meta">
+              {{- if $positions -}}
+              <span class="mono">{{ $oldest.start }} – {{ $latest.end | default (i18n "present") }}</span>
+              {{- end -}}
+              {{- with $company.location }}<span>&middot; {{ . }}</span>{{ end -}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{- with $company.overview }}<p class="timeline-overview">{{ . | markdownify }}</p>{{ end -}}
+      {{- if $positions -}}
+      <div class="positions">
+        {{- range $positions -}}
+        <div class="position-item{{ if not .end }} current{{ end }}">
+          <div class="position-head">
+            <h4 class="position-title">{{ .designation }}</h4>
+            <span class="position-date">{{ .start }} – {{ .end | default (i18n "present") }}</span>
+          </div>
+          {{- with .responsibilities -}}
+          <ul class="resp-list">
+            {{- range . }}<li>{{ . | markdownify }}</li>{{ end -}}
+          </ul>
+          {{- end -}}
+        </div>
+        {{- end -}}
+      </div>
+      {{- end -}}
+    </article>
+  </li>
+  {{- end -}}
+</ol>

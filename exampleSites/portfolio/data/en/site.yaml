@@ -13,7 +13,7 @@ description: Portfolio and personal blog of John Doe.
 # they will be separated by a divider from the main menus.
 customMenus:
 - name: Docs
-  url: https://toha-docs.hugo-themes.com/posts/
+  url: https://docs.hugo-themes.com
   # specify whether to hide the menu item from top navbar or not.
   hideFromNavbar: false
   # specify whether to show the menu item in footer or not.

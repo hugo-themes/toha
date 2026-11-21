@@ -1,0 +1,131 @@
+{{- $all := ._allSections -}}
+{{- $expSection := $all.experiences -}}
+{{- $hasExp := and $expSection $expSection.section.enable $expSection.experiences -}}
+{{- $expID := cond $hasExp (partial "helpers/get-section-id.html" $expSection) "" -}}
+
+{{- $nowCompany := .company -}}
+{{- $nowRole := .designation -}}
+{{- $nowLogo := "" -}}
+{{- $nowDesc := "" -}}
+{{- if $hasExp -}}
+  {{- $latestExp := index $expSection.experiences 0 -}}
+  {{- if not $nowCompany }}{{ $nowCompany = $latestExp.company }}{{ end -}}
+  {{- if and (not $nowRole) $latestExp.positions }}{{ $nowRole = (index $latestExp.positions 0).designation }}{{ end -}}
+  {{- $nowLogo = $latestExp.company.logo | default "" -}}
+  {{- $nowDesc = $latestExp.company.overview | default "" -}}
+{{- end -}}
+{{- $resources := .resourceLinks | default slice -}}
+{{- if and (not $resources) .resume -}}
+  {{- $resources = slice (dict "title" (i18n "resume") "url" .resume) -}}
+{{- end -}}
+{{- $hasNow := or $nowRole $nowCompany $resources -}}
+
+<div class="about-v3">
+  <div class="about-v3-top{{ if not $hasNow }} single-col{{ end }}">
+    <div>
+      {{- with .lead }}<p class="about-lead">{{ . | markdownify }}</p>{{ end -}}
+      <div class="about-copy">{{ .summary | markdownify }}</div>
+      {{- if or .location .availability -}}
+      <div class="about-meta-row">
+        {{- with .location -}}
+          <span class="about-meta-item">{{ partial "components/icon.html" (dict "name" "map-pin") }}{{ . }}</span>
+        {{- end -}}
+        {{- with .availability -}}
+          <span class="about-meta-item"><span class="status-dot" aria-hidden="true"></span>{{ . }}</span>
+        {{- end -}}
+      </div>
+      {{- end -}}
+    </div>
+
+    {{- if $hasNow -}}
+    <aside class="now-card" aria-label="{{ i18n "portfolio_currently" }}">
+      <div>
+        {{- if or $nowLogo $nowCompany -}}
+        <div class="now-eyebrow">
+          {{- with $nowLogo -}}
+            {{- with resources.Get . -}}
+              {{- $img := . -}}
+              {{- if ne $img.MediaType.SubType "svg" }}{{ $img = $img.Fit "44x44" }}{{ end -}}
+              <img src="{{ $img.RelPermalink }}" alt="" width="22" height="22">
+            {{- end -}}
+          {{- end -}}
+          <span>{{ i18n "portfolio_currently" }}{{ with $nowCompany }} &middot; {{ .name }}{{ end }}</span>
+        </div>
+        {{- end -}}
+        {{- with $nowRole }}<h3 class="now-role">{{ . }}</h3>{{ end -}}
+        {{- with $nowDesc }}<p class="now-desc">{{ . | markdownify }}</p>{{ end -}}
+      </div>
+      {{- if or $hasExp $resources -}}
+      <div class="now-footer">
+        {{- if $hasExp -}}
+        <a class="now-link" href="#{{ $expID }}">
+          <span>{{ i18n "portfolio_full_timeline" }}</span>
+          {{ partial "components/icon.html" (dict "name" "arrow-right") }}
+        </a>
+        {{- end -}}
+        {{- with $resources -}}
+        <div class="now-links">
+          {{- range . -}}
+          <a class="pf-btn" href="{{ partial "helpers/get-resource-url.html" .url }}" target="_blank" rel="noopener">
+            <span>{{ .title }}</span>
+            {{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3.5 shrink-0") }}
+          </a>
+          {{- end -}}
+        </div>
+        {{- end -}}
+      </div>
+      {{- end -}}
+    </aside>
+    {{- end -}}
+  </div>
+
+  {{- $metrics := .highlights | default slice -}}
+  {{- if not $metrics -}}
+    {{- if $hasExp -}}
+      {{- $roleCount := 0 -}}
+      {{- range $expSection.experiences }}{{ $roleCount = add $roleCount (len (.positions | default slice)) }}{{ end -}}
+      {{- $metrics = $metrics | append (dict "href" (printf "#%s" $expID) "value" (printf "%d" (len $expSection.experiences)) "label" (i18n "portfolio_experience_highlights") "sub" (i18n "portfolio_positions_count" (dict "Count" $roleCount))) -}}
+    {{- end -}}
+    {{- with $all.projects }}{{ if .section.enable -}}
+      {{- $projID := partial "helpers/get-section-id.html" . -}}
+      {{- $names := slice -}}
+      {{- range first 3 (.projects | default slice) }}{{ $names = $names | append .name }}{{ end -}}
+      {{- $metrics = $metrics | append (dict "href" (printf "#%s" $projID) "value" (printf "%d" (len .projects)) "label" (i18n "portfolio_project_highlights") "sub" (delimit $names ", ")) -}}
+    {{- end }}{{ end -}}
+    {{- $certCount := 0 -}}
+    {{- $certID := "" -}}
+    {{- if and $all.certifications $all.certifications.section.enable -}}
+      {{- $certCount = len ($all.certifications.certifications | default $all.certifications.badges | default slice) -}}
+      {{- $certID = partial "helpers/get-section-id.html" $all.certifications -}}
+    {{- else -}}
+      {{- range ._orderedSections -}}
+        {{- if eq .kind "certifications" }}{{ $certCount = len .certItems }}{{ $certID = .id }}{{ end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if gt $certCount 0 -}}
+      {{- $metrics = $metrics | append (dict "href" (printf "#%s" $certID) "value" (printf "%d" $certCount) "label" (i18n "portfolio_cert_highlights") "sub" (i18n "portfolio_verified")) -}}
+    {{- end -}}
+    {{- with $all.publications }}{{ if .section.enable -}}
+      {{- $pubID := partial "helpers/get-section-id.html" . -}}
+      {{- $metrics = $metrics | append (dict "href" (printf "#%s" $pubID) "value" (printf "%d" (len .publications)) "label" (i18n "portfolio_pub_highlights") "sub" .section.name) -}}
+    {{- end }}{{ end -}}
+    {{- if lt (len $metrics) 2 -}}
+      {{- with $all.skills }}{{ if .section.enable -}}
+        {{- $skID := partial "helpers/get-section-id.html" . -}}
+        {{- $metrics = $metrics | append (dict "href" (printf "#%s" $skID) "value" (printf "%d" (len .skills)) "label" (i18n "portfolio_skill_highlights") "sub" .section.name) -}}
+      {{- end }}{{ end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if ge (len $metrics) 2 -}}
+  <div class="metric-strip" aria-label="{{ i18n "portfolio_highlights_label" }}">
+    {{- range first 4 $metrics -}}
+    <a class="metric-cell" href="{{ .href }}">
+      <span class="metric-val">{{ .value }}</span>
+      <span class="metric-label">{{ .label }}</span>
+      {{- with .sub }}<span class="metric-sub">{{ . }} &rarr;</span>{{ end -}}
+    </a>
+    {{- end -}}
+  </div>
+  {{- end -}}
+</div>

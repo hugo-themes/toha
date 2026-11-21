@@ -265,3 +265,118 @@ other = "Blog navigation"
 
 [blog_feed]
 other = "RSS feed"
+
+
+[portfolio_navigation]
+other = "Portfolio sections"
+
+[portfolio_section_label]
+other = "Section"
+
+[portfolio_currently]
+other = "Currently"
+
+[portfolio_full_timeline]
+other = "Full career timeline"
+
+[portfolio_contributions]
+other = "Key contributions"
+
+[portfolio_soft_skills]
+other = "Soft skills"
+
+[portfolio_certifications]
+other = "Certifications"
+
+[portfolio_verified]
+other = "Verified credential"
+
+[portfolio_verified_on]
+other = "Verified on {{ .Issuer }}"
+
+[portfolio_authors]
+other = "Authors"
+
+[portfolio_abstract]
+other = "Abstract"
+
+[portfolio_topics]
+other = "Topics"
+
+[portfolio_paper_link]
+other = "Paper URL"
+
+[portfolio_preview]
+other = "Preview"
+
+[portfolio_previous_slide]
+other = "Previous achievement"
+
+[portfolio_next_slide]
+other = "Next achievement"
+
+[portfolio_slide_label]
+other = "Slide {{ .Index }}: {{ .Title }}"
+
+[portfolio_select_slide]
+other = "Select achievement slide"
+
+[portfolio_expand_photo]
+other = "Expand {{ .Title }} photo"
+
+[portfolio_close_dialog]
+other = "Close dialog"
+
+[portfolio_social_profiles]
+other = "Social profiles"
+
+[portfolio_filter_skills]
+other = "Filter skills"
+
+[portfolio_filter_projects]
+other = "Filter projects"
+
+[portfolio_filter_publications]
+other = "Filter publications"
+
+[portfolio_github]
+other = "GitHub"
+
+[portfolio_stars_label]
+other = "GitHub stars"
+
+[portfolio_website]
+other = "Website"
+
+[portfolio_view_post]
+other = "View post"
+
+[portfolio_back_to_top]
+other = "Back to top"
+
+[portfolio_experience_highlights]
+other = "Engineering Experience"
+
+[portfolio_project_highlights]
+other = "Featured Projects"
+
+[portfolio_cert_highlights]
+other = "Verified Certifications"
+
+[portfolio_pub_highlights]
+other = "Research Publications"
+
+[portfolio_skill_highlights]
+other = "Technical Skills"
+
+[portfolio_highlights_label]
+other = "Portfolio highlights"
+
+[portfolio_timeline_companies]
+other = "{{ .Count }} companies"
+
+[portfolio_positions_count]
+other = "{{ .Count }} roles"
+
+[portfolio_filter_status]
+other = "Showing {{ .Count }} items for {{ .Filter }}"

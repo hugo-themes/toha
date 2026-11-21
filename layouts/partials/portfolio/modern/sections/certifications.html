@@ -1,0 +1,40 @@
+{{- $id := ._sectionID -}}
+{{ partial "portfolio/modern/section-header.html" (dict "id" $id "section" .section) }}
+{{- $items := ._certItems -}}
+{{- if not $items -}}
+  {{- $raw := .certifications | default .badges | default slice -}}
+  {{- $items = partial "portfolio/modern/cert-items.html" $raw -}}
+{{- end -}}
+<div class="cert-grid">
+  {{- range $items -}}
+    {{- $hasURL := ne (.url | default "") "" -}}
+    {{- $verifiedLabel := i18n "portfolio_verified" -}}
+    {{- if ._issuer -}}
+      {{- $verifiedLabel = i18n "portfolio_verified_on" (dict "Issuer" ._issuer) -}}
+    {{- end -}}
+  <article class="cert-card{{ if $hasURL }} interactive{{ end }}">
+    <div class="cert-pedestal" aria-hidden="true">
+      <div class="cert-seal">
+        {{ partial "components/icon.html" (dict "name" "award" "class" "size-6") }}
+      </div>
+    </div>
+    <div class="cert-body">
+      <div class="cert-top">
+        {{- with ._issuer }}<span class="cert-issuer">{{ . }}</span>{{ else }}<span></span>{{ end -}}
+        {{- if $hasURL }}{{ partial "components/icon.html" (dict "name" "external-link" "class" "size-3.5 text-muted-foreground") }}{{ end -}}
+      </div>
+      <h3 class="cert-title">
+        {{- if $hasURL -}}
+        <a class="modern-card-link" href="{{ partial "helpers/get-page-url.html" .url }}" target="_blank" rel="noopener">{{ .name }}</a>
+        {{- else -}}
+        {{ .name }}
+        {{- end -}}
+      </h3>
+      <span class="cert-status">
+        {{ partial "components/icon.html" (dict "name" "shield" "class" "size-3.5") }}
+        {{ $verifiedLabel }}
+      </span>
+    </div>
+  </article>
+  {{- end -}}
+</div>

@@ -1,8 +1,14 @@
-{{- if and .Site.Params.features.docs.enable (or (eq .Type "docs") (and (eq .Kind "404") (eq .Site.Params.home.layout "docs"))) -}}
+{{- $features := .Site.Params.features | default dict -}}
+{{- $modernPortfolio := and (eq (.Site.Params.home.layout | default "portfolio") "portfolio") $features.portfolio.modern.enable -}}
+{{- $archiveEnabled := $modernPortfolio -}}
+{{- with $features.blog }}{{ with .archive }}{{ if and (reflect.IsMap .) (isset . "enable") }}{{ $archiveEnabled = eq .enable true }}{{ end }}{{ end }}{{ end -}}
+{{- $postEnabled := $modernPortfolio -}}
+{{- with $features.blog }}{{ with .post }}{{ if and (reflect.IsMap .) (isset . "enable") }}{{ $postEnabled = eq .enable true }}{{ end }}{{ end }}{{ end -}}
+{{- if and $features.docs.enable (or (eq .Type "docs") (and (eq .Kind "404") (eq .Site.Params.home.layout "docs"))) -}}
   {{- partial "docs/page.html" . -}}
-{{- else if $archiveRoot := (and .Site.Params.features.blog.archive.enable (partial "blog/archive-root.html" .)) -}}
+{{- else if $archiveRoot := (and $archiveEnabled (partial "blog/archive-root.html" .)) -}}
   {{- partial "blog/archive.html" (dict "page" . "root" $archiveRoot) -}}
-{{- else if $postRoot := (and .Site.Params.features.blog.post.enable (partial "blog/post-root.html" .)) -}}
+{{- else if $postRoot := (and $postEnabled (partial "blog/post-root.html" .)) -}}
   {{- partial "blog/post.html" (dict "page" . "root" $postRoot) -}}
 {{- else -}}
 <!DOCTYPE html>

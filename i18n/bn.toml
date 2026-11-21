@@ -301,3 +301,118 @@ other = "এখনও কোনো বিষয় নেই।"
 
 [blog_series_position]
 other = "পর্ব {{ .Part }} / {{ .Total }}"
+
+
+[portfolio_navigation]
+other = "পোর্টফোলিও সেকশনসমূহ"
+
+[portfolio_section_label]
+other = "সেকশন"
+
+[portfolio_currently]
+other = "বর্তমানে"
+
+[portfolio_full_timeline]
+other = "সম্পূর্ণ কর্মজীবন"
+
+[portfolio_contributions]
+other = "প্রধান অবদানসমূহ"
+
+[portfolio_soft_skills]
+other = "সফট স্কিল"
+
+[portfolio_certifications]
+other = "সার্টিফিকেশনসমূহ"
+
+[portfolio_verified]
+other = "যাচাইকৃত সনদ"
+
+[portfolio_verified_on]
+other = "{{ .Issuer }}-এ যাচাইকৃত"
+
+[portfolio_authors]
+other = "লেখকবৃন্দ"
+
+[portfolio_abstract]
+other = "সারসংক্ষেপ"
+
+[portfolio_topics]
+other = "বিষয়সমূহ"
+
+[portfolio_paper_link]
+other = "গবেষণাপত্র লিংক"
+
+[portfolio_preview]
+other = "প্রিভিউ"
+
+[portfolio_previous_slide]
+other = "পূর্ববর্তী অর্জন"
+
+[portfolio_next_slide]
+other = "পরবর্তী অর্জন"
+
+[portfolio_slide_label]
+other = "স্লাইড {{ .Index }}: {{ .Title }}"
+
+[portfolio_select_slide]
+other = "অর্জন স্লাইড নির্বাচন করুন"
+
+[portfolio_expand_photo]
+other = "{{ .Title }} ছবি বড় করে দেখুন"
+
+[portfolio_close_dialog]
+other = "ডায়ালগ বন্ধ করুন"
+
+[portfolio_social_profiles]
+other = "সামাজিক প্রোফাইলসমূহ"
+
+[portfolio_filter_skills]
+other = "দক্ষতা ফিল্টার করুন"
+
+[portfolio_filter_projects]
+other = "প্রোজেক্ট ফিল্টার করুন"
+
+[portfolio_filter_publications]
+other = "প্রকাশনা ফিল্টার করুন"
+
+[portfolio_github]
+other = "GitHub"
+
+[portfolio_stars_label]
+other = "GitHub স্টার"
+
+[portfolio_website]
+other = "ওয়েবসাইট"
+
+[portfolio_view_post]
+other = "পোস্ট দেখুন"
+
+[portfolio_back_to_top]
+other = "উপরে যান"
+
+[portfolio_experience_highlights]
+other = "ইঞ্জিনিয়ারিং অভিজ্ঞতা"
+
+[portfolio_project_highlights]
+other = "প্রধান প্রোজেক্টসমূহ"
+
+[portfolio_cert_highlights]
+other = "যাচাইকৃত সনদসমূহ"
+
+[portfolio_pub_highlights]
+other = "গবেষণা প্রকাশনাসমূহ"
+
+[portfolio_skill_highlights]
+other = "কারিগরি দক্ষতা"
+
+[portfolio_highlights_label]
+other = "পোর্টফোলিও সারসংক্ষেপ"
+
+[portfolio_timeline_companies]
+other = "{{ .Count }}টি প্রতিষ্ঠান"
+
+[portfolio_positions_count]
+other = "{{ .Count }}টি পদবি"
+
+[portfolio_filter_status]
+other = "{{ .Filter }}-এর জন্য {{ .Count }}টি আইটেম দেখানো হচ্ছে"

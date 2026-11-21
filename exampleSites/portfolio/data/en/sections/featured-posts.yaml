@@ -8,5 +8,5 @@ section:
 
 # posts to feature
 posts:
-  - markdown-sample
-  - shortcodes
+  - /posts/components-and-callouts/
+  - /posts/markdown-and-math/

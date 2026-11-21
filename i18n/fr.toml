@@ -305,3 +305,118 @@ other = "Aucun sujet pour le moment."
 
 [blog_series_position]
 other = "Partie {{ .Part }} sur {{ .Total }}"
+
+
+[portfolio_navigation]
+other = "Sections du portfolio"
+
+[portfolio_section_label]
+other = "Section"
+
+[portfolio_currently]
+other = "Actuellement"
+
+[portfolio_full_timeline]
+other = "Parcours complet"
+
+[portfolio_contributions]
+other = "Contributions clés"
+
+[portfolio_soft_skills]
+other = "Compétences transversales"
+
+[portfolio_certifications]
+other = "Certifications"
+
+[portfolio_verified]
+other = "Certificat vérifié"
+
+[portfolio_verified_on]
+other = "Vérifié sur {{ .Issuer }}"
+
+[portfolio_authors]
+other = "Auteurs"
+
+[portfolio_abstract]
+other = "Résumé"
+
+[portfolio_topics]
+other = "Thèmes"
+
+[portfolio_paper_link]
+other = "Lien de l'article"
+
+[portfolio_preview]
+other = "Aperçu"
+
+[portfolio_previous_slide]
+other = "Réalisation précédente"
+
+[portfolio_next_slide]
+other = "Réalisation suivante"
+
+[portfolio_slide_label]
+other = "Diapositive {{ .Index }} : {{ .Title }}"
+
+[portfolio_select_slide]
+other = "Sélectionner une diapositive"
+
+[portfolio_expand_photo]
+other = "Agrandir la photo {{ .Title }}"
+
+[portfolio_close_dialog]
+other = "Fermer la fenêtre"
+
+[portfolio_social_profiles]
+other = "Profils sociaux"
+
+[portfolio_filter_skills]
+other = "Filtrer les compétences"
+
+[portfolio_filter_projects]
+other = "Filtrer les projets"
+
+[portfolio_filter_publications]
+other = "Filtrer les publications"
+
+[portfolio_github]
+other = "GitHub"
+
+[portfolio_stars_label]
+other = "Étoiles GitHub"
+
+[portfolio_website]
+other = "Site web"
+
+[portfolio_view_post]
+other = "Voir l'article"
+
+[portfolio_back_to_top]
+other = "Haut de page"
+
+[portfolio_experience_highlights]
+other = "Expérience d'ingénierie"
+
+[portfolio_project_highlights]
+other = "Projets phares"
+
+[portfolio_cert_highlights]
+other = "Certifications vérifiées"
+
+[portfolio_pub_highlights]
+other = "Publications de recherche"
+
+[portfolio_skill_highlights]
+other = "Compétences techniques"
+
+[portfolio_highlights_label]
+other = "Points forts du portfolio"
+
+[portfolio_timeline_companies]
+other = "{{ .Count }} entreprises"
+
+[portfolio_positions_count]
+other = "{{ .Count }} postes"
+
+[portfolio_filter_status]
+other = "{{ .Count }} éléments affichés pour {{ .Filter }}"

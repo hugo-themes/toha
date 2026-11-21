@@ -1,0 +1,7 @@
+{{- $id := .id -}}
+{{- $statusTemplate := i18n "portfolio_filter_status" (dict "Count" "__COUNT__" "Filter" "__FILTER__") -}}
+<div class="filter-group" role="group" aria-label="{{ .label }}" data-filter-group="{{ $id }}" data-status-template="{{ $statusTemplate }}">
+  {{- range $idx, $btn := .buttons -}}
+  <button type="button" class="filter-pill" data-filter="{{ $btn.filter }}" aria-pressed="{{ cond (eq $idx 0) "true" "false" }}">{{ $btn.name }}</button>
+  {{- end -}}
+</div>
