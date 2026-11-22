@@ -145,9 +145,9 @@ namespaced by their corresponding feature.
 {{/* Holds all the feature configuration variables exposed to JS side */}}
 {{ $params := dict }}
 
-{{/*  set NODE_ENV depending on if we are building for production use. */}}
+{{/*  set NODE_ENV depending on if we are building for development use. */}}
 {{ $defines = $defines | merge (dict
-  "process.env.NODE_ENV" (cond hugo.IsProduction `"production"`  `"development"` )
+  "process.env.NODE_ENV" (cond hugo.IsDevelopment `"development"` `"production"`)
 )}}
 
 {{/*  Go through each feature defined in our config.yml/config.toml/config.json file. */}}
@@ -213,6 +213,6 @@ namespaced by their corresponding feature.
     "defines" $defines 
     "params" $params 
     "minify" true
-    "sourceMap" (cond hugo.IsProduction "" "inline")
+    "sourceMap" (cond hugo.IsDevelopment "inline" "")
     "inject" "scripts/process-shim.js"
 }}
